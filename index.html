@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Das Kompetenzhaus — Psychologie UZH (Entwurf)</title>
+<style>
+  :root {
+    --blue: #0028a5; --blue2: #3f6cc8; --teal: #0e8f7e; --sky: #4a90d9;
+    --ink: #1c2333; --paper: #ffffff; --paper2: #f4f6fb;
+    --ok: #0a7d40; --warn: #b35c00; --err: #a50028;
+    --radius: 14px; --shadow: 0 8px 28px rgba(16,24,64,.16);
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; font-family: var(--font); color: var(--ink); }
+  #c3d { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+
+  /* ---------- Top bar ---------- */
+  #topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; pointer-events: none; }
+  #topbar > * { pointer-events: auto; }
+  .brand { display: flex; align-items: center; gap: 10px; background: var(--paper); border-radius: var(--radius);
+    padding: 8px 14px; box-shadow: var(--shadow); }
+  .brand .dot { width: 14px; height: 14px; border-radius: 4px; background: var(--blue); flex: none; }
+  .brand b { font-size: 15px; letter-spacing: .2px; }
+  .brand .sub { font-size: 11px; color: #5b6478; }
+  .badge-entwurf { font-size: 10px; font-weight: 700; color: var(--warn); border: 1.5px solid var(--warn);
+    padding: 2px 7px; border-radius: 999px; letter-spacing: .4px; }
+  .spacer { flex: 1; }
+  .seg { display: flex; background: var(--paper); border-radius: 999px; box-shadow: var(--shadow); padding: 4px; gap: 4px; }
+  .seg button { border: 0; background: transparent; padding: 7px 14px; border-radius: 999px; font: 700 12.5px var(--font);
+    color: #5b6478; cursor: pointer; white-space: nowrap; }
+  .seg button.on { background: var(--blue); color: #fff; }
+  .iconbtn { border: 0; background: var(--paper); box-shadow: var(--shadow); border-radius: 999px; padding: 9px 14px;
+    font: 700 12.5px var(--font); color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .iconbtn:hover, .seg button:hover:not(.on) { background: #e8edf9; }
+  .iconbtn.blue { background: var(--blue); color: #fff; }
+  .iconbtn.blue:hover { background: #001f85; }
+
+  /* ---------- Side panels ---------- */
+  .panel { position: fixed; top: 66px; bottom: 12px; width: 296px; z-index: 15; background: var(--paper);
+    border-radius: var(--radius); box-shadow: var(--shadow); display: flex; flex-direction: column; overflow: hidden;
+    transition: transform .3s ease; }
+  #panelL { left: 12px; }
+  #panelR { right: 12px; }
+  .panel h3 { font-size: 13px; padding: 12px 14px 8px; display: flex; align-items: center; gap: 8px; }
+  .panel .scroll { overflow-y: auto; flex: 1; padding: 0 10px 12px; }
+  .panel .scroll::-webkit-scrollbar { width: 8px; } .panel .scroll::-webkit-scrollbar-thumb { background: #d5dbea; border-radius: 4px; }
+  .panel-toggle { position: fixed; z-index: 16; top: 74px; border: 0; background: var(--paper); box-shadow: var(--shadow);
+    border-radius: 999px; width: 34px; height: 34px; font-size: 15px; cursor: pointer; display: none; }
+  #togL { left: 12px; } #togR { right: 12px; }
+
+  .semblock { margin: 6px 4px; }
+  .semblock .semhead { font: 700 11px var(--font); color: #5b6478; text-transform: uppercase; letter-spacing: .6px;
+    padding: 6px 6px 4px; display: flex; justify-content: space-between; }
+  .chip { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; border: 0; background: var(--paper2);
+    border-radius: 10px; padding: 8px 10px; margin: 3px 0; cursor: pointer; font: 500 12.5px var(--font); color: var(--ink); }
+  .chip:hover { background: #e8edf9; }
+  .chip.sel { outline: 2px solid var(--blue); }
+  .chip .cdot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .chip .cname { flex: 1; line-height: 1.25; }
+  .chip .cects { font: 700 10.5px var(--font); color: #5b6478; flex: none; }
+  .chip.built { background: #e6f4ec; }
+  .chip.built .cname { color: #0a5c31; }
+  .chip.locked { opacity: .45; }
+  .chip .tick { flex: none; font-size: 12px; }
+  .chip .quest-star { color: #d9a400; font-size: 12px; flex: none; }
+
+  .kbar { margin: 4px 4px 7px; }
+  .kbar .klabel { display: flex; justify-content: space-between; font: 500 11.5px var(--font); margin-bottom: 3px; }
+  .kbar .klabel .kid { font-weight: 700; color: #5b6478; margin-right: 6px; }
+  .kbar .track { height: 7px; border-radius: 4px; background: #e8ebf4; overflow: hidden; }
+  .kbar .fill { height: 100%; border-radius: 4px; width: 0%; transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  .kfeld { font: 700 11px var(--font); text-transform: uppercase; letter-spacing: .6px; margin: 12px 4px 6px;
+    display: flex; align-items: center; gap: 7px; }
+  .kfeld .fdot { width: 10px; height: 10px; border-radius: 50%; }
+  .ects-summary { display: flex; gap: 8px; margin: 8px 4px; }
+  .ects-summary .box { flex: 1; background: var(--paper2); border-radius: 10px; padding: 8px 10px; text-align: center; }
+  .ects-summary b { font-size: 16px; color: var(--blue); display: block; }
+  .ects-summary span { font-size: 10px; color: #5b6478; }
+
+  .envrow { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid #edf0f7; align-items: center; flex-wrap: wrap; }
+  .envrow .envbtn { border: 0; background: var(--paper2); border-radius: 8px; padding: 6px 8px; cursor: pointer; font-size: 14px; }
+  .envrow .envbtn.on { background: var(--blue); }
+  .envrow input[type=range] { flex: 1; accent-color: var(--blue); min-width: 60px; }
+
+  /* ---------- Info card ---------- */
+  #card { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 18; width: min(680px, calc(100vw - 24px));
+    background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); display: none; max-height: 46vh;
+    flex-direction: column; overflow: hidden; }
+  #card.open { display: flex; }
+  #card .head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; }
+  #card .head .gdot { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+  #card .head .titles { flex: 1; min-width: 0; }
+  #card .head b { font-size: 14.5px; display: block; line-height: 1.2; }
+  #card .head .code { font-size: 11px; color: #5b6478; }
+  #card .head .close { border: 0; background: var(--paper2); border-radius: 999px; width: 28px; height: 28px; cursor: pointer; font-size: 13px; flex: none; }
+  .badges { display: flex; gap: 6px; padding: 0 16px 8px; flex-wrap: wrap; }
+  .badge { font: 700 10.5px var(--font); padding: 3px 9px; border-radius: 999px; color: #fff; }
+  .tabs { display: flex; gap: 4px; padding: 0 12px; border-bottom: 1px solid #edf0f7; }
+  .tabs button { border: 0; background: transparent; padding: 8px 10px; font: 700 12px var(--font); color: #5b6478;
+    cursor: pointer; border-bottom: 2.5px solid transparent; }
+  .tabs button.on { color: var(--blue); border-bottom-color: var(--blue); }
+  #cardBody { padding: 10px 16px; overflow-y: auto; font-size: 13px; line-height: 1.5; }
+  #cardBody ul { padding-left: 18px; } #cardBody li { margin: 3px 0; }
+  #cardBody .komp-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .kpill { font: 600 10.5px var(--font); padding: 3px 8px; border-radius: 999px; background: var(--paper2); border: 1px solid #dbe1ef; }
+  .kpill.haupt { border-width: 2px; font-weight: 800; }
+  #card .actions { display: flex; gap: 8px; padding: 10px 16px 14px; align-items: center; flex-wrap: wrap; border-top: 1px solid #edf0f7; }
+  .stilpick, .schwerpick, .optpick { display: flex; gap: 4px; align-items: center; font-size: 11px; color: #5b6478; flex-wrap: wrap; }
+  .stilpick button, .schwerpick button, .optpick button { border: 1.5px solid #dbe1ef; background: var(--paper); border-radius: 8px;
+    padding: 4px 8px; font: 600 11px var(--font); cursor: pointer; }
+  .stilpick button.on, .schwerpick button.on, .optpick button.on { border-color: var(--blue); background: #e8edf9; }
+  .primary { border: 0; background: var(--blue); color: #fff; border-radius: 10px; padding: 10px 18px; font: 700 13px var(--font); cursor: pointer; }
+  .primary:hover { background: #001f85; }
+  .primary:disabled { background: #b9c2d9; cursor: not-allowed; }
+  .ghostbtn { border: 1.5px solid #dbe1ef; background: var(--paper); border-radius: 10px; padding: 9px 14px; font: 700 12px var(--font); cursor: pointer; }
+  .reason { font-size: 11.5px; color: var(--err); flex-basis: 100%; }
+  label.sw { display: inline-flex; align-items: center; gap: 6px; font: 600 12px var(--font); cursor: pointer; }
+  label.sw input { accent-color: var(--ok); width: 16px; height: 16px; }
+
+  /* ---------- Milestone overlay ---------- */
+  #milestone { position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center;
+    background: rgba(10, 16, 40, .25); backdrop-filter: blur(2px); }
+  #milestone.open { display: flex; }
+  #milestone .mcard { background: var(--paper); border-radius: 20px; box-shadow: var(--shadow); padding: 34px 40px;
+    max-width: 480px; text-align: center; animation: pop .5s cubic-bezier(.2,1.6,.4,1); margin: 16px; }
+  #milestone .memoji { font-size: 44px; }
+  #milestone h2 { font-size: 21px; margin: 10px 0 8px; color: var(--blue); }
+  #milestone p { font-size: 13.5px; line-height: 1.55; color: #3c4356; }
+  #milestone button { margin-top: 18px; }
+  @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* ---------- Modals ---------- */
+  .modal { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center;
+    background: rgba(10, 16, 40, .35); }
+  .modal.open { display: flex; }
+  .mbox { background: var(--paper); border-radius: 18px; box-shadow: var(--shadow); padding: 26px 28px; width: min(560px, calc(100vw - 32px));
+    max-height: 84vh; overflow-y: auto; }
+  .mbox h2 { font-size: 18px; color: var(--blue); margin-bottom: 10px; }
+  .mbox p, .mbox li { font-size: 13px; line-height: 1.55; color: #3c4356; }
+  .mbox ul, .mbox ol { padding-left: 20px; margin: 8px 0; }
+  .mbox .mactions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .mbox input[type=text] { width: 100%; border: 1.5px solid #dbe1ef; border-radius: 10px; padding: 9px 12px; font: 500 13px var(--font); margin: 6px 0; }
+  .linkbox { display: flex; gap: 6px; margin: 8px 0; }
+  .linkbox input { flex: 1; border: 1.5px solid #dbe1ef; border-radius: 10px; padding: 8px 10px; font: 500 11.5px var(--font); color: #5b6478; }
+
+  /* ---------- Toast ---------- */
+  #toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 60; background: var(--ink); color: #fff;
+    padding: 10px 18px; border-radius: 999px; font: 600 12.5px var(--font); opacity: 0; transition: opacity .3s; pointer-events: none;
+    max-width: min(560px, 90vw); text-align: center; }
+  #toast.show { opacity: .96; }
+
+  /* ---------- Visitor banner ---------- */
+  #visitor { position: fixed; top: 66px; left: 50%; transform: translateX(-50%); z-index: 25; background: var(--blue); color: #fff;
+    padding: 10px 16px; border-radius: 12px; box-shadow: var(--shadow); display: none; gap: 10px; align-items: center; font: 600 12.5px var(--font); }
+  #visitor.open { display: flex; }
+  #visitor button { border: 0; border-radius: 8px; padding: 6px 12px; font: 700 11.5px var(--font); cursor: pointer; }
+
+  /* ---------- Hover tooltip ---------- */
+  #tip { position: fixed; z-index: 30; background: var(--ink); color: #fff; font: 600 11.5px var(--font); padding: 6px 10px;
+    border-radius: 8px; pointer-events: none; display: none; max-width: 260px; line-height: 1.35; }
+
+  @media (max-width: 1080px) {
+    .panel { transform: translateX(calc(-100% - 20px)); width: min(296px, 84vw); }
+    #panelR { transform: translateX(calc(100% + 20px)); }
+    .panel.open { transform: translateX(0); }
+    .panel-toggle { display: block; }
+    #panelL { top: 112px; } #panelR { top: 112px; }
+    #togL { top: 120px; } #togR { top: 120px; }
+    #topbar { flex-wrap: wrap; }
+    .brand .sub { display: none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="c3d"></canvas>
+
+<div id="topbar">
+  <div class="brand">
+    <div class="dot"></div>
+    <div>
+      <b data-i18n="titel">Das Kompetenzhaus</b>
+      <div class="sub" data-i18n="untertitel">Psychologie UZH · BSc & MSc</div>
+    </div>
+    <span class="badge-entwurf" data-i18n="entwurf">ENTWURF</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="seg" id="modeSeg">
+    <button id="modeFrei" class="on" data-i18n="modus_frei">Freies Bauen</button>
+    <button id="modeSerious" data-i18n="modus_serious">Serious Mode</button>
+  </div>
+  <button class="iconbtn" id="btnCampus">🏘️ <span data-i18n="campus">Campus</span></button>
+  <button class="iconbtn" id="btnShare">🔗 <span data-i18n="teilen">Teilen</span></button>
+  <button class="iconbtn blue" id="btnPass">🎓 <span data-i18n="pass">Kompetenzpass</span></button>
+  <button class="iconbtn" id="btnLang">EN</button>
+  <button class="iconbtn" id="btnMenu">⋯</button>
+</div>
+
+<button class="panel-toggle" id="togL">📋</button>
+<button class="panel-toggle" id="togR">📊</button>
+
+<div class="panel" id="panelL">
+  <h3><span data-i18n="bauplan">Bauplan</span>
+    <span class="spacer"></span>
+    <span style="font-size:10.5px;color:#5b6478" id="planHint"></span>
+  </h3>
+  <div class="scroll" id="planList"></div>
+</div>
+
+<div class="panel" id="panelR">
+  <h3 data-i18n="profil">Kompetenzprofil</h3>
+  <div class="scroll" id="profilList"></div>
+  <div class="envrow" id="envRow">
+    <button class="envbtn" data-season="fruehling" title="Frühling">🌸</button>
+    <button class="envbtn" data-season="sommer" title="Sommer">☀️</button>
+    <button class="envbtn" data-season="herbst" title="Herbst">🍂</button>
+    <button class="envbtn" data-season="winter" title="Winter">❄️</button>
+    <input type="range" id="todSlider" min="0" max="100" value="35" title="Tageszeit">
+    <span id="todIcon" style="font-size:14px">🌤️</span>
+  </div>
+</div>
+
+<div id="card">
+  <div class="head">
+    <div class="gdot" id="cardDot"></div>
+    <div class="titles">
+      <b id="cardTitle"></b>
+      <div class="code" id="cardCode"></div>
+    </div>
+    <button class="close" id="cardClose">✕</button>
+  </div>
+  <div class="badges" id="cardBadges"></div>
+  <div class="tabs" id="cardTabs">
+    <button data-tab="zukunft" class="on" data-i18n="tab_zukunft">Zukunftsmodul</button>
+    <button data-tab="lernziele" data-i18n="tab_lernziele">Lernziele</button>
+    <button data-tab="ki" data-i18n="tab_ki">KI & Prüfung</button>
+    <button data-tab="quest" data-i18n="tab_quest">Quest ✦</button>
+  </div>
+  <div id="cardBody"></div>
+  <div class="actions" id="cardActions"></div>
+</div>
+
+<div id="milestone">
+  <div class="mcard">
+    <div class="memoji" id="msEmoji">🎉</div>
+    <h2 id="msTitle"></h2>
+    <p id="msText"></p>
+    <button class="primary" id="msClose" data-i18n="weiter">Weiterbauen</button>
+  </div>
+</div>
+
+<div class="modal" id="modalMenu"><div class="mbox">
+  <h2 data-i18n="menue">Menü</h2>
+  <div class="mactions">
+    <button class="ghostbtn" id="btnExport" data-i18n="export">⬇ Haus exportieren (JSON)</button>
+    <button class="ghostbtn" id="btnImport" data-i18n="import">⤒ Haus importieren</button>
+    <input type="file" id="fileImport" accept=".json" style="display:none">
+    <button class="ghostbtn" id="btnReset" data-i18n="reset">🗑 Zurücksetzen</button>
+    <button class="ghostbtn" id="btnHelp" data-i18n="hilfe">❓ Hilfe & Spielregeln</button>
+    <button class="ghostbtn" id="btnPrivacy" data-i18n="datenschutz">🔒 Datenschutz</button>
+    <button class="ghostbtn" id="btnAbout" data-i18n="ueber">ℹ️ Über dieses Projekt</button>
+  </div>
+  <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" id="modalHelp"><div class="mbox" id="helpBox"></div></div>
+<div class="modal" id="modalPrivacy"><div class="mbox" id="privacyBox"></div></div>
+<div class="modal" id="modalAbout"><div class="mbox" id="aboutBox"></div></div>
+
+<div class="modal" id="modalShare"><div class="mbox">
+  <h2 data-i18n="teilen_titel">Dein Haus teilen</h2>
+  <p data-i18n="teilen_text">Dieser Link enthält deinen Bauplan (keine persönlichen Daten ausser dem gewählten Anzeigenamen). Wer ihn öffnet, sieht dein Haus in 3D.</p>
+  <div class="linkbox"><input type="text" id="shareLink" readonly><button class="primary" id="btnCopy" data-i18n="kopieren">Kopieren</button></div>
+  <div class="mactions"><button class="ghostbtn" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" id="modalOnboard"><div class="mbox">
+  <h2 data-i18n="ob_titel">Willkommen auf deiner Baustelle! 🏗️</h2>
+  <p data-i18n="ob_text1">Hier baust du dein Psychologiestudium — Modul für Modul — zu einem Haus. Jeder Baustein trainiert Kompetenzen: Fachkompetenzen, KI-Kompetenzen und Future Skills. Erst das Bachelor-Haus, dann der Master.</p>
+  <ul>
+    <li data-i18n="ob_li1"><b>Freies Bauen:</b> alles ausprobieren, Kombinationen testen.</li>
+    <li data-i18n="ob_li2"><b>Serious Mode:</b> Bausteine erst setzen, wenn du das Modul wirklich bestanden hast — so wächst dein echtes Kompetenzprofil.</li>
+    <li data-i18n="ob_li3"><b>Quests ✦:</b> Jeder Baustein hat eine Mini-Aufgabe, mit der du die Kompetenz gleich ausprobierst.</li>
+  </ul>
+  <p style="margin-top:8px"><span data-i18n="ob_name">Dein Anzeigename (optional, für Kompetenzpass und Teilen):</span></p>
+  <input type="text" id="obName" maxlength="40" placeholder="z.B. Mia">
+  <div class="mactions">
+    <button class="primary" id="obStart" data-i18n="ob_start">Grundstein legen!</button>
+  </div>
+  <p style="margin-top:10px;font-size:11px" data-i18n="ob_hinweis">Alles wird nur lokal in deinem Browser gespeichert. Entwurf auf Basis des Kompetenzaufbaumodells vom 02.07.2026 — Gesprächsbasis, kein beschlossenes Curriculum.</p>
+</div></div>
+
+<div id="visitor">
+  <span id="visitorText"></span>
+  <button id="visitorSave" style="background:#fff;color:var(--blue)" data-i18n="nachbar_speichern">Als Nachbarhaus speichern</button>
+  <button id="visitorOwn" style="background:rgba(255,255,255,.2);color:#fff" data-i18n="eigenes_haus">Eigenes Haus bauen</button>
+</div>
+
+<div id="toast"></div>
+<div id="tip"></div>
+
+<script src="js/daten-struktur.js"></script>
+<script src="js/daten-texte.js" onerror="window.MODUL_TEXTE = window.MODUL_TEXTE || {}"></script>
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script type="importmap">
+  { "imports": { "three": "./lib/three.module.min.js", "three/addons/controls/OrbitControls.js": "./lib/OrbitControls.js", "three/addons/geometries/RoundedBoxGeometry.js": "./lib/RoundedBoxGeometry.js" } }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
