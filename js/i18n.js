@@ -78,7 +78,14 @@ window.T = {
     passdatum: "Stand",
     direkt_msc: "Direkt mit dem Master starten (BSc anderswo abgeschlossen)",
     tod_titel: "Tageszeit",
-    saison_titel: "Jahreszeit"
+    saison_titel: "Jahreszeit",
+    naechstes: "ALS NÄCHSTES",
+    zurueck: "← Zurück zum Profil",
+    k_aufgebaut: "Aufgebaut durch",
+    k_naechste: "Baue dafür als Nächstes",
+    k_keine: "Noch kein Baustein gebaut, der diese Kompetenz trainiert.",
+    stufe_erreicht: "Erreichte Stufe",
+    hauptkomp: "Hauptkompetenz"
   },
   en: {
     titel: "The Competence House",
@@ -158,7 +165,14 @@ window.T = {
     passdatum: "As of",
     direkt_msc: "Start directly with the Master (BSc completed elsewhere)",
     tod_titel: "Time of day",
-    saison_titel: "Season"
+    saison_titel: "Season",
+    naechstes: "UP NEXT",
+    zurueck: "← Back to profile",
+    k_aufgebaut: "Built by",
+    k_naechste: "Build next for this",
+    k_keine: "No block built yet that trains this competence.",
+    stufe_erreicht: "Stage reached",
+    hauptkomp: "Main competence"
   }
 };
 

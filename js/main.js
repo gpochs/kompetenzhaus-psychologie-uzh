@@ -183,10 +183,83 @@ treePositions.forEach(([x, z], i) => {
   const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.32, 1.6, 6), trunkMat);
   trunk.position.y = 0.8; trunk.castShadow = true;
   const s = 1 + (i % 3) * 0.35;
-  const fol = new THREE.Mesh(new THREE.IcosahedronGeometry(1.35 * s, 0), foliageMat);
-  fol.position.y = 2.2 + 0.5 * s; fol.castShadow = true;
-  tr.add(trunk, fol); tr.position.set(x, 0, z); worldGroup.add(tr);
+  if (i % 3 === 2) { // Nadelbaum für Abwechslung
+    const fol = new THREE.Mesh(new THREE.ConeGeometry(1.1 * s, 2.6 * s, 7), foliageMat);
+    fol.position.y = 1.6 + 1.1 * s; fol.castShadow = true; tr.add(fol);
+  } else {
+    const fol = new THREE.Mesh(new THREE.IcosahedronGeometry(1.35 * s, 0), foliageMat);
+    fol.position.y = 2.2 + 0.5 * s; fol.castShadow = true; tr.add(fol);
+    if (i % 3 === 1) { const fol2 = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8 * s, 0), foliageMat); fol2.position.set(0.7, 1.8 + 0.4 * s, 0.3); fol2.castShadow = true; tr.add(fol2); }
+  }
+  tr.add(trunk); tr.position.set(x, 0, z); tr.rotation.y = i * 1.7; worldGroup.add(tr);
 });
+
+/* Hügelkette am Horizont */
+const hillMat = new THREE.MeshStandardMaterial({ color: 0x5e9a48, roughness: 1, flatShading: true });
+[[-62, -42, 26], [55, -48, 30], [-72, 22, 22], [66, 28, 24], [-6, -75, 36], [-42, 62, 26], [48, 60, 22], [8, 70, 28]].forEach(([x, z, r]) => {
+  const h = new THREE.Mesh(new THREE.SphereGeometry(r, 10, 7), hillMat);
+  h.position.set(x, -r * 0.62, z); h.scale.y = 0.55;
+  worldGroup.add(h);
+});
+/* Felsen */
+const rockMat = new THREE.MeshStandardMaterial({ color: 0x9aa2b5, roughness: 1, flatShading: true });
+[[-7, 9, 0.5], [19, -9, 0.7], [-19, -10, 0.45], [3, -13, 0.6]].forEach(([x, z, s]) => {
+  const r = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 0), rockMat);
+  r.position.set(x, s * 0.55, z); r.rotation.set(s, x, z); r.castShadow = true;
+  worldGroup.add(r);
+});
+/* Blumen (Frühling/Sommer) */
+const flowerGeo = new THREE.IcosahedronGeometry(0.09, 0);
+const flowerMat = new THREE.MeshBasicMaterial();
+const flowers = new THREE.InstancedMesh(flowerGeo, flowerMat, 90);
+{
+  const cols = [0xffffff, 0xf7b7d4, 0xf3d34e, 0xc9a0ff];
+  const m4 = new THREE.Matrix4();
+  let n = 0;
+  while (n < 90) {
+    const x = (Math.random() - 0.5) * 70, z = (Math.random() - 0.5) * 48;
+    if (Math.abs(x) < 20 && Math.abs(z) < 8) continue; // Grundstücke frei halten
+    m4.makeScale(1, 1 + Math.random(), 1); m4.setPosition(x, 0.12, z);
+    flowers.setMatrixAt(n, m4);
+    flowers.setColorAt(n, new THREE.Color(cols[n % cols.length]));
+    n++;
+  }
+  worldGroup.add(flowers);
+}
+/* Wolken */
+const cloudMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, flatShading: true, transparent: true, opacity: 0.92 });
+const clouds = [];
+for (let i = 0; i < 6; i++) {
+  const c = new THREE.Group();
+  const nPuff = 3 + (i % 3);
+  for (let p = 0; p < nPuff; p++) {
+    const s = 1.6 + Math.random() * 2.2;
+    const puff = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 0), cloudMat);
+    puff.position.set(p * 2.4 - nPuff, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 1.6);
+    puff.scale.y = 0.55;
+    c.add(puff);
+  }
+  c.position.set((Math.random() - 0.5) * 120, 22 + Math.random() * 8, (Math.random() - 0.5) * 80 - 10);
+  c.userData.v = 0.25 + Math.random() * 0.4;
+  clouds.push(c); scene.add(c);
+}
+/* Sterne & Glühwürmchen */
+function makePoints(n, size, color, spread, yMin, yMax) {
+  const pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    pos[i * 3] = (Math.random() - 0.5) * spread;
+    pos[i * 3 + 1] = yMin + Math.random() * (yMax - yMin);
+    pos[i * 3 + 2] = (Math.random() - 0.5) * spread;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const m = new THREE.PointsMaterial({ size, color, transparent: true, opacity: 0, sizeAttenuation: true, depthWrite: false });
+  const pts = new THREE.Points(g, m);
+  scene.add(pts);
+  return pts;
+}
+const stars = makePoints(320, 0.5, 0xffffff, 220, 28, 90);
+const fireflies = makePoints(26, 0.35, 0xffd166, 46, 0.6, 3.2);
 
 /* ---------- Tweens ---------- */
 const tweens = [];
@@ -262,6 +335,14 @@ function buildBlockMesh(slot, opts = {}) {
     main = new THREE.Mesh(rb(W, H, D, 0.07), mat);
     main.position.y = H / 2;
     g.add(main);
+    if (slot.form === "step") { // Eingangstür am IPS
+      const door = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 1.1), new THREE.MeshStandardMaterial({ color: 0x5a3d26, roughness: 0.8 }));
+      door.position.set(0, H + 0.55, -D / 2 + 0.02);
+      g.add(door);
+      const knob = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 6), new THREE.MeshStandardMaterial({ color: 0xd9b23e, metalness: 0.7, roughness: 0.35 }));
+      knob.position.set(0.22, H + 0.5, -D / 2 + 0.05);
+      g.add(knob);
+    }
   } else if (slot.form === "roof") {
     main = new THREE.Mesh(prismGeometry(W, D, H * 0.72), roofMat());
     g.add(main);
@@ -287,11 +368,16 @@ function buildBlockMesh(slot, opts = {}) {
     const outward = pos.z >= 0 ? 1 : -1;
     const faceZ = slot.haus && Math.abs(pos.z) < 0.01 ? 1 : outward;
     const wm = windowMat();
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0xf2f0e9, roughness: 0.7 });
     const nWin = Math.max(1, Math.round(pos.w));
     for (let i = 0; i < nWin; i++) {
-      const win = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.62), wm);
       const fx = (i - (nWin - 1) / 2) * (W / nWin);
-      win.position.set(fx, H * 0.55, faceZ * (D / 2 + 0.012));
+      const frame = new THREE.Mesh(new THREE.PlaneGeometry(0.66, 0.76), frameMat);
+      frame.position.set(fx, H * 0.55, faceZ * (D / 2 + 0.008));
+      if (faceZ < 0) frame.rotation.y = Math.PI;
+      g.add(frame);
+      const win = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.62), wm);
+      win.position.set(fx, H * 0.55, faceZ * (D / 2 + 0.016));
       if (faceZ < 0) win.rotation.y = Math.PI;
       g.add(win);
     }
@@ -399,6 +485,53 @@ function burstConfetti(cx, cy, cz, n = 140, spread = 6) {
   }, (k) => k, () => { scene.remove(im); geo.dispose(); mat.dispose(); });
 }
 
+function shockRing(x, y, z, maxR) {
+  const geo = new THREE.RingGeometry(0.42, 0.55, 40);
+  const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false });
+  const ring = new THREE.Mesh(geo, mat);
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.set(x, y + 0.04, z);
+  scene.add(ring);
+  tween(0.55, (k) => {
+    const s = 1 + k * maxR;
+    ring.scale.set(s, s, 1);
+    mat.opacity = 0.75 * (1 - k);
+  }, easeOutCubic, () => { scene.remove(ring); geo.dispose(); mat.dispose(); });
+}
+
+function textSprite(txt, bg, fg = "#ffffff") {
+  const c = document.createElement("canvas"); c.width = 256; c.height = 96;
+  const x = c.getContext("2d");
+  x.font = "800 44px Helvetica, Arial";
+  const w = x.measureText(txt).width + 52;
+  x.fillStyle = bg;
+  x.beginPath(); x.roundRect((256 - w) / 2, 14, w, 68, 34); x.fill();
+  x.fillStyle = fg; x.textAlign = "center"; x.textBaseline = "middle";
+  x.fillText(txt, 128, 50);
+  const tex = new THREE.CanvasTexture(c);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }));
+  sp.scale.set(2.4, 0.9, 1);
+  return sp;
+}
+
+function floatKompChips(g, slot) {
+  const { haupt } = slotKomp(slot);
+  const top = (slot.pos.h || 1) * FH + 0.4;
+  (haupt || []).slice(0, 3).forEach((id, i) => {
+    const k = KOMP[id]; if (!k) return;
+    setTimeout(() => {
+      const sp = textSprite("+" + id, ST.felder[k.feld].farbe);
+      sp.position.set(g.position.x + (i - 1) * 0.7, g.position.y + top, g.position.z);
+      scene.add(sp);
+      const y0 = sp.position.y;
+      tween(1.5, (kk) => {
+        sp.position.y = y0 + kk * 2.1;
+        sp.material.opacity = kk < 0.65 ? 1 : 1 - (kk - 0.65) / 0.35;
+      }, easeOutCubic, () => { scene.remove(sp); sp.material.map.dispose(); sp.material.dispose(); });
+    }, 240 + i * 200);
+  });
+}
+
 /* Ambient-Partikel (Blätter/Schnee/Blüten) */
 const AMB_N = 70;
 const ambGeo = new THREE.PlaneGeometry(0.22, 0.22);
@@ -431,6 +564,12 @@ function updateEnvironment() {
   scene.background = bg; scene.fog.color.copy(bg);
   grassMat.color.set(cfg.grass).lerp(NIGHT, nightK * 0.55);
   foliageMat.color.set(cfg.foliage).lerp(NIGHT, nightK * 0.5);
+  hillMat.color.set(cfg.grass).multiplyScalar(0.82).lerp(NIGHT, nightK * 0.6);
+  cloudMat.color.set(0xffffff).lerp(new THREE.Color(0x39415a), nightK * 0.8);
+  cloudMat.opacity = S.season === "winter" ? 0.98 : 0.9;
+  stars.material.opacity = Math.max(0, nightK - 0.15) * 0.95;
+  fireflies.material.opacity = nightK > 0.4 && (S.season === "sommer" || S.season === "fruehling") ? 0.9 : 0;
+  flowers.visible = S.season === "sommer" || S.season === "fruehling";
   windowMats.forEach((m) => (m.emissiveIntensity = nightK > 0.25 ? 0.9 : 0));
   amb.visible = !!cfg.amb;
   if (cfg.amb) ambMat.color.set(cfg.amb);
@@ -447,8 +586,15 @@ const avatar = new THREE.Group();
   const legL = new THREE.Mesh(new RoundedBoxGeometry(0.16, 0.42, 0.16, 2, 0.05), pants); legL.position.set(-0.11, 0.21, 0);
   const legR = legL.clone(); legR.position.x = 0.11;
   const body = new THREE.Mesh(new RoundedBoxGeometry(0.46, 0.55, 0.3, 2, 0.1), shirt); body.position.y = 0.68;
+  const armL = new THREE.Mesh(new RoundedBoxGeometry(0.11, 0.4, 0.11, 2, 0.04), shirt); armL.position.set(-0.3, 0.72, 0);
+  const armR = armL.clone(); armR.position.x = 0.3;
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), skin); head.position.y = 1.12;
-  avatar.add(legL, legR, body, head);
+  const helmMat = new THREE.MeshStandardMaterial({ color: 0xf3c623, roughness: 0.5 });
+  const helm = new THREE.Mesh(new THREE.SphereGeometry(0.21, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55), helmMat); helm.position.y = 1.17;
+  const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.27, 0.27, 0.035, 14), helmMat); brim.position.y = 1.16;
+  avatar.add(legL, legR, body, armL, armR, head, helm, brim);
+  avatar.userData.legs = [legL, legR];
+  avatar.userData.arms = [armL, armR];
   avatar.traverse((o) => { if (o.isMesh) o.castShadow = true; });
   avatar.position.set(-5, 0.24, 6);
   scene.add(avatar);
@@ -464,7 +610,14 @@ function avatarGoTo(x, z, celebrate = false) {
     avatar.position.y = 0.24 + Math.abs(Math.sin(k * dist * 2.2)) * 0.09;
   }, (k) => k, () => {
     avatarWalk = null; avatar.position.y = 0.24;
-    if (celebrate) tween(0.8, (k) => { avatar.position.y = 0.24 + Math.abs(Math.sin(k * Math.PI * 2)) * 0.5; });
+    avatar.userData.legs.forEach((l) => (l.rotation.x = 0));
+    avatar.userData.arms.forEach((a) => (a.rotation.x = 0));
+    if (celebrate) {
+      tween(0.9, (k) => {
+        avatar.position.y = 0.24 + Math.abs(Math.sin(k * Math.PI * 2)) * 0.5;
+        avatar.userData.arms.forEach((a, i) => (a.rotation.z = (i ? 1 : -1) * Math.sin(k * Math.PI * 4) * 1.9));
+      }, (k) => k, () => avatar.userData.arms.forEach((a) => (a.rotation.z = 0)));
+    }
   });
 }
 
@@ -499,6 +652,8 @@ function placeSlot(slot) {
         inner.scale.set(1 + sq * 0.09, 1 - sq * 0.14, 1 + sq * 0.09);
       }, (k) => k, () => inner.scale.set(1, 1, 1));
       burstDust(g.position.x, endY + 0.1, g.position.z);
+      shockRing(g.position.x, endY, g.position.z, Math.max(slot.pos.w, slot.pos.d) * CELL * 0.9);
+      floatKompChips(g, slot);
       SND.thock();
       shakeT = 0.22;
       if (navigator.vibrate) { try { navigator.vibrate(12); } catch (e) {} }
@@ -508,7 +663,9 @@ function placeSlot(slot) {
   const h = ST.haeuser[slot.haus];
   avatarGoTo(h.origin[0] + slot.pos.x * CELL + 2.2, h.origin[2] + slot.pos.z * CELL + 3.4);
   clearGhost();
-  renderPlan(); renderProfil(); openCard(slot.slot);
+  const { komp } = slotKomp(slot);
+  renderPlan(); renderProfil([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])]);
+  openCard(slot.slot);
   return true;
 }
 function removeSlot(id) {
@@ -577,8 +734,18 @@ function pick(e) {
   while (o && !o.userData.slot) o = o.parent;
   return o ? o.userData.slot : null;
 }
+function setGlow(id, on) {
+  const g = blockMeshes[id]; if (!g) return;
+  g.traverse((o) => {
+    if (o.isMesh && o.material && o.material.emissive && !windowMats.includes(o.material)) {
+      o.material.emissive.setHex(on ? 0x18306e : 0x000000);
+      o.material.emissiveIntensity = on ? 0.35 : 0;
+    }
+  });
+}
 canvas.addEventListener("pointermove", (e) => {
   const id = pick(e);
+  if (id !== hoverId) { setGlow(hoverId, false); setGlow(id, true); }
   hoverId = id;
   if (id && !visitor.active) {
     const slot = SLOTS[id];
@@ -615,28 +782,43 @@ function chipState(slot) {
   if (isPlaced(slot.slot)) return "built";
   return canPlace(slot).ok ? "avail" : "locked";
 }
+function nextRecommended() {
+  for (const hausId of ["bsc", "msc"]) {
+    for (const sem of ST.bauplan[hausId]) {
+      for (const id of sem.slots) {
+        const slot = SLOTS[id];
+        if (!isPlaced(id) && canPlace(slot).ok) return id;
+      }
+    }
+  }
+  return null;
+}
 function renderPlan() {
+  const nextId = visitor.active ? null : nextRecommended();
   const frag = document.createDocumentFragment();
   for (const hausId of ["bsc", "msc"]) {
     const h = document.createElement("div");
     h.className = "semblock";
-    h.innerHTML = `<div class="semhead" style="font-size:12px;color:var(--blue)">${hausId === "bsc" ? "🏠 " + t("haus_bsc") : "🏰 " + t("haus_msc")}<span>${ectsSum(hausId)}/${hausId === "bsc" ? 120 : 120} ${t("ects")}</span></div>`;
+    h.innerHTML = `<div class="semhead" style="font-size:12px;color:var(--blue)">${hausId === "bsc" ? "🏠 " + t("haus_bsc") : "🏰 " + t("haus_msc")}<span>${ectsSum(hausId)}/120 ${t("ects")}</span></div>`;
     frag.appendChild(h);
     for (const sem of ST.bauplan[hausId]) {
       if (!sem.slots.length) continue;
+      const built = sem.slots.filter((id) => isPlaced(id)).length;
       const sb = document.createElement("div");
       sb.className = "semblock";
-      sb.innerHTML = `<div class="semhead"><span>${t("sem")} ${sem.sem} · ${sem.hs ? t("hs") : t("fs")}</span></div>`;
+      sb.innerHTML = `<div class="semhead"><span>${t("sem")} ${sem.sem} · ${sem.hs ? t("hs") : t("fs")}</span><span class="semprog">${built}/${sem.slots.length}</span></div>`;
       for (const id of sem.slots) {
         const slot = SLOTS[id];
         const st = chipState(slot);
         const b = document.createElement("button");
         b.className = "chip " + (st === "built" ? "built" : st === "locked" ? "locked" : "");
         if (selectedId === id) b.classList.add("sel");
+        if (id === nextId) b.classList.add("next");
         const q = S.quests[id];
         const col = slot.schwerpunktwahl && S.placed[S.mode][id] && S.placed[S.mode][id].sp ? ST.schwerpunkte[S.placed[S.mode][id].sp].farbe : ST.gruppen[slot.gruppe].farbe;
         b.innerHTML = `<span class="cdot" style="background:${col}"></span>
           <span class="cname">${slotTitel(slot)}</span>
+          ${id === nextId ? `<span class="nextbadge">🔨 ${t("naechstes")}</span>` : ""}
           ${q && q.done ? '<span class="quest-star">✦</span>' : ""}
           ${st === "built" ? '<span class="tick">✔</span>' : S.mode === "serious" && S.bestanden[id] ? '<span class="tick">☑</span>' : ""}
           <span class="cects">${slot.ects}</span>`;
@@ -684,23 +866,87 @@ function profilWerte() {
   }
   return { score, max };
 }
-function renderProfil() {
+let profilView = null; // null = Übersicht, sonst Kompetenz-ID
+function renderProfil(changed = []) {
+  if (profilView) { renderKompDetail(profilView); return; }
   const { score, max } = profilWerte();
   const el = document.getElementById("profilList");
   let html = `<div class="ects-summary">
     <div class="box"><b>${ectsSum("bsc")}</b><span>BSc / 120 ${t("ects")}</span></div>
     <div class="box"><b>${ectsSum("msc")}</b><span>MSc / 120 ${t("ects")}</span></div>
-  </div>`;
+  </div><div class="donuts">`;
+  for (const feld of ["fa", "ki", "fu"]) {
+    const f = ST.felder[feld];
+    const ids = ST.kompetenzen.filter((k) => k.feld === feld).map((k) => k.id);
+    const sSum = ids.reduce((n, i) => n + score[i], 0), mSum = ids.reduce((n, i) => n + max[i], 0);
+    const pct = mSum ? Math.round((sSum / mSum) * 100) : 0;
+    html += `<div class="donut"><div class="ring" style="background:conic-gradient(${f.farbe} ${pct * 3.6}deg, #e8ebf4 0)"><b>${pct}%</b></div><span>${feld === "fa" ? "Fach" : feld === "ki" ? "KI" : "Future"}</span></div>`;
+  }
+  html += `</div>`;
   for (const feld of ["fa", "ki", "fu"]) {
     const f = ST.felder[feld];
     html += `<div class="kfeld"><span class="fdot" style="background:${f.farbe}"></span>${L(f.name)}</div>`;
     for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
       const pct = max[k.id] ? Math.round((score[k.id] / max[k.id]) * 100) : 0;
-      html += `<div class="kbar"><div class="klabel"><span><span class="kid">${k.id}</span>${L(k.name)}</span><span>${pct}%</span></div>
-        <div class="track"><div class="fill" style="background:${f.farbe};width:${pct}%"></div></div></div>`;
+      html += `<button class="kbar ${changed.includes(k.id) ? "bump" : ""}" data-k="${k.id}"><div class="klabel"><span><span class="kid">${k.id}</span>${L(k.name)}</span><span>${pct}%</span></div>
+        <div class="track"><div class="fill" style="background:${f.farbe};width:${pct}%"></div></div></button>`;
     }
   }
   el.innerHTML = html;
+  el.querySelectorAll(".kbar").forEach((b) => (b.onclick = () => { profilView = b.dataset.k; SND.pick(); renderProfil(); }));
+}
+
+function kompStufe(id) {
+  let s = 0;
+  for (const slot of ST.slots) {
+    if (!isPlaced(slot.slot)) continue;
+    const { komp } = slotKomp(slot);
+    if ([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].includes(id)) s = Math.max(s, slot.stufe);
+  }
+  return s;
+}
+function renderKompDetail(id) {
+  const k = KOMP[id]; if (!k) { profilView = null; renderProfil(); return; }
+  const f = ST.felder[k.feld];
+  const { score, max } = profilWerte();
+  const pct = max[id] ? Math.round((score[id] / max[id]) * 100) : 0;
+  const el = document.getElementById("profilList");
+  const rows = [];
+  for (const slot of ST.slots) {
+    const { komp, haupt } = slotKomp(slot);
+    const all = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+    if (!all.includes(id)) continue;
+    rows.push({ slot, haupt: (haupt || []).includes(id), built: isPlaced(slot.slot), w: ((haupt || []).includes(id) ? 2 : 1) * slot.ects });
+  }
+  rows.sort((a, b) => (b.built - a.built) || (b.w - a.w));
+  const builtRows = rows.filter((r) => r.built);
+  const nextRows = rows.filter((r) => !r.built).sort((a, b) => (canPlace(b.slot).ok - canPlace(a.slot).ok) || (b.w - a.w)).slice(0, 4);
+  const stufeNow = kompStufe(id);
+  const row = (r) => {
+    const col = ST.gruppen[r.slot.gruppe].farbe;
+    return `<button class="modrow ${r.built ? "builtrow" : ""}" data-slot="${r.slot.slot}" style="border:0;width:100%;text-align:left;cursor:pointer;background:${r.built ? "#eef7f1" : "transparent"}">
+      <span class="mdot" style="background:${col}"></span>
+      <span style="flex:1">${slotTitel(r.slot)}</span>
+      ${r.haupt ? `<span class="haupt-tag" title="${t("hauptkomp")}">★</span>` : ""}
+      <span style="color:#8b94ab;font-variant-numeric:tabular-nums">${r.slot.ects}</span>
+    </button>`;
+  };
+  el.innerHTML = `
+    <button class="kdetail-back">${t("zurueck")}</button>
+    <div class="kdetail">
+      <h4><span style="color:${f.farbe}">${id}</span> ${L(k.name)}</h4>
+      <p class="ich">«${L(k.ich)}»</p>
+      <div class="kbar" style="cursor:default"><div class="klabel"><span>${L(f.name)}</span><span>${pct}%</span></div>
+        <div class="track"><div class="fill" style="background:${f.farbe};width:${pct}%"></div></div></div>
+      <div class="subhead">${t("stufe_erreicht")}</div>
+      <div class="stufen">${[1, 2, 3, 4].map((n) => `<span class="sdot ${stufeNow >= n ? "on" : ""}" title="${L(ST.stufen[n - 1].name)}">${n}</span>`).join("")}
+        <span style="font-size:10.5px;color:#5b6478;margin-left:4px">${stufeNow ? L(ST.stufen[stufeNow - 1].name) : "—"}</span></div>
+      <div class="subhead">${t("k_aufgebaut")} (${builtRows.length})</div>
+      ${builtRows.length ? builtRows.map(row).join("") : `<p style="font-size:11.5px;color:#8b94ab;margin:2px 6px">${t("k_keine")}</p>`}
+      ${nextRows.length ? `<div class="subhead">${t("k_naechste")}</div>` + nextRows.map(row).join("") : ""}
+    </div>`;
+  el.querySelector(".kdetail-back").onclick = () => { profilView = null; renderProfil(); };
+  el.querySelectorAll(".modrow").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
 }
 
 /* ---------- HUD: Info-Karte ---------- */
@@ -903,6 +1149,15 @@ function setMode(m) {
 }
 document.getElementById("modeFrei").onclick = () => setMode("frei");
 document.getElementById("modeSerious").onclick = () => setMode("serious");
+if (typeof S.sound === "undefined") S.sound = true;
+SND.enabled = S.sound;
+const btnSound = document.getElementById("btnSound");
+btnSound.textContent = S.sound ? "🔊" : "🔇";
+btnSound.onclick = () => {
+  S.sound = !S.sound; SND.enabled = S.sound; save();
+  btnSound.textContent = S.sound ? "🔊" : "🔇";
+  if (S.sound) SND.pick();
+};
 document.getElementById("btnLang").onclick = () => {
   S.lang = S.lang === "de" ? "en" : "de"; save();
   applyI18n(); renderPlan(); renderProfil();
@@ -1180,8 +1435,29 @@ function step() {
     }
     amb.instanceMatrix.needsUpdate = true;
   }
-  // Avatar Idle
-  if (!avatarWalk) avatar.rotation.y += Math.sin(elapsed * 0.6) * 0.0012;
+  // Avatar: Gehzyklus & Idle
+  if (avatarWalk) {
+    const sw = Math.sin(elapsed * 13);
+    avatar.userData.legs.forEach((l, i) => (l.rotation.x = (i ? 1 : -1) * sw * 0.65));
+    avatar.userData.arms.forEach((a, i) => (a.rotation.x = (i ? -1 : 1) * sw * 0.5));
+  } else {
+    avatar.rotation.y += Math.sin(elapsed * 0.6) * 0.0012;
+  }
+  // Wolkendrift
+  for (const c of clouds) {
+    c.position.x += c.userData.v * dt;
+    if (c.position.x > 75) c.position.x = -75;
+  }
+  // Glühwürmchen wandern
+  if (fireflies.material.opacity > 0) {
+    const fp = fireflies.geometry.attributes.position;
+    for (let i = 0; i < fp.count; i++) {
+      fp.setY(i, 0.7 + Math.abs(Math.sin(elapsed * 0.7 + i * 2.1)) * 2.2);
+      fp.setX(i, fp.getX(i) + Math.sin(elapsed * 0.5 + i) * 0.008);
+    }
+    fp.needsUpdate = true;
+    fireflies.material.size = 0.3 + Math.sin(elapsed * 4) * 0.08;
+  }
   controls.update();
   // Kamera-Shake
   if (shakeT > 0) {

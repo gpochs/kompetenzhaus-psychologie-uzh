@@ -1,0 +1,945 @@
+{
+ "06SM200-400": {
+  "titel": "Einführung in die Klinische Psychologie und Psychopathologie",
+  "ects": 8,
+  "kategorie": "Pflicht",
+  "heute": "Zweisemestrige Vorlesung über Entstehung, Persistenz und Behandlung psychischer Störungen — Psychopathologie, Klassifikations- und Störungsmodelle (RDoC, HiTOP), Diagnostik, Wirkfaktoren und Therapieverfahren; Leistungsnachweis schriftliche Prüfung, verpflichtende Schweigepflichtserklärung. Lehrbuch Hoyer & Knappe (2021).",
+  "zukunft": "Das Zukunftsmodul nutzt die verpflichtende Schweigepflichtserklärung als didaktischen Anker, um **KI5 Verantworten + Fu3 (Soziales Umfeld gestalten)** auf Stufe 2 aufzubauen: Studierende lernen, sensible klinische Angaben zu klassifizieren und niemals in nicht freigegebene Tools einzugeben (APA, 2023; Bass et al., 2025). Parallel wird die klinische Urteilsbildung (Fa1, Fa8, Fa5 auf Stufe 2) durch **KI-generierte Fallvignetten** geschärft, an denen **KI6 Evaluieren + Fu1** und **KI3 Zusammenarbeiten + Fu3** trainiert werden: Eine KI erzeugt eine Verdachtsdiagnose, die Studierenden prüfen sie gegen Klassifikationskriterien und Primärliteratur (Miao et al., 2024). Deskilling-Schutz bleibt zentral — die diagnostische Kernkompetenz und die ethische Verantwortung (Fa7) müssen ohne KI erklärbar bleiben, weshalb die schriftliche Prüfung als [A]-gesicherter Kern erhalten bleibt. Newskilling entsteht dort, wo Studierende lernen, algorithmische Diagnostikvorschläge fachlich zu auditieren, statt ihnen zu folgen. So verbindet das Modul Störungswissen, Berufsethik und einen verantwortungsvollen KI-Umgang in einem der datenschutzkritischsten Felder des Studiums.",
+  "lernziele": [
+   "Die Studierenden klassifizieren klinische Fallangaben nach Sensibilität und begründen, welche Daten nicht in nicht freigegebene KI-Systeme gehören.",
+   "Die Studierenden prüfen eine KI-generierte Verdachtsdiagnose gegen Klassifikationssysteme (z. B. RDoC, HiTOP) und Lehrbuch und korrigieren fachliche Fehler.",
+   "Die Studierenden erklären zentrale Störungsmodelle und Wirkfaktoren ohne KI-Unterstützung.",
+   "Die Studierenden leiten aus der Schweigepflichtserklärung konkrete Regeln für den KI-Einsatz im klinischen Kontext ab."
+  ],
+  "ki": "Kategorie **[A]+[B]** — die schriftliche Prüfung sichert klinisches Kern- und Ethikwissen KI-frei [A]; begleitend deklarierte KI-Fallvignetten-Aufgaben mit Disclosure [B]. Aktivierende Elemente: KI-Rollenspiel (simulierte:r Klient:in) und AI-Critique-Übung (Verdachtsdiagnose vs. Klassifikationskriterien). Jede KI-Nutzung wird über das Disclosure Form deklariert und gegen Primärliteratur verifiziert.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa5",
+    "Fa7",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa8",
+   "Fa7",
+   "KI5"
+  ],
+  "quest": {
+   "titel": "Die Schweigepflicht-Ampel",
+   "text": "Nimm eine kurze, anonymisierte Fallvignette und lass eine KI eine Verdachtsdiagnose formulieren. Prüfe die Diagnose gegen die Klassifikationskriterien deines Lehrbuchs und markiere in der Vignette mit Rot/Gelb/Grün alle Angaben, die du niemals, nur anonymisiert oder gefahrlos in ein nicht freigegebenes KI-Tool eingeben dürftest.\n\n---"
+  }
+ },
+ "06SM200-401": {
+  "titel": "Klinische Biopsychologie",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Vorlesung, die ausgehend vom bio-psycho-sozialen Modell biopsychologische Diagnose- und Interventionsmethoden bei psychischen und körperlichen Erkrankungen im Lebenslauf vorstellt und an Fallbeispielen verdeutlicht; Leistungsnachweis schriftliche Prüfung.",
+  "zukunft": "Das Zukunftsmodul vertieft Fa1 und Fa8 (Stufe 2) an biopsychologischen Mechanismen und Markern und nutzt diese als konkreten Übungsgegenstand für **KI4 Verstehen + Fu2 (Persönliche Fähigkeiten)**: Studierende lernen, wie KI-gestützte Modelle Biomarker-Wirkzusammenhänge vorschlagen und warum solche Aussagen überzeugend klingen können, ohne belegt zu sein (Bass et al., 2025). Über **KI6 Evaluieren + Fu1** prüfen sie diese Behauptungen gegen Primärliteratur und Gütekriterien, statt sie zu übernehmen (Miao et al., 2024). Deskilling-Schutz sichert das biopsychologische Grundverständnis in der [A]-Prüfung; Newskilling entsteht durch die Fähigkeit, KI-Aussagen zu Markern und Mechanismen kritisch einzuordnen. Damit wird ein wissensintensives Vorlesungsmodul zu einem Trainingsfeld für den kritischen Umgang mit KI-generierten biologischen Erklärungen.",
+  "lernziele": [
+   "Die Studierenden erklären zentrale biopsychologische Marker und Mechanismen psychischer und körperlicher Erkrankungen ohne KI.",
+   "Die Studierenden identifizieren an einer KI-Erklärung zu einem Biomarker eine plausibel klingende, aber unbelegte Aussage.",
+   "Die Studierenden prüfen eine KI-generierte Wirkhypothese gegen eine Primärquelle und beurteilen ihre Evidenz."
+  ],
+  "ki": "Kategorie **[A]** — die schriftliche Prüfung sichert biopsychologisches Kernwissen KI-frei; begleitend formative [B]-Übungen. Aktivierendes Element: Live-Check («Stimmt das, was die KI zum Biomarker sagt?»). KI-Aussagen werden gegen Primärliteratur verifiziert; keine Pflicht-Tools mit externem Login.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa8"
+   ],
+   "ki": [
+    "KI4",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "KI4"
+  ],
+  "quest": {
+   "titel": "Biomarker-Faktencheck",
+   "text": "Lass eine KI erklären, über welchen biologischen Marker (z. B. Cortisol-Reaktivität) eine psychologische Intervention wirkt. Vergleiche die Erklärung mit deinem Vorlesungsmaterial und markiere genau einen Satz, der wie eine Halluzination aussieht — und notiere, wie du ihn gegen eine Primärquelle prüfst.\n\n---"
+  }
+ },
+ "06SM200-402": {
+  "titel": "Ausgewählte Themen der Psychopathologie (PTO)",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Computerisiertes Selbstlernprogramm (PTO) über zwei Semester zu zentralen Störungsbildern; Leistungsnachweis sind 6 Übungen mit je einem Teil «offene Fragen» und einem Teil «Fallanalyse inkl. Verdachtsdiagnose», je Mindestnote 4, pünktliche Abgabe zwingend.",
+  "zukunft": "Das PTO ist als asynchrones Take-Home-Format das **KI-anfälligste Prüfformat** der Modulgruppe — deshalb baut das Zukunftsmodul einen expliziten **Verifikationsteil** ein, der Fu2 (Persönliche Fähigkeiten, «ohne KI») und **KI5 Verantworten** auf Stufe 2 sichert (Perkins et al., 2025). Studierende erarbeiten Störungswissen (Fa1, Fa8, Fa10) weiterhin selbst; ergänzend prüft ein kurzer, randomisierter **KI-freier Kontrollpunkt** je Curriculum, ob die Fallanalyse und Verdachtsdiagnose eigenständig erklärt werden können (QAA, 2023). Über **KI6 Evaluieren** lernen Studierende zugleich, eine KI-Antwort zu einer Fallvignette als Übungsobjekt kritisch gegen die Klassifikation zu prüfen, statt sie zu übernehmen. So wird der Deskilling-Gefahr des Selbstlernformats mit einem Secure-Element begegnet, ohne die Vorteile des flexiblen E-Learnings aufzugeben.",
+  "lernziele": [
+   "Die Studierenden erkennen und beschreiben zentrale psychopathologische Störungsbilder im klinischen Setting.",
+   "Die Studierenden stellen eine Verdachtsdiagnose eigenständig und begründen sie ohne KI im Verifikationsteil.",
+   "Die Studierenden prüfen eine KI-generierte Fallanalyse gegen Klassifikationskriterien und benennen deren fachliche Fehler.",
+   "Die Studierenden deklarieren jede KI-Nutzung im PTO transparent über das Disclosure Form."
+  ],
+  "ki": "Kategorie **[A]+[B]** — die 6 Übungen bleiben deklariert KI-nutzbar [B], ergänzt um einen randomisierten, KI-freien Verifikations-Kontrollpunkt [A] pro Curriculum. Aktivierende Elemente: Prompt-&-Disclosure-Übung und AI-Critique einer Fallvignette. Verifikationspflicht: Die Verdachtsdiagnose muss im Kontrollpunkt selbst erklärt werden.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa8",
+    "Fa10"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa8",
+   "Fa1",
+   "KI5",
+   "Fu2"
+  ],
+  "quest": {
+   "titel": "Verdachtsdiagnose unter Aufsicht",
+   "text": "Bearbeite eine offene PTO-Frage zuerst fünf Minuten lang ganz ohne KI und notiere deine Verdachtsdiagnose. Hole dann eine KI-Antwort ein, vergleiche beide und begründe in drei Sätzen, an welcher Stelle die KI die Fallanalyse verfehlt.\n\n---"
+  }
+ },
+ "06SM200-403": {
+  "titel": "Klinische Paar- und Familienpsychologie",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Vorlesung zu einem interpersonellen Störungsverständnis — Bedeutung von Beziehungen für Ätiologie, Verlauf und Rückfall, «We-Disease»-Konzept, familiäre Risiko- und Resilienzfaktoren, präventive und therapeutische Interventionen; Leistungsnachweis schriftliche Prüfung.",
+  "zukunft": "Das Zukunftsmodul verankert Fa1 und stärkt **Fa9 Diversität & Kontext (Stufe 2)**, indem der soziale und familiäre Kontext psychischer Störungen ins Zentrum rückt (DGPs, 2014). Als KI-Kompetenzen werden **KI6 Evaluieren + Fu1** und **KI3 Zusammenarbeiten + Fu3** aufgebaut: Studierende prüfen KI-generierte Zusammenfassungen zu Risikofaktoren und «We-Disease» gegen Vorlesung und Befunde und ergänzen systematisch den Kontext- und Diversitätsaspekt, den generische KI-Antworten häufig übersehen (Bass et al., 2025; Miao et al., 2024). Deskilling-Schutz sichert das interpersonelle Störungsverständnis in der [A]-Prüfung; Newskilling entsteht in der Fähigkeit, KI-Aussagen auf kulturelle und familiäre Kontextsensibilität zu befragen. So verbindet das Modul beziehungsorientierte Klinik mit einer diversitätsbewussten KI-Kritik.",
+  "lernziele": [
+   "Die Studierenden erläutern die vier zentralen familiären Risikofaktoren und das «We-Disease»-Konzept ohne KI.",
+   "Die Studierenden prüfen eine KI-Zusammenfassung zu Beziehungsfaktoren gegen die Vorlesung und ergänzen fehlende Kontextaspekte.",
+   "Die Studierenden beurteilen, wo eine generische KI-Antwort Diversität und familiären Kontext ausblendet."
+  ],
+  "ki": "Kategorie **[A]** — die schriftliche Prüfung sichert das interpersonelle Störungsverständnis KI-frei; begleitend formative [B]-Übungen. Aktivierendes Element: AI-Critique-Übung (KI-Zusammenfassung vs. Vorlesungsbefunde). KI-Nutzung wird deklariert; jede übernommene Aussage wird gegen die Befundlage verifiziert.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI3",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa9",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "We-Disease-Gegenlesen",
+   "text": "Lass eine KI die vier wichtigsten familiären Risikofaktoren für kindliche Störungen auflisten. Prüfe die Liste gegen dein Vorlesungsmaterial und ergänze einen Diversitäts- oder Kontextaspekt, den die KI-Antwort übersehen hat.\n\n---"
+  }
+ },
+ "06SM200-s12": {
+  "titel": "[Themen der Klinischen und Gesundheitspsychologie]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahl-Seminarangebot mit wechselnden Themen zur exemplarischen Vertiefung in der Klinischen und Gesundheitspsychologie; Leistungsnachweis schriftliche Arbeit, schriftliche Prüfung oder Portfolio, bestanden/nicht bestanden.",
+  "zukunft": "Als kleines, benotungsfreies Seminarformat ist das Wahlmodul der ideale **Pilotraum für KI-integrierte Leistungsnachweise** und baut **Fa4 wissenschaftliches/kritisches Denken** und **Fa6 Schreiben & Kommunikation (Stufe 2)** an einem klinischen Thema aus (QAA, 2023). Über **KI1 Anwenden**, **KI2 Gestalten**, **KI6 Evaluieren + Fu1** und **KI5 Verantworten + Fu3** üben Studierende, KI in wissenschaftliche Arbeitsschritte einzubinden und gleichzeitig fachlich zu prüfen — von der Literaturrecherche bis zur KI-generierten Kritik an einem klinischen Fachartikel (Perkins et al., 2025; Ehlers et al., 2024). Deskilling-Schutz bleibt über gelebte Disclosure und Verifikation gewahrt; Newskilling entsteht dort, wo die KI-integrierte Bearbeitung eines Fachartikels als anspruchsvolle [C]-Leistung erprobt wird. Das Seminar wird so zum geschützten Übungsraum für die KI-Kompetenzen, die BA und Master später voraussetzen.",
+  "lernziele": [
+   "Die Studierenden binden KI deklariert in Recherche und Schreiben ein und prüfen jeden Output gegen die Fachliteratur.",
+   "Die Studierenden holen eine KI-generierte Kritik an einem klinischen Fachartikel ein und beurteilen deren fachliche Tragfähigkeit.",
+   "Die Studierenden dokumentieren ihren KI-Einsatz vollständig über Prozesslog und Disclosure Form.",
+   "Die Studierenden verfassen einen klinisch fundierten Text und verantworten dessen Aussagen selbst."
+  ],
+  "ki": "Kategorie **[B]/[C]** — deklarierte KI-Nutzung mit Prozesslog und KI-freien Kontrollpunkten [B]; in einzelnen Aufträgen wird KI-integrierte Bearbeitung selbst zum Lernziel [C]. Aktivierende Elemente: AI-Critique-Übung (Output vs. Primärliteratur) und Prompt-&-Disclosure-Übung. Vollständige Deklaration und Verifikation jeder KI-gestützten Aussage.",
+  "kat": "B+C",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI1",
+    "KI2",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa4",
+   "Fa6",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Seminar-Gegenlesen",
+   "text": "Wähle einen klinischen Fachartikel und lass eine KI drei Kritikpunkte zu Design, Stichprobe oder Messung formulieren. Prüfe jeden Punkt am Originalartikel und markiere, welche Kritik fachlich tragfähig und welche irreführend ist.\n\n---"
+  }
+ },
+ "06SM200-BA": {
+  "titel": "Bachelorarbeit",
+  "ects": 6,
+  "kategorie": "Pflicht",
+  "heute": "Selbständige wissenschaftliche Literaturarbeit nach psychologischen Standards mit begleitendem Workshop; bewertet werden inhaltliches Verständnis, argumentative Kohärenz, Literaturauswahl, formale Kriterien, korrektes Zitieren und selbständiges Arbeiten; Leistungsnachweis benotete schriftliche Arbeit.",
+  "zukunft": "Die Bachelorarbeit ist die **«Gesellenprüfung» des Bachelors** und bündelt Fa6, Fa4, Fa2, Fa7 und Fa10 (Stufe 2) mit einem professionell deklarierten KI-Workflow (Perkins et al., 2025). Studierende erstellen zu Beginn einen **AI Use Plan**, der pro Arbeitsschritt festlegt, was [A] KI-frei, was [B] assistiert bearbeitet wird; **KI5 Verantworten + Fu3** und **KI6 Evaluieren + Fu2** sichern Disclosure und Verifikation, **KI1 Anwenden** und **KI3 Zusammenarbeiten** strukturieren KI- und Peer-Feedback (Bass et al., 2025; Miao et al., 2024). Nach der **Secure/Open-Logik** wird die offene, KI-integrierte Arbeit nicht abgewertet, sondern durch ein gesichertes Verteidigungs-/Transferelement ergänzt, in dem zentrale Entscheidungen KI-frei erklärt werden (ETH/UZH, 2025). Deskilling-Schutz und Newskilling sind so austariert: Eigenständige Argumentation und Integrität bleiben nachweispflichtig, während der verantwortungsvolle, dokumentierte KI-Einsatz als Zukunftskompetenz eingeübt wird.",
+  "lernziele": [
+   "Die Studierenden erstellen einen AI Use Plan, der jeden Arbeitsschritt als [A] KI-frei oder [B] assistiert kennzeichnet.",
+   "Die Studierenden dokumentieren ihren KI-Einsatz über Disclosure Form und Prozesslog und verifizieren jede KI-gestützte Aussage.",
+   "Die Studierenden verteidigen zentrale inhaltliche und methodische Entscheidungen ihrer Arbeit KI-frei.",
+   "Die Studierenden verfassen eine formal korrekte, eigenständig argumentierte wissenschaftliche Arbeit."
+  ],
+  "ki": "Kategorie **[A]+[B]** nach Secure/Open-Logik — offene, deklarierte KI-Nutzung mit Disclosure und Verifikation [B], ergänzt um KI-freie Verteidigungs-/Erklärpunkte [A]. Aktivierende Elemente: Prompt-&-Disclosure-Übung und AI-Critique (KI- und Peer-Feedback vs. Eigenurteil). Verpflichtender AI Use Plan; kein KI-generierter Text ohne Deklaration und Verantwortung durch die:den Verfasser:in.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa4",
+    "Fa6",
+    "Fa7",
+    "Fa10"
+   ],
+   "ki": [
+    "KI1",
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa6",
+   "Fa4",
+   "Fa7",
+   "KI5"
+  ],
+  "quest": {
+   "titel": "AI Use Plan in zehn Minuten",
+   "text": "Zerlege deine BA-Fragestellung in fünf Arbeitsschritte (z. B. Recherche, Literatur-Mapping, Argumentation, Schreiben, Zitieren). Markiere für jeden Schritt [A] KI-frei oder [B] assistiert und notiere pro [B]-Schritt genau einen Verifikationsschritt, mit dem du die KI-Ausgabe fachlich prüfst."
+  }
+ },
+ "06SM200-500": {
+  "titel": "Statistics 3",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Englischsprachige Vorlesung mit Tutorat: Auffrischung der multiplen Regression, danach Mehrebenenmodelle (mixed models) mit Fokus auf Längsschnittdaten sowie Strukturgleichungsmodelle (SEM) zur Veränderungsmessung, praktisch geübt am eigenen Laptop mit Tutor:innen. Leistungsnachweis: written exam.",
+  "zukunft": "Statistics 3 wird zum methodischen Rückgrat der Stufe 3 und zugleich zum TIC-Pilotmodul (Priorität 1) für aktivierende Grossveranstaltungen: Peer Instruction und Live-Checks holen die Studierenden in der Vorlesung in die Denkarbeit zurück. Aufgebaut werden **Fa3 Statistik, R & Daten** und Fa2 Forschungsmethoden & Design auf Stufe 3: Studierende rechnen Mehrebenen- und Strukturgleichungsmodelle nicht nur, sie verteidigen Modellwahl, Annahmen und Interpretation. Neu rückt **KI4 Verstehen (Stufe 3)** ins Zentrum: Explainability und Modellvalidierung werden an KI-generierten Modellvorschlägen trainiert — Studierende prüfen, wo ein plausibel klingender KI-Vorschlag zu SEM oder Multilevel die Datenstruktur verfehlt (Bass et al., 2025). Ein sokratischer R-Tutor (hint-only, via KlickerUZH/OLAT) begleitet die Übungen rund um die Uhr; gemäss PSYCH AI Guidelines editiert und kommentiert KI dabei nur eigenen Code — Codegenerierung bleibt ausgeschlossen. Der Deskilling-Schutz ist klar austariert: Die schriftliche Prüfung bleibt [A] KI-frei und sichert, dass Modelllogik, R-Output und Statistik ohne KI erklärbar sind; das Newskilling findet in den [B]-Übungen statt, wo KI-gestützte Analyseschritte per Prozesslog und Disclosure Form dokumentiert und verifiziert werden (Perkins et al., 2025). KI1 Anwenden entwickelt sich von Stufe 2 zu 3 (Datenanalyse, Literatursynthese), KI6 Evaluieren (Stufe 3) prüft Statistikoutputs, und Fu2 Persönliche Fähigkeiten sichert die bewusste Mit-/Ohne-KI-Entscheidung.",
+  "lernziele": [
+   "Die Studierenden wählen für hierarchische und längsschnittliche Fragestellungen das passende Modell (Mehrebenenmodell vs. SEM) und begründen die Wahl anhand von Datenstruktur und Annahmen.",
+   "Die Studierenden interpretieren Modelloutputs (feste und zufällige Effekte, Fit-Indizes) korrekt und erklären sie KI-frei in eigenen Worten.",
+   "Die Studierenden prüfen KI-generierte Modellvorschläge auf Annahmen, Passung und Interpretationsrisiken und korrigieren fehlerhafte Spezifikationen.",
+   "Die Studierenden debuggen eigenen R-Code mit KI-Unterstützung und erklären jede Zeile des finalen Skripts selbst.",
+   "Die Studierenden dokumentieren KI-gestützte Analyseschritte im Prozesslog, deklarieren sie im Disclosure Form und verifizieren jeden Output gegen die Daten."
+  ],
+  "ki": "Kategorie [A] + [B]: Die schriftliche Prüfung (written exam) bleibt [A] KI-frei — Modelllogik, Annahmen und Interpretation müssen ohne KI erklärbar sein (Deskilling-Schutz). Die Übungen laufen [B] teilweise KI-integriert: KI-Editing und Debugging eigenen R-Codes (keine Codegenerierung), Prüfen von KI-Modellvorschlägen; jeder KI-Schritt wird im Prozesslog dokumentiert, im Disclosure Form deklariert und gegen die Daten verifiziert. Aktivierende Elemente aus dem 8er-Baukasten: Sokratischer Tutoring-Bot (hint-only R-Tutor via KlickerUZH/OLAT) und Live-Check («Stimmt das, was die KI zum Modell sagt?»).",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa3",
+    "Fa4"
+   ],
+   "ki": [
+    "KI1",
+    "KI4",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa3",
+   "KI4"
+  ],
+  "quest": {
+   "titel": "Modell-Audit",
+   "text": "Prüfe einen KI-Modellvorschlag: Beschreibe Copilot Chat ein Längsschnittdesign (z. B. Stressmessungen zu vier Zeitpunkten, genestet in Personen) und lass dir ein Analysemodell vorschlagen. Prüfe den Vorschlag auf drei Punkte: Passt die Modellklasse zur Datenstruktur? Welche Annahmen bleiben unerwähnt? Wo lauert ein Interpretationsrisiko? Notiere in zwei Sätzen, wie das korrigierte Modell aussieht."
+  }
+ },
+ "06SM200-501": {
+  "titel": "Psychologische Diagnostik",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Vorlesung zum diagnostischen Prozess — Klärung der Fragestellung, Auswahl, Anwendung und Auswertung diagnostischer Verfahren, Interpretation und Gutachtenerstellung, Festsetzen der Intervention — mit forschungs- und praxisbasierten Themen von den Grundlagen bis zur Qualitätssicherung. Leistungsnachweis: schriftliche Prüfung.",
+  "zukunft": "Die Psychologische Diagnostik wird zur «Königsdisziplin» der KI-Evaluation im Studium: Nirgends ist der professionelle Prüfauftrag klarer als dort, wo Algorithmen über Menschen urteilen. Das Modul baut **Fa5 Diagnostik, Testtheorie & Assessment** und **Fa7 Ethik & Integrität** auf Stufe 3 auf — vom diagnostischen Prozess über Gütekriterien bis zur Gutachtenlogik (DGPs, 2014) — und macht **KI6 Evaluieren (Stufe 3)** zur dritten Hauptkompetenz: Studierende auditieren algorithmische diagnostische Verfahren systematisch auf Bias, Fairness und Messinvarianz, entlang der ITC/ATP-Richtlinien für technologiebasiertes Assessment und der Einstufung algorithmischer Eignungsdiagnostik als Hochrisiko-Anwendung im EU AI Act (Bass et al., 2025). KI5 Verantworten (Stufe 2→3) sichert den Umgang mit Klientendaten: keine sensiblen Diagnostikdaten in KI-Systeme, keine Delegation diagnostischer Entscheidungen an KI. Der Deskilling-Schutz bleibt hart: Haupt- und Nebengütekriterien, Konstruktionsstrategien und diagnostische Urteilslogik werden in gesicherten Prüfungsanteilen KI-frei nachgewiesen. Das Newskilling ist das Audit selbst — eine vollständig KI-integrierte [C]-Aufgabe, in der Steuerung, Prüfung, Validierung und ethische Begrenzung bewertet werden (Perkins et al., 2025). Fu1 (Outputs kritisch prüfen, Entscheidungen begründen) und Fu3 (Datenschutz/Ethik, Verantwortung kommunizieren) tragen die Kompetenzpaare.",
+  "lernziele": [
+   "Die Studierenden beurteilen diagnostische Verfahren — klassische wie algorithmische — nach Haupt- und Nebengütekriterien und begründen ihr Urteil.",
+   "Die Studierenden führen ein Bias-/Fairness-Audit eines algorithmischen diagnostischen Verfahrens durch (Testfairness, Messinvarianz, Alternativerklärungen) und dokumentieren es nachvollziehbar.",
+   "Die Studierenden ordnen technologiebasierte Diagnostik regulatorisch ein (ITC/ATP-Richtlinien, EU AI Act Hochrisiko) und leiten daraus professionelle Prüfpflichten ab.",
+   "Die Studierenden wählen diagnostische Verfahren hypothesengeleitet aus und begründen, welche diagnostischen Entscheidungen nicht an KI delegiert werden dürfen.",
+   "Die Studierenden verfassen einen kurzen Gutachtenabschnitt und verifizieren KI-gestützte Formulierungshilfen gegen die Datenlage."
+  ],
+  "ki": "Kategorie [B]/[C]: Die schriftliche Prüfung kombiniert gesicherte KI-freie Anteile (Gütekriterien, diagnostische Urteilslogik — Deskilling-Schutz) mit [B]-Anteilen zu vorbereiteten Audit-Fällen; das vollständig KI-integrierte [C]-Bias-Audit eines algorithmischen Verfahrens ist anspruchsvolles Newskilling, bewertet nach Steuerung, Audit, Validierung und Ethik. Aktivierende Elemente aus dem 8er-Baukasten: AI-Critique-Übung (algorithmischer Testoutput vs. Gütekriterien und Primärliteratur) und Two-Stage-Quiz zu Gütekriterien. Disclosure Form und Verifikationspflicht gelten durchgängig; echte Klientendaten sind in KI-Systemen tabu.",
+  "kat": "B+C",
+  "komp": {
+   "fa": [
+    "Fa4",
+    "Fa5",
+    "Fa6",
+    "Fa7"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa5",
+   "Fa7",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Fairness-Audit in zehn Minuten",
+   "text": "Führe ein Mini-Bias-Audit durch: Lass dir von Copilot Chat ein fiktives algorithmisches Auswahlverfahren beschreiben (z. B. automatisiertes CV-Screening mit Persönlichkeitsscores). Prüfe es auf drei Fragen: Für welche Gruppen könnte das Verfahren systematisch verzerrt urteilen? Welches Gütekriterium ist am stärksten gefährdet? Welche Information bräuchtest du für ein echtes Audit nach ITC/ATP? Halte dein Urteil in fünf Sätzen fest."
+  }
+ },
+ "06SM200-502": {
+  "titel": "Gesundheitspsychologie",
+  "ects": 4,
+  "kategorie": "Pflicht",
+  "heute": "Vorlesung zu Konzepten und Determinanten von Gesundheit und Krankheit, Gesundheitsverhalten und zentralen Theorien zu dessen Erklärung, Stress- und Krankheitsbewältigung, sozialen Beziehungen sowie gesundheitspsychologischen Interventionen zur Prävention und Gesundheitsförderung. Leistungsnachweis: schriftliche Prüfung.",
+  "zukunft": "Digital Health wird zum roten Faden des Zukunftsmoduls: Chatbots, Gesundheits-Apps und KI-Coaches sind längst Teil des Gesundheitsverhaltens — die Gesundheitspsychologie liefert die Theorien und Evidenzstandards, um sie professionell zu beurteilen. **Fa1 Fachwissen** und **Fa8 evidenzbasierte Praxis/Transfer** werden auf Stufe 3 aufgebaut: Studierende wenden Modelle des Gesundheitsverhaltens, Stress- und Bewältigungstheorien und Interventionslogiken auf digitale Interventionen an; Fa9 Diversität & Kontext schärft den Blick für digitale Gesundheitsungleichheit. **KI5 Verantworten (Stufe 3)** ist die KI-Hauptkompetenz: Studierende legen fest, welche Gesundheitsdaten nicht in KI-Systeme gehören, erkennen Krisenrisiken von Chatbot-Interventionen und begründen, warum Beratungs- und Interventionsentscheidungen nicht an KI ausgelagert werden dürfen (Miao et al., 2024). KI6 Evaluieren (Stufe 3) ergänzt: App- und Chatbot-Evidenz wird gegen Theorie und Studienlage geprüft. Deskilling-Schutz und Newskilling sind über die Prüfungslogik austariert: Theorien und Befunde bleiben in gesicherten Prüfungsanteilen KI-frei abrufbar, während die deklarierte [B]-Fallanalyse einer digitalen Intervention neue professionelle Bewertungskompetenz aufbaut (Ehlers et al., 2024). Fu3 Soziales Umfeld gestalten trägt die Verantwortungsseite, Fu1 Arbeiten/Gestalten die kritische Prüfpraxis.",
+  "lernziele": [
+   "Die Studierenden erklären zentrale Theorien des Gesundheitsverhaltens und wenden sie auf digitale Interventionen wie Gesundheits-Apps und Chatbots an.",
+   "Die Studierenden bewerten Chatbot- und App-basierte Gesundheitsinterventionen nach Evidenzlage, Theoriebasis und Risiken — einschliesslich Krisensituationen.",
+   "Die Studierenden beurteilen, welche Gesundheitsdaten in KI-Systeme eingegeben werden dürfen, und begründen die Grenzen der KI-Delegation in Prävention und Beratung.",
+   "Die Studierenden berücksichtigen Diversität und digitale Ungleichheit bei der Beurteilung digitaler Gesundheitsangebote."
+  ],
+  "ki": "Kategorie [B]: Die schriftliche Prüfung enthält gesicherte KI-freie Anteile (Theorien, Befunde — Deskilling-Schutz) und eine vorbereitete, deklarierte Fallanalyse einer digitalen Gesundheitsintervention (Chatbot/App) mit Disclosure Form und Quellenverifikation. Aktivierende Elemente aus dem 8er-Baukasten: KI-Rollenspiel (Copilot-Agent als Gesundheitscoach, dessen Beratung theorie- und evidenzbasiert bewertet wird) und JiTT-WarmUp-Quiz vor der Vorlesung. Sensible Gesundheitsdaten bleiben aus KI-Systemen ausgeschlossen — KI assistiert bei der Analyse, ersetzt aber keine fachliche Bewertung.",
+  "kat": "B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa8",
+   "KI5"
+  ],
+  "quest": {
+   "titel": "Chatbot-Check",
+   "text": "Bewerte eine Chatbot-Intervention: Bitte Copilot Chat, dich als Gesundheitscoach zu einem Verhaltensziel zu beraten (z. B. mehr Bewegung im Alltag), und führe fünf Dialogrunden. Prüfe danach: Auf welche gesundheitspsychologische Theorie lassen sich die Ratschläge zurückführen? Wo fehlt die Evidenz? Bei welcher Antwort wäre in einem echten Setting eine professionelle Grenze erreicht (Krise, sensible Daten)? Notiere dein Urteil in drei Punkten."
+  }
+ },
+ "06SM200-510": {
+  "titel": "Economic and Consumer Psychology",
+  "ects": 4,
+  "kategorie": "Wahlpflicht",
+  "heute": "Vorlesung zu Entscheidungstheorie und Rationalitätsverletzungen, Werbung und Nudging, Spieltheorie, Kooperation und öffentlichen Gütern sowie unethischem Verhalten und Korruption. Leistungsnachweis: schriftliche Prüfung.",
+  "zukunft": "Das Zukunftsmodul macht KI selbst zum Untersuchungsgegenstand der Entscheidungs- und Konsumpsychologie: Empfehlungsalgorithmen, personalisierte Werbung und Dark Patterns sind angewandte Entscheidungsarchitektur — genau die Mechanismen, die das Modul theoretisch erklärt. **Fa1 Fachwissen** und **Fa4 wissenschaftliches/kritisches Denken** werden auf Stufe 3 aufgebaut (Entscheidungstheorie, Rationalitätsverletzungen, Spieltheorie, Kooperation); Fa8 evidenzbasierte Praxis/Transfer verbindet sie mit Marketing- und Policy-Anwendungen. **KI6 Evaluieren (Stufe 3)** wird zur KI-Hauptkompetenz: Studierende prüfen algorithmische Persuasion auf ihre psychologischen Wirkmechanismen und beurteilen «Silicon Samples» — LLMs als simulierte Versuchspersonen der Verhaltensökonomie — kritisch auf ihre Übereinstimmung mit menschlichem Entscheidungsverhalten. KI4 Verstehen (Stufe 3) liefert das Fundament: Wie modellieren und beeinflussen Empfehlungssysteme und LLMs Entscheidungen? Die Paarung mit Fu2 Persönliche Fähigkeiten zielt auf Entscheidungsautonomie und KI-Persuasions-Literacy: bewusst mit oder ohne KI entscheiden, die eigene Beeinflussbarkeit kennen (Ehlers et al., 2024; Miao et al., 2024). Deskilling-Schutz: Die schriftliche Prüfung bleibt [A] KI-frei; das Newskilling liegt in deklarierten [B]-Übungselementen wie Silicon-Sample-Vergleichen und Live-Checks KI-generierter Werbebotschaften.",
+  "lernziele": [
+   "Die Studierenden erklären Rationalitätsannahmen und deren Verletzungen und identifizieren sie in realen Konsum- und Politikkontexten.",
+   "Die Studierenden analysieren KI-gestützte Entscheidungsarchitekturen (Empfehlungssysteme, personalisierte Werbung, Dark Patterns) mit entscheidungstheoretischen Konzepten.",
+   "Die Studierenden vergleichen LLM-simulierte Entscheidungen («Silicon Samples») mit empirischen Befunden menschlichen Entscheidens und benennen systematische Abweichungen.",
+   "Die Studierenden formalisieren soziale Dilemmata spieltheoretisch und leiten Bedingungen ab, unter denen Kooperation entsteht oder zerfällt."
+  ],
+  "ki": "Kategorie [A] + [B]: Die schriftliche Prüfung bleibt [A] KI-frei (Entscheidungs- und Spieltheorie, empirische Befunde — Deskilling-Schutz); begleitende [B]-Übungselemente arbeiten deklariert mit KI. Aktivierende Elemente aus dem 8er-Baukasten: Live-Check («Nudged dich die KI?» — KI-generierte Werbebotschaften auf Persuasionstechniken analysieren) und Two-Stage-Quiz zur Spieltheorie. Silicon-Sample-Demos werden per Disclosure Form dokumentiert und gegen empirische Befunde verifiziert.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa8"
+   ],
+   "ki": [
+    "KI4",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa4",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Silicon Player",
+   "text": "Vergleiche Mensch und Maschine: Lass Copilot Chat als Teilnehmer:in eines Public-Goods-Spiels entscheiden (vier Runden, Beitrag 0–20 Punkte, Begründung verlangen). Vergleiche das Verhalten mit empirischen Befunden zur menschlichen Kooperation — etwa anfängliche Beiträge um 40–60 Prozent und deren Zerfall über die Runden. Wo verhält sich das Modell «zu rational» oder «zu kooperativ»? Notiere zwei Abweichungen und was sie für «Silicon Samples» in der Forschung bedeuten."
+  }
+ },
+ "06SM200-511": {
+  "titel": "Klinische Neuropsychologie",
+  "ects": 4,
+  "kategorie": "Wahlpflicht",
+  "heute": "Vorlesung zu den wesentlichen neuropsychologischen Syndromen, ihren neurologischen Ursachen, den wichtigsten diagnostischen Verfahren sowie grundlegenden rehabilitativen Massnahmen auf Basis der modernen Neurowissenschaften. Leistungsnachweis: schriftliche Prüfung.",
+  "zukunft": "Das Zukunftsmodul bringt klinische Fallarbeit in die Grossveranstaltung — mit KI als Simulations- und Prüfobjekt, nie als Entscheiderin. **Fa1 Fachwissen**, **Fa5 Diagnostik, Testtheorie & Assessment** und Fa8 evidenzbasierte Praxis/Transfer werden auf Stufe 3 aufgebaut: Syndrome erläutern, differentialdiagnostisch abgrenzen, Verfahren und rehabilitative Massnahmen fallbezogen wählen (DGPs, 2014). **KI6 Evaluieren (Stufe 3)** wird daran geschärft: Studierende prüfen KI-generierte Verdachtsdiagnosen und Fallvignetten gegen Syndromkriterien und aktuelle Literatur und decken typische Fehlschlüsse auf. KI3 Zusammenarbeiten (Stufe 2→3) nutzt das KI-Rollenspiel: simulierte Patient:innen machen Anamnese und Befundkommunikation auch in der Vorlesung übbar (ETH/UZH, 2025). KI5 Verantworten (Stufe 3) zieht die professionelle Grenze: Hochsensible neuropsychologische Patient:innendaten gehören nie in KI-Systeme, und diagnostische wie rehabilitative Entscheidungen bleiben menschliche Letztverantwortung. Der Deskilling-Schutz ist klar: Syndromwissen und differentialdiagnostisches Schliessen bleiben in der [A] KI-freien schriftlichen Prüfung gesichert; das Newskilling liegt in deklarierten [B]-Übungen mit KI-Fallvignetten samt Disclosure Form und Verifikation. Fu1 trägt die Prüfpraxis, Fu3 die Verantwortungs- und Datenschutzseite.",
+  "lernziele": [
+   "Die Studierenden erläutern die wesentlichen neuropsychologischen Syndrome und grenzen deren neurologische Ursachen differentialdiagnostisch ab.",
+   "Die Studierenden prüfen KI-generierte Verdachtsdiagnosen zu Fallvignetten gegen Syndromkriterien und aktuelle Literatur und korrigieren Fehlschlüsse.",
+   "Die Studierenden wählen diagnostische Verfahren und grundlegende rehabilitative Massnahmen fallbezogen aus und begründen, welche Entscheidungen nicht an KI delegiert werden dürfen.",
+   "Die Studierenden üben Anamnese- und Befundgespräche im KI-Rollenspiel und reflektieren die Grenzen simulierter Patient:innen."
+  ],
+  "ki": "Kategorie [A] + [B]: Die schriftliche Prüfung bleibt [A] KI-frei (Syndrome, Differentialdiagnostik, Verfahren — Deskilling-Schutz); [B]-Übungselemente arbeiten deklariert mit KI. Aktivierende Elemente aus dem 8er-Baukasten: KI-Rollenspiel (Copilot-Agent als simulierte:r Patient:in, z. B. mit Neglect-Symptomatik) und AI-Critique-Übung an KI-Fallvignetten mit Verdachtsdiagnose. Alle KI-Schritte mit Disclosure Form und Verifikation gegen Lehrbuch und Literatur; echte Patient:innendaten gehören nie in KI-Systeme.",
+  "kat": "A+B",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa5",
+    "Fa8"
+   ],
+   "ki": [
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa5",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Verdachtsdiagnose im Kreuzverhör",
+   "text": "Prüfe eine KI-Verdachtsdiagnose: Lass dir von Copilot Chat eine kurze fiktive Fallvignette mit visuell-räumlichen Symptomen nach rechtshemisphärischem Schlaganfall erstellen — samt Verdachtsdiagnose. Prüfe: Unterscheidet die KI sauber zwischen Neglect und Hemianopsie? Welche Untersuchung würde die Differentialdiagnose klären? Vergleiche mit den Lehrbuchkriterien und notiere, ob du der KI-Diagnose folgen würdest — und warum (nicht).\n\n---"
+  }
+ },
+ "06SM200-s04": {
+  "titel": "[Vertiefung 1]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Kognitive Entwicklung über die Lebensspanne», HEA: «Klinische Psychologie 1», SEOP: «Sozialpsychologie 1». Studierende erwerben detailliertes Fachwissen, vergleichen Theorien und üben, Fachartikel zu lesen und zu beurteilen; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul verbindet die schwerpunktspezifische Theoriearbeit mit dem fachlich geleiteten Prüfen von KI-Systemen als Erkenntnisgegenstand. Im DeNC-Themengebiet wird das leitend, wenn Foundation Models als Kognitions- bzw. Entwicklungsmodelle betrachtet werden: Studierende unterscheiden, ob ein Modell menschliches Verhalten nur *vorhersagt* oder mechanistisch *erklärt* (prediction vs. explanation), und prüfen dies gegen entwicklungspsychologische Primärliteratur (Miao et al., 2024). Im HEA-Themengebiet «Klinische Psychologie 1» wird KI-gestützte Fallinformation kritisch gegen diagnostische Kriterien gehalten, im SEOP-Themengebiet «Sozialpsychologie 1» werden sozialpsychologische Befunde von plausibel klingenden, aber unbelegten KI-Aussagen getrennt. Aufgebaut werden Fa1 Fachwissen und **Fa4 wissenschaftliches/kritisches Denken** auf Stufe 3 sowie **KI4 Verstehen** und **KI6 Evaluieren** (Stufe 3), gepaart mit Fu2 Persönliche Fähigkeiten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz sichert die schriftliche Prüfung als KI-freien Kernnachweis; das Newskilling liegt darin, ein KI-Modell selbst zu auditieren, statt seine Ausgabe zu übernehmen.",
+  "lernziele": [
+   "Die Studierenden vergleichen aktuelle Theorien ihres Schwerpunkts und schätzen Stärken und Schwächen empirischer Befunde begründet ein.",
+   "Die Studierenden unterscheiden an einem Foundation-Model-Beispiel Vorhersage von mechanistischer Erklärung und belegen ihr Urteil an Primärliteratur.",
+   "Die Studierenden prüfen KI-generierte Fachaussagen gegen Lehrbuch und PsycINFO und korrigieren Fehler nachvollziehbar.",
+   "Die Studierenden deklarieren ihre KI-Nutzung transparent und verteidigen ihre Analyseentscheidungen ohne KI."
+  ],
+  "ki": "Die drei Katalog-Optionen tragen je eine Prüfungslogik: schriftliche Prüfung = [A] KI-frei (Theorien/Befunde selbst erklären), schriftliche Arbeit = [B] teilweise KI-integriert (mit Disclosure Form und Prozesslog), Portfolio = [C] KI-integriert (dokumentiertes Modell-Audit als Leistungsnachweis, «anspruchsvolles Newskilling»). Aktivierende Elemente: AI-Critique-Übung (KI-Erklärung vs. Primärliteratur) und Live-Check («Stimmt das, was die KI sagt?») über Copilot Chat. Disclosure- und Verifikationspflicht gelten durchgängig; KI assistiert, ersetzt aber die fachliche Beurteilung nicht.",
+  "kat": "A+B+C",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI1",
+    "KI4",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa4",
+   "KI4",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Sagt das Modell voraus oder erklärt es?",
+   "text": "Lass dir von Copilot Chat ein Entwicklungsphänomen erklären (z. B. Objektpermanenz oder die Entwicklung der Theory of Mind). Markiere jede Aussage als «Vorhersage» oder «mechanistische Erklärung» und prüfe eine davon gegen ein Lehrbuch. Notiere in zwei Sätzen, wo das Modell erklärt zu haben scheint, aber nur beschreibt.\n\n---"
+  }
+ },
+ "06SM200-s05": {
+  "titel": "[Vertiefung 2]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Kognitive Neurowissenschaften / Motivationale Entwicklung», HEA: «Prävention, Diagnostik und Intervention 1», SEOP: «Organisations- und Wirtschaftspsychologie 1». Studierende vertiefen Fachwissen, beurteilen Methoden und lernen, Fachartikel kritisch einzuordnen; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul macht KI-gestützte Entscheidungsverfahren zum Prüfgegenstand der jeweiligen Disziplin. Im SEOP-Themengebiet «Organisations- und Wirtschaftspsychologie 1» wird das besonders scharf: Studierende führen ein Fairness-Audit einer KI-gestützten Personalauswahl durch, identifizieren adverse impact und ordnen den EU-AI-Act-Hochrisikokontext ein (Bass et al., 2025). Im DeNC-Themengebiet werden neurokognitive Modelle daraufhin geprüft, was ein Machine-Learning-Klassifikator tatsächlich misst; im HEA-Themengebiet «Prävention, Diagnostik und Intervention 1» werden KI-Screeningvorschläge gegen Gütekriterien gehalten. Aufgebaut werden Fa1 Fachwissen, **Fa4 wissenschaftliches/kritisches Denken** und Fa9 Diversität & Kontext (Stufe 3) sowie **KI6 Evaluieren** und **KI3 Zusammenarbeiten** (Stufe 3), gepaart mit Fu3 Soziales Umfeld gestalten und Fu1 Arbeiten/Gestalten (APA, 2023). Deskilling-Schutz: Die Fairnesskriterien und ihre statistische Logik müssen ohne KI erklärbar bleiben; Newskilling ist das reproduzierbare, dokumentierte Audit selbst (Perkins et al., 2025).",
+  "lernziele": [
+   "Die Studierenden beurteilen die in ihrem Schwerpunkt üblichen Methoden und schätzen ihre Stärken und Schwächen ein.",
+   "Die Studierenden führen ein Fairness-Audit einer algorithmischen Auswahl- oder Screeningentscheidung durch und benennen das verletzte Fairnesskriterium.",
+   "Die Studierenden klären Mensch-KI-Rollen in einem Anwendungsszenario und halten Prüfpflichten in einem Audit-Log fest.",
+   "Die Studierenden ordnen ein KI-Verfahren rechtlich-ethisch (z. B. Hochrisiko) ein und begründen einen Prüfpunkt."
+  ],
+  "ki": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog) mit [C]-Option (Portfolio als dokumentiertes Fairness-Audit); die schriftliche Prüfung bleibt der [A]-gesicherte Kernnachweis. Aktivierende Elemente: KI-Rollenspiel «HR-Beratung zu KI-Personalauswahl» und AI-Critique-Übung (Auditbericht gegen Primärliteratur). Deklarations- und Verifikationspflicht durchgängig; sensible Personaldaten gehören nicht in nicht freigegebene Tools.",
+  "kat": "B+C+A",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI3",
+    "KI4",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa4",
+   "KI6",
+   "KI3"
+  ],
+  "quest": {
+   "titel": "Der Bias im Bewerber-Filter",
+   "text": "Lass eine KI zwei fast identische Kurz-Lebensläufe bewerten, die sich nur in Name und Geschlecht unterscheiden. Dokumentiere, ob und wo sich die Einschätzung verschiebt, und benenne in einem Satz das Fairnesskriterium, das dabei verletzt würde.\n\n---"
+  }
+ },
+ "06SM200-s06": {
+  "titel": "[Vertiefung 3]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Gehirn, Entwicklung und Kognition», HEA: «Praktische Intervention 1», SEOP: «Anwendungen der Sozial-, Wirtschafts-, Organisations- und Differentiellen Psychologie 1». Studierende erwerben vertieftes Fachwissen, vergleichen Theorien und beurteilen empirische Befunde und Methoden; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul rückt die verantwortete KI-Integration in sensible Anwendungsfelder ins Zentrum. Im HEA-Themengebiet «Praktische Intervention 1» wird das brisant: Studierende evaluieren Chatbot-Krisenrisiken — ob ein dialogisches System subtile Warnsignale erkennt, korrekt an Fachhilfe verweist und seine Grenzen offenlegt (APA, 2023). Im DeNC-Themengebiet werden KI-gestützte Interpretationen neurokognitiver Daten auf Überinterpretation geprüft, im SEOP-Themengebiet werden anwendungsnahe KI-Empfehlungen gegen ihre Evidenzbasis gehalten. Aufgebaut werden Fa1 Fachwissen und **Fa8 evidenzbasierte Praxis/Transfer** (Stufe 3), Fa7 Ethik & Integrität sowie **KI5 Verantworten** und **KI6 Evaluieren** (Stufe 3), gepaart mit Fu3 Soziales Umfeld gestalten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz: Interventions- und Sicherheitslogik müssen ohne KI beherrscht werden; Newskilling ist die begründete Grenzziehung — KI nie als Entscheidungsersatz in Krisensituationen.",
+  "lernziele": [
+   "Die Studierenden ordnen einen Befund ihres Schwerpunkts als Erklärung, Vorhersage oder Intervention ein und beurteilen die Evidenzbasis.",
+   "Die Studierenden prüfen ein KI-gestütztes Interventions- oder Beratungssystem auf Risiken und benennen dessen Grenzen.",
+   "Die Studierenden legen fest, welche sensiblen Daten nicht in KI-Systeme gehören, und begründen dies berufsethisch.",
+   "Die Studierenden dokumentieren ihre KI-Nutzung transparent und behalten die fachliche Letztverantwortung."
+  ],
+  "ki": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog), [C]-Option als Portfolio (dokumentierte Risikoanalyse eines Interventions-Chatbots); die schriftliche Prüfung sichert den [A]-Kernnachweis. Aktivierende Elemente: KI-Rollenspiel (simulierte Klient:in mit versteckten Krisensignalen) und Prompt-&-Disclosure-Übung. Deklarations- und Verifikationspflicht durchgängig; KI assistiert, ersetzt in sensiblen Kontexten keine professionelle Entscheidung.",
+  "kat": "B+C+A",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa7",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa8",
+   "KI5",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Erkennt der Bot die Krise?",
+   "text": "Formuliere eine kurze Nachricht mit versteckten Warnsignalen (z. B. Hoffnungslosigkeit, Rückzug) und lass eine KI antworten. Prüfe, ob sie das Risiko erkennt und korrekt an Fachhilfe verweist. Notiere eine Grenze, an der du dich nie auf den Bot verlassen würdest.\n\n---"
+  }
+ },
+ "06SM200-s07": {
+  "titel": "[Vertiefung 4]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Kognition, Motivation und Emotion», HEA: «Klinische Psychologie 2», SEOP: «Sozialpsychologie 2». Studierende vertiefen Theorien und Befunde, beurteilen Methoden und lesen Fachartikel kritisch; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul prüft, was KI-Systeme über Kognition, Motivation und Emotion tatsächlich modellieren. Im DeNC-Themengebiet «Kognition, Motivation und Emotion» wird das zentral: Studierende untersuchen, ob ein Modell zur Emotionserkennung Verhalten nur klassifiziert (prediction) oder eine appraisaltheoretisch fundierte Erklärung liefert (explanation), und prüfen die Ausgabe gegen Emotionstheorie (Miao et al., 2024). Im HEA-Themengebiet «Klinische Psychologie 2» werden KI-Fallvignetten auf diagnostische Tragfähigkeit geprüft, im SEOP-Themengebiet «Sozialpsychologie 2» werden KI-Persuasionseffekte und «Silicon Samples» kritisch beurteilt. Aufgebaut werden Fa1 Fachwissen und **Fa4 wissenschaftliches/kritisches Denken** (Stufe 3) sowie **KI4 Verstehen** und **KI6 Evaluieren** (Stufe 3), gepaart mit Fu2 Persönliche Fähigkeiten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz: Konstrukt- und Messlogik müssen ohne KI erklärbar bleiben; Newskilling ist die Trennung von statistischer Passung und psychologischer Erklärkraft.",
+  "lernziele": [
+   "Die Studierenden vergleichen aktuelle Theorien zu Kognition, Motivation oder Emotion und beurteilen die zugehörigen Befunde.",
+   "Die Studierenden unterscheiden statistische Passung von psychologischer Erklärkraft an einem KI-Modellbeispiel.",
+   "Die Studierenden prüfen eine KI-generierte Klassifikation (z. B. Emotion) gegen eine theoretische Erklärung und korrigieren Fehldeutungen.",
+   "Die Studierenden reflektieren, ob KI-Nutzung ihr eigenes Verstehen unterstützt oder ersetzt."
+  ],
+  "ki": "schriftliche Prüfung = [A] KI-frei, schriftliche Arbeit = [B] mit Disclosure und Prozesslog, Portfolio = [C] KI-integriertes Modell-Audit. Aktivierende Elemente: AI-Critique-Übung (KI-Klassifikation vs. Emotionstheorie) und Live-Check über Copilot Chat. Disclosure- und Verifikationspflicht durchgängig; KI assistiert die Analyse, ersetzt aber die theoriegeleitete Beurteilung nicht.",
+  "kat": "A+B+C",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa5",
+    "Fa6",
+    "Fa8"
+   ],
+   "ki": [
+    "KI1",
+    "KI4",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa4",
+   "KI4",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Fühlt die KI oder rät sie?",
+   "text": "Gib einer KI drei kurze Textausschnitte und lass sie die Emotion bestimmen. Prüfe eine Einordnung gegen eine Emotionstheorie (z. B. Appraisal): Erklärt das Modell, warum diese Emotion entsteht, oder klassifiziert es nur? Halte den Unterschied in zwei Sätzen fest.\n\n---"
+  }
+ },
+ "06SM200-s08": {
+  "titel": "[Vertiefung 5]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Soziale und emotionale Entwicklung», HEA: «Prävention, Diagnostik und Intervention 2», SEOP: «Organisations- und Wirtschaftspsychologie 2». Studierende vertiefen Fachwissen, vergleichen Theorien und beurteilen Methoden und Befunde; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul untersucht, wie algorithmische Systeme Verhalten in Organisationen steuern und welche psychologischen Wirkungen daraus folgen. Im SEOP-Themengebiet «Organisations- und Wirtschaftspsychologie 2» wird Algorithmic Management zum Kern: Studierende analysieren, welche Kennzahl ein Steuerungsalgorithmus optimiert, und leiten psychologische Nebenwirkungen wie Autonomieverlust, Stress oder Fairnessverletzungen ab (Ehlers et al., 2024). Im DeNC-Themengebiet werden KI-Modelle sozial-emotionaler Entwicklung auf ihre Erklärgrenzen geprüft, im HEA-Themengebiet werden KI-gestützte Präventionsprogramme gegen Wirksamkeitskriterien gehalten. Aufgebaut werden Fa1 Fachwissen, **Fa4 wissenschaftliches/kritisches Denken** und Fa9 Diversität & Kontext (Stufe 3) sowie **KI3 Zusammenarbeiten** und **KI6 Evaluieren** (Stufe 3), gepaart mit Fu3 Soziales Umfeld gestalten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz: Die zugrunde liegende arbeits- und organisationspsychologische Theorie bleibt KI-frei prüfbar; Newskilling ist die Fähigkeit, Mensch-KI-Arbeitsteilung zu gestalten und zu verantworten.",
+  "lernziele": [
+   "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie in die Fachdiskussion ein.",
+   "Die Studierenden analysieren an einem Algorithmic-Management-Szenario, welche Kennzahl optimiert wird, und leiten eine psychologische Nebenwirkung ab.",
+   "Die Studierenden klären Mensch-KI-Rollen und Abbruchkriterien und halten sie in einem Audit-Log fest.",
+   "Die Studierenden begründen einen Prüf- oder Kontrollpunkt für ein algorithmisches Steuerungssystem."
+  ],
+  "ki": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog), [C]-Option als Portfolio (dokumentiertes Audit eines Steuerungsalgorithmus); die schriftliche Prüfung sichert den [A]-Kernnachweis. Aktivierende Elemente: KI-Rollenspiel (Algorithmic-Management-Szenario) und AI-Critique-Übung. Deklarations- und Verifikationspflicht durchgängig; wichtige Entscheidungen werden nicht an die KI ausgelagert.",
+  "kat": "B+C+A",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa8",
+    "Fa9"
+   ],
+   "ki": [
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa4",
+   "KI3",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Wenn der Algorithmus der Chef ist",
+   "text": "Skizziere ein Plattform-Szenario (z. B. Schicht- oder Auftragsvergabe per Algorithmus). Benenne die eine Kennzahl, die das System optimiert, eine psychologische Nebenwirkung für die Beschäftigten (z. B. Autonomieverlust) und einen Prüfpunkt, den du als Psycholog:in setzen würdest.\n\n---"
+  }
+ },
+ "06SM200-s09": {
+  "titel": "[Vertiefung 6]",
+  "ects": 4,
+  "kategorie": "Wahl",
+  "heute": "Wahlseminar (~30 Pers.) mit je einem Themengebiet pro Schwerpunkt — DeNC: «Plastizität», HEA: «Praktische Intervention 2», SEOP: «Anwendungen der Sozial-, Wirtschafts-, Organisations- und Differentiellen Psychologie 2». Studierende vertiefen Fachwissen, vergleichen Theorien und beurteilen empirische Befunde; Leistungsnachweis: schriftliche Arbeit, schriftliche Prüfung oder Portfolio.",
+  "zukunft": "Das Modul schärft die evidenzbasierte Bewertung KI-gestützter Interventions- und Anwendungsprodukte. Im HEA-Themengebiet «Praktische Intervention 2» wird das zentral: Studierende bewerten die Evidenz von Mental-Health-Apps und digitalen Therapeutika — trägt ein Wirkversprechen die zugrunde liegende Studienlage, oder überschreitet die App ihre Grenzen (APA, 2023)? Im DeNC-Themengebiet «Plastizität» werden KI-Behauptungen zu Neuroplastizität und «Brain-Training» gegen die Befundlage geprüft, im SEOP-Themengebiet werden anwendungsnahe KI-Tools auf ihre psychologische Fundierung geprüft. Aufgebaut werden Fa1 Fachwissen und **Fa8 evidenzbasierte Praxis/Transfer** (Stufe 3), Fa7 Ethik & Integrität sowie **KI6 Evaluieren** und **KI5 Verantworten** (Stufe 3), gepaart mit Fu1 Arbeiten/Gestalten und Fu3 Soziales Umfeld gestalten (Bass et al., 2025). Deskilling-Schutz: Die Kriterien der Evidenzbewertung müssen ohne KI beherrscht werden; Newskilling ist das systematische, dokumentierte Prüfen von KI-gestützten Produktversprechen (Perkins et al., 2025).",
+  "lernziele": [
+   "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie kritisch ein.",
+   "Die Studierenden prüfen ein Wirkversprechen eines KI-gestützten Produkts gegen ein Evidenzkriterium (z. B. RCT-Basis).",
+   "Die Studierenden bewerten Bias, Grenzen und Persuasionsrisiken eines KI-Anwendungsprodukts.",
+   "Die Studierenden deklarieren ihre KI-Nutzung und begründen, wo fachliche Verantwortung bei der Person bleibt."
+  ],
+  "ki": "schriftliche Prüfung = [A] KI-frei (Evidenzkriterien selbst anwenden), schriftliche Arbeit = [B] mit Disclosure und Prozesslog, Portfolio = [C] KI-integrierte Evidenzprüfung als Leistungsnachweis. Aktivierende Elemente: AI-Critique-Übung (Produktversprechen vs. Studienlage) und Prompt-&-Disclosure-Übung. Deklarations- und Verifikationspflicht durchgängig; KI erweitert die Urteilskraft, die fachliche Entscheidung bleibt bei der psychologisch ausgebildeten Person.",
+  "kat": "A+B+C",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6",
+    "Fa7",
+    "Fa8"
+   ],
+   "ki": [
+    "KI1",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa8",
+   "KI6",
+   "KI5"
+  ],
+  "quest": {
+   "titel": "Hält die App, was sie verspricht?",
+   "text": "Wähle eine reale Mental-Health- oder Brain-Training-App und greif dir ein konkretes Wirkversprechen heraus. Prüfe es gegen ein Evidenzkriterium (Gibt es eine RCT? Wer wurde untersucht?) und begründe in zwei Sätzen, ob die Aussage trägt oder ihre Grenzen überschreitet."
+  }
+ },
+ "06SM200-MA": {
+  "titel": "Masterarbeit",
+  "ects": 30,
+  "kategorie": "Pflicht",
+  "heute": "Die Masterarbeit umfasst die Durchführung und schriftliche Dokumentation einer empirischen oder methodischen Untersuchung zu einer wissenschaftlich relevanten Fragestellung unter Einsatz aktuell anerkannter Untersuchungs- und Auswertungsmethoden. Abgegeben wird eine schriftliche Arbeit in Form eines wissenschaftlichen Ergebnisberichts (zweisemestrig, benotet).",
+  "zukunft": "Die Masterarbeit wird zum Ausweis eines professionellen, deklarierten und verifizierten KI-Forschungsworkflows: Studierende steuern auf Stufe 4 eine komplette Forschungspipeline — Literaturmonitoring, Präregistrierungsentwurf, Datenmanagement, Skript-Review, Visualisierung und Schreibfeedback — und verantworten jede Entscheidung selbst (KI1 Anwenden; Bass et al., 2025). Neu kommen begrenzte agentische Workflows hinzu: Agenten für Literaturupdate, Code-Review oder Bias-Check werden konfiguriert, begrenzt und überwacht (KI2 Gestalten, Stufe 4). Gemäss PSYCH AI Guidelines bleibt KI-generierter Code ausgeschlossen — KI dient dem Editing und Review des eigenen R-Codes, jede Zeile bleibt erklärbar. Deklarations- und Verifikationspflicht strukturieren die Arbeit: Disclosure Form, Prozesslog und systematische Prüfung aller KI-Outputs gegen PsycINFO, Originaldaten und eigene Re-Analysen machen den Workflow auditierbar (KI5 Verantworten, KI6 Evaluieren, Stufe 4; Perkins et al., 2025). Fachlich bleibt die Arbeit das Kernstück von Forschungsdesign, Datenanalyse und wissenschaftlichem Schreiben auf Stufe 4 (Fa2, Fa3, Fa6; DGPs, 2014); die Mensch-KI-Arbeitsteilung in der Forschungsgruppe wird offengelegt (KI3 + Fu3). Deskilling-Schutz leisten die KI-freien [A]-Kontrollpunkte in den Forschungskolloquien und der Masterprüfung — das Newskilling liegt im auditierbaren Workflow-Design selbst: anspruchsvoller, nicht einfacher.",
+  "lernziele": [
+   "Die Studierenden führen eine eigenständige empirische oder methodische Untersuchung durch, dokumentieren sie als wissenschaftlichen Ergebnisbericht und verteidigen ihre Analyseentscheidungen.",
+   "Die Studierenden steuern eine KI-gestützte Forschungspipeline — Literaturmonitoring, Datenmanagement, Skript-Review, Schreibfeedback — und dokumentieren jeden KI-Schritt im Prozesslog.",
+   "Die Studierenden konfigurieren, begrenzen und überwachen einen agentischen Workflow (z. B. Literaturupdate oder Bias-Check) und beurteilen dessen Outputs fachlich.",
+   "Die Studierenden verifizieren KI-Outputs systematisch gegen Primärliteratur, Originaldaten und eigene Re-Analysen und korrigieren Fehler nachweisbar.",
+   "Die Studierenden deklarieren ihre KI-Nutzung vollständig im Disclosure Form und begründen, welche Arbeitsschritte bewusst ohne KI erfolgten."
+  ],
+  "ki": "Kategorie [B]/[C]: Kernformat ist [B] teilweise KI-integriert (Prozesslog, Disclosure Form, Verifikationsspur, Datenschutzentscheid); klar ausgewiesene Arbeitspakete — etwa agentisches Literaturmonitoring oder eine Review-Simulation — laufen als anspruchsvolles [C]-Newskilling, bewertet nach Steuerung, Audit, Validierung, Ethik und Eigenverantwortung. Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung (Nutzung dokumentieren lernen) und AI-Critique-Übung (KI-Output vs. Primärliteratur) entlang des Schreibprozesses. Secure/Open-Assessment: Die offene, KI-integrierte Arbeit wird nicht abgewertet, sondern durch die KI-freien Kolloquiums-Kontrollpunkte und die Masterprüfung gesichert.",
+  "kat": "B+C",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa3",
+    "Fa4",
+    "Fa6",
+    "Fa7",
+    "Fa10"
+   ],
+   "ki": [
+    "KI1",
+    "KI2",
+    "KI3",
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa2",
+   "KI1",
+   "KI5",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Pipeline-Check",
+   "text": "Baue einen Mini-Forschungsworkflow: Lass eine KI (z. B. Copilot Chat) drei aktuelle Studien zu deinem Thema zusammenfassen, prüfe jede Quelle auf Existenz und korrekte Interpretation via PsycINFO/Google Scholar und halte in einem Kurz-Prozesslog fest, welche Schritte die KI übernommen hat — und welche du."
+  }
+ },
+ "06SM200-901": {
+  "titel": "Masterarbeitsgruppe 1",
+  "ects": 2,
+  "kategorie": "Wahlpflicht",
+  "heute": "Die Masterarbeitsgruppe 1 dient der Vorbereitung der Masterarbeit am betreuenden Lehrstuhl: Der Fokus liegt auf Themenfindung und Strukturierung mit dem Ziel, das Konzept der Masterarbeit zu entwickeln. Leistungsnachweis ist die aktive Mitarbeit (bestanden/nicht bestanden).",
+  "zukunft": "Die Masterarbeitsgruppe 1 wird zur Werkstatt für Forschungskonzept und «AI Use Plan»: Bevor die Masterarbeit startet, legen Studierende fest, welche Arbeitsschritte mit KI, ohne KI oder vollständig KI-integriert erfolgen sollen — und begründen dies fachlich (KI5 Verantworten, Stufe 4; Perkins et al., 2025). In der Kleingruppe am Lehrstuhl klären sie Mensch-KI-Rollen für ihr Projekt: Was wird an KI delegiert, was bleibt Eigenleistung, wer trägt die Letztverantwortung (KI3 Zusammenarbeiten + Fu3 Soziales Umfeld gestalten, Stufe 4)? Fachlich stehen Präzisierung von Fragestellung, Design und Analyseplan im Zentrum (Fa2, Stufe 4), getragen von Projektplanung und Selbststeuerung (Fa10, Fu2; Ehlers et al., 2024). Dazu gehört der Data-Lifecycle-Entscheid: welche Versuchs- und Diagnostikdaten gehören in kein KI-System. Deskilling-Schutz: Das Konzept muss im Forschungskolloquium 1 KI-frei verteidigt werden; Newskilling: Die Planungskompetenz für einen deklarierten, verifizierbaren KI-Workflow wird hier explizit aufgebaut.",
+  "lernziele": [
+   "Die Studierenden entwickeln ein tragfähiges Konzept ihrer Masterarbeit (Fragestellung, Design, Analyseplan) und stellen es in der Gruppe zur Diskussion.",
+   "Die Studierenden erstellen einen AI Use Plan, der pro Arbeitsschritt festlegt und begründet, was mit KI, ohne KI oder vollständig KI-integriert erfolgt.",
+   "Die Studierenden klären Mensch-KI-Rollen, Prüfpflichten und menschliche Letztverantwortung für ihr Projekt und halten sie schriftlich fest.",
+   "Die Studierenden planen den Data Lifecycle ihres Projekts und entscheiden begründet, welche Daten nicht in KI-Systeme gehören."
+  ],
+  "ki": "Kategorie [B]: Die Konzeptentwicklung erfolgt mit deklarierten KI-Schritten; der AI Use Plan wird selbst zum Prüfgegenstand der aktiven Mitarbeit. Aktivierende Elemente: Prompt-&-Disclosure-Übung (AI Use Plan als gelebtes Disclosure) und Peer Instruction zu Konzept- und Designentscheidungen in der Kleingruppe. Disclosure ab dem ersten Arbeitsschritt; die Verifikationspflichten der späteren Masterarbeit werden im Plan bereits festgeschrieben.",
+  "kat": "B",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa6",
+    "Fa7",
+    "Fa10"
+   ],
+   "ki": [
+    "KI3",
+    "KI5"
+   ],
+   "fu": [
+    "Fu2",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa2",
+   "KI3",
+   "KI5"
+  ],
+  "quest": {
+   "titel": "AI Use Plan in Miniatur",
+   "text": "Skizziere für ein (fiktives) Masterarbeitsthema einen AI Use Plan: Lege für drei Arbeitsschritte — Literatur, Analyse, Schreiben — fest, was mit KI, was ohne KI und was vollständig KI-integriert laufen soll, und begründe jede Entscheidung in einem Satz."
+  }
+ },
+ "06SM200-903": {
+  "titel": "Masterarbeitsgruppe 2",
+  "ects": 2,
+  "kategorie": "Wahlpflicht",
+  "heute": "Die Masterarbeitsgruppe 2 bietet laufende Betreuung während des Verfassens der Masterarbeit; relevante Fragestellungen zur Ausarbeitung werden erörtert. Leistungsnachweis ist die aktive Mitarbeit (bestanden/nicht bestanden).",
+  "zukunft": "Die Masterarbeitsgruppe 2 wird zum Audit-Raum des laufenden KI-Forschungsworkflows: Studierende bringen Prozesslogs, R-Skripte und KI-Outputs aus ihrer Masterarbeit mit und prüfen sie gemeinsam — Skript-Review, Verifikation von Statistikoutputs, Quellencheck von KI-Zusammenfassungen gegen Primärliteratur (KI6 Evaluieren, Stufe 4; Bass et al., 2025). Wer agentische Workflows einsetzt (Literaturupdate, Code-Review, Bias-Check), berichtet über Konfiguration, Begrenzung und Fehlerfälle und passt sie an (KI2 Gestalten, Stufe 4). Dabei gilt: KI editiert und reviewt eigenen Code, generiert ihn nicht — die statistische Verantwortung bleibt bei den Studierenden (ETH/UZH, 2025). Fachlich vertieft das Modul Auswertung, Interpretation und Darstellung von Datenerhebung, Datensimulation oder Sekundäranalyse (Fa3, Fa6, Stufe 4). Deskilling-Schutz leisten kurze «Erkläre deinen Code»-Kontrollpunkte ohne KI; das Newskilling liegt in der systematischen Fehlersuche in KI-Outputs — einer Kernkompetenz KI-gestützter Forschung.",
+  "lernziele": [
+   "Die Studierenden wenden Planung, Auswertung, Interpretation und Darstellung einer Datenerhebung, Datensimulation oder Sekundäranalyse auf ihr Masterarbeitsprojekt an.",
+   "Die Studierenden prüfen R-Skripte, Statistikoutputs und KI-Zusammenfassungen systematisch und korrigieren Fehler nachweisbar.",
+   "Die Studierenden erklären zentrale Analyse- und Code-Entscheidungen in kurzen Kontrollpunkten ohne KI.",
+   "Die Studierenden berichten über Konfiguration, Begrenzung und Fehlerfälle ihrer agentischen Workflows und passen diese an."
+  ],
+  "ki": "Kategorie [B]: laufender, teilweise KI-integrierter Workflow mit Prozesslog; KI-Nutzung ist deklariert und wird in der Gruppe auditiert. Aktivierende Elemente: AI-Critique-Übung (Skript- und Output-Review gegen Originaldaten und Primärliteratur) und Live-Check («Stimmt das, was die KI sagt?») an mitgebrachten KI-Outputs. Kurze KI-freie Kontrollpunkte sichern, dass Code, Modellwahl und Statistiklogik selbst erklärbar bleiben.",
+  "kat": "B",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa3",
+    "Fa6",
+    "Fa10"
+   ],
+   "ki": [
+    "KI1",
+    "KI2",
+    "KI6"
+   ],
+   "fu": [
+    "Fu1",
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa3",
+   "Fa6",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Skript-Review mit Gegencheck",
+   "text": "Lass dir von Copilot Chat ein Review zu einem kurzen, selbst geschriebenen R-Skript geben, teste zwei der Vorschläge am Code und dokumentiere in drei Sätzen, welcher Vorschlag trägt und welcher fehlerhaft oder überflüssig ist."
+  }
+ },
+ "06SM200-902": {
+  "titel": "Forschungskolloquium 1",
+  "ects": 2,
+  "kategorie": "Wahlpflicht",
+  "heute": "Im Forschungskolloquium 1 wird das Exposé zur Masterarbeit vor fachlich kompetentem Publikum vorgestellt und kritisch diskutiert. Leistungsnachweis ist ein Portfolio aus Präsentation (50%) und aktiver Mitgestaltung in Form kritischer Diskussionsbeiträge (50%), bestanden/nicht bestanden.",
+  "zukunft": "Das Forschungskolloquium 1 wird zum ersten KI-freien [A]-Kontrollpunkt der Masterarbeit: Das Exposé wird live präsentiert und ohne KI im Raum verteidigt — so wird gesichert, dass Fragestellung, Design und Analyseplan wirklich durchdrungen sind und nicht nur der Workflow funktioniert (Fu2 Persönliche Fähigkeiten, Stufe 4; Perkins et al., 2025). Die Vorbereitung darf deklariert KI-gestützt erfolgen: In einer Review-Simulation stellt die KI kritische Gutachter:innen-Fragen, die Studierenden trainieren ihre Antworten ohne KI. Kritisch-konstruktive Diskussionsbeiträge zu fremden Exposés trainieren wissenschaftliches Denken und die Prüfung fremder KI-Workflow-Entscheide (Fa4, KI6, Stufe 4; Miao et al., 2024). Wer hier Design- oder Analyseentscheide nicht begründen kann, erhält die Rückmeldung vor dem Hauptteil der Arbeit — Deskilling-Schutz zum frühestmöglichen Zeitpunkt. Secure/Open-Logik: Das Kolloquium ist das gesicherte Element, das die offene, KI-integrierte Masterarbeit ergänzt statt abwertet.",
+  "lernziele": [
+   "Die Studierenden präsentieren das Exposé ihrer Masterarbeit adressatengerecht vor fachlich kompetentem Publikum.",
+   "Die Studierenden verteidigen Fragestellung, Design und Analyseplan KI-frei gegen kritische Rückfragen.",
+   "Die Studierenden formulieren kritisch-konstruktive Diskussionsbeiträge zu fremden Projektplanungen — inklusive deren KI-Workflow-Entscheiden.",
+   "Die Studierenden nutzen KI deklariert zur Vorbereitung (Review-Simulation) und reflektieren deren Grenzen."
+  ],
+  "ki": "Kategorie [A] als Kern: Live-Präsentation und Verteidigung sind KI-frei — der erste gesicherte Kontrollpunkt der Masterarbeit. Die Präsentationsvorbereitung darf deklariert KI-gestützt erfolgen (Disclosure im Portfolio); aktivierende Elemente: KI-Rollenspiel als Review-Simulation in der Vorbereitung und Peer Instruction in der Kolloquiumsdiskussion. Verifikation geschieht sozial: Das fachlich kompetente Publikum prüft, ob die Argumente ohne Werkzeug tragen.",
+  "kat": "A",
+  "komp": {
+   "fa": [
+    "Fa2",
+    "Fa4",
+    "Fa6"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu2",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa2",
+   "Fa6",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Review-Simulation",
+   "text": "Lass eine KI drei kritische Reviewer-Fragen zu deinem Exposé (oder einer Studienidee) generieren, beantworte jede ohne KI in maximal zwei Minuten — und markiere die Frage, die dich am meisten herausfordert."
+  }
+ },
+ "06SM200-904": {
+  "titel": "Forschungskolloquium 2",
+  "ects": 2,
+  "kategorie": "Wahlpflicht",
+  "heute": "Im Forschungskolloquium 2 werden die aufbereiteten Resultate der Masterarbeit präsentiert und zur Diskussion gestellt. Leistungsnachweis ist ein Portfolio aus Präsentation (50%) und aktiver Mitgestaltung in Form kritischer Diskussionsbeiträge (50%), bestanden/nicht bestanden.",
+  "zukunft": "Das Forschungskolloquium 2 wird zum zweiten KI-freien [A]-Kontrollpunkt der Masterarbeit: Resultate, Analyseentscheidungen und Limitationen werden ohne KI verteidigt — inklusive der Frage, welche KI-Schritte im Forschungsworkflow steckten und wie sie verifiziert wurden (KI5 Verantworten, KI6 Evaluieren + Fu2, Stufe 4; Perkins et al., 2025). Wer die eigene Statistik nur mit KI «versteht», fällt hier auf: Das Kolloquium sichert, dass Datenanalyse und kritisches Denken auf Stufe 4 auch ohne Werkzeug tragfähig sind (Fa3, Fa4 — Deskilling-Schutz an der entscheidenden Stelle). Als Diskussionsimpuls prüft das Plenum KI-generierte Alternativinterpretationen der präsentierten Befunde und beurteilt, welche fachlich tragfähig, fehlerhaft oder irreführend sind (AI-Critique; Ehlers et al., 2024). Die kritische Diskussion eigener wie fremder Ergebnisse bereitet direkt auf Verteidigungssituationen in Forschung und Berufspraxis vor (Fa6, Stufe 4). So ergänzt ein gesichertes Verteidigungselement die offene Masterarbeit im Sinne des Secure/Open-Assessments.",
+  "lernziele": [
+   "Die Studierenden präsentieren die aufbereiteten Resultate ihrer Masterarbeit und stellen sie zur Diskussion.",
+   "Die Studierenden verteidigen Analyseentscheidungen, Kennwerte und Limitationen KI-frei und erläutern, wie KI-Schritte im Workflow verifiziert wurden.",
+   "Die Studierenden beurteilen KI-generierte Alternativinterpretationen präsentierter Befunde auf fachliche Tragfähigkeit.",
+   "Die Studierenden diskutieren Projektplanungen und Forschungsergebnisse eigener wie fremder Arbeiten kritisch-konstruktiv."
+  ],
+  "ki": "Kategorie [A] als Kern: Ergebnispräsentation und Verteidigung sind KI-frei — der zweite gesicherte Kontrollpunkt der Masterarbeit vor der Abgabe. Aktivierende Elemente: AI-Critique-Übung (KI-Alternativinterpretationen im Plenum prüfen) und Peer Instruction in der Diskussion; die KI-gestützte Präsentationsvorbereitung wird im Portfolio deklariert. Wer hier besteht, hat gezeigt, dass der deklarierte KI-Workflow der Masterarbeit auf eigenem Verstehen ruht.",
+  "kat": "A",
+  "komp": {
+   "fa": [
+    "Fa3",
+    "Fa4",
+    "Fa6"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu2",
+    "Fu3"
+   ]
+  },
+  "haupt": [
+   "Fa3",
+   "Fa6",
+   "KI6"
+  ],
+  "quest": {
+   "titel": "Kennwert ohne Netz",
+   "text": "Wähle einen zentralen Kennwert aus deiner (oder einer vorgegebenen) Auswertung und erkläre in fünf Minuten ohne Hilfsmittel, was er bedeutet, warum das Verfahren passt und wo seine Grenzen liegen."
+  }
+ },
+ "06SM200-909": {
+  "titel": "Masterprüfung",
+  "ects": 8,
+  "kategorie": "Pflicht",
+  "heute": "Die Masterprüfung besteht aus einer 30-minütigen mündlichen Prüfung, die bei der Betreuungsperson der Masterarbeit oder einer von ihr bestimmten Person abgelegt wird. Zur Vorbereitung werden die von den Prüfenden publizierten Artikel und/oder Lehrbücher erarbeitet (benotet, Selbststudium).",
+  "zukunft": "Die Masterprüfung wird zur «Verteidigung mit/gegen KI» — und bleibt strikt [A] KI-frei: Im Prüfungsraum zählt allein die eigene professionelle Urteilskraft, mit Fachwissen und wissenschaftlichem Denken auf der höchsten Stufe des Studiengangs (Fa1, Fa4, Stufe 4; QAA, 2023). Neu wird der Prüfungsgegenstand erweitert: Studierende müssen einordnen können, wo KI in ihrem Forschungsbereich trägt und wo sie täuscht — Halluzinationen, Persuasionsrisiken, synthetische Daten und algorithmische Verfahren fachlich begrenzen (KI6 Evaluieren, Stufe 4; ETH/UZH, 2025). Die Vorbereitung im Selbststudium darf KI-gestützt erfolgen, etwa im Sparring mit einer KI, die Gegenpositionen zu den Prüfungstexten vertritt; die Prüfung selbst weist nach, dass Verantwortung und fachliche Entscheidung bei der psychologisch ausgebildeten Person bleiben (KI5 Verantworten, Fu2 Persönliche Fähigkeiten auf höchster Stufe; Ehlers et al., 2024). Als einziges durchgängig mündliches und KI-freies Abschlussformat ist die Masterprüfung der stärkste Deskilling-Schutz des Studiengangs — und zugleich der Beleg, dass das Newskilling der Masterarbeit auf eigenem Verstehen ruht. Wer hier besteht, kann Befunde, Methoden und Transfer auch dann verteidigen, wenn keine KI im Raum ist — oder wenn eine KI widerspricht.",
+  "lernziele": [
+   "Die Studierenden geben Methoden, Inhalte und theoretische Konzepte eines psychologischen Forschungsbereichs KI-frei wieder, reflektieren sie kritisch und bewerten sie.",
+   "Die Studierenden wenden ihr Wissen im Prüfungsgespräch auf neue Forschungsfragestellungen an und begründen Entscheidungen ohne Hilfsmittel.",
+   "Die Studierenden ordnen ein, wo KI in ihrem Forschungsfeld trägt und wo sie täuscht — von Halluzinationen bis zu Persuasionsrisiken.",
+   "Die Studierenden vertreten eine begründete eigene Position gegenüber KI-generierten Gegenargumenten und behalten die fachliche Letztverantwortung."
+  ],
+  "ki": "Kategorie [A] ohne Ausnahme: 30 Minuten mündlich, nur eigene Urteilskraft — die «Verteidigung mit/gegen KI» prüft KI-Kompetenz, ohne dass KI im Raum ist. Aktivierende Elemente in der Vorbereitung: KI-Rollenspiel (die KI vertritt Gegenpositionen zu den Prüfungstexten) und Live-Check im Selbststudium («Stimmt das, was die KI zu meinem Prüfungsgebiet sagt?»). In der Prüfung selbst ist keine Disclosure nötig; die Vorbereitung folgt den PSYCH AI Guidelines — KI assistiert, ersetzt nicht.",
+  "kat": "A",
+  "komp": {
+   "fa": [
+    "Fa1",
+    "Fa4",
+    "Fa6"
+   ],
+   "ki": [
+    "KI5",
+    "KI6"
+   ],
+   "fu": [
+    "Fu2"
+   ]
+  },
+  "haupt": [
+   "Fa1",
+   "Fa4",
+   "KI6",
+   "Fu2"
+  ],
+  "quest": {
+   "titel": "Streitgespräch mit der KI",
+   "text": "Lass Copilot Chat eine Gegenposition zu einem Befund aus deinem Prüfungsgebiet vertreten, widerlege zwei ihrer Argumente mit Evidenz — und benenne ehrlich ein Argument, das tatsächlich trägt.\n\n---\n\n## Literaturverzeichnis\n\n- Bass, S., Buchner, J., Garzi, M., Hermann, L., Hofmann, M., Mannai, M., Müller, S., Nüesch, C., Papageorgiou, K., Schallert-Vallaster, S., & Winder, G. (2025). *St. Galler KI-Kompetenzrahmen für die Bildung.* Pädagogische Hochschule St. Gallen. [https://blogs.phsg.ch/ict-kompetenzen/2025/09/03/st-galler-kl-kompetenzrahmen-fuer-die-bildung/](https://blogs.phsg.ch/ict-kompetenzen/2025/09/03/st-galler-kl-kompetenzrahmen-fuer-die-bildung/)\n- Deutsche Gesellschaft für Psychologie. (2014). *Empfehlungen des DGPs-Vorstands zu Bachelor- und Masterstudiengängen in Psychologie.* [https://www.dgps.de/fileadmin/user_upload/PDF/Empfehlungen/Empfehlungen_des_Vorstands_Bachelor_und_Master_15_12_14.pdf](https://www.dgps.de/fileadmin/user_upload/PDF/Empfehlungen/Empfehlungen_des_Vorstands_Bachelor_und_Master_15_12_14.pdf)\n- Ehlers, U.-D., Lindner, M., & Rauch, E. (2024). *AIComp — Future Skills für eine von KI beeinflusste Lebens- und Arbeitswelt.* NextEducation. [https://ai-comp.org](https://ai-comp.org)\n- ETH Zürich & Universität Zürich. (2025). *KI-Kompetenzraster für Dozierende.* (Quell-PDF im Projektordner «Competency Framework».)\n- Miao, F., Shiohira, K., & Lao, N. (2024). *AI competency framework for students.* UNESCO. [https://doi.org/10.54675/JKJB9835](https://doi.org/10.54675/JKJB9835)\n- Perkins, M., Roe, J., & Furze, L. (2025). Reimagining the Artificial Intelligence Assessment Scale: A refined framework for educational assessment. *Journal of University Teaching and Learning Practice, 22*(7). [https://doi.org/10.53761/rrm4y757](https://doi.org/10.53761/rrm4y757)\n- Quality Assurance Agency for Higher Education. (2023). *Subject benchmark statement: Psychology.* [https://www.qaa.ac.uk/docs/qaa/sbs/sbs-psychology-23.pdf](https://www.qaa.ac.uk/docs/qaa/sbs/sbs-psychology-23.pdf)"
+  }
+ }
+}
