@@ -278,7 +278,8 @@ const easeOutCubic = (k) => 1 - Math.pow(1 - k, 3);
 const easeOutBack = (k) => { const c = 1.9; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
 const easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 function tween(dur, fn, ease = easeOutCubic, onDone = null) { tweens.push({ t: 0, dur, fn, ease, onDone }); }
-let shakeT = 0;
+let shakeT = 0, hitstopT = 0;
+const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function flyTo(pos, target, dur = 1.6, after = null) {
   const p0 = camera.position.clone(), t0 = controls.target.clone();
@@ -747,6 +748,15 @@ function placeSlot(slot) {
   const endY = g.position.y;
   g.position.y = endY + 9;
   const inner = g;
+  // Anticipation: wachsender Landeschatten, dann Drop
+  const fp = Math.max(slot.pos.w, slot.pos.d) * CELL * 0.42;
+  const blobMat = new THREE.MeshBasicMaterial({ color: 0x0a1230, transparent: true, opacity: 0.22, depthWrite: false });
+  const blob = new THREE.Mesh(new THREE.CircleGeometry(fp, 22), blobMat);
+  blob.rotation.x = -Math.PI / 2;
+  blob.position.set(g.position.x, endY + 0.03, g.position.z);
+  scene.add(blob);
+  tween(0.14, (k) => blob.scale.setScalar(0.15 + 0.85 * k), easeOutCubic);
+  tween(0.55 + 0.1, () => {}, (k) => k, () => { scene.remove(blob); blob.geometry.dispose(); blobMat.dispose(); });
   tween(0.55, (k) => { inner.position.y = endY + 9 * (1 - k); }, easeOutCubic, () => {
     inner.position.y = endY;
     try {
@@ -758,7 +768,7 @@ function placeSlot(slot) {
       shockRing(g.position.x, endY, g.position.z, Math.max(slot.pos.w, slot.pos.d) * CELL * 0.9);
       floatKompChips(g, slot);
       SND.thock();
-      shakeT = 0.22;
+      if (!REDUCE_MOTION) { shakeT = 0.22; hitstopT = 0.07; }
       if (navigator.vibrate) { try { navigator.vibrate(12); } catch (e) {} }
     } catch (err) { console.error("juice", err); }
     checkMilestones();
@@ -874,7 +884,8 @@ canvas.addEventListener("pointerup", (e) => {
     const hits = ray.intersectObjects(interior.group.children, true);
     for (const h of hits) {
       let o = h.object;
-      while (o && !o.userData.kompId) o = o.parent;
+      while (o && !o.userData.kompId && !o.userData.info) o = o.parent;
+      if (o && o.userData.info) { toast(L(o.userData.info)); SND.pick(); return; }
       if (o && o.userData.kompId) {
         const k = KOMP[o.userData.kompId];
         if (k) { toast(`${k.id} · ${L(k.name)} — «${L(k.ich)}»`); SND.pick(); }
@@ -1170,6 +1181,7 @@ function renderKompDetail(id) {
       <div class="subhead">${t("stufe_erreicht")}</div>
       <div class="stufen">${[1, 2, 3, 4].map((n) => `<span class="sdot ${stufeNow >= n ? "on" : ""}" title="${L(ST.stufen[n - 1].name)}">${n}</span>`).join("")}
         <span style="font-size:10.5px;color:#5b6478;margin-left:4px">${stufeNow ? L(ST.stufen[stufeNow - 1].name) : "—"}</span></div>
+      ${fs12Block(k, score, max)}
       <div class="subhead">${t("k_aufgebaut")} (${builtRows.length})</div>
       ${builtRows.length ? builtRows.map(row).join("") : `<p style="font-size:11.5px;color:#8b94ab;margin:2px 6px">${t("k_keine")}</p>`}
       ${cvBlock(id, stufeNow)}
@@ -1197,6 +1209,22 @@ function cvBlock(id, stufe) {
   if (!txt) return "";
   return `<div class="subhead">📝 ${t("cv_titel")} (${t("stufe")} ${stufe})</div>
     <div class="cvrow"><p>«${txt}»</p><button data-cvcopy="${txt.replace(/"/g, "&quot;")}">📋 ${t("cv_copy")}</button></div>`;
+}
+function fs12Pct(sub, score, max) {
+  const vals = sub.proxy.map((pid) => (max[pid] ? score[pid] / max[pid] : 0));
+  return Math.round((vals.reduce((a, b) => a + b, 0) / Math.max(1, vals.length)) * 100);
+}
+function fs12Block(k, score, max) {
+  if (!k.sub || !k.sub.length) return "";
+  const f = ST.felder.fu;
+  let html = `<div class="subhead">🧭 ${t("fs12_titel")} (${k.sub.length})</div>
+    <p style="font-size:10px;color:#8b94ab;margin:0 6px 4px">${t("fs12_hint")}</p>`;
+  for (const s of k.sub) {
+    const pct = fs12Pct(s, score, max);
+    html += `<div class="kbar" style="cursor:default"><div class="klabel"><span><span class="kid">${s.id}</span>${L(s.name)}</span><span>${pct}%</span></div>
+      <div class="track"><div class="fill" style="background:${f.farbe};width:${pct}%"></div></div></div>`;
+  }
+  return html;
 }
 function evidenzBlock(id, builtRows) {
   const items = [];
@@ -1452,9 +1480,9 @@ function renderCardActions(slot) {
       }
     };
     el.appendChild(bq);
-    if (["box", "tower", "wing", "bay"].includes(slot.form)) {
+    if (["box", "tower", "wing", "bay", "slab", "step"].includes(slot.form)) {
       const be = document.createElement("button"); be.className = "ghostbtn";
-      be.textContent = t("betreten");
+      be.textContent = slot.form === "slab" || slot.form === "step" ? "🔦 " + t("keller") : t("betreten");
       be.onclick = () => enterRoom(slot.slot);
       el.appendChild(be);
     }
@@ -1660,8 +1688,18 @@ document.getElementById("btnPass").onclick = () => {
         <span style="width:260px">${k.id} · ${L(k.name)}</span>
         <span style="flex:1;background:#eee;border-radius:4px;height:10px;overflow:hidden"><span style="display:block;height:100%;width:${pct}%;background:${f.farbe}"></span></span>
         <span style="width:36px;text-align:right">${pct}%</span></div>`;
+      if (k.sub && k.sub.length) { // 12 AIComp-Future-Skills-Felder als Detailebene
+        for (const s of k.sub) {
+          const sp = fs12Pct(s, score, max);
+          bars += `<div style="display:flex;align-items:center;gap:8px;margin:1px 0 1px 22px;font-size:10.5px;color:#555">
+            <span style="width:238px">${s.id} · ${L(s.name)}</span>
+            <span style="flex:1;background:#f2f2f2;border-radius:3px;height:6px;overflow:hidden"><span style="display:block;height:100%;width:${sp}%;background:${f.farbe};opacity:.65"></span></span>
+            <span style="width:36px;text-align:right">${sp}%</span></div>`;
+        }
+      }
     }
   }
+  bars += `<p style="font-size:9.5px;color:#8b94ab;margin-top:4px">FS1–FS12: AIComp-Future-Skills-Felder (Ehlers et al., 2024) — Detailebene zu Fu1–Fu3.</p>`;
   const foto = hausFoto();
   const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>Kompetenzpass</title>
   <style>body{font-family:"Helvetica Neue",Arial,sans-serif;color:#1c2333;max-width:820px;margin:24px auto;padding:0 16px}
@@ -1669,7 +1707,10 @@ document.getElementById("btnPass").onclick = () => {
   td,th{border:1px solid #d8dce8;padding:5px 8px;text-align:left} th{background:#f0f3fa}
   .hint{font-size:10.5px;color:#5b6478;margin-top:18px;line-height:1.5}
   @media print {.noprint{display:none}}</style></head><body>
-  <button class="noprint" onclick="print()" style="float:right;padding:8px 16px;border:0;background:#0028a5;color:#fff;border-radius:8px;cursor:pointer">🖨 PDF</button>
+  <div class="noprint" style="float:right;text-align:right">
+    <button onclick="print()" style="padding:10px 20px;border:0;background:#0028a5;color:#fff;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px">💾 ${S.lang === "de" ? "Als PDF speichern" : "Save as PDF"}</button>
+    <div style="font-size:10px;color:#5b6478;margin-top:4px">${S.lang === "de" ? "Im Druckdialog «Als PDF sichern» wählen" : "Choose 'Save as PDF' in the print dialog"}</div>
+  </div>
   <h1>🎓 ${t("pass")} — ${S.name || "—"}</h1>
   <p style="font-size:12.5px;color:#5b6478">${t("passdatum")}: ${dat} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")} · BSc: ${ectsSum("bsc")}/120 · MSc: ${ectsSum("msc")}/120 ${t("ects")}</p>
   ${foto ? `<img src="${foto}" alt="Kompetenzhaus" style="width:100%;border-radius:12px;margin:8px 0">` : ""}
@@ -1751,17 +1792,68 @@ function propBox(w, h, d, color, x, y, z, ry = 0) {
 }
 function buildRoom(slot, W, H, D) {
   const g = new THREE.Group();
-  const wallMat = new THREE.MeshStandardMaterial({ color: 0xf3efe6, roughness: 0.95, side: THREE.DoubleSide });
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0xc9a877, roughness: 0.9 });
+  const keller = slot.form === "slab" || slot.form === "step";
+  const wallMat = new THREE.MeshStandardMaterial({ color: keller ? 0xd9d5cb : 0xf3efe6, roughness: 0.97, side: THREE.DoubleSide });
+  const floorMat = new THREE.MeshStandardMaterial({ color: keller ? 0xb4b0a6 : 0xc9a877, roughness: 0.92 });
   const iw = W - 0.2, ih = H - 0.15, idp = D - 0.2;
   const floor = new THREE.Mesh(new THREE.BoxGeometry(iw, 0.06, idp), floorMat); floor.position.y = 0.05; g.add(floor);
   const back = new THREE.Mesh(new THREE.PlaneGeometry(iw, ih), wallMat); back.position.set(0, ih / 2, -idp / 2); g.add(back);
-  const left = new THREE.Mesh(new THREE.PlaneGeometry(idp, ih), wallMat); left.rotation.y = Math.PI / 2; left.position.set(-iw / 2, ih / 2, 0); g.add(left);
-  const right = left.clone(); right.rotation.y = -Math.PI / 2; right.position.x = iw / 2; g.add(right);
-  // Möblierung nach Modulgruppe
+  back.userData.wallN = new THREE.Vector3(0, 0, 1);
+  const left = new THREE.Mesh(new THREE.PlaneGeometry(idp, ih), wallMat.clone()); left.rotation.y = Math.PI / 2; left.position.set(-iw / 2, ih / 2, 0); g.add(left);
+  left.userData.wallN = new THREE.Vector3(1, 0, 0);
+  const right = new THREE.Mesh(new THREE.PlaneGeometry(idp, ih), wallMat.clone()); right.rotation.y = -Math.PI / 2; right.position.set(iw / 2, ih / 2, 0); g.add(right);
+  right.userData.wallN = new THREE.Vector3(-1, 0, 0);
+  // Möblierung: Keller-Themen (Fundament/Sockel) vor Gruppen-Themen
   const gr = slot.gruppe;
   const y0 = 0.08;
-  if (gr === "meth" || gr === "mein") {
+  const code = slot.code;
+  if (keller && code === "06SM200-001") { // Waschküche
+    for (let i = 0; i < 2; i++) {
+      const wm = propBox(0.52, 0.6, 0.5, 0xf4f4f0, -iw * 0.3 + i * 0.62, y0 + 0.3, -idp * 0.32);
+      g.add(wm);
+      const bull = new THREE.Mesh(new THREE.CircleGeometry(0.15, 18), new THREE.MeshStandardMaterial({ color: 0x1c2740, roughness: 0.25, metalness: 0.3 }));
+      bull.position.set(-iw * 0.3 + i * 0.62, y0 + 0.32, -idp * 0.32 + 0.26);
+      g.add(bull);
+    }
+    const korb = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.16, 0.26, 9), new THREE.MeshStandardMaterial({ color: 0xd9a441, roughness: 1, flatShading: true }));
+    korb.position.set(iw * 0.22, y0 + 0.13, idp * 0.1); g.add(korb);
+    const leine = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, iw * 0.7, 5), new THREE.MeshStandardMaterial({ color: 0x8b94ab }));
+    leine.rotation.z = Math.PI / 2; leine.position.set(0, ih * 0.78, idp * 0.2); g.add(leine);
+    [0xd96a4b, 0x4a90d9, 0xf3d34e].forEach((c, i) => g.add(propBox(0.16, 0.22, 0.02, c, -0.3 + i * 0.3, ih * 0.78 - 0.12, idp * 0.2)));
+  } else if (keller && code === "06SM200-002") { // Heizung & Technik
+    const kessel = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.85, 12), new THREE.MeshStandardMaterial({ color: 0xc94f3d, roughness: 0.55, metalness: 0.25 }));
+    kessel.position.set(-iw * 0.28, y0 + 0.43, -idp * 0.28); g.add(kessel);
+    const rohr = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, iw * 0.75, 8), new THREE.MeshStandardMaterial({ color: 0x9aa2b5, metalness: 0.6, roughness: 0.35 }));
+    rohr.rotation.z = Math.PI / 2; rohr.position.set(0, ih * 0.85, -idp / 2 + 0.12); g.add(rohr);
+    const rohr2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, ih * 0.7, 8), rohr.material);
+    rohr2.position.set(-iw * 0.28, ih * 0.5, -idp / 2 + 0.12); g.add(rohr2);
+    g.add(propBox(0.42, 0.55, 0.16, 0x8b94ab, iw * 0.28, ih * 0.55, -idp / 2 + 0.12)); // Sicherungskasten
+    const wz = new THREE.Mesh(new THREE.CircleGeometry(0.09, 14), new THREE.MeshStandardMaterial({ color: 0xf4f4f0 }));
+    wz.position.set(iw * 0.28, ih * 0.55, -idp / 2 + 0.22); g.add(wz);
+  } else if (keller && (code === "06SM200-003")) { // Garderobe am Eingang
+    const stange = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, iw * 0.7, 6), new THREE.MeshStandardMaterial({ color: 0x8a6642 }));
+    stange.rotation.z = Math.PI / 2; stange.position.set(0, ih * 0.7, -idp * 0.3); g.add(stange);
+    [0x0028a5, 0xd96a4b, 0x2a9d8f].forEach((c, i) => g.add(propBox(0.2, 0.34, 0.06, c, -0.3 + i * 0.3, ih * 0.7 - 0.2, -idp * 0.3)));
+    g.add(propBox(iw * 0.6, 0.09, 0.28, 0x8a6642, 0, y0 + 0.1, idp * 0.2)); // Schuhbank
+  } else if (keller && code === "06SM200-500") { // Statistik-Serverraum
+    for (let i = 0; i < 2; i++) {
+      const rack = propBox(0.42, 1.0, 0.4, 0x1c2333, -iw * 0.25 + i * 0.6, y0 + 0.5, -idp * 0.3);
+      g.add(rack);
+      for (let l = 0; l < 4; l++) {
+        const led = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 0.02), new THREE.MeshStandardMaterial({ color: 0x0f172a, emissive: l % 2 ? 0x35d07f : 0x4a90d9, emissiveIntensity: 0.9 }));
+        led.position.set(-iw * 0.25 + i * 0.6, y0 + 0.24 + l * 0.2, -idp * 0.3 + 0.21);
+        g.add(led);
+      }
+    }
+    g.add(propBox(0.7, 0.06, 0.4, 0x8a6642, iw * 0.24, y0 + 0.36, idp * 0.12)); // Arbeitstisch
+  } else if (keller && code === "06SM200-501") { // Test-Archiv
+    const regal = propBox(1.1, 1.05, 0.26, 0x8a6642, -iw * 0.2, y0 + 0.53, -idp * 0.32);
+    g.add(regal);
+    [0xd96a4b, 0x0028a5, 0x2a9d8f, 0xd9a441, 0x5e60ce, 0xe17055].forEach((c, i) => g.add(propBox(0.26, 0.09, 0.2, c, -iw * 0.2 - 0.38 + (i % 3) * 0.38, y0 + 0.4 + Math.floor(i / 3) * 0.34, -idp * 0.32)));
+  } else if (keller && code === "06SM200-502") { // Vorrats-/Archivkeller
+    for (let i = 0; i < 2; i++) g.add(propBox(0.9, 0.95, 0.24, 0x9a8a72, -iw * 0.22 + i * 1.0, y0 + 0.48, -idp * 0.33));
+    [0xcabfa8, 0xb9c0cf, 0xd9a441, 0xcabfa8].forEach((c, i) => g.add(propBox(0.3, 0.22, 0.3, c, -iw * 0.3 + (i % 2) * 0.5, y0 + 0.3 + Math.floor(i / 2) * 0.35, -idp * 0.33)));
+  } else if (gr === "meth" || gr === "mein") {
     g.add(propBox(0.9, 0.06, 0.5, 0x8a6642, -iw * 0.2, y0 + 0.38, -idp * 0.25));
     const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.32), new THREE.MeshStandardMaterial({ color: 0x0c1830, emissive: 0x7fb4e8, emissiveIntensity: 0.55 }));
     screen.position.set(-iw * 0.2, y0 + 0.62, -idp * 0.25); g.add(screen);
@@ -1792,6 +1884,51 @@ function buildRoom(slot, W, H, D) {
     g.add(propBox(0.7, 0.06, 0.45, 0xa9855e, iw * 0.2, y0 + 0.38, 0));
     g.add(propBox(0.3, 0.44, 0.3, 0x39415a, iw * 0.2, y0 + 0.22, idp * 0.28));
   }
+  // Raum-Polish: Licht, Decke, Teppich, Wandbild
+  const lampe = new THREE.PointLight(0xffe3b3, keller ? 0.75 : 0.95, Math.max(iw, idp) * 3.2, 1.8);
+  lampe.position.set(0, ih * 0.86, 0);
+  g.add(lampe);
+  const schirm = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.12, 10, 1, true), new THREE.MeshStandardMaterial({ color: 0xf3d34e, side: THREE.DoubleSide, emissive: 0xffe3b3, emissiveIntensity: 0.35 }));
+  schirm.position.set(0, ih * 0.9, 0);
+  g.add(schirm);
+  const decke = new THREE.Mesh(new THREE.PlaneGeometry(iw, idp), new THREE.MeshStandardMaterial({ color: keller ? 0xc7c3b9 : 0xe8e4da, side: THREE.DoubleSide, roughness: 1 }));
+  decke.rotation.x = Math.PI / 2; decke.position.y = ih; g.add(decke);
+  if (!keller) {
+    const teppich = new THREE.Mesh(new THREE.CircleGeometry(Math.min(iw, idp) * 0.32, 22), new THREE.MeshStandardMaterial({ color: new THREE.Color(ST.gruppen[slot.gruppe].farbe).lerp(new THREE.Color(0xffffff), 0.62), roughness: 1 }));
+    teppich.rotation.x = -Math.PI / 2; teppich.position.y = 0.09; g.add(teppich);
+    const bildRahmen = propBox(0.5, 0.38, 0.03, 0xf2f0e9, iw / 2 - 0.06, ih * 0.6, 0, Math.PI / 2);
+    g.add(bildRahmen);
+    const bild = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.28), new THREE.MeshStandardMaterial({ color: 0x9ec3e0 }));
+    bild.rotation.y = -Math.PI / 2; bild.position.set(iw / 2 - 0.085, ih * 0.6, 0); g.add(bild);
+    const berg = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.12, 4), new THREE.MeshStandardMaterial({ color: 0x4e7a5a, flatShading: true }));
+    berg.rotation.y = -Math.PI / 2; berg.position.set(iw / 2 - 0.09, ih * 0.57, 0.03); g.add(berg);
+  } else { // Kellerfenster mit Tageslicht-Schimmer
+    for (const fx of [-iw * 0.28, iw * 0.28]) {
+      const kf = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.18), new THREE.MeshStandardMaterial({ color: 0xbcd8ee, emissive: 0xbcd8ee, emissiveIntensity: 0.35 }));
+      kf.position.set(fx, ih * 0.86, -idp / 2 + 0.02); g.add(kf);
+    }
+  }
+  // IPS-Grundpfeiler-Poster (P1–P4) in der Garderobe
+  if (slot.code === "06SM200-003") {
+    const PS = [
+      { p: "P1", info: { de: "P1 · «Wie ‹denkt› ein LLM?» — Live-Demo, Falschinfo finden (KI4)", en: "P1 · 'How does an LLM think?' — live demo, spotting misinformation (KI4)" } },
+      { p: "P2", info: { de: "P2 · Spielregeln & Disclosure — «assistieren, nicht ersetzen — deklarieren — verifizieren» (KI5)", en: "P2 · Rules & disclosure — 'assist, don't replace — declare — verify' (KI5)" } },
+      { p: "P3", info: { de: "P3 · Fakten-Check — erfundene Referenzen gegen das Lehrbuch prüfen (KI6)", en: "P3 · Fact check — testing invented references against the textbook (KI6)" } },
+      { p: "P4", info: { de: "P4 · Erste Nutzung mit Haltung — Prompt-Duell, Mit-/Ohne-KI-Reflexion (KI1)", en: "P4 · First use with attitude — prompt duel, with/without-AI reflection (KI1)" } }
+    ];
+    PS.forEach((ps, i) => {
+      const poster = new THREE.Group();
+      const bg2 = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.44), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }));
+      const lbl = textSprite(ps.p, "#0028a5");
+      lbl.scale.set(0.4, 0.16, 1); lbl.position.z = 0.02;
+      poster.add(bg2, lbl);
+      poster.rotation.y = Math.PI / 2;
+      poster.position.set(-iw / 2 + 0.03, ih * 0.55, -idp * 0.3 + i * 0.5);
+      poster.children.forEach((ch) => (ch.userData.info = ps.info));
+      poster.userData.info = ps.info;
+      g.add(poster);
+    });
+  }
   // Kompetenz-Tafeln an der Rückwand (Klick → Ich-Satz)
   const { komp, haupt } = slotKomp(slot);
   const all = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].slice(0, 6);
@@ -1817,8 +1954,11 @@ function buildRoom(slot, W, H, D) {
 function enterRoom(id) {
   if (interior) leaveRoom();
   const slot = SLOTS[id]; const bg = blockMeshes[id];
-  if (!slot || !bg || !["box", "tower", "wing", "bay"].includes(slot.form)) return;
-  const W = slot.pos.w * CELL, D = slot.form === "wing" ? slot.pos.d * CELL : slot.pos.d * CELL, H = (slot.form === "wing" ? 1.7 : slot.pos.h) * FH;
+  if (!slot || !bg || !["box", "tower", "wing", "bay", "slab", "step"].includes(slot.form)) return;
+  const kellerRaum = slot.form === "slab" || slot.form === "step";
+  const W = kellerRaum ? Math.min(slot.pos.w * CELL, 4.6) : slot.pos.w * CELL;
+  const D = slot.pos.d * CELL;
+  const H = kellerRaum ? 1.05 * FH : (slot.form === "wing" ? 1.7 : slot.pos.h) * FH;
   const room = buildRoom(slot, W, H, D);
   room.position.copy(bg.position);
   scene.add(room);
@@ -1832,9 +1972,11 @@ function enterRoom(id) {
   });
   const faceZ = slot.pos.z >= 0 || slot.form === "wing" ? 1 : -1;
   const target = bg.position.clone().add(new THREE.Vector3(0, H * 0.45, 0));
-  const camPos = bg.position.clone().add(new THREE.Vector3(0, H * 0.55, faceZ * (D * 1.9 + 1.2)));
+  const camDist = kellerRaum ? D * 0.95 + 1.4 : D * 1.9 + 1.2;
+  const camPos = bg.position.clone().add(new THREE.Vector3(0, H * (kellerRaum ? 0.9 : 0.55), faceZ * camDist));
   const prevMin = controls.minDistance;
   controls.minDistance = 0.4;
+  document.body.classList.add("inroom");
   flyTo(camPos, target, 1.1);
   const btn = document.createElement("button");
   btn.className = "iconbtn blue";
@@ -1848,6 +1990,7 @@ function enterRoom(id) {
 }
 function leaveRoom() {
   if (!interior) return;
+  document.body.classList.remove("inroom");
   scene.remove(interior.group);
   interior.saved.forEach((s) => { s.mat.opacity = s.opacity; s.mat.transparent = s.transparent; s.mat.depthWrite = true; s.mat.needsUpdate = true; });
   interior.btn.remove();
@@ -2008,7 +2151,9 @@ function animate() {
 }
 function step() {
   lastTick = performance.now();
-  const dt = Math.min(0.5, clock.getDelta());
+  const dtRaw = Math.min(0.5, clock.getDelta());
+  let dt = dtRaw;
+  if (hitstopT > 0) { hitstopT -= dtRaw; dt = 0; } // Hitstop: Welt friert 70 ms beim Einrasten
   elapsed += dt;
   // Tweens
   for (let i = tweens.length - 1; i >= 0; i--) {
@@ -2033,7 +2178,23 @@ function step() {
     if (pf) { const w = pf.getObjectByName("pflag"); if (w) w.rotation.y = Math.sin(elapsed * 3.1 + g.position.x) * 0.35; }
   }
   gardenGroup.traverse((o) => { if (o.name === "flag") o.rotation.y = Math.sin(elapsed * 1.8) * 0.3; });
-  if (interior) interior.group.traverse((o) => { if (o.name === "spin") o.rotation.y += dt * 0.8; });
+  if (interior) {
+    interior.group.traverse((o) => {
+      if (o.name === "spin") o.rotation.y += dt * 0.8;
+      if (o.userData.wallN) { // Sims-Cutaway: kamerazugewandte Wände absenken
+        const toCam = camera.position.clone().sub(interior.group.position).normalize();
+        const facing = o.userData.wallN.dot(toCam) < -0.25;
+        const ziel = facing ? 0.12 : 1;
+        o.scale.y += (ziel - o.scale.y) * Math.min(1, dt * 9);
+        o.position.y = (o.geometry.parameters.height / 2) * o.scale.y;
+      }
+    });
+  }
+  // Fensterlicht flackert nachts ganz leicht (Kerzen-Feeling)
+  if (windowMats.length && windowMats[0].emissiveIntensity > 0) {
+    const flicker = 0.9 + Math.sin(elapsed * 7.3) * 0.04 + Math.sin(elapsed * 13.7) * 0.03;
+    for (const m of windowMats) if (m.emissiveIntensity > 0) m.emissiveIntensity = flicker;
+  }
   // Ambient-Partikel
   if (amb.visible) {
     const cfg = SEASONS[S.season];

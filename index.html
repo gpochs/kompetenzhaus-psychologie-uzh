@@ -188,8 +188,9 @@
   #tip { position: fixed; z-index: 30; background: var(--ink); color: #fff; font: 600 11.5px var(--font); padding: 6px 10px;
     border-radius: 8px; pointer-events: none; display: none; max-width: 260px; line-height: 1.35; }
 
-  #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: background .8s;
     background: radial-gradient(ellipse at center, transparent 62%, rgba(10, 16, 45, .18) 100%); }
+  body.inroom #vignette { background: radial-gradient(ellipse at center, transparent 44%, rgba(10, 16, 45, .42) 100%); }
   body.foto #topbar, body.foto .panel, body.foto .panel-toggle, body.foto #card, body.foto #tip { display: none !important; }
 
   /* Quiz */

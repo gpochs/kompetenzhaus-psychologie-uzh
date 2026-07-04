@@ -126,7 +126,10 @@ window.T = {
     tour3_t: "Dein Kompetenzprofil",
     tour3: "Rechts wächst dein Profil aus Fach-, KI- und Future-Skills-Kompetenzen. Klick auf eine Kompetenz für Details — und auf «Karriere» für deine Bewerbungsbereitschaft.",
     tour_weiter: "Weiter",
-    tour_fertig: "Los geht's!"
+    tour_fertig: "Los geht's!",
+    keller: "In den Keller",
+    fs12_titel: "Die Future-Skills-Felder im Detail",
+    fs12_hint: "Detailebene nach AIComp (Ehlers et al., 2024) — Fortschritt abgeleitet aus den verknüpften Fach- und KI-Kompetenzen."
   },
   en: {
     titel: "The Competence House",
@@ -254,7 +257,10 @@ window.T = {
     tour3_t: "Your competence profile",
     tour3: "On the right your profile grows across domain, AI and future-skills competences. Click any competence for details — and «Career» for your application readiness.",
     tour_weiter: "Next",
-    tour_fertig: "Let's build!"
+    tour_fertig: "Let's build!",
+    keller: "Into the basement",
+    fs12_titel: "The future-skills fields in detail",
+    fs12_hint: "Detail level per AIComp (Ehlers et al., 2024) — progress derived from the linked domain and AI competences."
   }
 };
 

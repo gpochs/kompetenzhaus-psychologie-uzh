@@ -39,10 +39,29 @@ window.STRUKTUR = {
     { id: "KI4",  feld: "ki", name: { de: "Verstehen", en: "Understanding" }, ich: { de: "Ich verstehe, wie KI funktioniert — und warum sie überzeugen kann, ohne richtig zu liegen.", en: "I understand how AI works — and why it can convince without being right." } },
     { id: "KI5",  feld: "ki", name: { de: "Verantworten", en: "Taking responsibility" }, ich: { de: "Ich gehe verantwortungsvoll mit KI um: deklarieren, Daten schützen, verantwortlich bleiben.", en: "I use AI responsibly: declare, protect data, stay accountable." } },
     { id: "KI6",  feld: "ki", name: { de: "Evaluieren", en: "Evaluating" }, ich: { de: "Ich prüfe KI-Ergebnisse so kritisch wie jede andere Quelle.", en: "I scrutinise AI outputs as critically as any other source." } },
-    { id: "Fu1",  feld: "fu", name: { de: "Arbeiten/Gestalten (mit und ohne KI)", en: "Working/creating (with & without AI)" }, ich: { de: "Ich setze Ideen um und gestalte Lösungen — mit und ohne KI.", en: "I turn ideas into solutions — with and without AI." } },
-    { id: "Fu2",  feld: "fu", name: { de: "Persönliche Fähigkeiten", en: "Personal capabilities" }, ich: { de: "Ich steuere mein Lernen selbst und traue mir Neues zu.", en: "I direct my own learning and trust myself with the new." } },
-    { id: "Fu3",  feld: "fu", name: { de: "Soziales Umfeld gestalten", en: "Shaping the social environment" }, ich: { de: "Ich gestalte Zusammenarbeit, Kommunikation und Ethik aktiv mit.", en: "I actively shape collaboration, communication and ethics." } }
+    { id: "Fu1",  feld: "fu", name: { de: "Arbeiten/Gestalten (mit und ohne KI)", en: "Working/creating (with & without AI)" }, ich: { de: "Ich setze Ideen um und gestalte Lösungen — mit und ohne KI.", en: "I turn ideas into solutions — with and without AI." },
+      sub: [
+        { id: "FS1", name: { de: "Aktivitäts- & Umsetzungskompetenz", en: "Activity & implementation competence" }, proxy: ["KI1"] },
+        { id: "FS2", name: { de: "Systemdesignkompetenz", en: "System design competence" }, proxy: ["KI2"] },
+        { id: "FS3", name: { de: "Kreative Problemlösekompetenz", en: "Creative problem-solving competence" }, proxy: ["KI2", "Fa4"] },
+        { id: "FS4", name: { de: "Kritische digitale Kompetenz", en: "Critical digital competence" }, proxy: ["KI6", "KI4"] },
+        { id: "FS5", name: { de: "Entscheidungskompetenz", en: "Decision-making competence" }, proxy: ["KI6", "Fu2"] }
+      ] },
+    { id: "Fu2",  feld: "fu", name: { de: "Persönliche Fähigkeiten", en: "Personal capabilities" }, ich: { de: "Ich steuere mein Lernen selbst und traue mir Neues zu.", en: "I direct my own learning and trust myself with the new." },
+      sub: [
+        { id: "FS6", name: { de: "Selbstwirksamkeit", en: "Self-efficacy" }, proxy: ["Fu2"] },
+        { id: "FS7", name: { de: "Kritisches Denken", en: "Critical thinking" }, proxy: ["Fa4", "KI6"] },
+        { id: "FS8", name: { de: "Aktive Steuerung & Selbstmanagement", en: "Active self-regulation & self-management" }, proxy: ["Fu2", "Fa10"] },
+        { id: "FS9", name: { de: "Selbstbestimmtheit", en: "Self-determination" }, proxy: ["Fu2"] }
+      ] },
+    { id: "Fu3",  feld: "fu", name: { de: "Soziales Umfeld gestalten", en: "Shaping the social environment" }, ich: { de: "Ich gestalte Zusammenarbeit, Kommunikation und Ethik aktiv mit.", en: "I actively shape collaboration, communication and ethics." },
+      sub: [
+        { id: "FS10", name: { de: "Ethische Kompetenz", en: "Ethical competence" }, proxy: ["KI5", "Fa7"] },
+        { id: "FS11", name: { de: "Kooperationskompetenz", en: "Cooperation competence" }, proxy: ["KI3"] },
+        { id: "FS12", name: { de: "Kommunikationskompetenz", en: "Communication competence" }, proxy: ["KI3", "Fa6"] }
+      ] }
   ],
+  /* Quelle der 12 Felder: AIComp (Ehlers et al., 2024); Proxy = Spiel-Kompetenzen, über die das Feld trainiert wird. */
 
   stufen: [
     { n: 1, name: { de: "Orientieren und eigenes Können sichern", en: "Orient and secure core skills" }, anker: { de: "BSc Sem. 1–2", en: "BSc sem. 1–2" } },
