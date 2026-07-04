@@ -129,7 +129,25 @@ window.T = {
     tour_fertig: "Los geht's!",
     keller: "In den Keller",
     fs12_titel: "Die Future-Skills-Felder im Detail",
-    fs12_hint: "Detailebene nach AIComp (Ehlers et al., 2024) — Fortschritt abgeleitet aus den verknüpften Fach- und KI-Kompetenzen."
+    fs12_hint: "Detailebene nach AIComp (Ehlers et al., 2024) — Fortschritt abgeleitet aus den verknüpften Fach- und KI-Kompetenzen.",
+    tic_badge: "🚧 TIC-Welle {w} · Premiere {p}",
+    tic_hint: "Diese Grossveranstaltung wird im ULF-Projekt «Teaching Innovation in large Classes» didaktisch neu konzipiert.",
+    baukasten_titel: "🧰 So wird gelehrt",
+    p0_titel: "📬 Vor dem Studium — Vorstufe ⓪",
+    p0_text: "Was bringst du schon mit — z.B. aus dem Gymnasium oder dem Schwerpunktfach PPP? Ehrliche Selbstdeklaration: Jedes Häkchen gibt deinem Profil einen kleinen Startbonus.",
+    minor_titel: "🌱 Dein Minor (60 ECTS)",
+    minor_text: "Neben dem Psychologie-Major läuft dein Minor. Hake abgeschlossene Minor-Semester ab — im Garten wächst dein Beet mit. (Rein illustrativ, zählt nicht ins Kompetenzprofil.)",
+    minor_sem: "Minor Sem. {n}",
+    ai_feedback: "🤖 KI-Feedback zu meiner Lösung",
+    ai_feedback_ph: "Deine Lösung der Praxis-Quest in 2–5 Sätzen …",
+    ai_senden: "Feedback erhalten",
+    ai_wartet: "Der Baututor liest deine Lösung …",
+    ai_quizhilfe: "🤖 Nachfrage üben",
+    ai_cv_ph: "Zielrolle, z.B. «UX Researcher bei einer Bank»",
+    ai_cv_btn: "🤖 Für Bewerbung anpassen",
+    ai_vignette: "🩺 Fallgespräch üben (KI)",
+    ai_vignette_sys: "Fallgespräch aktiv — die KI spielt eine fiktive Klientin. Beenden mit «Stopp».",
+    ai_nur_artifact: "KI-Funktionen sind in der Claude-Artifact-Version verfügbar."
   },
   en: {
     titel: "The Competence House",
@@ -260,7 +278,25 @@ window.T = {
     tour_fertig: "Let's build!",
     keller: "Into the basement",
     fs12_titel: "The future-skills fields in detail",
-    fs12_hint: "Detail level per AIComp (Ehlers et al., 2024) — progress derived from the linked domain and AI competences."
+    fs12_hint: "Detail level per AIComp (Ehlers et al., 2024) — progress derived from the linked domain and AI competences.",
+    tic_badge: "🚧 TIC wave {w} · premiere {p}",
+    tic_hint: "This large lecture is being didactically redesigned in the ULF project 'Teaching Innovation in large Classes'.",
+    baukasten_titel: "🧰 How it's taught",
+    p0_titel: "📬 Before your studies — stage ⓪",
+    p0_text: "What do you already bring along — e.g. from high school or the PPP major? Honest self-declaration: each tick gives your profile a small head start.",
+    minor_titel: "🌱 Your minor (60 ECTS)",
+    minor_text: "Your minor runs alongside the psychology major. Tick completed minor semesters — your garden bed grows. (Purely illustrative, does not count towards the profile.)",
+    minor_sem: "Minor sem. {n}",
+    ai_feedback: "🤖 AI feedback on my solution",
+    ai_feedback_ph: "Your practice-quest solution in 2–5 sentences …",
+    ai_senden: "Get feedback",
+    ai_wartet: "The tutor is reading your solution …",
+    ai_quizhilfe: "🤖 Practise a follow-up",
+    ai_cv_ph: "Target role, e.g. 'UX researcher at a bank'",
+    ai_cv_btn: "🤖 Tailor for application",
+    ai_vignette: "🩺 Practise a case conversation (AI)",
+    ai_vignette_sys: "Case conversation active — the AI plays a fictional client. End with 'Stop'.",
+    ai_nur_artifact: "AI features are available in the Claude artifact edition."
   }
 };
 

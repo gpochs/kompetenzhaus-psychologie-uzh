@@ -63,7 +63,7 @@ const defaultState = () => ({
   v: 2, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
   placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {},
   msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
-  sound: true, envAuto: true
+  sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false]
 });
 function autoSeason() {
   const m = new Date().getMonth() + 1;
@@ -254,6 +254,50 @@ for (let i = 0; i < 6; i++) {
   c.userData.v = 0.25 + Math.random() * 0.4;
   clouds.push(c); scene.add(c);
 }
+/* Briefkasten «Vorstufe ⓪» am Gartenweg */
+const briefkasten = new THREE.Group();
+{
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.9, 6), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 }));
+  post.position.y = 0.45;
+  const box = new THREE.Mesh(new RoundedBoxGeometry(0.55, 0.35, 0.32, 2, 0.06), new THREE.MeshStandardMaterial({ color: 0x0028a5, roughness: 0.55 }));
+  box.position.y = 1.02;
+  const schlitz = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.045), new THREE.MeshStandardMaterial({ color: 0xf4f4f0 }));
+  schlitz.position.set(0, 1.06, 0.17);
+  const faehnchen = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.11), new THREE.MeshStandardMaterial({ color: 0xd96a4b, side: THREE.DoubleSide }));
+  faehnchen.position.set(0.32, 1.12, 0);
+  briefkasten.add(post, box, schlitz, faehnchen);
+  briefkasten.position.set(-3.4, 0.24, 4.7);
+  briefkasten.rotation.y = 0.4;
+  briefkasten.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.userData.action = "p0"; } });
+  scene.add(briefkasten);
+}
+/* Minor-Beet neben dem Bachelor-Haus */
+const beetGroup = new THREE.Group();
+{
+  const erde = new THREE.Mesh(new RoundedBoxGeometry(4.4, 0.22, 1.5, 2, 0.06), new THREE.MeshStandardMaterial({ color: 0x6b5138, roughness: 1 }));
+  erde.position.y = 0.11;
+  erde.receiveShadow = true;
+  beetGroup.add(erde);
+  beetGroup.position.set(-11, 0.24, 7.6);
+  beetGroup.traverse((o) => { if (o.isMesh) o.userData.action = "minor"; });
+  scene.add(beetGroup);
+}
+const beetPflanzen = new THREE.Group(); beetGroup.add(beetPflanzen);
+function growMinor() {
+  beetPflanzen.clear();
+  const cols = [0xe4572e, 0xf3d34e, 0xc9a0ff, 0xffffff, 0xf7b7d4, 0x7fc36a];
+  (S.minor || []).forEach((done, i) => {
+    if (!done) return;
+    for (let p = 0; p < 3; p++) {
+      const stiel = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.025, 0.28, 5), new THREE.MeshStandardMaterial({ color: 0x4e9440 }));
+      stiel.position.set(-1.85 + i * 0.74, 0.34, -0.4 + p * 0.4);
+      const bluete = new THREE.Mesh(new THREE.IcosahedronGeometry(0.09, 0), new THREE.MeshBasicMaterial({ color: cols[i] }));
+      bluete.position.set(-1.85 + i * 0.74, 0.52, -0.4 + p * 0.4);
+      stiel.userData.action = "minor"; bluete.userData.action = "minor";
+      beetPflanzen.add(stiel, bluete);
+    }
+  });
+}
 /* Sterne & Glühwürmchen */
 function makePoints(n, size, color, spread, yMin, yMax) {
   const pos = new Float32Array(n * 3);
@@ -280,6 +324,10 @@ const easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) 
 function tween(dur, fn, ease = easeOutCubic, onDone = null) { tweens.push({ t: 0, dur, fn, ease, onDone }); }
 let shakeT = 0, hitstopT = 0;
 const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* KI-Funktionen nur, wenn die Umgebung sie bereitstellt (Claude-Artifact) */
+const HAS_AI = !!(window.claude && typeof window.claude.complete === "function");
+async function aiComplete(prompt) { return String(await window.claude.complete(prompt)).trim(); }
+let tutorCtl = null;
 
 function flyTo(pos, target, dur = 1.6, after = null) {
   const p0 = camera.position.clone(), t0 = controls.target.clone();
@@ -454,10 +502,26 @@ function addFlowerBox(group, slot) {
   });
   group.add(g);
 }
+function addTicSign(group, slot, tic) {
+  if (group.getObjectByName("ticsign")) return;
+  const g = new THREE.Group(); g.name = "ticsign";
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.85, 6), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 }));
+  post.position.y = 0.42;
+  const sign = new THREE.Mesh(new RoundedBoxGeometry(0.6, 0.4, 0.05, 2, 0.03), new THREE.MeshStandardMaterial({ color: 0xf3c623, roughness: 0.6 }));
+  sign.position.y = 0.95;
+  const lbl = textSprite("🚧 W" + tic.welle, "#b35c00");
+  lbl.scale.set(0.62, 0.24, 1); lbl.position.set(0, 0.95, 0.05);
+  g.add(post, sign, lbl);
+  g.position.set(-slot.pos.w * CELL * 0.36, 0, slot.pos.d * CELL * 0.42);
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  group.add(g);
+}
 function decorateBlock(group, slot) {
   const code = slot.optionen ? ((S.placed[S.mode][slot.slot] || {}).opt || slot.code) : slot.code;
   if (S.quiz[code]) addPennant(group, slot);
   if (S.quests[slot.slot] && S.quests[slot.slot].done) { addSparkle(group, slot); addFlowerBox(group, slot); }
+  const tic = (ST.tic || {})[slot.slot];
+  if (tic) addTicSign(group, slot, tic);
 }
 const gardenGroup = new THREE.Group(); scene.add(gardenGroup);
 function rebuildGarden() {
@@ -894,6 +958,18 @@ canvas.addEventListener("pointerup", (e) => {
     }
     return;
   }
+  { // Briefkasten & Minor-Beet anklickbar
+    const r = canvas.getBoundingClientRect();
+    ptr.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+    ptr.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+    ray.setFromCamera(ptr, camera);
+    const hits = ray.intersectObjects([briefkasten, beetGroup], true);
+    if (hits.length) {
+      const act = hits[0].object.userData.action;
+      if (act === "p0") { openP0(); SND.pick(); return; }
+      if (act === "minor") { openMinor(); SND.pick(); return; }
+    }
+  }
   if (ghost && ghostSlot) {
     const id = pick(e);
     if (id === ghostSlot.slot || id === null) { placeSlot(ghostSlot); return; }
@@ -901,6 +977,28 @@ canvas.addEventListener("pointerup", (e) => {
   const id = pick(e);
   if (id) { openCard(id); SND.pick(); }
 });
+function openP0() {
+  const list = document.getElementById("p0List");
+  list.innerHTML = "";
+  (ST.vorstufe || []).forEach((v, i) => {
+    const lab = document.createElement("label"); lab.className = "sw"; lab.style.alignItems = "flex-start";
+    lab.innerHTML = `<input type="checkbox" ${S.p0[i] ? "checked" : ""} style="margin-top:2px"> <span style="font-size:12.5px;line-height:1.45">${L(v.text)} <span style="color:#8b94ab">(${v.ids.join(", ")})</span></span>`;
+    lab.querySelector("input").onchange = (e) => { S.p0[i] = e.target.checked; save(); renderProfil(); };
+    list.appendChild(lab);
+  });
+  openModal("p0");
+}
+function openMinor() {
+  const list = document.getElementById("minorList");
+  list.innerHTML = "";
+  for (let i = 0; i < 6; i++) {
+    const lab = document.createElement("label"); lab.className = "sw";
+    lab.innerHTML = `<input type="checkbox" ${S.minor[i] ? "checked" : ""}> <span>${t("minor_sem").replace("{n}", i + 1)}</span>`;
+    lab.querySelector("input").onchange = (e) => { S.minor[i] = e.target.checked; save(); growMinor(); if (e.target.checked) SND.quest(); };
+    list.appendChild(lab);
+  }
+  openModal("minor");
+}
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && ghostSlot) placeSlot(ghostSlot);
   if (e.key === "Escape") {
@@ -1001,6 +1099,10 @@ function profilWerte() {
       if (isPlaced(slot.slot)) score[id] += w * slot.ects;
     }
   }
+  // Vorstufe ⓪: kleiner Startbonus (Endowed Progress) pro Selbstcheck-Häkchen
+  (ST.vorstufe || []).forEach((v, i) => {
+    if (S.p0 && S.p0[i]) v.ids.forEach((id) => { if (max[id]) score[id] = Math.min(max[id], score[id] + 0.025 * max[id]); });
+  });
   return { score, max };
 }
 let profilView = null; // null = Übersicht, sonst Kompetenz-ID
@@ -1196,6 +1298,18 @@ function renderKompDetail(id) {
     cp.textContent = "✓ " + t("cv_copied");
     SND.pick();
   };
+  const cvai = el.querySelector("[data-cvai]");
+  if (cvai) cvai.onclick = async () => {
+    const role = el.querySelector("[data-cvrole]").value.trim(); if (!role) return;
+    const out = el.querySelector("[data-cvaiout]"); out.style.display = "flex";
+    out.querySelector("p").textContent = t("ai_wartet");
+    try {
+      const base = cvText(id, kompStufe(id));
+      const res = await aiComplete(`Formuliere GENAU EINEN CV-tauglichen Satz (${S.lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${L(KOMP[id].name)}» — zugeschnitten auf diese Zielrolle: ${role}. Ausgangsbaustein: «${base}». Nur der Satz, nichts anderes.`);
+      out.querySelector("p").textContent = "«" + res.replace(/^«|»$/g, "") + "»";
+      out.querySelector("[data-cvaicopy]").onclick = async () => { try { await navigator.clipboard.writeText(res); } catch (e) {} SND.pick(); };
+    } catch (e) { out.querySelector("p").textContent = t("tutor_err"); }
+  };
 }
 function cvText(id, stufe) {
   const cv = (window.KARRIERE && window.KARRIERE.cv) || {};
@@ -1207,8 +1321,12 @@ function cvText(id, stufe) {
 function cvBlock(id, stufe) {
   const txt = cvText(id, stufe);
   if (!txt) return "";
+  const ai = HAS_AI ? `<div style="display:flex;gap:6px;margin:2px 4px 6px">
+    <input data-cvrole type="text" placeholder="${t("ai_cv_ph")}" style="flex:1;border:1.5px solid #dbe1ef;border-radius:8px;padding:6px 9px;font:500 11px var(--font)">
+    <button class="ghostbtn" data-cvai style="padding:6px 9px;font-size:10.5px">${t("ai_cv_btn")}</button>
+  </div><div data-cvaiout style="display:none" class="cvrow"><p></p><button data-cvaicopy>📋</button></div>` : "";
   return `<div class="subhead">📝 ${t("cv_titel")} (${t("stufe")} ${stufe})</div>
-    <div class="cvrow"><p>«${txt}»</p><button data-cvcopy="${txt.replace(/"/g, "&quot;")}">📋 ${t("cv_copy")}</button></div>`;
+    <div class="cvrow"><p>«${txt}»</p><button data-cvcopy="${txt.replace(/"/g, "&quot;")}">📋 ${t("cv_copy")}</button></div>${ai}`;
 }
 function fs12Pct(sub, score, max) {
   const vals = sub.proxy.map((pid) => (max[pid] ? score[pid] / max[pid] : 0));
@@ -1254,11 +1372,13 @@ function openCard(id) {
   document.getElementById("cardTitle").textContent = slotTitel(slot);
   document.getElementById("cardCode").textContent = `${(st.opt) || slot.code} · ${L(ST.gruppen[slot.gruppe].name)}`;
   const katList = (kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]);
+  const ticInfo = (ST.tic || {})[slot.slot];
   document.getElementById("cardBadges").innerHTML =
     `<span class="badge" style="background:#5b6478">${slot.ects} ${t("ects")}</span>
      <span class="badge" style="background:#39415a">${t("stufe")} ${slot.stufe}</span>
      <span class="badge" style="background:#7a86a3">${t(slot.rhythmus === "beide" ? "beide" : slot.rhythmus.toLowerCase())}${slot.sem2 ? " · " + t("zweisem") : ""}</span>` +
-    katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("");
+    katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("") +
+    (ticInfo ? `<span class="badge" style="background:#b35c00" title="${t("tic_hint")}">${t("tic_badge").replace("{w}", ticInfo.welle).replace("{p}", ticInfo.premiere)}</span>` : "");
   renderCardBody(slot);
   renderCardActions(slot);
   card.classList.add("open");
@@ -1285,7 +1405,10 @@ function renderCardBody(slot) {
   const el = document.getElementById("cardBody");
   const none = `<p style="color:#5b6478;font-style:italic">${t("keine_texte")}</p>`;
   if (cardTab === "zukunft") {
-    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + kompPills(slot);
+    const bk = (ST.baukasten && ST.baukasten.zuordnung[slot.slot]) || [];
+    const bkHtml = bk.length ? `<div style="margin-top:10px"><span style="font:700 11px var(--font);color:#5b6478">${t("baukasten_titel")}:</span>
+      <span class="komp-pills" style="display:inline-flex;margin-left:4px">${bk.map((id) => { const d = ST.baukasten.defs[id]; return d ? `<span class="kpill" title="${L(d.kurz)}" style="border-color:#b9c2d9">${L(d.name)}</span>` : ""; }).join("")}</span></div>` : "";
+    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + kompPills(slot) + bkHtml;
   } else if (cardTab === "lernziele") {
     const dot = (tags, b, col, ti) => `<i class="${(tags || []).includes(b) ? "on" : ""}" style="background:${col}" title="${ti}"></i>`;
     const dots = (z) => `<span class="lz-dots">${dot(z.b, "F", ST.felder.fa.farbe, L(ST.felder.fa.name))}${dot(z.b, "K", ST.felder.ki.farbe, L(ST.felder.ki.name))}${dot(z.b, "S", ST.felder.fu.farbe, L(ST.felder.fu.name))}</span>`;
@@ -1326,6 +1449,7 @@ function renderQuestTab(slot, el, tx, none) {
       });
       if (qz.picked !== null) {
         html += `<div class="quiz-erkl">${qz.picked === f.korrekt ? "✅" : "❌"} ${L(f.erkl)}</div>`;
+        if (HAS_AI && qz.picked !== f.korrekt) html += `<button class="ghostbtn" data-qai style="margin-top:6px">${t("ai_quizhilfe")}</button><div data-qaiout class="quiz-erkl" style="display:none;margin-top:6px"></div>`;
         const last = qz.i === fragen.length - 1;
         const allOk = qz.oks.every(Boolean) && qz.oks.length === fragen.length;
         if (!last) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
@@ -1341,7 +1465,28 @@ function renderQuestTab(slot, el, tx, none) {
   html += `<p style="font-weight:800;margin:12px 0 2px">✦ ${t("praxis_quest")}</p>`;
   html += qt ? `<p><b>${L(qt.titel)}</b></p><p style="margin-top:4px">${L(qt.text)}</p>` : none;
   if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b>${q.note ? ` — «${q.note}»` : ""}</p>`;
+  if (HAS_AI && qt) {
+    html += `<details style="margin-top:10px"><summary style="cursor:pointer;font:700 12px var(--font);color:var(--blue)">${t("ai_feedback")}</summary>
+      <textarea data-aiq rows="3" placeholder="${t("ai_feedback_ph")}" style="width:100%;margin-top:6px;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font)"></textarea>
+      <button class="primary" data-aiqbtn style="margin-top:6px">${t("ai_senden")}</button>
+      <div data-aiqout class="quiz-erkl" style="display:none;margin-top:6px"></div></details>`;
+  }
+  const VIGN = ["400", "402", "403", "501", "502", "511", "s05", "s06", "s08"];
+  if (HAS_AI && VIGN.includes(slot.slot) && tutorCtl) {
+    html += `<button class="ghostbtn" data-aivig style="margin-top:10px">${t("ai_vignette")}</button>`;
+  }
   el.innerHTML = html;
+  const aiBtn = el.querySelector("[data-aiqbtn]");
+  if (aiBtn) aiBtn.onclick = async () => {
+    const ta = el.querySelector("[data-aiq]"), out = el.querySelector("[data-aiqout]");
+    const sol = ta.value.trim(); if (!sol) return;
+    out.style.display = "block"; out.textContent = t("ai_wartet");
+    try {
+      out.textContent = await aiComplete(`Du bist Tutor:in im Psychologiestudium UZH. Gib formatives Feedback (${S.lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, max. 90 Wörter, keine Note) auf die Lösung einer Übungsaufgabe. Nenne genau EINE Stärke und EINEN konkreten Verbesserungspunkt, freundlich und fachlich präzise.\nAufgabe («${L(qt.titel)}»): ${L(qt.text)}\nLösung der/des Studierenden: ${sol}\nFeedback:`);
+    } catch (e) { out.textContent = t("tutor_err"); }
+  };
+  const vigBtn = el.querySelector("[data-aivig]");
+  if (vigBtn) vigBtn.onclick = () => tutorCtl.open("vignette", slot);
 
   el.querySelectorAll(".quiz-a").forEach((b) => (b.onclick = () => {
     if (!cardQuiz || cardQuiz.picked !== null) return;
@@ -1367,6 +1512,16 @@ function renderQuestTab(slot, el, tx, none) {
   if (nx) nx.onclick = () => { cardQuiz.i++; cardQuiz.picked = null; renderCardBody(slot); };
   const rt = el.querySelector("[data-qretry]");
   if (rt) rt.onclick = () => { cardQuiz = { code, i: 0, oks: [], picked: null }; renderCardBody(slot); };
+  const qa = el.querySelector("[data-qai]");
+  if (qa) qa.onclick = async () => {
+    const out = el.querySelector("[data-qaiout]");
+    out.style.display = "block"; out.textContent = t("ai_wartet");
+    const f = fragen[cardQuiz.i];
+    try {
+      out.innerHTML = (await aiComplete(`Du bist Tutor:in im Psychologiestudium UZH. Eine Person hat diese Quizfrage falsch beantwortet. Erkläre das Konzept in 2 Sätzen NEU (anders als die Standarderklärung) und stelle dann GENAU EINE kurze Übungsfrage dazu, gefolgt von «Musterantwort:» und einer 1-Satz-Musterantwort. Sprache: ${S.lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.\nFrage: ${L(f.q)}\nRichtige Antwort: ${L(f.a[f.korrekt])}\nGewählte falsche Antwort: ${L(f.a[cardQuiz.picked])}`))
+        .replace(/Musterantwort:([\s\S]*)$/i, (m, rest) => `<details style="margin-top:4px"><summary style="cursor:pointer;font-weight:700">${S.lang === "de" ? "Musterantwort anzeigen" : "Show model answer"}</summary>${rest.trim()}</details>`);
+    } catch (e) { out.textContent = t("tutor_err"); }
+  };
 }
 
 function renderCardActions(slot) {
@@ -1528,7 +1683,7 @@ document.getElementById("btnLang").onclick = () => {
   if (selectedId) openCard(selectedId);
   fillModals();
 };
-const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard" };
+const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor" };
 function openModal(k) { document.getElementById(modals[k]).classList.add("open"); }
 document.querySelectorAll(".modal").forEach((m) => {
   m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) m.classList.remove("open"); });
@@ -2031,7 +2186,8 @@ function initTutor() {
   if (!api) return;
   const fab = document.getElementById("tutorFab"), box = document.getElementById("tutor"), msgs = document.getElementById("tutorMsgs");
   fab.style.display = "block";
-  const hist = [];
+  let hist = [];
+  let mode = "tutor", vignSlot = null;
   const add = (who, txt) => {
     const d = document.createElement("div");
     d.className = "tmsg " + who; d.textContent = txt;
@@ -2041,24 +2197,42 @@ function initTutor() {
   fab.onclick = () => { box.classList.toggle("open"); if (box.classList.contains("open") && !msgs.children.length) add("bot", t("tutor_hi")); };
   document.getElementById("tutorClose").onclick = () => box.classList.remove("open");
   const ctx = () => {
+    if (mode === "vignette" && vignSlot) {
+      const tx = slotText(vignSlot);
+      return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Du spielst eine FIKTIVE Klientin/Person passend zum Modul «${slotTitel(vignSlot)}» (Kontext: ${tx ? L(tx.heute).slice(0, 240) : ""}). Regeln: (1) Alles ist erfunden — keine realen Ratschläge, keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in der Rolle, antworte kurz (2–4 Sätze), realistisch, aber didaktisch ergiebig. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; falls die Nutzenden solche Themen einbringen, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Wenn die Nutzenden «Stopp» schreiben, verlasse die Rolle und stelle GENAU EINE kurze Reflexionsfrage zum Gespräch. Sprache: ${S.lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
+    }
     const built = ST.slots.filter((s) => isPlaced(s.slot)).map((s) => slotTitel(s)).join("; ") || "-";
     const next = nextRecommended();
     return `Du bist der «KI-Baututor» im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc/MSc; Module = Bausteine eines Hauses; Kompetenzen: Fa1–Fa10 fachlich, KI1–KI6 KI, Fu1–Fu3 Future Skills; Prüfungslogik [A] KI-frei / [B] teilweise / [C] KI-integriert; Basis: Kompetenzaufbaumodell 02.07.2026, ein ENTWURF als Gesprächsbasis). Antworte kurz (max. 120 Wörter), freundlich, auf ${S.lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}. Keine Rechtsauskünfte; verweise bei Studienberatung an die Studienprogrammleitung. Spielstand: gebaut = ${built}. Empfohlener nächster Baustein: ${next ? slotTitel(SLOTS[next]) : "-"}.`;
   };
-  const send = async () => {
-    const inp = document.getElementById("tutorInput");
-    const q = inp.value.trim(); if (!q) return;
-    inp.value = "";
-    add("me", q);
-    const wait = add("bot", "…");
-    hist.push("Studierende:r: " + q);
-    try {
-      const out = await api(ctx() + "\n\n" + hist.slice(-6).join("\n") + "\nBaututor:");
-      wait.textContent = String(out).trim();
-      hist.push("Baututor: " + wait.textContent);
-    } catch (e) { wait.textContent = t("tutor_err"); }
+  tutorCtl = {
+    open(newMode, slot) {
+      mode = newMode || "tutor"; vignSlot = slot || null; hist = [];
+      box.classList.add("open");
+      if (mode === "vignette") {
+        msgs.innerHTML = "";
+        add("bot", t("ai_vignette_sys"));
+        send("(Beginne das Gespräch mit einer kurzen Vorstellung deiner fiktiven Rolle.)", true);
+      }
+    }
   };
-  document.getElementById("tutorSend").onclick = send;
+  const send = async (forced, silent) => {
+    const inp = document.getElementById("tutorInput");
+    const q = forced || inp.value.trim(); if (!q) return;
+    if (!forced) inp.value = "";
+    if (!silent) add("me", q);
+    const wait = add("bot", "…");
+    const who = mode === "vignette" ? "Studierende:r" : "Studierende:r";
+    const bot = mode === "vignette" ? "Klientin" : "Baututor";
+    hist.push(who + ": " + q);
+    try {
+      const out = await api(ctx() + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
+      wait.textContent = String(out).trim();
+      hist.push(bot + ": " + wait.textContent);
+    } catch (e) { wait.textContent = t("tutor_err"); }
+    if (mode === "vignette" && (q.toLowerCase().startsWith("stopp") || q.toLowerCase().startsWith("stop"))) { mode = "tutor"; vignSlot = null; hist = []; }
+  };
+  document.getElementById("tutorSend").onclick = () => send();
   document.getElementById("tutorInput").addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
 }
 
@@ -2251,6 +2425,7 @@ applyI18n();
 fillModals();
 const isVisitor = tryVisitor();
 rebuildAll();
+growMinor();
 renderPlan();
 renderProfil();
 if (S.envAuto) applyRealEnv();

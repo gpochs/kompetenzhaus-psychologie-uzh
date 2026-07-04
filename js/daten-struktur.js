@@ -280,6 +280,49 @@ window.STRUKTUR = {
     { code: "10SMSTS-505", titel: { de: "Mentoring für die nächste Generation", en: "Mentoring the next generation" }, ects: 6, kategorie: "Wahl", gruppe: "erg" }
   ],
 
+  /* TIC-Wellen: didaktische Neukonzeption der Grossvorlesungen (ULF-Projekt), Premieren-Semester */
+  tic: {
+    "302": { welle: 1, premiere: "FS 2028" }, "400": { welle: 1, premiere: "FS 2028" }, "201": { welle: 1, premiere: "FS 2028" },
+    "101": { welle: 2, premiere: "HS 2028" }, "100": { welle: 2, premiere: "HS 2028" }, "200": { welle: 2, premiere: "HS 2028" },
+    "300": { welle: 3, premiere: "FS 2029" }, "103": { welle: 3, premiere: "FS 2029" },
+    "500": { welle: 4, premiere: "HS 2029" }, "301": { welle: 4, premiere: "HS 2029" }
+  },
+
+  /* 8er-Baukasten aktivierender Elemente (skaliert auf Grossveranstaltungen) */
+  baukasten: {
+    defs: {
+      PI:  { name: { de: "Peer Instruction", en: "Peer instruction" }, kurz: { de: "Konzeptfrage → Nachdenken → Austausch → erneut abstimmen (KlickerUZH)", en: "Concept question → think → pair → re-vote (KlickerUZH)" } },
+      LC:  { name: { de: "Live-Check", en: "Live check" }, kurz: { de: "«Stimmt das, was die KI sagt?» — KI-Antwort live im Plenum prüfen", en: "'Is the AI right?' — checking an AI answer live in class" } },
+      JT:  { name: { de: "JiTT-WarmUp", en: "JiTT warm-up" }, kurz: { de: "Kurzquiz vor der Vorlesung; Antworten steuern die Sitzung", en: "Short pre-lecture quiz; answers steer the session" } },
+      AC:  { name: { de: "AI-Critique", en: "AI critique" }, kurz: { de: "KI-Output systematisch gegen Primärliteratur prüfen", en: "Systematically testing AI output against the primary literature" } },
+      TB:  { name: { de: "Tutoring-Bot", en: "Tutoring bot" }, kurz: { de: "Sokratischer hint-only-Bot als 24/7-Übungspartner", en: "Socratic hint-only bot as a 24/7 practice partner" } },
+      RS:  { name: { de: "KI-Rollenspiel", en: "AI role-play" }, kurz: { de: "KI simuliert Klient:in/Gegenüber — risikofrei üben", en: "AI simulates a client/counterpart — risk-free practice" } },
+      TSQ: { name: { de: "Two-Stage-Quiz", en: "Two-stage quiz" }, kurz: { de: "Erst einzeln, dann im Team lösen", en: "Solve individually first, then as a team" } },
+      PD:  { name: { de: "Prompt-&-Disclosure-Übung", en: "Prompt & disclosure exercise" }, kurz: { de: "KI-Nutzung dokumentieren und deklarieren lernen", en: "Learning to document and declare AI use" } }
+    },
+    zuordnung: {
+      "001": ["PI", "LC", "TB", "TSQ"], "002": ["JT", "PI"], "003": ["PD", "LC", "AC"],
+      "100": ["AC", "PI"], "101": ["TB", "LC"], "102": ["PD", "PI"], "103": ["LC", "AC"],
+      "200": ["PI", "LC"], "201": ["LC", "PI"], "s11": ["AC", "PD"],
+      "300": ["AC", "TSQ"], "301": ["RS", "JT"], "302": ["RS", "JT"], "s13": ["AC", "PD"],
+      "400": ["RS", "AC"], "401": ["LC"], "402": ["AC", "PD"], "403": ["AC"], "s12": ["AC", "PD"],
+      "BA": ["PD", "AC"],
+      "500": ["PI", "LC", "TB"], "501": ["AC", "PI"], "502": ["RS", "AC"],
+      "wp": ["LC", "TSQ"],
+      "s04": ["AC", "PD"], "s05": ["AC", "RS"], "s06": ["RS", "PD"], "s07": ["AC", "LC"], "s08": ["RS", "AC"], "s09": ["AC", "PD"],
+      "s01a": ["PD"], "s01b": ["PD"], "s01c": ["PD"], "600": ["PD", "RS"], "s02a": ["LC", "AC"], "s02b": ["LC", "AC"], "s03": ["AC", "PD"],
+      "MA": ["PD", "AC"], "901": ["PD", "PI"], "902": ["RS", "PI"], "903": ["AC", "LC"], "904": ["RS", "PI"], "909": ["RS", "LC"]
+    }
+  },
+
+  /* Vorstufe ⓪ — Selbstcheck Vorwissen (Gymnasium, v.a. SPF PPP); kleiner Startbonus (Endowed Progress) */
+  vorstufe: [
+    { text: { de: "Ich kann wissenschaftliche von alltagspsychologischen Erklärungen unterscheiden (z.B. anhand Falsifizierbarkeit).", en: "I can distinguish scientific from folk-psychological explanations (e.g. via falsifiability)." }, ids: ["Fa4"] },
+    { text: { de: "Ich kenne grundlegende Forschungsdesigns und Kennwerte (Mittelwert, Streuung) — z.B. aus dem PPP-Unterricht.", en: "I know basic research designs and statistics (mean, dispersion) — e.g. from PPP classes." }, ids: ["Fa2", "Fa3"] },
+    { text: { de: "Ich kenne einige klassische Studien und Theorien der Psychologie.", en: "I know some classic studies and theories of psychology." }, ids: ["Fa1"] },
+    { text: { de: "Ich habe KI-Tools schon fürs Lernen genutzt und ihre Antworten mindestens einmal kritisch geprüft.", en: "I have used AI tools for learning and critically checked their answers at least once." }, ids: ["KI1", "KI6"] }
+  ],
+
   /* Meilensteine (Richtfeste) */
   meilensteine: [
     { id: "grundstein",  haus: "bsc", slots: ["003"], name: { de: "Grundsteinlegung", en: "Laying the foundation stone" },
