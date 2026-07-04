@@ -11,6 +11,8 @@ let html = fs.readFileSync('index.html', 'utf8');
 html = html
   .replace('<script src="js/daten-struktur.js"></script>', () => '<script>\n' + inline('js/daten-struktur.js') + '\n</script>')
   .replace(/<script src="js\/daten-texte\.js"[^>]*><\/script>/, () => '<script>\n' + inline('js/daten-texte.js') + '\n</script>')
+  .replace(/<script src="js\/daten-quiz\.js"[^>]*><\/script>/, () => '<script>\n' + inline('js/daten-quiz.js') + '\n</script>')
+  .replace(/<script src="js\/daten-karriere\.js"[^>]*><\/script>/, () => '<script>\n' + inline('js/daten-karriere.js') + '\n</script>')
   .replace('<script src="js/i18n.js"></script>', () => '<script>\n' + inline('js/i18n.js') + '\n</script>')
   .replace('<script src="js/audio.js"></script>', () => '<script>\n' + inline('js/audio.js') + '\n</script>')
   .replace(/<script type="importmap">[\s\S]*?<\/script>\s*/, '')

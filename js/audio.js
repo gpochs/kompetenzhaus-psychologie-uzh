@@ -77,6 +77,29 @@ window.SND = (function () {
       const t = ctx.currentTime;
       noise(t, 0.5, 0.6, 2500);
       tone(2200 - Math.random() * 800, t + 0.02, 0.005, 0.4, 0.1, "sawtooth");
+    },
+    /* Ambient: Vögel am Tag, Grillen in der Nacht — sehr leise, prozedural */
+    _ambTimer: null, _ambMode: "off",
+    ambientMode(mode) { // 'day' | 'night' | 'off'
+      if (mode === this._ambMode) return;
+      this._ambMode = mode;
+      clearInterval(this._ambTimer); this._ambTimer = null;
+      if (mode === "off" || !enabled) return;
+      if (!ac()) return;
+      if (mode === "day") {
+        this._ambTimer = setInterval(() => {
+          if (!enabled || document.hidden) return;
+          if (Math.random() < 0.55) return;
+          const t = ctx.currentTime, base = 2400 + Math.random() * 1400, n = 2 + Math.floor(Math.random() * 3);
+          for (let i = 0; i < n; i++) tone(base * (1 + (Math.random() - 0.4) * 0.25), t + i * 0.09, 0.008, 0.07, 0.028, "sine");
+        }, 2600);
+      } else {
+        this._ambTimer = setInterval(() => {
+          if (!enabled || document.hidden) return;
+          const t = ctx.currentTime;
+          for (let i = 0; i < 5; i++) tone(4200 + Math.random() * 300, t + i * 0.055, 0.004, 0.03, 0.014, "triangle");
+        }, 1700);
+      }
     }
   };
 })();

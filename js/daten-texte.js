@@ -1,5 +1,4 @@
-/* Zukunftsmodul-Texte (de/en) — generiert aus dem Modulkatalog-Zukunft-Workflow, Stand 2026-07-03.
-   Entwurf/Gesprächsbasis — kein beschlossenes Curriculum. */
+/* Zukunftsmodul-Texte (de/en) inkl. F/K/S-Tags pro Lernziel — Stand 2026-07-04. Entwurf/Gesprächsbasis. */
 window.MODUL_TEXTE = {
  "06SM200-001": {
   "heute": {
@@ -13,19 +12,33 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden führen deskriptive und inferenzstatistische Berechnungen eigenständig und KI-frei durch und interpretieren die Ergebnisse korrekt.",
-    "en": "Students independently perform descriptive and inferential statistical calculations without AI and interpret the results correctly."
+    "en": "Students independently perform descriptive and inferential statistical calculations without AI and interpret the results correctly.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden erläutern zentrale Theorien, Methoden und Befunde der Emotions-, Motivations- und Sozialpsychologie und stellen erste Theorie-Evidenz-Bezüge her.",
-    "en": "Students explain central theories, methods and findings of emotion, motivation and social psychology and draw first theory–evidence connections."
+    "en": "Students explain central theories, methods and findings of emotion, motivation and social psychology and draw first theory–evidence connections.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-Antwort zu einem Grundlagenkonzept gegen Lehrbuch, OLAT-Material und PsycINFO und benennen fehlerhafte Stellen.",
-    "en": "Students check an AI answer on a foundational concept against textbook, OLAT materials and PsycINFO and identify faulty passages."
+    "en": "Students check an AI answer on a foundational concept against textbook, OLAT materials and PsycINFO and identify faulty passages.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden setzen sokratische Lernprompts zu Statistik ein und beurteilen, ob diese ihr eigenes Verstehen fördern oder ersetzen.",
-    "en": "Students use Socratic learning prompts for statistics and judge whether these foster or replace their own understanding."
+    "en": "Students use Socratic learning prompts for statistics and judge whether these foster or replace their own understanding.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -87,19 +100,32 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden wenden die Grundlagen der quantitativen Forschungs- und Erhebungsmethoden auf einfache psychologische Fragestellungen an.",
-    "en": "Students apply the basics of quantitative research and data-collection methods to simple psychological questions."
+    "en": "Students apply the basics of quantitative research and data-collection methods to simple psychological questions.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden erläutern zentrale Theorien und Befunde der Kognitions-, Entwicklungs- und Biologischen Psychologie und ordnen wichtige hirnanatomische Strukturen zu.",
-    "en": "Students explain central theories and findings of cognitive, developmental and biological psychology and locate key neuroanatomical structures."
+    "en": "Students explain central theories and findings of cognitive, developmental and biological psychology and locate key neuroanatomical structures.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden erklären in Grundzügen, wie ein LLM funktioniert, und begründen, warum KI-Antworten plausibel klingen können, ohne zuverlässig richtig zu sein.",
-    "en": "Students explain in outline how an LLM works and justify why AI answers can sound plausible without being reliably correct."
+    "en": "Students explain in outline how an LLM works and justify why AI answers can sound plausible without being reliably correct.",
+    "b": [
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden vergleichen kognitionspsychologische Lern- und Gedächtnismodelle mit der Arbeitsweise von Sprachmodellen und benennen Gemeinsamkeiten und Unterschiede.",
-    "en": "Students compare cognitive models of learning and memory with the workings of language models and name similarities and differences."
+    "de": "Die Studierenden vergleichen menschliche Lern- und Gedächtnismodelle mit der Arbeitsweise von Sprachmodellen und reflektieren, was dieser Unterschied für ihre eigenen Lernstrategien bedeutet.",
+    "en": "Students compare human models of learning and memory with the workings of language models and reflect on what this difference means for their own learning strategies.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -159,19 +185,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden entscheiden Fallkarten zu erlaubter und unerlaubter KI-Nutzung und füllen ein Disclosure Form korrekt aus.",
-    "en": "Students decide case cards on permitted and non-permitted AI use and fill in a Disclosure Form correctly."
+    "en": "Students decide case cards on permitted and non-permitted AI use and fill in a Disclosure Form correctly.",
+    "b": [
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-Antwort mit erfundenen Referenzen gegen Lehrbuch und Datenbank und dokumentieren die gefundenen Fehler.",
-    "en": "Students check an AI answer with fabricated references against textbook and database and document the errors found."
+    "en": "Students check an AI answer with fabricated references against textbook and database and document the errors found.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden klären in Kleingruppen Mensch-KI-Rollen — wer promptet, wer prüft, wer verantwortet die finale Antwort — und planen ihre Arbeitsaufträge selbstgesteuert mit oder bewusst ohne KI.",
-    "en": "Students clarify human–AI roles in small groups — who prompts, who verifies, who is accountable for the final answer — and plan their assignments self-directedly with or deliberately without AI."
+    "en": "Students clarify human–AI roles in small groups — who prompts, who verifies, who is accountable for the final answer — and plan their assignments self-directedly with or deliberately without AI.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden recherchieren und lesen wissenschaftliche Texte, planen ihre Arbeitsaufträge eigenständig und bauen ein Peer-Netzwerk auf.",
-    "en": "Students search for and read scientific texts, plan their assignments independently and build a peer network."
+    "en": "Students search for and read scientific texts, plan their assignments independently and build a peer network.",
+    "b": [
+     "F",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -235,19 +276,33 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden beurteilen Testverfahren anhand von Haupt- und Nebengütekriterien und begründen ihr Urteil schriftlich.",
-    "en": "Students appraise psychological tests using primary and secondary quality criteria and justify their judgement in writing."
+    "en": "Students appraise psychological tests using primary and secondary quality criteria and justify their judgement in writing.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden erklären die Annahmen der Klassischen Testtheorie und die Grundlagen der Item-Response-Theorie ohne KI-Unterstützung.",
-    "en": "Students explain the assumptions of classical test theory and the foundations of item response theory without AI support."
+    "en": "Students explain the assumptions of classical test theory and the foundations of item response theory without AI support.",
+    "b": [
+     "F"
+    ]
    },
    {
-    "de": "Die Studierenden übertragen psychometrische Gütekriterien auf algorithmische Verfahren und prüfen KI-gestützte Scores auf Fairness und Messinvarianz.",
-    "en": "Students transfer psychometric quality criteria to algorithmic procedures and examine AI-based scores for fairness and measurement invariance."
+    "de": "Die Studierenden prüfen KI-gestützte Scores auf Fairness und begründen, welche Verantwortung sie beim Einsatz für betroffene Personen tragen.",
+    "en": "Students examine AI-based scores for fairness and justify what responsibility they bear towards the people affected when deploying them.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden interpretieren psychometrische Kennwerte und Faktorenanalysen und identifizieren Fehler in KI-generierten Interpretationen.",
-    "en": "Students interpret psychometric statistics and factor analyses and identify errors in AI-generated interpretations."
+    "en": "Students interpret psychometric statistics and factor analyses and identify errors in AI-generated interpretations.",
+    "b": [
+     "F",
+     "K"
+    ]
    }
   ],
   "ki": {
@@ -308,19 +363,33 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden wählen zu einer Fragestellung passende deskriptive und inferenzstatistische Verfahren aus, führen sie eigenständig in R aus und interpretieren die Ergebnisse korrekt.",
-    "en": "Students select descriptive and inferential procedures appropriate to a research question, run them independently in R, and interpret the results correctly."
+    "en": "Students select descriptive and inferential procedures appropriate to a research question, run them independently in R, and interpret the results correctly.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden schreiben eigenen R-Code und erklären ihn an KI-freien Kontrollpunkten Zeile für Zeile.",
-    "en": "Students write their own R code and explain it line by line at AI-free checkpoints."
+    "en": "Students write their own R code and explain it line by line at AI-free checkpoints.",
+    "b": [
+     "F"
+    ]
    },
    {
-    "de": "Die Studierenden debuggen eigenen Code mit einem hint-only-Tutor und dokumentieren die Fehlersuche im Debugging-Log.",
-    "en": "Students debug their own code with a hint-only tutor and document the troubleshooting in a debugging log."
+    "de": "Die Studierenden debuggen eigenen Code mit einem hint-only-Tutor und reflektieren, an welchen Stellen die KI-Hinweise ihr eigenes Verständnis fördern oder ersetzen.",
+    "en": "Students debug their own code with a hint-only tutor and reflect on where the AI hints foster or replace their own understanding.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Code-Erklärungen und Statistikoutputs auf Korrektheit und korrigieren Fehler.",
-    "en": "Students verify AI-generated code explanations and statistical outputs for correctness and correct errors."
+    "en": "Students verify AI-generated code explanations and statistical outputs for correctness and correct errors.",
+    "b": [
+     "F",
+     "K"
+    ]
    }
   ],
   "ki": {
@@ -380,19 +449,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden planen eigenständig ein Experiment inklusive Literaturrecherche und Hypothesenbildung und deklarieren jede KI-Unterstützung im Disclosure Form.",
-    "en": "Students independently plan an experiment, including literature search and hypothesis generation, and declare all AI support in the Disclosure Form."
+    "en": "Students independently plan an experiment, including literature search and hypothesis generation, and declare all AI support in the Disclosure Form.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden strukturieren die Mensch-KI-Arbeitsteilung in der Gruppe und dokumentieren Rollen, KI-Schritte und Prüfpflichten im Prozesslog.",
-    "en": "Students structure the human-AI division of labour in their group and document roles, AI steps, and verification duties in the process log."
+    "en": "Students structure the human-AI division of labour in their group and document roles, AI steps, and verification duties in the process log.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden analysieren die erhobenen Daten in R und verteidigen zentrale Auswertungsschritte an einem KI-freien Kontrollpunkt.",
-    "en": "Students analyse the collected data in R and defend key analysis steps at an AI-free checkpoint."
+    "en": "Students analyse the collected data in R and defend key analysis steps at an AI-free checkpoint.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden schützen Versuchsdaten und geben keine sensiblen Daten in nicht freigegebene KI-Tools ein.",
-    "en": "Students protect experimental data and never enter sensitive data into non-approved AI tools."
+    "en": "Students protect experimental data and never enter sensitive data into non-approved AI tools.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -457,19 +542,33 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden erläutern ein breites Spektrum fortgeschrittener inferenzstatistischer Verfahren und begründen die Modellwahl passend zur Fragestellung.",
-    "en": "Students explain a broad range of advanced inferential procedures and justify model selection for a given research question."
+    "en": "Students explain a broad range of advanced inferential procedures and justify model selection for a given research question.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden erklären Overfitting, Trainings-/Testlogik und Modellgüte formal — und damit die statistische Logik hinter Machine Learning und generativer KI.",
-    "en": "Students formally explain overfitting, training/test logic, and model fit — and thereby the statistical logic behind machine learning and generative AI."
+    "en": "Students formally explain overfitting, training/test logic, and model fit — and thereby the statistical logic behind machine learning and generative AI.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden wenden die Verfahren eigenständig in R an und interpretieren Ergebnisse ohne KI-Unterstützung.",
-    "en": "Students apply the procedures independently in R and interpret results without AI support."
+    "en": "Students apply the procedures independently in R and interpret results without AI support.",
+    "b": [
+     "F"
+    ]
    },
    {
-    "de": "Die Studierenden prüfen KI-gestützte Modellvorschläge und Statistikoutputs auf Annahmen, Passung und Interpretationsfehler.",
-    "en": "Students audit AI-generated model suggestions and statistical outputs for assumptions, fit, and interpretation errors."
+    "de": "Die Studierenden prüfen KI-Modellvorschläge auf Annahmen und Passung und reflektieren, wo sie bei der Modellwahl einer plausibel klingenden KI-Antwort nachzugeben drohen.",
+    "en": "Students examine AI model suggestions for assumptions and fit and reflect on where, in choosing a model, they are at risk of giving in to a plausible-sounding AI answer.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -530,19 +629,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden erklären zentrale Theorien zu Aufmerksamkeit, Gedächtnis, Sprache und exekutiven Funktionen und belegen sie mit Befunden.",
-    "en": "Students explain key theories of attention, memory, language and executive functions and support them with evidence."
+    "en": "Students explain key theories of attention, memory, language and executive functions and support them with evidence.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden vergleichen die Informationsverarbeitung eines LLM mit menschlicher Kognition und benennen zwei grundlegende Unterschiede.",
-    "en": "Students compare an LLM's information processing with human cognition and name two fundamental differences."
+    "en": "Students compare an LLM's information processing with human cognition and name two fundamental differences.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden identifizieren in einer KI-generierten Erklärung fachliche Fehler und korrigieren sie gegen Lehrbuch und Primärliteratur.",
-    "en": "Students identify factual errors in an AI-generated explanation and correct them against textbook and primary literature."
+    "en": "Students identify factual errors in an AI-generated explanation and correct them against textbook and primary literature.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden beurteilen, wo KI-Analogien zur menschlichen Kognition tragfähig sind und wo sie in die Irre führen.",
-    "en": "Students judge where AI analogies to human cognition hold and where they mislead."
+    "de": "Die Studierenden beurteilen, wo KI-Analogien zur Kognition tragen, und reflektieren, wie solche Analogien ihr eigenes Denken über Kognition prägen.",
+    "en": "Students judge where AI analogies to cognition hold and reflect on how such analogies shape their own thinking about cognition.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -601,19 +715,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden erklären, wie das Nervensystem kognitive Phänomene wie Wahrnehmung, Gedächtnis und Aufmerksamkeit hervorbringt.",
-    "en": "Students explain how the nervous system produces cognitive phenomena such as perception, memory and attention."
+    "en": "Students explain how the nervous system produces cognitive phenomena such as perception, memory and attention.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden benennen zwei strukturelle Unterschiede zwischen biologischen und künstlichen neuronalen Netzen (LLMs).",
-    "en": "Students name two structural differences between biological and artificial neural networks (LLMs)."
+    "en": "Students name two structural differences between biological and artificial neural networks (LLMs).",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden beurteilen die methodischen Grenzen von Aussagen, die neuronale Prozesse mit KI-Modellen gleichsetzen.",
-    "en": "Students assess the methodological limits of claims equating neural processes with AI models."
+    "de": "Die Studierenden beurteilen die methodischen Grenzen solcher Gleichsetzungen und reflektieren die eigene Anfälligkeit für überzeugende ‹Gehirn-wie-KI›-Analogien.",
+    "en": "Students assess the methodological limits of such equations and reflect on their own susceptibility to convincing ‹brain-like-AI› analogies.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Behauptungen über neuronale Mechanismen gegen aktuelle Forschungsbefunde.",
-    "en": "Students check AI-generated claims about neural mechanisms against current research findings."
+    "en": "Students check AI-generated claims about neural mechanisms against current research findings.",
+    "b": [
+     "F",
+     "K"
+    ]
    }
   ],
   "ki": {
@@ -672,19 +801,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden vertiefen ein Thema der Entwicklungspsychologie der Lebensspanne und ordnen Befunde in ihren Diversitäts- und Alterskontext ein.",
-    "en": "Students deepen a lifespan developmental topic and situate findings in their diversity and age context."
+    "en": "Students deepen a lifespan developmental topic and situate findings in their diversity and age context.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen ein KI-generiertes Literaturreferat gegen Primärquellen und decken eine erfundene oder falsch zitierte Referenz auf.",
-    "en": "Students check an AI-generated literature summary against primary sources and expose a fabricated or miscited reference."
+    "en": "Students check an AI-generated literature summary against primary sources and expose a fabricated or miscited reference.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden dokumentieren ihre KI-Arbeitsschritte im Prozesslog und deklarieren sie über das Disclosure Form.",
-    "en": "Students document their AI steps in a process log and declare them via the Disclosure Form."
+    "en": "Students document their AI steps in a process log and declare them via the Disclosure Form.",
+    "b": [
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden trennen in einem wissenschaftlichen Text eigene Argumentation klar von KI-gestützten Vorarbeiten.",
-    "en": "Students clearly separate their own argumentation from AI-assisted preliminary work in a scientific text."
+    "en": "Students clearly separate their own argumentation from AI-assisted preliminary work in a scientific text.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -747,19 +891,33 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden benennen, beschreiben und vergleichen zentrale Modelle und Konstrukte der Persönlichkeits- und Differentiellen Psychologie.",
-    "en": "Students name, describe and compare key models and constructs of personality and differential psychology."
+    "en": "Students name, describe and compare key models and constructs of personality and differential psychology.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden beurteilen Erfassungsmethoden anhand von Gütekriterien (Reliabilität, Validität).",
-    "en": "Students evaluate assessment methods using quality criteria (reliability, validity)."
+    "en": "Students evaluate assessment methods using quality criteria (reliability, validity).",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen ein KI-«Persönlichkeitsprofil» auf Konstruktvalidität und erklären, warum ein LLM kein messbares Persönlichkeitskonstrukt besitzt.",
-    "en": "Students test an AI «personality profile» for construct validity and explain why an LLM has no measurable personality construct."
+    "en": "Students test an AI «personality profile» for construct validity and explain why an LLM has no measurable personality construct.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden unterscheiden echte psychometrische Messung von KI-Simulation von Selbstauskünften.",
-    "en": "Students distinguish genuine psychometric measurement from AI simulation of self-reports."
+    "de": "Die Studierenden unterscheiden psychometrische Messung von KI-Simulation und reflektieren, wie leicht eine simulierte ‹KI-Persönlichkeit› das eigene Urteil täuscht.",
+    "en": "Students distinguish psychometric measurement from AI simulation and reflect on how easily a simulated ‹AI personality› deceives their own judgement.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -820,19 +978,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden geben theoretische Grundlagen zu Personalauswahl, Motivation, Teams und Führung wieder und interpretieren Befunde korrekt.",
-    "en": "Students reproduce theoretical foundations of personnel selection, motivation, teams and leadership and interpret findings correctly."
+    "en": "Students reproduce theoretical foundations of personnel selection, motivation, teams and leadership and interpret findings correctly.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden klären in einem Mensch-KI-Teaming-Szenario Rollen, Delegation und menschliche Letztverantwortung.",
-    "en": "Students clarify roles, delegation and human final responsibility in a human-AI teaming scenario."
+    "en": "Students clarify roles, delegation and human final responsibility in a human-AI teaming scenario.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden prüfen ein KI-gestütztes Personalauswahlverfahren auf Bias und Fairness.",
-    "en": "Students audit an AI-based personnel selection procedure for bias and fairness."
+    "en": "Students audit an AI-based personnel selection procedure for bias and fairness.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden begründen, welche personaldiagnostischen Entscheidungen nicht an KI ausgelagert werden dürfen.",
-    "en": "Students justify which personnel-diagnostic decisions must not be delegated to AI."
+    "en": "Students justify which personnel-diagnostic decisions must not be delegated to AI.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -892,19 +1066,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden geben theoretische Grundlagen zu Arbeitsgestaltung, Arbeitssicherheit und kontraproduktivem Arbeitsverhalten wieder.",
-    "en": "Students reproduce theoretical foundations of work design, occupational safety and counterproductive work behaviour."
+    "en": "Students reproduce theoretical foundations of work design, occupational safety and counterproductive work behaviour.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden gestalten ein Mensch-KI-Arbeitsszenario (Algorithmic Management) und benennen ein psychologisches Risiko.",
-    "en": "Students design a human-AI work scenario (algorithmic management) and name one psychological risk."
+    "en": "Students design a human-AI work scenario (algorithmic management) and name one psychological risk.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden definieren eine menschliche Override- bzw. Abbruchregel für ein KI-gestütztes Steuerungssystem.",
-    "en": "Students define a human override or abort rule for an AI-based control system."
+    "en": "Students define a human override or abort rule for an AI-based control system.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden beurteilen algorithmische Überwachung von Arbeit ethisch und im Hinblick auf Autonomie und Fairness.",
-    "en": "Students assess algorithmic monitoring of work ethically and with regard to autonomy and fairness."
+    "en": "Students assess algorithmic monitoring of work ethically and with regard to autonomy and fairness.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -964,19 +1154,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden vertiefen ein SWOD-Thema und beurteilen einen Fachartikel kritisch nach Design, Stichprobe, Messung und Interpretation.",
-    "en": "Students deepen a SWOD topic and critically appraise a research article by design, sample, measurement and interpretation."
+    "en": "Students deepen a SWOD topic and critically appraise a research article by design, sample, measurement and interpretation.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden führen eine KI-gestützte Fachartikel-Analyse durch und prüfen jeden KI-Output gegen das Original.",
-    "en": "Students carry out an AI-assisted article analysis and check every AI output against the original."
+    "en": "Students carry out an AI-assisted article analysis and check every AI output against the original.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden entscheiden begründet, welche KI-Analysen fachlich tragfähig, fehlerhaft oder irreführend waren.",
-    "en": "Students decide with justification which AI analyses were sound, flawed or misleading."
+    "en": "Students decide with justification which AI analyses were sound, flawed or misleading.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihren KI-Workflow im Prozesslog und deklarieren ihn über das Disclosure Form.",
-    "en": "Students document their AI workflow in a process log and declare it via the Disclosure Form."
+    "de": "Die Studierenden dokumentieren ihren KI-Workflow und verantworten in der Seminardiskussion, welche Analyseentscheidungen ihre eigenen bleiben.",
+    "en": "Students document their AI workflow and take responsibility, in the seminar discussion, for which analytical decisions remain their own.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1040,19 +1245,36 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden entwerfen einen fachlich begrenzten Bot oder agentischen Workflow zu einem Thema ihres Schwerpunkts und definieren Rolle, Quellenregeln und Grenzen im System-Prompt.",
-    "en": "Students design a domain-bounded bot or agentic workflow on a topic from their specialisation, defining its role, source rules, and limits in the system prompt."
+    "en": "Students design a domain-bounded bot or agentic workflow on a topic from their specialisation, defining its role, source rules, and limits in the system prompt.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden testen ihr KI-Artefakt systematisch mit Regel- und Fangfragen und protokollieren Fehlverhalten im Prozesslog.",
-    "en": "Students systematically test their AI artefact with standard and trick questions and record failure modes in the process log."
+    "en": "Students systematically test their AI artefact with standard and trick questions and record failure modes in the process log.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden begründen in einem KI-freien Verteidigungselement, welche fachlichen Qualitätskriterien ihr Artefakt erfüllt und wo seine Einsatzgrenzen liegen.",
-    "en": "In an AI-free defence element, students justify which disciplinary quality criteria their artefact meets and where its limits of use lie."
+    "en": "In an AI-free defence element, students justify which disciplinary quality criteria their artefact meets and where its limits of use lie.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden deklarieren alle KI-Schritte vollständig im Disclosure Form und verifizieren jede Bot-Antwort des Portfolios gegen Fachliteratur.",
-    "en": "Students fully declare all AI steps in the disclosure form and verify every bot answer in the portfolio against the scientific literature."
+    "en": "Students fully declare all AI steps in the disclosure form and verify every bot answer in the portfolio against the scientific literature.",
+    "b": [
+     "F",
+     "K"
+    ]
    }
   ],
   "ki": {
@@ -1113,19 +1335,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden gestalten eine tragfähige Mentoring-Beziehung und dokumentieren Entwicklungs- und Förderprozesse des Kindes systematisch im Online-Tagebuch.",
-    "en": "Students build a sustainable mentoring relationship and systematically document the child's developmental and support processes in the online diary."
+    "en": "Students build a sustainable mentoring relationship and systematically document the child's developmental and support processes in the online diary.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden reflektieren soziale Benachteiligung und Bildungsgerechtigkeit anhand ihrer eigenen Mentoring-Erfahrung und ordnen sie entwicklungspsychologisch ein.",
-    "en": "Students reflect on social disadvantage and educational equity through their own mentoring experience and frame it in developmental-psychology terms."
+    "en": "Students reflect on social disadvantage and educational equity through their own mentoring experience and frame it in developmental-psychology terms.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden üben anspruchsvolle Gesprächssituationen vorab im KI-Rollenspiel und vergleichen die Simulation kritisch mit der realen Begegnung.",
-    "en": "Students rehearse demanding conversational situations in AI role-plays beforehand and critically compare the simulation with the real encounter."
+    "en": "Students rehearse demanding conversational situations in AI role-plays beforehand and critically compare the simulation with the real encounter.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden entscheiden begründet, welche Informationen über das Kind in kein KI-System gehören, und wenden Anonymisierungsregeln konsequent an.",
-    "en": "Students decide, with justification, which information about the child must never enter any AI system and consistently apply anonymisation rules."
+    "en": "Students decide, with justification, which information about the child must never enter any AI system and consistently apply anonymisation rules.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1187,19 +1425,36 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden sammeln 500 Stunden Erfahrung in einem psychologischen Berufs- oder Forschungsfeld und vernetzen sich mit Expert:innen des Feldes.",
-    "en": "Students gain 500 hours of experience in a psychological professional or research field and build networks with experts in that field."
+    "en": "Students gain 500 hours of experience in a psychological professional or research field and build networks with experts in that field.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden analysieren im AI-Reflection-Abschnitt des Praktikumsberichts, welche Aufgaben ihres Praktikumsfelds KI übernehmen kann, darf und soll — und welche nicht.",
-    "en": "In the AI-reflection section of the internship report, students analyse which tasks in their internship field AI can, may, and should take on — and which not."
+    "en": "In the AI-reflection section of the internship report, students analyse which tasks in their internship field AI can, may, and should take on — and which not.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden wenden Datenschutz-, Schweigepflicht- und Disclosure-Regeln auf reale Praktikumsdaten an und begründen Grenzfälle.",
-    "en": "Students apply data-protection, confidentiality, and disclosure rules to real internship data and justify borderline cases."
+    "en": "Students apply data-protection, confidentiality, and disclosure rules to real internship data and justify borderline cases.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden leiten aus Praxiserfahrung und KI-Reflexion begründete Konsequenzen für ihre berufliche Spezialisierung ab.",
-    "en": "Students derive well-founded conclusions for their professional specialisation from practical experience and AI reflection."
+    "en": "Students derive well-founded conclusions for their professional specialisation from practical experience and AI reflection.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1262,19 +1517,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden ordnen aktuelle Forschungs- und Anwendungsgebiete ihres Schwerpunkts in den Stand der Forschung ein.",
-    "en": "Students situate current research and application areas of their specialisation within the state of the art."
+    "en": "Students situate current research and application areas of their specialisation within the state of the art.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden formulieren fachlich tragfähige Diskussionsfragen zu Gastvorträgen und vertreten sie in der Live-Diskussion.",
-    "en": "Students formulate scientifically sound discussion questions on guest lectures and advocate them in the live discussion."
+    "en": "Students formulate scientifically sound discussion questions on guest lectures and advocate them in the live discussion.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Kritikpunkte gegen Abstract und Primärliteratur, bevor sie diese verwenden.",
-    "en": "Students check AI-generated points of critique against the abstract and primary literature before using them."
+    "en": "Students check AI-generated points of critique against the abstract and primary literature before using them.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden diskutieren kritisch-konstruktiv in Echtzeit — ohne KI-Unterstützung.",
-    "en": "Students discuss critically and constructively in real time — without AI support."
+    "en": "Students discuss critically and constructively in real time — without AI support.",
+    "b": [
+     "F",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1332,19 +1602,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden spezifizieren, testen und dokumentieren einen KI-gestützten Analyse-Workflow für eine fortgeschrittene Erhebungs- oder Auswertungsmethode.",
-    "en": "Students specify, test, and document an AI-supported analysis workflow for an advanced data-collection or analysis method."
+    "en": "Students specify, test, and document an AI-supported analysis workflow for an advanced data-collection or analysis method.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden validieren AI-assisted qualitative Kodierung gegen einen menschlichen Goldstandard und interpretieren Übereinstimmungsmasse kritisch.",
-    "en": "Students validate AI-assisted qualitative coding against a human gold standard and critically interpret agreement measures."
+    "en": "Students validate AI-assisted qualitative coding against a human gold standard and critically interpret agreement measures.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden erklären Annahmen, Grenzen und Fehlerquellen KI-gestützter Analysevorschläge (Explainability) für die gewählte Methode.",
-    "en": "Students explain the assumptions, limits, and error sources of AI-generated analysis suggestions (explainability) for their chosen method."
+    "en": "Students explain the assumptions, limits, and error sources of AI-generated analysis suggestions (explainability) for their chosen method.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden erklären zentrale Analyseentscheidungen in einem kurzen KI-freien Kontrollpunkt.",
-    "en": "Students explain key analytic decisions in a short AI-free checkpoint."
+    "de": "Die Studierenden erklären zentrale Analyseentscheidungen an einem KI-freien Kontrollpunkt und reflektieren, wo die fachliche Verantwortung für KI-gestützte Analysen bei ihnen als Forschenden bleibt.",
+    "en": "Students explain key analytical decisions at an AI-free checkpoint and reflect on where the professional responsibility for AI-supported analyses remains with them as researchers.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1402,29 +1688,44 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Zukunftsmodul nutzt die verpflichtende Schweigepflichtserklärung als didaktischen Anker, um KI5 Verantworten + Fu3 (Soziales Umfeld gestalten) auf Stufe 2 aufzubauen: Studierende lernen, sensible klinische Angaben zu klassifizieren und niemals in nicht freigegebene Tools einzugeben (APA, 2023; Bass et al., 2025). Parallel wird die klinische Urteilsbildung (Fa1, Fa8, Fa5 auf Stufe 2) durch KI-generierte Fallvignetten geschärft, an denen KI6 Evaluieren + Fu1 und KI3 Zusammenarbeiten + Fu3 trainiert werden: Eine KI erzeugt eine Verdachtsdiagnose, die Studierenden prüfen sie gegen Klassifikationskriterien und Primärliteratur (Miao et al., 2024). Deskilling-Schutz bleibt zentral — die diagnostische Kernkompetenz und die ethische Verantwortung (Fa7) müssen ohne KI erklärbar bleiben, weshalb die schriftliche Prüfung als [A]-gesicherter Kern erhalten bleibt. Newskilling entsteht dort, wo Studierende lernen, algorithmische Diagnostikvorschläge fachlich zu auditieren, statt ihnen zu folgen. So verbindet das Modul Störungswissen, Berufsethik und einen verantwortungsvollen KI-Umgang in einem der datenschutzkritischsten Felder des Studiums.",
-   "en": "The future module uses the mandatory confidentiality declaration as its didactic anchor for building KI5 Taking responsibility + Fu3 at level 2: students learn to classify sensitive clinical information and never enter it into non-approved tools (APA, 2023; Bass et al., 2025). In parallel, clinical judgement (Fa1, Fa8, Fa5) is sharpened on AI-generated case vignettes: an AI proposes a preliminary diagnosis, and students test it against classification criteria and the primary literature (KI6 Evaluating + Fu1, KI3 Collaborating + Fu3; Miao et al., 2024). Deskilling protection stays central: the written exam secures core clinical and ethical knowledge AI-free."
+   "en": "The future module uses the mandatory confidentiality declaration as its didactic anchor for building KI5 Taking responsibility + Fu3 (Shaping the social environment) at level 2: students learn to classify sensitive clinical information and never enter it into non-approved tools (APA, 2023; Bass et al., 2025). In parallel, clinical judgement (Fa1, Fa8, Fa5 at level 2) is sharpened on AI-generated case vignettes, on which KI6 Evaluating + Fu1 and KI3 Collaborating + Fu3 are trained: an AI produces a preliminary diagnosis and students test it against classification criteria and the primary literature (Miao et al., 2024). Deskilling protection stays central — diagnostic core competence and ethical responsibility (Fa7) must remain explainable without AI, which is why the written exam is retained as the [A]-secured core. Newskilling arises where students learn to professionally audit algorithmic diagnostic suggestions instead of following them. In this way the module joins disorder knowledge, professional ethics and responsible AI use in one of the most privacy-critical fields of the degree."
   },
   "lernziele": [
    {
     "de": "Die Studierenden klassifizieren klinische Fallangaben nach Sensibilität und begründen, welche Daten nicht in nicht freigegebene KI-Systeme gehören.",
-    "en": "Students classify clinical case information by sensitivity and justify which data must never enter non-approved tools."
+    "en": "Students classify clinical case information by sensitivity and justify which data must never enter non-approved tools.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-generierte Verdachtsdiagnose gegen Klassifikationssysteme (z. B. RDoC, HiTOP) und Lehrbuch und korrigieren fachliche Fehler.",
-    "en": "Students test an AI-generated preliminary diagnosis against classification systems (e.g. RDoC, HiTOP) and the textbook."
+    "en": "Students test an AI-generated preliminary diagnosis against classification systems (e.g. RDoC, HiTOP) and the textbook.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden erklären zentrale Störungsmodelle und Wirkfaktoren ohne KI-Unterstützung.",
-    "en": "Students explain central disorder models and mechanisms of change without AI support."
+    "en": "Students explain central disorder models and mechanisms of change without AI support.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden leiten aus der Schweigepflichtserklärung konkrete Regeln für den KI-Einsatz im klinischen Kontext ab.",
-    "en": "Students derive concrete rules for AI use in clinical contexts from the confidentiality declaration."
+    "en": "Students derive concrete rules for AI use in clinical contexts from the confidentiality declaration.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A]+[B] — die schriftliche Prüfung sichert klinisches Kern- und Ethikwissen KI-frei [A]; begleitend deklarierte KI-Fallvignetten-Aufgaben mit Disclosure [B]. Aktivierende Elemente: KI-Rollenspiel (simulierte:r Klient:in) und AI-Critique-Übung (Verdachtsdiagnose vs. Klassifikationskriterien). Jede KI-Nutzung wird über das Disclosure Form deklariert und gegen Primärliteratur verifiziert.",
-   "en": "Category [A]+[B] — the written exam secures core clinical and ethical knowledge AI-free [A]; accompanying declared AI case-vignette tasks with disclosure [B]. Activating elements: AI role-play (simulated client) and an AI-critique exercise (preliminary diagnosis vs. classification criteria). Every AI use is declared via the disclosure form."
+   "en": "Category [A]+[B] — the written exam secures core clinical and ethical knowledge AI-free [A]; accompanying declared AI case-vignette tasks with disclosure [B]. Activating elements: AI role-play (simulated client) and an AI-critique exercise (preliminary diagnosis vs. classification criteria). Every AI use is declared via the Disclosure Form and verified against the primary literature."
   },
   "kat": "A+B",
   "komp": {
@@ -1480,20 +1781,39 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Zukunftsmodul vertieft Fa1 und Fa8 (Stufe 2) an biopsychologischen Mechanismen und Markern und nutzt diese als konkreten Übungsgegenstand für KI4 Verstehen + Fu2 (Persönliche Fähigkeiten): Studierende lernen, wie KI-gestützte Modelle Biomarker-Wirkzusammenhänge vorschlagen und warum solche Aussagen überzeugend klingen können, ohne belegt zu sein (Bass et al., 2025). Über KI6 Evaluieren + Fu1 prüfen sie diese Behauptungen gegen Primärliteratur und Gütekriterien, statt sie zu übernehmen (Miao et al., 2024). Deskilling-Schutz sichert das biopsychologische Grundverständnis in der [A]-Prüfung; Newskilling entsteht durch die Fähigkeit, KI-Aussagen zu Markern und Mechanismen kritisch einzuordnen. Damit wird ein wissensintensives Vorlesungsmodul zu einem Trainingsfeld für den kritischen Umgang mit KI-generierten biologischen Erklärungen.",
-   "en": "The future module deepens Fa1 and Fa8 (level 2) on biopsychological mechanisms and markers and uses them as concrete practice material for KI4 Understanding + Fu2: students learn how AI-supported models propose biomarker–mechanism links and why such claims can sound convincing without being substantiated (Bass et al., 2025). Via KI6 Evaluating + Fu1 they test these claims against the primary literature instead of adopting them (Miao et al., 2024). The [A] exam secures the biopsychological foundations; newskilling lies in critically appraising AI claims about markers and mechanisms."
+   "en": "The future module deepens Fa1 and Fa8 (level 2) on biopsychological mechanisms and markers and uses them as concrete practice material for KI4 Understanding + Fu2 (Personal capabilities): students learn how AI-supported models propose biomarker–mechanism links and why such claims can sound convincing without being substantiated (Bass et al., 2025). Via KI6 Evaluating + Fu1 they test these claims against the primary literature and quality criteria instead of adopting them (Miao et al., 2024). Deskilling protection secures the biopsychological foundations in the [A] exam; newskilling arises from the ability to critically appraise AI claims about markers and mechanisms. In this way a knowledge-intensive lecture module becomes a training ground for the critical handling of AI-generated biological explanations."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erklären zentrale biopsychologische Marker und Mechanismen psychischer und körperlicher Erkrankungen ohne KI.",
-    "en": "Students explain central biopsychological markers and mechanisms of mental and physical illness without AI."
+    "en": "Students explain central biopsychological markers and mechanisms of mental and physical illness without AI.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden identifizieren an einer KI-Erklärung zu einem Biomarker eine plausibel klingende, aber unbelegte Aussage.",
-    "en": "Students identify a plausible-sounding but unsubstantiated claim in an AI explanation of a biomarker."
+    "en": "Students identify a plausible-sounding but unsubstantiated claim in an AI explanation of a biomarker.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-generierte Wirkhypothese gegen eine Primärquelle und beurteilen ihre Evidenz.",
-    "en": "Students test an AI-generated mechanism hypothesis against a primary source and appraise its evidence."
+    "en": "Students test an AI-generated mechanism hypothesis against a primary source and appraise its evidence.",
+    "b": [
+     "F",
+     "K"
+    ]
+   },
+   {
+    "de": "Die Studierenden reflektieren, wie leicht plausibel klingende KI-Erklärungen zu Biomarkern ihr eigenes Urteil beeinflussen, und leiten eine persönliche Prüfhaltung ab.",
+    "en": "Students reflect on how easily plausible-sounding AI explanations of biomarkers influence their own judgement and derive a personal auditing stance.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1545,29 +1865,43 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das PTO ist als asynchrones Take-Home-Format das KI-anfälligste Prüfformat der Modulgruppe — deshalb baut das Zukunftsmodul einen expliziten Verifikationsteil ein, der Fu2 (Persönliche Fähigkeiten, «ohne KI») und KI5 Verantworten auf Stufe 2 sichert (Perkins et al., 2025). Studierende erarbeiten Störungswissen (Fa1, Fa8, Fa10) weiterhin selbst; ergänzend prüft ein kurzer, randomisierter KI-freier Kontrollpunkt je Curriculum, ob die Fallanalyse und Verdachtsdiagnose eigenständig erklärt werden können (QAA, 2023). Über KI6 Evaluieren lernen Studierende zugleich, eine KI-Antwort zu einer Fallvignette als Übungsobjekt kritisch gegen die Klassifikation zu prüfen, statt sie zu übernehmen. So wird der Deskilling-Gefahr des Selbstlernformats mit einem Secure-Element begegnet, ohne die Vorteile des flexiblen E-Learnings aufzugeben.",
-   "en": "As an asynchronous take-home format, the PTO is the module group's most AI-vulnerable assessment — so the future module adds an explicit verification component that secures Fu2 («without AI») and KI5 Taking responsibility at level 2 (Perkins et al., 2025). Students still build disorder knowledge themselves (Fa1, Fa8, Fa10); a short randomised AI-free checkpoint per curriculum verifies that case analysis and preliminary diagnosis can be explained independently (QAA, 2023). Via KI6 Evaluating, students also critically test an AI answer to a case vignette against the classification."
+   "en": "As an asynchronous take-home format, the PTO is the module group's most AI-vulnerable assessment — so the future module builds in an explicit verification component that secures Fu2 (Personal capabilities, «without AI») and KI5 Taking responsibility at level 2 (Perkins et al., 2025). Students still work out disorder knowledge themselves (Fa1, Fa8, Fa10); in addition, a short, randomised AI-free checkpoint per curriculum tests whether the case analysis and preliminary diagnosis can be explained independently (QAA, 2023). Via KI6 Evaluating, students at the same time learn to critically test an AI answer to a case vignette against the classification, as a practice object, instead of adopting it. In this way the deskilling risk of the self-study format is met with a secure element, without giving up the advantages of flexible e-learning."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erkennen und beschreiben zentrale psychopathologische Störungsbilder im klinischen Setting.",
-    "en": "Students recognise and describe central psychopathological disorder patterns in clinical settings."
+    "en": "Students recognise and describe central psychopathological disorder patterns in clinical settings.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden stellen eine Verdachtsdiagnose eigenständig und begründen sie ohne KI im Verifikationsteil.",
-    "en": "Students make and justify a preliminary diagnosis independently, without AI, in the verification component."
+    "en": "Students make and justify a preliminary diagnosis independently, without AI, in the verification component.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-generierte Fallanalyse gegen Klassifikationskriterien und benennen deren fachliche Fehler.",
-    "en": "Students test an AI-generated case analysis against classification criteria and name its factual errors."
+    "en": "Students test an AI-generated case analysis against classification criteria and name its factual errors.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden deklarieren jede KI-Nutzung im PTO transparent über das Disclosure Form.",
-    "en": "Students declare every AI use in the PTO transparently via the disclosure form."
+    "de": "Die Studierenden deklarieren jede KI-Nutzung transparent und reflektieren selbstkritisch, an welchen Stellen des Selbstlernprogramms sie eigenes Denken durch KI zu ersetzen drohen.",
+    "en": "Students declare every AI use transparently and reflect self-critically on where in the self-study programme they are at risk of replacing their own thinking with AI.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A]+[B] — die 6 Übungen bleiben deklariert KI-nutzbar [B], ergänzt um einen randomisierten, KI-freien Verifikations-Kontrollpunkt [A] pro Curriculum. Aktivierende Elemente: Prompt-&-Disclosure-Übung und AI-Critique einer Fallvignette. Verifikationspflicht: Die Verdachtsdiagnose muss im Kontrollpunkt selbst erklärt werden.",
-   "en": "Category [A]+[B] — the six exercises remain AI-usable with declaration [B], complemented by a randomised AI-free verification checkpoint [A] per curriculum. Activating elements: prompt-and-disclosure exercise and AI critique of a case vignette. Verification duty: the preliminary diagnosis must be explained in person at the checkpoint."
+   "en": "Category [A]+[B] — the six exercises remain AI-usable with declaration [B], complemented by a randomised, AI-free verification checkpoint [A] per curriculum. Activating elements: prompt-and-disclosure exercise and AI critique of a case vignette. Verification duty: the preliminary diagnosis must be explained in person at the checkpoint."
   },
   "kat": "A+B",
   "komp": {
@@ -1617,20 +1951,39 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Zukunftsmodul verankert Fa1 und stärkt Fa9 Diversität & Kontext (Stufe 2), indem der soziale und familiäre Kontext psychischer Störungen ins Zentrum rückt (DGPs, 2014). Als KI-Kompetenzen werden KI6 Evaluieren + Fu1 und KI3 Zusammenarbeiten + Fu3 aufgebaut: Studierende prüfen KI-generierte Zusammenfassungen zu Risikofaktoren und «We-Disease» gegen Vorlesung und Befunde und ergänzen systematisch den Kontext- und Diversitätsaspekt, den generische KI-Antworten häufig übersehen (Bass et al., 2025; Miao et al., 2024). Deskilling-Schutz sichert das interpersonelle Störungsverständnis in der [A]-Prüfung; Newskilling entsteht in der Fähigkeit, KI-Aussagen auf kulturelle und familiäre Kontextsensibilität zu befragen. So verbindet das Modul beziehungsorientierte Klinik mit einer diversitätsbewussten KI-Kritik.",
-   "en": "The future module anchors Fa1 and strengthens Fa9 Diversity & context (level 2) by putting the social and family context of mental disorders centre stage (DGPs, 2014). As AI competences, KI6 Evaluating + Fu1 and KI3 Collaborating + Fu3 are built up: students test AI-generated summaries of risk factors and «we-disease» against lecture content and evidence, and systematically add the context and diversity aspects that generic AI answers tend to miss (Bass et al., 2025; Miao et al., 2024)."
+   "en": "The future module anchors Fa1 and strengthens Fa9 Diversity & context (level 2) by putting the social and family context of mental disorders centre stage (DGPs, 2014). As AI competences, KI6 Evaluating + Fu1 and KI3 Collaborating + Fu3 are built up: students test AI-generated summaries of risk factors and «we-disease» against the lecture and the evidence, and systematically add the context and diversity aspects that generic AI answers frequently overlook (Bass et al., 2025; Miao et al., 2024). Deskilling protection secures the interpersonal understanding of disorders in the [A] exam; newskilling arises in the ability to interrogate AI claims for cultural and family context sensitivity. In this way the module joins relationship-oriented clinical work with a diversity-aware critique of AI."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erläutern die vier zentralen familiären Risikofaktoren und das «We-Disease»-Konzept ohne KI.",
-    "en": "Students explain the four central family risk factors and the «we-disease» concept without AI."
+    "en": "Students explain the four central family risk factors and the «we-disease» concept without AI.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-Zusammenfassung zu Beziehungsfaktoren gegen die Vorlesung und ergänzen fehlende Kontextaspekte.",
-    "en": "Students check an AI summary of relationship factors against the lecture and add missing context."
+    "en": "Students check an AI summary of relationship factors against the lecture and add missing context.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden beurteilen, wo eine generische KI-Antwort Diversität und familiären Kontext ausblendet.",
-    "en": "Students judge where a generic AI answer ignores diversity and family context."
+    "en": "Students judge where a generic AI answer ignores diversity and family context.",
+    "b": [
+     "F",
+     "K"
+    ]
+   },
+   {
+    "de": "Die Studierenden begründen, warum tragfähige Beziehungen für Prävention und Genesung zentral sind und eine KI die therapeutische bzw. familiäre Beziehung nicht ersetzen kann.",
+    "en": "Students justify why sustainable relationships are central to prevention and recovery and why AI cannot replace the therapeutic or family relationship.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -1691,26 +2044,41 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden binden KI deklariert in Recherche und Schreiben ein und prüfen jeden Output gegen die Fachliteratur.",
-    "en": "Students integrate AI into search and writing in declared form and test every output against the literature."
+    "en": "Students integrate AI into search and writing in declared form and test every output against the literature.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden holen eine KI-generierte Kritik an einem klinischen Fachartikel ein und beurteilen deren fachliche Tragfähigkeit.",
-    "en": "Students obtain an AI-generated critique of a clinical journal article and appraise its professional soundness."
+    "en": "Students obtain an AI-generated critique of a clinical journal article and appraise its professional soundness.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden dokumentieren ihren KI-Einsatz vollständig über Prozesslog und Disclosure Form.",
-    "en": "Students document their AI use completely via process log and disclosure form."
+    "en": "Students document their AI use completely via process log and disclosure form.",
+    "b": [
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden verfassen einen klinisch fundierten Text und verantworten dessen Aussagen selbst.",
-    "en": "Students write a clinically grounded text and answer for its claims themselves."
+    "en": "Students write a clinically grounded text and answer for its claims themselves.",
+    "b": [
+     "F",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B]/[C] — deklarierte KI-Nutzung mit Prozesslog und KI-freien Kontrollpunkten [B]; in einzelnen Aufträgen wird KI-integrierte Bearbeitung selbst zum Lernziel [C]. Aktivierende Elemente: AI-Critique-Übung (Output vs. Primärliteratur) und Prompt-&-Disclosure-Übung. Vollständige Deklaration und Verifikation jeder KI-gestützten Aussage.",
    "en": "Category [B]/[C] — declared AI use with process log and AI-free checkpoints [B]; in selected assignments, AI-integrated work itself becomes the learning goal [C]. Activating elements: AI-critique exercise (output vs. primary literature) and a prompt-and-disclosure exercise."
   },
-  "kat": "B+C",
+  "kat": "B/C",
   "komp": {
    "fa": [
     "Fa1",
@@ -1763,29 +2131,44 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Die Bachelorarbeit ist die «Gesellenprüfung» des Bachelors und bündelt Fa6, Fa4, Fa2, Fa7 und Fa10 (Stufe 2) mit einem professionell deklarierten KI-Workflow (Perkins et al., 2025). Studierende erstellen zu Beginn einen AI Use Plan, der pro Arbeitsschritt festlegt, was [A] KI-frei, was [B] assistiert bearbeitet wird; KI5 Verantworten + Fu3 und KI6 Evaluieren + Fu2 sichern Disclosure und Verifikation, KI1 Anwenden und KI3 Zusammenarbeiten strukturieren KI- und Peer-Feedback (Bass et al., 2025; Miao et al., 2024). Nach der Secure/Open-Logik wird die offene, KI-integrierte Arbeit nicht abgewertet, sondern durch ein gesichertes Verteidigungs-/Transferelement ergänzt, in dem zentrale Entscheidungen KI-frei erklärt werden (ETH/UZH, 2025). Deskilling-Schutz und Newskilling sind so austariert: Eigenständige Argumentation und Integrität bleiben nachweispflichtig, während der verantwortungsvolle, dokumentierte KI-Einsatz als Zukunftskompetenz eingeübt wird.",
-   "en": "The Bachelor's thesis is the Bachelor's «journeyman's piece», bundling Fa6, Fa4, Fa2, Fa7 and Fa10 (level 2) with a professionally declared AI workflow (Perkins et al., 2025). At the outset students draft an AI use plan determining, per work step, what is handled [A] AI-free and what [B] assisted; KI5 Taking responsibility + Fu3 and KI6 Evaluating + Fu2 secure disclosure and verification, KI1 and KI3 structure AI and peer feedback (Bass et al., 2025; Miao et al., 2024). Following the secure/open logic, the open AI-integrated thesis is not devalued but complemented by a secured defence/transfer element."
+   "en": "The Bachelor's thesis is the Bachelor's «journeyman's piece» and bundles Fa6, Fa4, Fa2, Fa7 and Fa10 (level 2) with a professionally declared AI workflow (Perkins et al., 2025). At the outset, students draft an AI Use Plan that specifies, per work step, what is handled [A] AI-free and what [B] assisted; KI5 Taking responsibility + Fu3 and KI6 Evaluating + Fu2 secure disclosure and verification, while KI1 Applying and KI3 Collaborating structure AI and peer feedback (Bass et al., 2025; Miao et al., 2024). Following the secure/open logic, the open, AI-integrated thesis is not devalued but complemented by a secured defence/transfer element in which central decisions are explained AI-free (ETH/UZH, 2025). Deskilling protection and newskilling are thus balanced: independent argumentation and integrity remain subject to proof, while responsible, documented AI use is practised as a future skill."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erstellen einen AI Use Plan, der jeden Arbeitsschritt als [A] KI-frei oder [B] assistiert kennzeichnet.",
-    "en": "Students draft an AI use plan marking each work step as [A] AI-free or [B] assisted."
+    "en": "Students draft an AI use plan marking each work step as [A] AI-free or [B] assisted.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden dokumentieren ihren KI-Einsatz über Disclosure Form und Prozesslog und verifizieren jede KI-gestützte Aussage.",
-    "en": "Students document their AI use via disclosure form and process log and verify every AI-supported claim."
+    "en": "Students document their AI use via disclosure form and process log and verify every AI-supported claim.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden verteidigen zentrale inhaltliche und methodische Entscheidungen ihrer Arbeit KI-frei.",
-    "en": "Students defend the central substantive and methodological decisions of their thesis AI-free."
+    "en": "Students defend the central substantive and methodological decisions of their thesis AI-free.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden verfassen eine formal korrekte, eigenständig argumentierte wissenschaftliche Arbeit.",
-    "en": "Students write a formally correct, independently argued scholarly thesis."
+    "en": "Students write a formally correct, independently argued scholarly thesis.",
+    "b": [
+     "F"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A]+[B] nach Secure/Open-Logik — offene, deklarierte KI-Nutzung mit Disclosure und Verifikation [B], ergänzt um KI-freie Verteidigungs-/Erklärpunkte [A]. Aktivierende Elemente: Prompt-&-Disclosure-Übung und AI-Critique (KI- und Peer-Feedback vs. Eigenurteil). Verpflichtender AI Use Plan; kein KI-generierter Text ohne Deklaration und Verantwortung durch die:den Verfasser:in.",
-   "en": "Category [A]+[B] following the secure/open logic — open, declared AI use with disclosure and verification [B], complemented by AI-free defence/explanation points [A]. Activating elements: prompt-and-disclosure exercise and AI critique (AI and peer feedback vs. one's own judgement). Mandatory AI use plan; no AI-generated text without declaration and verification."
+   "en": "Category [A]+[B] following the secure/open logic — open, declared AI use with disclosure and verification [B], complemented by AI-free defence/explanation points [A]. Activating elements: prompt-and-disclosure exercise and AI critique (AI and peer feedback vs. one's own judgement). A mandatory AI Use Plan applies; no AI-generated text without declaration and responsibility taken by the author."
   },
   "kat": "A+B",
   "komp": {
@@ -1843,29 +2226,43 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Statistics 3 wird zum methodischen Rückgrat der Stufe 3 und zugleich zum TIC-Pilotmodul (Priorität 1) für aktivierende Grossveranstaltungen: Peer Instruction und Live-Checks holen die Studierenden in der Vorlesung in die Denkarbeit zurück. Aufgebaut werden Fa3 Statistik, R & Daten und Fa2 Forschungsmethoden & Design auf Stufe 3: Studierende rechnen Mehrebenen- und Strukturgleichungsmodelle nicht nur, sie verteidigen Modellwahl, Annahmen und Interpretation. Neu rückt KI4 Verstehen (Stufe 3) ins Zentrum: Explainability und Modellvalidierung werden an KI-generierten Modellvorschlägen trainiert — Studierende prüfen, wo ein plausibel klingender KI-Vorschlag zu SEM oder Multilevel die Datenstruktur verfehlt (Bass et al., 2025). Ein sokratischer R-Tutor (hint-only, via KlickerUZH/OLAT) begleitet die Übungen rund um die Uhr; gemäss PSYCH AI Guidelines editiert und kommentiert KI dabei nur eigenen Code — Codegenerierung bleibt ausgeschlossen. Der Deskilling-Schutz ist klar austariert: Die schriftliche Prüfung bleibt [A] KI-frei und sichert, dass Modelllogik, R-Output und Statistik ohne KI erklärbar sind; das Newskilling findet in den [B]-Übungen statt, wo KI-gestützte Analyseschritte per Prozesslog und Disclosure Form dokumentiert und verifiziert werden (Perkins et al., 2025). KI1 Anwenden entwickelt sich von Stufe 2 zu 3 (Datenanalyse, Literatursynthese), KI6 Evaluieren (Stufe 3) prüft Statistikoutputs, und Fu2 Persönliche Fähigkeiten sichert die bewusste Mit-/Ohne-KI-Entscheidung.",
-   "en": "Statistics 3 becomes the methodological backbone of stage 3 and the TIC pilot module (priority 1) for activating large lectures: peer instruction and live checks bring students back into active thinking. Fa3 Statistics, R & data and Fa2 are built at level 3: students not only fit multilevel and structural equation models, they defend model choice, assumptions and interpretation. KI4 Understanding (level 3) moves centre stage: explainability and model validation are trained on AI-generated model proposals — students probe where a plausible-sounding AI suggestion for SEM or multilevel modelling betrays the data structure."
+   "en": "Statistics 3 becomes the methodological backbone of stage 3 and, at the same time, the TIC pilot module (priority 1) for activating large lectures: peer instruction and live checks bring students back into active thinking during the lecture. Fa3 Statistics, R & data and Fa2 Research methods & design are built at level 3: students not only fit multilevel and structural equation models, they defend model choice, assumptions and interpretation. KI4 Understanding (level 3) newly moves centre stage: explainability and model validation are trained on AI-generated model proposals — students probe where a plausible-sounding AI suggestion for SEM or multilevel modelling misses the data structure (Bass et al., 2025). A Socratic R tutor (hint-only, via KlickerUZH/OLAT) accompanies the exercises around the clock; per the PSYCH AI Guidelines, AI only edits and comments on one's own code — code generation remains excluded. Deskilling protection is clearly balanced: the written exam stays [A] AI-free and ensures that model logic, R output and statistics are explainable without AI; newskilling takes place in the [B] exercises, where AI-supported analysis steps are documented and verified via process log and Disclosure Form (Perkins et al., 2025). KI1 Applying develops from level 2 to 3 (data analysis, literature synthesis), KI6 Evaluating (level 3) checks statistical outputs, and Fu2 Personal capabilities secures the deliberate with-/without-AI decision."
   },
   "lernziele": [
    {
     "de": "Die Studierenden wählen für hierarchische und längsschnittliche Fragestellungen das passende Modell (Mehrebenenmodell vs. SEM) und begründen die Wahl anhand von Datenstruktur und Annahmen.",
-    "en": "Students choose the appropriate model for hierarchical and longitudinal questions (multilevel vs. SEM) and justify the choice."
+    "en": "Students choose the appropriate model for hierarchical and longitudinal questions (multilevel vs. SEM) and justify the choice.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden interpretieren Modelloutputs (feste und zufällige Effekte, Fit-Indizes) korrekt und erklären sie KI-frei in eigenen Worten.",
-    "en": "Students interpret model outputs (fixed and random effects, fit indices) correctly and explain them AI-free."
+    "en": "Students interpret model outputs (fixed and random effects, fit indices) correctly and explain them AI-free.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Modellvorschläge auf Annahmen, Passung und Interpretationsrisiken und korrigieren fehlerhafte Spezifikationen.",
-    "en": "Students test AI-generated model proposals for assumptions, fit and interpretation risks and correct them."
+    "en": "Students test AI-generated model proposals for assumptions, fit and interpretation risks and correct them.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
-    "de": "Die Studierenden debuggen eigenen R-Code mit KI-Unterstützung und erklären jede Zeile des finalen Skripts selbst.",
-    "en": "Students debug their own R code with AI support and explain every line of the final script themselves."
+    "de": "Die Studierenden debuggen eigenen R-Code mit KI-Unterstützung, erklären jede Zeile selbst und reflektieren, wo die KI-Hilfe ihr statistisches Verständnis fördert oder ersetzt.",
+    "en": "Students debug their own R code with AI support, explain every line themselves, and reflect on where the AI help fosters or replaces their statistical understanding.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A] + [B]: Die schriftliche Prüfung (written exam) bleibt [A] KI-frei — Modelllogik, Annahmen und Interpretation müssen ohne KI erklärbar sein (Deskilling-Schutz). Die Übungen laufen [B] teilweise KI-integriert: KI-Editing und Debugging eigenen R-Codes (keine Codegenerierung), Prüfen von KI-Modellvorschlägen; jeder KI-Schritt wird im Prozesslog dokumentiert, im Disclosure Form deklariert und gegen die Daten verifiziert. Aktivierende Elemente aus dem 8er-Baukasten: Sokratischer Tutoring-Bot (hint-only R-Tutor via KlickerUZH/OLAT) und Live-Check («Stimmt das, was die KI zum Modell sagt?»).",
-   "en": "Category [A]+[B]: the written exam stays [A] AI-free — model logic, assumptions and interpretation must be explainable without AI (deskilling protection). Exercises run [B] partially AI-integrated: AI editing and debugging of one's own R code (no code generation), probing AI model proposals; every AI step goes in the process log."
+   "en": "Category [A]+[B]: the written exam stays [A] AI-free — model logic, assumptions and interpretation must be explainable without AI (deskilling protection). The exercises run [B] partially AI-integrated: AI editing and debugging of one's own R code (no code generation), probing AI model proposals; every AI step is documented in the process log, declared in the Disclosure Form and verified against the data. Activating elements from the eight-part toolkit: a Socratic tutoring bot (hint-only R tutor via KlickerUZH/OLAT) and a live check («Is what the AI says about the model correct?»)."
   },
   "kat": "A+B",
   "komp": {
@@ -1914,31 +2311,49 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Die Psychologische Diagnostik wird zur «Königsdisziplin» der KI-Evaluation im Studium: Nirgends ist der professionelle Prüfauftrag klarer als dort, wo Algorithmen über Menschen urteilen. Das Modul baut Fa5 Diagnostik, Testtheorie & Assessment und Fa7 Ethik & Integrität auf Stufe 3 auf — vom diagnostischen Prozess über Gütekriterien bis zur Gutachtenlogik (DGPs, 2014) — und macht KI6 Evaluieren (Stufe 3) zur dritten Hauptkompetenz: Studierende auditieren algorithmische diagnostische Verfahren systematisch auf Bias, Fairness und Messinvarianz, entlang der ITC/ATP-Richtlinien für technologiebasiertes Assessment und der Einstufung algorithmischer Eignungsdiagnostik als Hochrisiko-Anwendung im EU AI Act (Bass et al., 2025). KI5 Verantworten (Stufe 2→3) sichert den Umgang mit Klientendaten: keine sensiblen Diagnostikdaten in KI-Systeme, keine Delegation diagnostischer Entscheidungen an KI. Der Deskilling-Schutz bleibt hart: Haupt- und Nebengütekriterien, Konstruktionsstrategien und diagnostische Urteilslogik werden in gesicherten Prüfungsanteilen KI-frei nachgewiesen. Das Newskilling ist das Audit selbst — eine vollständig KI-integrierte [C]-Aufgabe, in der Steuerung, Prüfung, Validierung und ethische Begrenzung bewertet werden (Perkins et al., 2025). Fu1 (Outputs kritisch prüfen, Entscheidungen begründen) und Fu3 (Datenschutz/Ethik, Verantwortung kommunizieren) tragen die Kompetenzpaare.",
-   "en": "Psychological assessment becomes the «master discipline» of AI evaluation in the curriculum: nowhere is the professional duty to scrutinise clearer than where algorithms judge people. The module builds Fa5 and Fa7 at level 3 — from the diagnostic process and psychometric quality criteria to report logic (DGPs, 2014) — and makes KI6 Evaluating (level 3) the third main competence: students systematically audit algorithmic diagnostic instruments for bias, fairness and measurement invariance, following the ITC/ATP guidelines for technology-based assessment and the EU AI Act's high-risk classification of algorithmic aptitude assessment."
+   "en": "Psychological assessment becomes the «master discipline» of AI evaluation in the curriculum: nowhere is the professional duty to scrutinise clearer than where algorithms judge people. The module builds Fa5 Assessment, test theory & diagnostics and Fa7 Ethics & integrity at level 3 — from the diagnostic process through quality criteria to report logic (DGPs, 2014) — and makes KI6 Evaluating (level 3) the third main competence: students systematically audit algorithmic diagnostic instruments for bias, fairness and measurement invariance, following the ITC/ATP guidelines for technology-based assessment and the EU AI Act's classification of algorithmic aptitude assessment as a high-risk application (Bass et al., 2025). KI5 Taking responsibility (level 2→3) secures the handling of client data: no sensitive diagnostic data in AI systems, no delegation of diagnostic decisions to AI. Deskilling protection stays hard: primary and secondary quality criteria, construction strategies and diagnostic reasoning are demonstrated AI-free in secured exam parts. The newskilling is the audit itself — a fully AI-integrated [C] task in which steering, scrutiny, validation and ethical constraint are graded (Perkins et al., 2025). Fu1 (critically checking outputs, justifying decisions) and Fu3 (data protection/ethics, communicating responsibility) carry the competence pairs."
   },
   "lernziele": [
    {
     "de": "Die Studierenden beurteilen diagnostische Verfahren — klassische wie algorithmische — nach Haupt- und Nebengütekriterien und begründen ihr Urteil.",
-    "en": "Students appraise diagnostic instruments — classical and algorithmic — against primary and secondary quality criteria."
+    "en": "Students appraise diagnostic instruments — classical and algorithmic — against primary and secondary quality criteria.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden führen ein Bias-/Fairness-Audit eines algorithmischen diagnostischen Verfahrens durch (Testfairness, Messinvarianz, Alternativerklärungen) und dokumentieren es nachvollziehbar.",
-    "en": "Students conduct a bias/fairness audit of an algorithmic diagnostic instrument (test fairness, measurement invariance)."
+    "en": "Students conduct a bias/fairness audit of an algorithmic diagnostic instrument (test fairness, measurement invariance).",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden ordnen technologiebasierte Diagnostik regulatorisch ein (ITC/ATP-Richtlinien, EU AI Act Hochrisiko) und leiten daraus professionelle Prüfpflichten ab.",
-    "en": "Students situate technology-based assessment in its regulatory frame (ITC/ATP guidelines, EU AI Act high-risk) and derive audit duties."
+    "en": "Students situate technology-based assessment in its regulatory frame (ITC/ATP guidelines, EU AI Act high-risk) and derive audit duties.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden wählen diagnostische Verfahren hypothesengeleitet aus und begründen, welche diagnostischen Entscheidungen nicht an KI delegiert werden dürfen.",
-    "en": "Students select diagnostic instruments hypothesis-driven and justify which diagnostic decisions must never be delegated to AI."
+    "en": "Students select diagnostic instruments hypothesis-driven and justify which diagnostic decisions must never be delegated to AI.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B]/[C]: Die schriftliche Prüfung kombiniert gesicherte KI-freie Anteile (Gütekriterien, diagnostische Urteilslogik — Deskilling-Schutz) mit [B]-Anteilen zu vorbereiteten Audit-Fällen; das vollständig KI-integrierte [C]-Bias-Audit eines algorithmischen Verfahrens ist anspruchsvolles Newskilling, bewertet nach Steuerung, Audit, Validierung und Ethik. Aktivierende Elemente aus dem 8er-Baukasten: AI-Critique-Übung (algorithmischer Testoutput vs. Gütekriterien und Primärliteratur) und Two-Stage-Quiz zu Gütekriterien. Disclosure Form und Verifikationspflicht gelten durchgängig; echte Klientendaten sind in KI-Systemen tabu.",
-   "en": "Category [B]/[C]: the written exam combines secured AI-free parts (quality criteria, diagnostic reasoning — deskilling protection) with [B] parts on prepared audit cases; the fully AI-integrated [C] bias audit of an algorithmic instrument is demanding newskilling, graded on steering, audit, validation, ethics and personal accountability."
+   "en": "Category [B]/[C]: the written exam combines secured AI-free parts (quality criteria, diagnostic reasoning — deskilling protection) with [B] parts on prepared audit cases; the fully AI-integrated [C] bias audit of an algorithmic instrument is demanding newskilling, graded on steering, audit, validation and ethics. Activating elements from the eight-part toolkit: an AI-critique exercise (algorithmic test output vs. quality criteria and the primary literature) and a two-stage quiz on quality criteria. Disclosure Form and verification duty apply throughout; real client data are taboo in AI systems."
   },
-  "kat": "B+C",
+  "kat": "B/C",
   "komp": {
    "fa": [
     "Fa4",
@@ -1988,29 +2403,45 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Digital Health wird zum roten Faden des Zukunftsmoduls: Chatbots, Gesundheits-Apps und KI-Coaches sind längst Teil des Gesundheitsverhaltens — die Gesundheitspsychologie liefert die Theorien und Evidenzstandards, um sie professionell zu beurteilen. Fa1 Fachwissen und Fa8 evidenzbasierte Praxis/Transfer werden auf Stufe 3 aufgebaut: Studierende wenden Modelle des Gesundheitsverhaltens, Stress- und Bewältigungstheorien und Interventionslogiken auf digitale Interventionen an; Fa9 Diversität & Kontext schärft den Blick für digitale Gesundheitsungleichheit. KI5 Verantworten (Stufe 3) ist die KI-Hauptkompetenz: Studierende legen fest, welche Gesundheitsdaten nicht in KI-Systeme gehören, erkennen Krisenrisiken von Chatbot-Interventionen und begründen, warum Beratungs- und Interventionsentscheidungen nicht an KI ausgelagert werden dürfen (Miao et al., 2024). KI6 Evaluieren (Stufe 3) ergänzt: App- und Chatbot-Evidenz wird gegen Theorie und Studienlage geprüft. Deskilling-Schutz und Newskilling sind über die Prüfungslogik austariert: Theorien und Befunde bleiben in gesicherten Prüfungsanteilen KI-frei abrufbar, während die deklarierte [B]-Fallanalyse einer digitalen Intervention neue professionelle Bewertungskompetenz aufbaut (Ehlers et al., 2024). Fu3 Soziales Umfeld gestalten trägt die Verantwortungsseite, Fu1 Arbeiten/Gestalten die kritische Prüfpraxis.",
-   "en": "Digital health becomes the connecting thread: chatbots, health apps and AI coaches are already part of health behaviour — health psychology supplies the theories and evidence standards to appraise them professionally. Fa1 and Fa8 are built at level 3: students apply models of health behaviour, stress and coping theories and intervention logic to digital interventions; Fa9 sharpens the eye for digital health inequality. KI5 Taking responsibility (level 3) is the main AI competence: students determine which health data must never enter AI systems and where professional responsibility cannot be delegated."
+   "en": "Digital health becomes the connecting thread of the future module: chatbots, health apps and AI coaches are long since part of health behaviour — health psychology supplies the theories and evidence standards to appraise them professionally. Fa1 Disciplinary knowledge and Fa8 Evidence-based practice/transfer are built at level 3: students apply models of health behaviour, stress and coping theories and intervention logic to digital interventions; Fa9 Diversity & context sharpens the eye for digital health inequality. KI5 Taking responsibility (level 3) is the main AI competence: students determine which health data must not enter AI systems, recognise the crisis risks of chatbot interventions, and justify why counselling and intervention decisions must not be outsourced to AI (Miao et al., 2024). KI6 Evaluating (level 3) complements this: app and chatbot evidence is checked against theory and the state of research. Deskilling protection and newskilling are balanced through the assessment logic: theories and findings remain retrievable AI-free in secured exam parts, while the declared [B] case analysis of a digital intervention builds new professional appraisal competence (Ehlers et al., 2024). Fu3 Shaping the social environment carries the responsibility side, Fu1 Working/shaping the critical audit practice."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erklären zentrale Theorien des Gesundheitsverhaltens und wenden sie auf digitale Interventionen wie Gesundheits-Apps und Chatbots an.",
-    "en": "Students explain central theories of health behaviour and apply them to digital interventions such as health apps."
+    "en": "Students explain central theories of health behaviour and apply them to digital interventions such as health apps.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden bewerten Chatbot- und App-basierte Gesundheitsinterventionen nach Evidenzlage, Theoriebasis und Risiken — einschliesslich Krisensituationen.",
-    "en": "Students appraise chatbot- and app-based health interventions by evidence base, theoretical grounding and risks."
+    "en": "Students appraise chatbot- and app-based health interventions by evidence base, theoretical grounding and risks.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden beurteilen, welche Gesundheitsdaten in KI-Systeme eingegeben werden dürfen, und begründen die Grenzen der KI-Delegation in Prävention und Beratung.",
-    "en": "Students judge which health data may be entered into AI systems and justify the limits of delegation."
+    "en": "Students judge which health data may be entered into AI systems and justify the limits of delegation.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden berücksichtigen Diversität und digitale Ungleichheit bei der Beurteilung digitaler Gesundheitsangebote.",
-    "en": "Students take diversity and digital inequality into account when appraising digital health offerings."
+    "en": "Students take diversity and digital inequality into account when appraising digital health offerings.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B]: Die schriftliche Prüfung enthält gesicherte KI-freie Anteile (Theorien, Befunde — Deskilling-Schutz) und eine vorbereitete, deklarierte Fallanalyse einer digitalen Gesundheitsintervention (Chatbot/App) mit Disclosure Form und Quellenverifikation. Aktivierende Elemente aus dem 8er-Baukasten: KI-Rollenspiel (Copilot-Agent als Gesundheitscoach, dessen Beratung theorie- und evidenzbasiert bewertet wird) und JiTT-WarmUp-Quiz vor der Vorlesung. Sensible Gesundheitsdaten bleiben aus KI-Systemen ausgeschlossen — KI assistiert bei der Analyse, ersetzt aber keine fachliche Bewertung.",
-   "en": "Category [B]: the written exam contains secured AI-free parts (theories, evidence — deskilling protection) and a prepared, declared case analysis of a digital health intervention (chatbot/app) with disclosure form and source verification. Activating elements: AI role-play (Copilot agent as health coach) and AI-critique exercise."
+   "en": "Category [B]: the written exam contains secured AI-free parts (theories, findings — deskilling protection) and a prepared, declared case analysis of a digital health intervention (chatbot/app) with Disclosure Form and source verification. Activating elements from the eight-part toolkit: AI role-play (a Copilot agent as a health coach whose advice is appraised on a theory- and evidence-based basis) and a JiTT warm-up quiz before the lecture. Sensitive health data remain excluded from AI systems — AI assists the analysis but does not replace professional appraisal."
   },
   "kat": "B",
   "komp": {
@@ -2060,29 +2491,43 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Zukunftsmodul macht KI selbst zum Untersuchungsgegenstand der Entscheidungs- und Konsumpsychologie: Empfehlungsalgorithmen, personalisierte Werbung und Dark Patterns sind angewandte Entscheidungsarchitektur — genau die Mechanismen, die das Modul theoretisch erklärt. Fa1 Fachwissen und Fa4 wissenschaftliches/kritisches Denken werden auf Stufe 3 aufgebaut (Entscheidungstheorie, Rationalitätsverletzungen, Spieltheorie, Kooperation); Fa8 evidenzbasierte Praxis/Transfer verbindet sie mit Marketing- und Policy-Anwendungen. KI6 Evaluieren (Stufe 3) wird zur KI-Hauptkompetenz: Studierende prüfen algorithmische Persuasion auf ihre psychologischen Wirkmechanismen und beurteilen «Silicon Samples» — LLMs als simulierte Versuchspersonen der Verhaltensökonomie — kritisch auf ihre Übereinstimmung mit menschlichem Entscheidungsverhalten. KI4 Verstehen (Stufe 3) liefert das Fundament: Wie modellieren und beeinflussen Empfehlungssysteme und LLMs Entscheidungen? Die Paarung mit Fu2 Persönliche Fähigkeiten zielt auf Entscheidungsautonomie und KI-Persuasions-Literacy: bewusst mit oder ohne KI entscheiden, die eigene Beeinflussbarkeit kennen (Ehlers et al., 2024; Miao et al., 2024). Deskilling-Schutz: Die schriftliche Prüfung bleibt [A] KI-frei; das Newskilling liegt in deklarierten [B]-Übungselementen wie Silicon-Sample-Vergleichen und Live-Checks KI-generierter Werbebotschaften.",
-   "en": "The future module makes AI itself an object of study for economic and consumer psychology: recommendation algorithms, personalised advertising and dark patterns are applied choice architecture — precisely the mechanisms the module explains theoretically. Fa1 and Fa4 are built at level 3 (decision theory, rationality violations, game theory, cooperation); Fa8 connects them to marketing and policy applications. KI6 Evaluating (level 3) becomes the main AI competence: students analyse algorithmic persuasion for its psychological mechanisms and appraise «silicon samples» — LLM-simulated decisions — against empirical findings on human behaviour."
+   "en": "The future module makes AI itself an object of study for economic and consumer psychology: recommendation algorithms, personalised advertising and dark patterns are applied choice architecture — precisely the mechanisms the module explains theoretically. Fa1 Disciplinary knowledge and Fa4 Scientific/critical thinking are built at level 3 (decision theory, rationality violations, game theory, cooperation); Fa8 Evidence-based practice/transfer connects them to marketing and policy applications. KI6 Evaluating (level 3) becomes the main AI competence: students examine algorithmic persuasion for its psychological mechanisms and critically appraise «silicon samples» — LLMs as simulated behavioural-economics participants — for their agreement with human decision behaviour. KI4 Understanding (level 3) provides the foundation: how do recommender systems and LLMs model and influence decisions? The pairing with Fu2 Personal capabilities targets decision autonomy and AI persuasion literacy: deciding deliberately with or without AI, knowing one's own susceptibility (Ehlers et al., 2024; Miao et al., 2024). Deskilling protection: the written exam stays [A] AI-free; the newskilling lies in declared [B] exercise elements such as silicon-sample comparisons and live checks of AI-generated advertising messages."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erklären Rationalitätsannahmen und deren Verletzungen und identifizieren sie in realen Konsum- und Politikkontexten.",
-    "en": "Students explain rationality assumptions and their violations and identify them in real consumer and policy contexts."
+    "en": "Students explain rationality assumptions and their violations and identify them in real consumer and policy contexts.",
+    "b": [
+     "F"
+    ]
    },
    {
-    "de": "Die Studierenden analysieren KI-gestützte Entscheidungsarchitekturen (Empfehlungssysteme, personalisierte Werbung, Dark Patterns) mit entscheidungstheoretischen Konzepten.",
-    "en": "Students analyse AI-driven choice architectures (recommender systems, personalised advertising, dark patterns) for their psychological mechanisms."
+    "de": "Die Studierenden analysieren KI-gestützte Entscheidungsarchitekturen (Empfehlungssysteme, Dark Patterns) und reflektieren die eigene Beeinflussbarkeit durch algorithmische Persuasion.",
+    "en": "Students analyse AI-driven choice architectures (recommender systems, dark patterns) and reflect on their own susceptibility to algorithmic persuasion.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden vergleichen LLM-simulierte Entscheidungen («Silicon Samples») mit empirischen Befunden menschlichen Entscheidens und benennen systematische Abweichungen.",
-    "en": "Students compare LLM-simulated decisions («silicon samples») with empirical findings on human decision-making."
+    "en": "Students compare LLM-simulated decisions («silicon samples») with empirical findings on human decision-making.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden formalisieren soziale Dilemmata spieltheoretisch und leiten Bedingungen ab, unter denen Kooperation entsteht oder zerfällt.",
-    "en": "Students formalise social dilemmas game-theoretically and derive conditions under which cooperation emerges."
+    "en": "Students formalise social dilemmas game-theoretically and derive conditions under which cooperation emerges.",
+    "b": [
+     "F"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A] + [B]: Die schriftliche Prüfung bleibt [A] KI-frei (Entscheidungs- und Spieltheorie, empirische Befunde — Deskilling-Schutz); begleitende [B]-Übungselemente arbeiten deklariert mit KI. Aktivierende Elemente aus dem 8er-Baukasten: Live-Check («Nudged dich die KI?» — KI-generierte Werbebotschaften auf Persuasionstechniken analysieren) und Two-Stage-Quiz zur Spieltheorie. Silicon-Sample-Demos werden per Disclosure Form dokumentiert und gegen empirische Befunde verifiziert.",
-   "en": "Category [A]+[B]: the written exam stays [A] AI-free (decision and game theory, empirical findings — deskilling protection); accompanying [B] exercises work with AI in declared form. Activating elements: live check («Is the AI nudging you?» — analysing AI-generated advertising for persuasion techniques) and a two-stage quiz."
+   "en": "Category [A]+[B]: the written exam stays [A] AI-free (decision and game theory, empirical findings — deskilling protection); accompanying [B] exercise elements work with AI in declared form. Activating elements from the eight-part toolkit: a live check («Is the AI nudging you?» — analysing AI-generated advertising for persuasion techniques) and a two-stage quiz on game theory. Silicon-sample demos are documented via the Disclosure Form and verified against empirical findings."
   },
   "kat": "A+B",
   "komp": {
@@ -2132,29 +2577,46 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Zukunftsmodul bringt klinische Fallarbeit in die Grossveranstaltung — mit KI als Simulations- und Prüfobjekt, nie als Entscheiderin. Fa1 Fachwissen, Fa5 Diagnostik, Testtheorie & Assessment und Fa8 evidenzbasierte Praxis/Transfer werden auf Stufe 3 aufgebaut: Syndrome erläutern, differentialdiagnostisch abgrenzen, Verfahren und rehabilitative Massnahmen fallbezogen wählen (DGPs, 2014). KI6 Evaluieren (Stufe 3) wird daran geschärft: Studierende prüfen KI-generierte Verdachtsdiagnosen und Fallvignetten gegen Syndromkriterien und aktuelle Literatur und decken typische Fehlschlüsse auf. KI3 Zusammenarbeiten (Stufe 2→3) nutzt das KI-Rollenspiel: simulierte Patient:innen machen Anamnese und Befundkommunikation auch in der Vorlesung übbar (ETH/UZH, 2025). KI5 Verantworten (Stufe 3) zieht die professionelle Grenze: Hochsensible neuropsychologische Patient:innendaten gehören nie in KI-Systeme, und diagnostische wie rehabilitative Entscheidungen bleiben menschliche Letztverantwortung. Der Deskilling-Schutz ist klar: Syndromwissen und differentialdiagnostisches Schliessen bleiben in der [A] KI-freien schriftlichen Prüfung gesichert; das Newskilling liegt in deklarierten [B]-Übungen mit KI-Fallvignetten samt Disclosure Form und Verifikation. Fu1 trägt die Prüfpraxis, Fu3 die Verantwortungs- und Datenschutzseite.",
-   "en": "The future module brings clinical case work into the large lecture — with AI as simulation and audit object, never as decision-maker. Fa1, Fa5 and Fa8 are built at level 3: explaining syndromes, differential diagnosis, choosing procedures and rehabilitation measures case by case (DGPs, 2014). KI6 Evaluating (level 3) is sharpened on this material: students test AI-generated preliminary diagnoses and case vignettes against syndrome criteria and current literature and expose typical fallacies. KI3 Collaborating uses AI role-play: simulated patients make history-taking and findings interviews trainable at scale."
+   "en": "The future module brings clinical case work into the large lecture — with AI as a simulation and audit object, never as decision-maker. Fa1 Disciplinary knowledge, Fa5 Assessment, test theory & diagnostics and Fa8 Evidence-based practice/transfer are built at level 3: explaining syndromes, differentiating them diagnostically, and choosing procedures and rehabilitation measures case by case (DGPs, 2014). KI6 Evaluating (level 3) is sharpened on this material: students test AI-generated preliminary diagnoses and case vignettes against syndrome criteria and current literature and expose typical fallacies. KI3 Collaborating (level 2→3) uses AI role-play: simulated patients make history-taking and findings communication trainable even in the lecture hall (ETH/UZH, 2025). KI5 Taking responsibility (level 3) draws the professional line: highly sensitive neuropsychological patient data never belong in AI systems, and diagnostic as well as rehabilitative decisions remain a matter of human final responsibility. Deskilling protection is clear: syndrome knowledge and differential-diagnostic reasoning remain secured in the [A] AI-free written exam; the newskilling lies in declared [B] exercises with AI case vignettes including Disclosure Form and verification. Fu1 carries the audit practice, Fu3 the responsibility and data-protection side."
   },
   "lernziele": [
    {
     "de": "Die Studierenden erläutern die wesentlichen neuropsychologischen Syndrome und grenzen deren neurologische Ursachen differentialdiagnostisch ab.",
-    "en": "Students explain the major neuropsychological syndromes and differentiate their neurological causes."
+    "en": "Students explain the major neuropsychological syndromes and differentiate their neurological causes.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Verdachtsdiagnosen zu Fallvignetten gegen Syndromkriterien und aktuelle Literatur und korrigieren Fehlschlüsse.",
-    "en": "Students test AI-generated preliminary diagnoses for case vignettes against syndrome criteria and current literature."
+    "en": "Students test AI-generated preliminary diagnoses for case vignettes against syndrome criteria and current literature.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden wählen diagnostische Verfahren und grundlegende rehabilitative Massnahmen fallbezogen aus und begründen, welche Entscheidungen nicht an KI delegiert werden dürfen.",
-    "en": "Students select diagnostic procedures and basic rehabilitation measures case by case and justify the choice."
+    "en": "Students select diagnostic procedures and basic rehabilitation measures case by case and justify the choice.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden üben Anamnese- und Befundgespräche im KI-Rollenspiel und reflektieren die Grenzen simulierter Patient:innen.",
-    "en": "Students practise history-taking and findings interviews in AI role-play and reflect on the limits of simulated patients."
+    "en": "Students practise history-taking and findings interviews in AI role-play and reflect on the limits of simulated patients.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A] + [B]: Die schriftliche Prüfung bleibt [A] KI-frei (Syndrome, Differentialdiagnostik, Verfahren — Deskilling-Schutz); [B]-Übungselemente arbeiten deklariert mit KI. Aktivierende Elemente aus dem 8er-Baukasten: KI-Rollenspiel (Copilot-Agent als simulierte:r Patient:in, z. B. mit Neglect-Symptomatik) und AI-Critique-Übung an KI-Fallvignetten mit Verdachtsdiagnose. Alle KI-Schritte mit Disclosure Form und Verifikation gegen Lehrbuch und Literatur; echte Patient:innendaten gehören nie in KI-Systeme.",
-   "en": "Category [A]+[B]: the written exam stays [A] AI-free (syndromes, differential diagnosis, procedures — deskilling protection); [B] exercises work with AI in declared form. Activating elements: AI role-play (Copilot agent as simulated patient, e.g. with neglect symptoms) and AI-critique exercises on AI case vignettes."
+   "en": "Category [A]+[B]: the written exam stays [A] AI-free (syndromes, differential diagnosis, procedures — deskilling protection); [B] exercise elements work with AI in declared form. Activating elements from the eight-part toolkit: AI role-play (a Copilot agent as a simulated patient, e.g. with neglect symptoms) and an AI-critique exercise on AI case vignettes with a preliminary diagnosis. All AI steps with Disclosure Form and verification against textbook and literature; real patient data never belong in AI systems."
   },
   "kat": "A+B",
   "komp": {
@@ -2205,29 +2667,45 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Modul verbindet die schwerpunktspezifische Theoriearbeit mit dem fachlich geleiteten Prüfen von KI-Systemen als Erkenntnisgegenstand. Im DeNC-Themengebiet wird das leitend, wenn Foundation Models als Kognitions- bzw. Entwicklungsmodelle betrachtet werden: Studierende unterscheiden, ob ein Modell menschliches Verhalten nur *vorhersagt* oder mechanistisch *erklärt* (prediction vs. explanation), und prüfen dies gegen entwicklungspsychologische Primärliteratur (Miao et al., 2024). Im HEA-Themengebiet «Klinische Psychologie 1» wird KI-gestützte Fallinformation kritisch gegen diagnostische Kriterien gehalten, im SEOP-Themengebiet «Sozialpsychologie 1» werden sozialpsychologische Befunde von plausibel klingenden, aber unbelegten KI-Aussagen getrennt. Aufgebaut werden Fa1 Fachwissen und Fa4 wissenschaftliches/kritisches Denken auf Stufe 3 sowie KI4 Verstehen und KI6 Evaluieren (Stufe 3), gepaart mit Fu2 Persönliche Fähigkeiten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz sichert die schriftliche Prüfung als KI-freien Kernnachweis; das Newskilling liegt darin, ein KI-Modell selbst zu auditieren, statt seine Ausgabe zu übernehmen.",
-   "en": "The module joins track-specific theory work with professionally guided scrutiny of AI systems as objects of inquiry. In the DeNC topic area this becomes central when foundation models are treated as models of cognition or development: students distinguish whether a model merely predicts behaviour or mechanistically explains it (prediction vs. explanation), testing this against developmental primary literature (Miao et al., 2024). In HEA, AI-supported case information is held against diagnostic criteria; in SEOP, social-psychological findings are defended against plausible-sounding AI claims."
+   "en": "The module joins track-specific theory work with professionally guided scrutiny of AI systems as objects of inquiry. In the DeNC topic area this becomes central when foundation models are treated as models of cognition or development: students distinguish whether a model merely *predicts* human behaviour or mechanistically *explains* it (prediction vs. explanation), testing this against developmental-psychology primary literature (Miao et al., 2024). In the HEA topic area «Clinical psychology 1», AI-supported case information is held critically against diagnostic criteria; in the SEOP topic area «Social psychology 1», social-psychological findings are separated from plausible-sounding but unsubstantiated AI claims. Fa1 Disciplinary knowledge and Fa4 Scientific/critical thinking are built at level 3, as are KI4 Understanding and KI6 Evaluating (level 3), paired with Fu2 Personal capabilities and Fu1 Working/shaping (Bass et al., 2025). Deskilling protection secures the written exam as the AI-free core credential; the newskilling lies in auditing an AI model oneself instead of adopting its output."
   },
   "lernziele": [
    {
     "de": "Die Studierenden vergleichen aktuelle Theorien ihres Schwerpunkts und schätzen Stärken und Schwächen empirischer Befunde begründet ein.",
-    "en": "Students compare current theories of their track and appraise the strengths and weaknesses of empirical findings."
+    "en": "Students compare current theories of their track and appraise the strengths and weaknesses of empirical findings.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden unterscheiden an einem Foundation-Model-Beispiel Vorhersage von mechanistischer Erklärung und belegen ihr Urteil an Primärliteratur.",
-    "en": "Students distinguish prediction from mechanistic explanation on a foundation-model example and substantiate the difference."
+    "en": "Students distinguish prediction from mechanistic explanation on a foundation-model example and substantiate the difference.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden prüfen KI-generierte Fachaussagen gegen Lehrbuch und PsycINFO und korrigieren Fehler nachvollziehbar.",
-    "en": "Students test AI-generated disciplinary claims against textbook and PsycINFO and correct errors verifiably."
+    "en": "Students test AI-generated disciplinary claims against textbook and PsycINFO and correct errors verifiably.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden deklarieren ihre KI-Nutzung transparent und verteidigen ihre Analyseentscheidungen ohne KI.",
-    "en": "Students declare their AI use transparently and defend their analytical decisions without AI."
+    "en": "Students declare their AI use transparently and defend their analytical decisions without AI.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Die drei Katalog-Optionen tragen je eine Prüfungslogik: schriftliche Prüfung = [A] KI-frei (Theorien/Befunde selbst erklären), schriftliche Arbeit = [B] teilweise KI-integriert (mit Disclosure Form und Prozesslog), Portfolio = [C] KI-integriert (dokumentiertes Modell-Audit als Leistungsnachweis, «anspruchsvolles Newskilling»). Aktivierende Elemente: AI-Critique-Übung (KI-Erklärung vs. Primärliteratur) und Live-Check («Stimmt das, was die KI sagt?») über Copilot Chat. Disclosure- und Verifikationspflicht gelten durchgängig; KI assistiert, ersetzt aber die fachliche Beurteilung nicht.",
-   "en": "The three catalogue options each carry an assessment logic: written exam = [A] AI-free (explaining theories/findings oneself), written paper = [B] partially AI-integrated (with disclosure form and process log), portfolio = [C] AI-integrated (a documented model audit as the assessed deliverable — demanding newskilling)."
+   "en": "The three catalogue options each carry an assessment logic: written exam = [A] AI-free (explaining theories/findings oneself), written paper = [B] partially AI-integrated (with Disclosure Form and process log), portfolio = [C] AI-integrated (a documented model audit as the assessed deliverable — «demanding newskilling»). Activating elements: an AI-critique exercise (AI explanation vs. the primary literature) and a live check («Is what the AI says correct?») via Copilot Chat. Disclosure and verification duties apply throughout; AI assists but does not replace professional appraisal."
   },
   "kat": "A+B+C",
   "komp": {
@@ -2280,31 +2758,46 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Modul macht KI-gestützte Entscheidungsverfahren zum Prüfgegenstand der jeweiligen Disziplin. Im SEOP-Themengebiet «Organisations- und Wirtschaftspsychologie 1» wird das besonders scharf: Studierende führen ein Fairness-Audit einer KI-gestützten Personalauswahl durch, identifizieren adverse impact und ordnen den EU-AI-Act-Hochrisikokontext ein (Bass et al., 2025). Im DeNC-Themengebiet werden neurokognitive Modelle daraufhin geprüft, was ein Machine-Learning-Klassifikator tatsächlich misst; im HEA-Themengebiet «Prävention, Diagnostik und Intervention 1» werden KI-Screeningvorschläge gegen Gütekriterien gehalten. Aufgebaut werden Fa1 Fachwissen, Fa4 wissenschaftliches/kritisches Denken und Fa9 Diversität & Kontext (Stufe 3) sowie KI6 Evaluieren und KI3 Zusammenarbeiten (Stufe 3), gepaart mit Fu3 Soziales Umfeld gestalten und Fu1 Arbeiten/Gestalten (APA, 2023). Deskilling-Schutz: Die Fairnesskriterien und ihre statistische Logik müssen ohne KI erklärbar bleiben; Newskilling ist das reproduzierbare, dokumentierte Audit selbst (Perkins et al., 2025).",
-   "en": "The module makes AI-supported decision procedures the audit object of each discipline. This is sharpest in the SEOP topic area: students conduct a fairness audit of AI-supported personnel selection, identify adverse impact and situate the EU AI Act high-risk context (Bass et al., 2025). In DeNC, neurocognitive models are probed for what a machine-learning classifier actually measures; in HEA, AI screening proposals are held against psychometric quality criteria. Built are Fa1, Fa4 (level 3), and KI6 Evaluating + KI3 Collaborating as main AI competences."
+   "en": "The module makes AI-supported decision procedures the audit object of each discipline. In the SEOP topic area «Organisational and economic psychology 1» this becomes especially sharp: students conduct a fairness audit of AI-supported personnel selection, identify adverse impact and situate the EU AI Act high-risk context (Bass et al., 2025). In the DeNC topic area, neurocognitive models are probed for what a machine-learning classifier actually measures; in the HEA topic area «Prevention, diagnostics and intervention 1», AI screening proposals are held against quality criteria. Fa1 Disciplinary knowledge, Fa4 Scientific/critical thinking and Fa9 Diversity & context are built at level 3, as are KI6 Evaluating and KI3 Collaborating (level 3), paired with Fu3 Shaping the social environment and Fu1 Working/shaping (APA, 2023). Deskilling protection: the fairness criteria and their statistical logic must remain explainable without AI; the newskilling is the reproducible, documented audit itself (Perkins et al., 2025)."
   },
   "lernziele": [
    {
     "de": "Die Studierenden beurteilen die in ihrem Schwerpunkt üblichen Methoden und schätzen ihre Stärken und Schwächen ein.",
-    "en": "Students appraise the methods common in their track and gauge their strengths and weaknesses."
+    "en": "Students appraise the methods common in their track and gauge their strengths and weaknesses.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden führen ein Fairness-Audit einer algorithmischen Auswahl- oder Screeningentscheidung durch und benennen das verletzte Fairnesskriterium.",
-    "en": "Students conduct a fairness audit of an algorithmic selection or screening decision and name the violated criterion."
+    "en": "Students conduct a fairness audit of an algorithmic selection or screening decision and name the violated criterion.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden klären Mensch-KI-Rollen in einem Anwendungsszenario und halten Prüfpflichten in einem Audit-Log fest.",
-    "en": "Students clarify human–AI roles in an application scenario and record audit duties in an audit log."
+    "en": "Students clarify human–AI roles in an application scenario and record audit duties in an audit log.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden ordnen ein KI-Verfahren rechtlich-ethisch (z. B. Hochrisiko) ein und begründen einen Prüfpunkt.",
-    "en": "Students situate an AI procedure legally and ethically (e.g. high-risk) and justify one audit point."
+    "en": "Students situate an AI procedure legally and ethically (e.g. high-risk) and justify one audit point.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog) mit [C]-Option (Portfolio als dokumentiertes Fairness-Audit); die schriftliche Prüfung bleibt der [A]-gesicherte Kernnachweis. Aktivierende Elemente: KI-Rollenspiel «HR-Beratung zu KI-Personalauswahl» und AI-Critique-Übung (Auditbericht gegen Primärliteratur). Deklarations- und Verifikationspflicht durchgängig; sensible Personaldaten gehören nicht in nicht freigegebene Tools.",
-   "en": "Category [B] as the default (written paper with disclosure and process log) with a [C] option (portfolio as a documented fairness audit); the written exam remains the [A]-secured core credential. Activating elements: AI role-play «HR consulting on AI-based personnel selection» and an AI-critique exercise (audit report vs. primary literature)."
+   "en": "Category [B] as the default (written paper with disclosure and process log) with a [C] option (portfolio as a documented fairness audit); the written exam remains the [A]-secured core credential. Activating elements: AI role-play «HR consulting on AI-based personnel selection» and an AI-critique exercise (audit report vs. the primary literature). Declaration and verification duties throughout; sensitive personnel data do not belong in non-approved tools."
   },
-  "kat": "B+C+A",
+  "kat": "A+B+C",
   "komp": {
    "fa": [
     "Fa1",
@@ -2357,31 +2850,46 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Das Modul rückt die verantwortete KI-Integration in sensible Anwendungsfelder ins Zentrum. Im HEA-Themengebiet «Praktische Intervention 1» wird das brisant: Studierende evaluieren Chatbot-Krisenrisiken — ob ein dialogisches System subtile Warnsignale erkennt, korrekt an Fachhilfe verweist und seine Grenzen offenlegt (APA, 2023). Im DeNC-Themengebiet werden KI-gestützte Interpretationen neurokognitiver Daten auf Überinterpretation geprüft, im SEOP-Themengebiet werden anwendungsnahe KI-Empfehlungen gegen ihre Evidenzbasis gehalten. Aufgebaut werden Fa1 Fachwissen und Fa8 evidenzbasierte Praxis/Transfer (Stufe 3), Fa7 Ethik & Integrität sowie KI5 Verantworten und KI6 Evaluieren (Stufe 3), gepaart mit Fu3 Soziales Umfeld gestalten und Fu1 Arbeiten/Gestalten (Bass et al., 2025). Deskilling-Schutz: Interventions- und Sicherheitslogik müssen ohne KI beherrscht werden; Newskilling ist die begründete Grenzziehung — KI nie als Entscheidungsersatz in Krisensituationen.",
-   "en": "The module centres responsible AI integration in sensitive fields of application. In the HEA topic area this becomes acute: students evaluate chatbot crisis risks — whether a dialogue system recognises subtle warning signals, refers correctly to professional help, and discloses its limits (APA, 2023). In DeNC, AI-supported interpretations of neurocognitive data are checked for over-interpretation; in SEOP, application-oriented AI recommendations are held against their evidence base. Built are Fa1, Fa8 (level 3), Fa7, plus KI5 Taking responsibility and KI6 Evaluating."
+   "en": "The module centres responsible AI integration in sensitive fields of application. In the HEA topic area «Practical intervention 1» this becomes acute: students evaluate chatbot crisis risks — whether a dialogue system recognises subtle warning signals, refers correctly to professional help, and discloses its limits (APA, 2023). In the DeNC topic area, AI-supported interpretations of neurocognitive data are checked for over-interpretation; in the SEOP topic area, application-oriented AI recommendations are held against their evidence base. Fa1 Disciplinary knowledge and Fa8 Evidence-based practice/transfer are built at level 3, as are Fa7 Ethics & integrity and KI5 Taking responsibility and KI6 Evaluating (level 3), paired with Fu3 Shaping the social environment and Fu1 Working/shaping (Bass et al., 2025). Deskilling protection: intervention and safety logic must be mastered without AI; the newskilling is the reasoned drawing of limits — AI never as a substitute for decisions in crisis situations."
   },
   "lernziele": [
    {
     "de": "Die Studierenden ordnen einen Befund ihres Schwerpunkts als Erklärung, Vorhersage oder Intervention ein und beurteilen die Evidenzbasis.",
-    "en": "Students classify a finding of their track as explanation, prediction or intervention and appraise its evidence."
+    "en": "Students classify a finding of their track as explanation, prediction or intervention and appraise its evidence.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen ein KI-gestütztes Interventions- oder Beratungssystem auf Risiken und benennen dessen Grenzen.",
-    "en": "Students probe an AI-supported intervention or counselling system for risks and name its limits."
+    "en": "Students probe an AI-supported intervention or counselling system for risks and name its limits.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden legen fest, welche sensiblen Daten nicht in KI-Systeme gehören, und begründen dies berufsethisch.",
-    "en": "Students determine which sensitive data must not enter AI systems and justify this on professional-ethical grounds."
+    "en": "Students determine which sensitive data must not enter AI systems and justify this on professional-ethical grounds.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden dokumentieren ihre KI-Nutzung transparent und behalten die fachliche Letztverantwortung.",
-    "en": "Students document their AI use transparently and retain professional final responsibility."
+    "en": "Students document their AI use transparently and retain professional final responsibility.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog), [C]-Option als Portfolio (dokumentierte Risikoanalyse eines Interventions-Chatbots); die schriftliche Prüfung sichert den [A]-Kernnachweis. Aktivierende Elemente: KI-Rollenspiel (simulierte Klient:in mit versteckten Krisensignalen) und Prompt-&-Disclosure-Übung. Deklarations- und Verifikationspflicht durchgängig; KI assistiert, ersetzt in sensiblen Kontexten keine professionelle Entscheidung.",
-   "en": "Category [B] as the default (written paper with disclosure and process log), [C] option as portfolio (documented risk analysis of an intervention chatbot); the written exam secures the [A] core credential. Activating elements: AI role-play (simulated client with hidden crisis signals) and a prompt-and-disclosure exercise."
+   "en": "Category [B] as the default (written paper with disclosure and process log), a [C] option as portfolio (documented risk analysis of an intervention chatbot); the written exam secures the [A] core credential. Activating elements: AI role-play (a simulated client with hidden crisis signals) and a prompt-and-disclosure exercise. Declaration and verification duties throughout; AI assists but, in sensitive contexts, does not replace a professional decision."
   },
-  "kat": "B+C+A",
+  "kat": "A+B+C",
   "komp": {
    "fa": [
     "Fa1",
@@ -2438,19 +2946,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden vergleichen aktuelle Theorien zu Kognition, Motivation oder Emotion und beurteilen die zugehörigen Befunde.",
-    "en": "Students compare current theories of cognition, motivation or emotion and appraise the corresponding findings."
+    "en": "Students compare current theories of cognition, motivation or emotion and appraise the corresponding findings.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden unterscheiden statistische Passung von psychologischer Erklärkraft an einem KI-Modellbeispiel.",
-    "en": "Students distinguish statistical fit from psychological explanatory power on an AI model example."
+    "en": "Students distinguish statistical fit from psychological explanatory power on an AI model example.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden prüfen eine KI-generierte Klassifikation (z. B. Emotion) gegen eine theoretische Erklärung und korrigieren Fehldeutungen.",
-    "en": "Students test an AI-generated classification (e.g. of emotion) against a theoretical explanation and correct it."
+    "en": "Students test an AI-generated classification (e.g. of emotion) against a theoretical explanation and correct it.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden reflektieren, ob KI-Nutzung ihr eigenes Verstehen unterstützt oder ersetzt.",
-    "en": "Students reflect on whether AI use supports or replaces their own understanding."
+    "en": "Students reflect on whether AI use supports or replaces their own understanding.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -2513,26 +3036,41 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie in die Fachdiskussion ein.",
-    "en": "Students appraise theories and findings of their track and situate them in the disciplinary debate."
+    "en": "Students appraise theories and findings of their track and situate them in the disciplinary debate.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden analysieren an einem Algorithmic-Management-Szenario, welche Kennzahl optimiert wird, und leiten eine psychologische Nebenwirkung ab.",
-    "en": "Students analyse, in an algorithmic-management scenario, which metric is optimised and derive one psychological side effect."
+    "en": "Students analyse, in an algorithmic-management scenario, which metric is optimised and derive one psychological side effect.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden klären Mensch-KI-Rollen und Abbruchkriterien und halten sie in einem Audit-Log fest.",
-    "en": "Students clarify human–AI roles and stop criteria and record them in an audit log."
+    "en": "Students clarify human–AI roles and stop criteria and record them in an audit log.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden begründen einen Prüf- oder Kontrollpunkt für ein algorithmisches Steuerungssystem.",
-    "en": "Students justify one audit or control point for an algorithmic steering system."
+    "en": "Students justify one audit or control point for an algorithmic steering system.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B] als Standard (schriftliche Arbeit mit Disclosure und Prozesslog), [C]-Option als Portfolio (dokumentiertes Audit eines Steuerungsalgorithmus); die schriftliche Prüfung sichert den [A]-Kernnachweis. Aktivierende Elemente: KI-Rollenspiel (Algorithmic-Management-Szenario) und AI-Critique-Übung. Deklarations- und Verifikationspflicht durchgängig; wichtige Entscheidungen werden nicht an die KI ausgelagert.",
    "en": "Category [B] as the default (written paper with disclosure and process log), [C] option as portfolio (documented audit of a steering algorithm); the written exam secures the [A] core credential. Activating elements: AI role-play (algorithmic-management scenario) and an AI-critique exercise."
   },
-  "kat": "B+C+A",
+  "kat": "A+B+C",
   "komp": {
    "fa": [
     "Fa1",
@@ -2588,19 +3126,34 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie kritisch ein.",
-    "en": "Students appraise theories and findings of their track and situate them critically."
+    "en": "Students appraise theories and findings of their track and situate them critically.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden prüfen ein Wirkversprechen eines KI-gestützten Produkts gegen ein Evidenzkriterium (z. B. RCT-Basis).",
-    "en": "Students test a claimed effect of an AI-supported product against an evidence criterion (e.g. RCT base)."
+    "en": "Students test a claimed effect of an AI-supported product against an evidence criterion (e.g. RCT base).",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden bewerten Bias, Grenzen und Persuasionsrisiken eines KI-Anwendungsprodukts.",
-    "en": "Students appraise bias, limits and persuasion risks of an AI application product."
+    "en": "Students appraise bias, limits and persuasion risks of an AI application product.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden deklarieren ihre KI-Nutzung und begründen, wo fachliche Verantwortung bei der Person bleibt.",
-    "en": "Students declare their AI use and justify where professional responsibility remains with the person."
+    "en": "Students declare their AI use and justify where professional responsibility remains with the person.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -2659,31 +3212,47 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Die Masterarbeit wird zum Ausweis eines professionellen, deklarierten und verifizierten KI-Forschungsworkflows: Studierende steuern auf Stufe 4 eine komplette Forschungspipeline — Literaturmonitoring, Präregistrierungsentwurf, Datenmanagement, Skript-Review, Visualisierung und Schreibfeedback — und verantworten jede Entscheidung selbst (KI1 Anwenden; Bass et al., 2025). Neu kommen begrenzte agentische Workflows hinzu: Agenten für Literaturupdate, Code-Review oder Bias-Check werden konfiguriert, begrenzt und überwacht (KI2 Gestalten, Stufe 4). Gemäss PSYCH AI Guidelines bleibt KI-generierter Code ausgeschlossen — KI dient dem Editing und Review des eigenen R-Codes, jede Zeile bleibt erklärbar. Deklarations- und Verifikationspflicht strukturieren die Arbeit: Disclosure Form, Prozesslog und systematische Prüfung aller KI-Outputs gegen PsycINFO, Originaldaten und eigene Re-Analysen machen den Workflow auditierbar (KI5 Verantworten, KI6 Evaluieren, Stufe 4; Perkins et al., 2025). Fachlich bleibt die Arbeit das Kernstück von Forschungsdesign, Datenanalyse und wissenschaftlichem Schreiben auf Stufe 4 (Fa2, Fa3, Fa6; DGPs, 2014); die Mensch-KI-Arbeitsteilung in der Forschungsgruppe wird offengelegt (KI3 + Fu3). Deskilling-Schutz leisten die KI-freien [A]-Kontrollpunkte in den Forschungskolloquien und der Masterprüfung — das Newskilling liegt im auditierbaren Workflow-Design selbst: anspruchsvoller, nicht einfacher.",
-   "en": "The master's thesis becomes the credential of a professional, declared and verified AI research workflow: at level 4, students steer a complete research pipeline — literature monitoring, preregistration draft, data management, script review, visualisation and writing feedback — and personally answer for every decision (KI1 Applying; Bass et al., 2025). New are bounded agentic workflows: agents for literature updates, code review or bias checks are configured, constrained and monitored (KI2 Creating, level 4). Per the PSYCH AI Guidelines, AI-generated code remains excluded — AI serves editing and review of one's own R code, and every line stays explainable."
+   "en": "The master's thesis becomes the credential of a professional, declared and verified AI research workflow: at level 4, students steer a complete research pipeline — literature monitoring, preregistration draft, data management, script review, visualisation and writing feedback — and personally answer for every decision (KI1 Applying; Bass et al., 2025). New are bounded agentic workflows: agents for literature updates, code review or bias checks are configured, constrained and monitored (KI2 Creating, level 4). Per the PSYCH AI Guidelines, AI-generated code remains excluded — AI serves the editing and review of one's own R code, and every line stays explainable. Declaration and verification duties structure the work: Disclosure Form, process log and systematic checking of all AI outputs against PsycINFO, original data and one's own re-analyses make the workflow auditable (KI5 Taking responsibility, KI6 Evaluating, level 4; Perkins et al., 2025). In disciplinary terms, the thesis remains the core of research design, data analysis and scientific writing at level 4 (Fa2, Fa3, Fa6; DGPs, 2014); the human–AI division of labour within the research group is disclosed (KI3 + Fu3). Deskilling protection is provided by the AI-free [A] checkpoints in the research colloquia and the master's examination — the newskilling lies in the auditable workflow design itself: more demanding, not easier."
   },
   "lernziele": [
    {
     "de": "Die Studierenden führen eine eigenständige empirische oder methodische Untersuchung durch, dokumentieren sie als wissenschaftlichen Ergebnisbericht und verteidigen ihre Analyseentscheidungen.",
-    "en": "Students conduct an independent empirical or methodological investigation and document it as a scientific research report."
+    "en": "Students conduct an independent empirical or methodological investigation and document it as a scientific research report.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden steuern eine KI-gestützte Forschungspipeline — Literaturmonitoring, Datenmanagement, Skript-Review, Schreibfeedback — und dokumentieren jeden KI-Schritt im Prozesslog.",
-    "en": "Students steer an AI-supported research pipeline — literature monitoring, data management, script review, writing feedback — with full disclosure."
+    "en": "Students steer an AI-supported research pipeline — literature monitoring, data management, script review, writing feedback — with full disclosure.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden konfigurieren, begrenzen und überwachen einen agentischen Workflow (z. B. Literaturupdate oder Bias-Check) und beurteilen dessen Outputs fachlich.",
-    "en": "Students configure, constrain and monitor an agentic workflow (e.g. literature updates or bias checks)."
+    "en": "Students configure, constrain and monitor an agentic workflow (e.g. literature updates or bias checks).",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden verifizieren KI-Outputs systematisch gegen Primärliteratur, Originaldaten und eigene Re-Analysen und korrigieren Fehler nachweisbar.",
-    "en": "Students verify AI outputs systematically against primary literature, original data and their own re-analyses, and correct them."
+    "en": "Students verify AI outputs systematically against primary literature, original data and their own re-analyses, and correct them.",
+    "b": [
+     "F",
+     "K"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [B]/[C]: Kernformat ist [B] teilweise KI-integriert (Prozesslog, Disclosure Form, Verifikationsspur, Datenschutzentscheid); klar ausgewiesene Arbeitspakete — etwa agentisches Literaturmonitoring oder eine Review-Simulation — laufen als anspruchsvolles [C]-Newskilling, bewertet nach Steuerung, Audit, Validierung, Ethik und Eigenverantwortung. Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung (Nutzung dokumentieren lernen) und AI-Critique-Übung (KI-Output vs. Primärliteratur) entlang des Schreibprozesses. Secure/Open-Assessment: Die offene, KI-integrierte Arbeit wird nicht abgewertet, sondern durch die KI-freien Kolloquiums-Kontrollpunkte und die Masterprüfung gesichert.",
-   "en": "Category [B]/[C]: the core format is [B] partially AI-integrated (process log, disclosure form, verification trail, data-protection decision); clearly designated work packages — such as agentic literature monitoring or a review simulation — run as demanding [C] newskilling, graded on steering, audit, validation, ethics and personal accountability."
+   "en": "Category [B]/[C]: the core format is [B] partially AI-integrated (process log, Disclosure Form, verification trail, data-protection decision); clearly designated work packages — such as agentic literature monitoring or a review simulation — run as demanding [C] newskilling, graded on steering, audit, validation, ethics and personal accountability. Activating elements from the eight-part toolkit: a prompt-and-disclosure exercise (learning to document use) and an AI-critique exercise (AI output vs. the primary literature) along the writing process. Secure/open assessment: the open, AI-integrated thesis is not devalued but secured through the AI-free colloquium checkpoints and the master's examination."
   },
-  "kat": "B+C",
+  "kat": "B/C",
   "komp": {
    "fa": [
     "Fa2",
@@ -2744,19 +3313,35 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden entwickeln ein tragfähiges Konzept ihrer Masterarbeit (Fragestellung, Design, Analyseplan) und stellen es in der Gruppe zur Diskussion.",
-    "en": "Students develop a viable concept for their master's thesis (question, design, analysis plan) and present it in the group."
+    "en": "Students develop a viable concept for their master's thesis (question, design, analysis plan) and present it in the group.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden erstellen einen AI Use Plan, der pro Arbeitsschritt festlegt und begründet, was mit KI, ohne KI oder vollständig KI-integriert erfolgt.",
-    "en": "Students draft an AI use plan that determines and justifies, per work step, what runs with AI, without AI, or fully AI-integrated."
+    "en": "Students draft an AI use plan that determines and justifies, per work step, what runs with AI, without AI, or fully AI-integrated.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden klären Mensch-KI-Rollen, Prüfpflichten und menschliche Letztverantwortung für ihr Projekt und halten sie schriftlich fest.",
-    "en": "Students clarify human–AI roles, verification duties and final human responsibility for their project and record them."
+    "en": "Students clarify human–AI roles, verification duties and final human responsibility for their project and record them.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden planen den Data Lifecycle ihres Projekts und entscheiden begründet, welche Daten nicht in KI-Systeme gehören.",
-    "en": "Students plan their project's data lifecycle and decide with justification which data must not enter AI systems."
+    "en": "Students plan their project's data lifecycle and decide with justification which data must not enter AI systems.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -2817,19 +3402,32 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden wenden Planung, Auswertung, Interpretation und Darstellung einer Datenerhebung, Datensimulation oder Sekundäranalyse auf ihr Masterarbeitsprojekt an.",
-    "en": "Students apply planning, analysis, interpretation and presentation of a data collection, simulation or secondary analysis to their own project."
+    "en": "Students apply planning, analysis, interpretation and presentation of a data collection, simulation or secondary analysis to their own project.",
+    "b": [
+     "F"
+    ]
    },
    {
-    "de": "Die Studierenden prüfen R-Skripte, Statistikoutputs und KI-Zusammenfassungen systematisch und korrigieren Fehler nachweisbar.",
-    "en": "Students audit R scripts, statistical outputs and AI summaries systematically and correct errors verifiably."
+    "de": "Die Studierenden prüfen R-Skripte, Statistikoutputs und KI-Zusammenfassungen gemeinsam in der Gruppe, geben einander kritisch-konstruktives Feedback und korrigieren Fehler nachweisbar.",
+    "en": "Students audit R scripts, statistical outputs and AI summaries together in the group, give each other critical-constructive feedback, and correct errors verifiably.",
+    "b": [
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden erklären zentrale Analyse- und Code-Entscheidungen in kurzen Kontrollpunkten ohne KI.",
-    "en": "Students explain key analysis and code decisions in short AI-free checkpoints."
+    "en": "Students explain key analysis and code decisions in short AI-free checkpoints.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden berichten über Konfiguration, Begrenzung und Fehlerfälle ihrer agentischen Workflows und passen diese an.",
-    "en": "Students report on configuration, constraints and failure cases of their agentic workflows and adapt them."
+    "en": "Students report on configuration, constraints and failure cases of their agentic workflows and adapt them.",
+    "b": [
+     "K"
+    ]
    }
   ],
   "ki": {
@@ -2891,19 +3489,36 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden präsentieren das Exposé ihrer Masterarbeit adressatengerecht vor fachlich kompetentem Publikum.",
-    "en": "Students present their thesis proposal to a professionally competent audience in an audience-appropriate way."
+    "en": "Students present their thesis proposal to a professionally competent audience in an audience-appropriate way.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden verteidigen Fragestellung, Design und Analyseplan KI-frei gegen kritische Rückfragen.",
-    "en": "Students defend question, design and analysis plan AI-free against critical questioning."
+    "en": "Students defend question, design and analysis plan AI-free against critical questioning.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden formulieren kritisch-konstruktive Diskussionsbeiträge zu fremden Projektplanungen — inklusive deren KI-Workflow-Entscheiden.",
-    "en": "Students formulate critical-constructive contributions on peers' project plans — including their AI decisions."
+    "en": "Students formulate critical-constructive contributions on peers' project plans — including their AI decisions.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden nutzen KI deklariert zur Vorbereitung (Review-Simulation) und reflektieren deren Grenzen.",
-    "en": "Students use AI in declared form for preparation (review simulation) and reflect on its limits."
+    "en": "Students use AI in declared form for preparation (review simulation) and reflect on its limits.",
+    "b": [
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -2963,19 +3578,36 @@ window.MODUL_TEXTE = {
   "lernziele": [
    {
     "de": "Die Studierenden präsentieren die aufbereiteten Resultate ihrer Masterarbeit und stellen sie zur Diskussion.",
-    "en": "Students present the prepared results of their master's thesis and put them up for discussion."
+    "en": "Students present the prepared results of their master's thesis and put them up for discussion.",
+    "b": [
+     "F",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden verteidigen Analyseentscheidungen, Kennwerte und Limitationen KI-frei und erläutern, wie KI-Schritte im Workflow verifiziert wurden.",
-    "en": "Students defend analysis decisions, estimates and limitations AI-free and explain how AI steps in the workflow were verified."
+    "en": "Students defend analysis decisions, estimates and limitations AI-free and explain how AI steps in the workflow were verified.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    },
    {
     "de": "Die Studierenden beurteilen KI-generierte Alternativinterpretationen präsentierter Befunde auf fachliche Tragfähigkeit.",
-    "en": "Students appraise AI-generated alternative interpretations of presented findings for professional soundness."
+    "en": "Students appraise AI-generated alternative interpretations of presented findings for professional soundness.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden diskutieren Projektplanungen und Forschungsergebnisse eigener wie fremder Arbeiten kritisch-konstruktiv.",
-    "en": "Students discuss project plans and research results — their own and others' — critically and constructively."
+    "en": "Students discuss project plans and research results — their own and others' — critically and constructively.",
+    "b": [
+     "F",
+     "S"
+    ]
    }
   ],
   "ki": {
@@ -3030,29 +3662,44 @@ window.MODUL_TEXTE = {
   },
   "zukunft": {
    "de": "Die Masterprüfung wird zur «Verteidigung mit/gegen KI» — und bleibt strikt [A] KI-frei: Im Prüfungsraum zählt allein die eigene professionelle Urteilskraft, mit Fachwissen und wissenschaftlichem Denken auf der höchsten Stufe des Studiengangs (Fa1, Fa4, Stufe 4; QAA, 2023). Neu wird der Prüfungsgegenstand erweitert: Studierende müssen einordnen können, wo KI in ihrem Forschungsbereich trägt und wo sie täuscht — Halluzinationen, Persuasionsrisiken, synthetische Daten und algorithmische Verfahren fachlich begrenzen (KI6 Evaluieren, Stufe 4; ETH/UZH, 2025). Die Vorbereitung im Selbststudium darf KI-gestützt erfolgen, etwa im Sparring mit einer KI, die Gegenpositionen zu den Prüfungstexten vertritt; die Prüfung selbst weist nach, dass Verantwortung und fachliche Entscheidung bei der psychologisch ausgebildeten Person bleiben (KI5 Verantworten, Fu2 Persönliche Fähigkeiten auf höchster Stufe; Ehlers et al., 2024). Als einziges durchgängig mündliches und KI-freies Abschlussformat ist die Masterprüfung der stärkste Deskilling-Schutz des Studiengangs — und zugleich der Beleg, dass das Newskilling der Masterarbeit auf eigenem Verstehen ruht. Wer hier besteht, kann Befunde, Methoden und Transfer auch dann verteidigen, wenn keine KI im Raum ist — oder wenn eine KI widerspricht.",
-   "en": "The master's examination becomes the «defence with/against AI» — and stays strictly [A] AI-free: in the exam room only one's own professional judgement counts, with disciplinary knowledge and scientific thinking at the programme's highest level (Fa1, Fa4, level 4; QAA, 2023). The examination scope is extended: students must be able to situate where AI carries in their research field and where it deceives — hallucinations, persuasion risks, synthetic data and algorithmic procedures (KI6 Evaluating, level 4; ETH/UZH, 2025). Preparation in self-study may be AI-supported, for instance sparring with an AI that argues counter-positions to the exam texts."
+   "en": "The master's examination becomes the «defence with/against AI» — and stays strictly [A] AI-free: in the exam room only one's own professional judgement counts, with disciplinary knowledge and scientific thinking at the programme's highest level (Fa1, Fa4, level 4; QAA, 2023). The examination scope is newly extended: students must be able to situate where AI carries in their research field and where it deceives — professionally constraining hallucinations, persuasion risks, synthetic data and algorithmic procedures (KI6 Evaluating, level 4; ETH/UZH, 2025). Self-study preparation may be AI-supported, for instance sparring with an AI that argues counter-positions to the exam texts; the examination itself demonstrates that responsibility and professional decision remain with the psychologically trained person (KI5 Taking responsibility, Fu2 Personal capabilities at the highest level; Ehlers et al., 2024). As the only fully oral and AI-free final format, the master's examination is the programme's strongest deskilling protection — and at the same time the proof that the newskilling of the master's thesis rests on one's own understanding. Whoever passes here can defend findings, methods and transfer even when no AI is in the room — or when an AI disagrees."
   },
   "lernziele": [
    {
     "de": "Die Studierenden geben Methoden, Inhalte und theoretische Konzepte eines psychologischen Forschungsbereichs KI-frei wieder, reflektieren sie kritisch und bewerten sie.",
-    "en": "Students reproduce methods, content and theoretical concepts of a psychological research field AI-free."
+    "en": "Students reproduce methods, content and theoretical concepts of a psychological research field AI-free.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden wenden ihr Wissen im Prüfungsgespräch auf neue Forschungsfragestellungen an und begründen Entscheidungen ohne Hilfsmittel.",
-    "en": "Students apply their knowledge to new research questions in the exam conversation and justify decisions."
+    "en": "Students apply their knowledge to new research questions in the exam conversation and justify decisions.",
+    "b": [
+     "F"
+    ]
    },
    {
     "de": "Die Studierenden ordnen ein, wo KI in ihrem Forschungsfeld trägt und wo sie täuscht — von Halluzinationen bis zu Persuasionsrisiken.",
-    "en": "Students situate where AI carries in their research field and where it deceives — from hallucinations to persuasion risks."
+    "en": "Students situate where AI carries in their research field and where it deceives — from hallucinations to persuasion risks.",
+    "b": [
+     "F",
+     "K"
+    ]
    },
    {
     "de": "Die Studierenden vertreten eine begründete eigene Position gegenüber KI-generierten Gegenargumenten und behalten die fachliche Letztverantwortung.",
-    "en": "Students defend a justified position of their own against AI-generated counter-arguments and retain professional final responsibility."
+    "en": "Students defend a justified position of their own against AI-generated counter-arguments and retain professional final responsibility.",
+    "b": [
+     "F",
+     "K",
+     "S"
+    ]
    }
   ],
   "ki": {
    "de": "Kategorie [A] ohne Ausnahme: 30 Minuten mündlich, nur eigene Urteilskraft — die «Verteidigung mit/gegen KI» prüft KI-Kompetenz, ohne dass KI im Raum ist. Aktivierende Elemente in der Vorbereitung: KI-Rollenspiel (die KI vertritt Gegenpositionen zu den Prüfungstexten) und Live-Check im Selbststudium («Stimmt das, was die KI zu meinem Prüfungsgebiet sagt?»). In der Prüfung selbst ist keine Disclosure nötig; die Vorbereitung folgt den PSYCH AI Guidelines — KI assistiert, ersetzt nicht.",
-   "en": "Category [A] without exception: 30 minutes oral, own judgement only — the «defence with/against AI» examines AI competence without AI in the room. Activating elements in preparation: AI role-play (the AI argues counter-positions to the exam texts) and live checks in self-study."
+   "en": "Category [A] without exception: 30 minutes oral, own judgement only — the «defence with/against AI» examines AI competence without AI in the room. Activating elements in preparation: AI role-play (the AI argues counter-positions to the exam texts) and a live check during self-study («Is what the AI says about my examination area correct?»). No disclosure is required in the examination itself; preparation follows the PSYCH AI Guidelines — AI assists, it does not replace."
   },
   "kat": "A",
   "komp": {

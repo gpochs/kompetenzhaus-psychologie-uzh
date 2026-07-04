@@ -60,9 +60,10 @@ const FALLBACK = {
 
 /* ---------- State ---------- */
 const defaultState = () => ({
-  v: 1, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
-  placed: { frei: {}, serious: {} }, bestanden: {}, quests: {},
-  msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35
+  v: 2, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
+  placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {},
+  msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
+  sound: true, envAuto: true
 });
 function autoSeason() {
   const m = new Date().getMonth() + 1;
@@ -117,6 +118,15 @@ const visitor = { active: false, data: null };
 /* ---------- Regeln ---------- */
 function isPlaced(id, mode) { return !!S.placed[mode || S.mode][id]; }
 function mscOpen(mode) { return isPlaced("BA", mode || S.mode) || S.direktMSc; }
+function quizCode(slot) {
+  if (slot.optionen) {
+    const p = S.placed[S.mode][slot.slot];
+    return (p && p.opt) || (typeof pendingOpt !== "undefined" && pendingOpt) || slot.optionen[0];
+  }
+  return slot.code;
+}
+function quizFor(slot) { return (window.QUIZ || {})[quizCode(slot)] || null; }
+function quizOk(slot) { return !!S.quiz[quizCode(slot)]; }
 function canPlace(slot, mode) {
   mode = mode || S.mode;
   if (visitor.active) return { ok: false, reason: "" };
@@ -128,6 +138,7 @@ function canPlace(slot, mode) {
     return { ok: false, reason: t("grund_voraus") + names + (missing.length > 3 ? " …" : "") };
   }
   if (mode === "serious" && !S.bestanden[slot.slot]) return { ok: false, reason: t("grund_bestanden") };
+  if (mode === "serious" && quizFor(slot) && !quizOk(slot)) return { ok: false, reason: t("grund_quiz") };
   return { ok: true, reason: "" };
 }
 
@@ -410,6 +421,93 @@ function addSparkle(group, slot) {
 }
 function removeSparkle(group) { const s = group.getObjectByName("sparkle"); if (s) group.remove(s); }
 
+/* ---------- Quest-/Quiz-Belohnungen: Wimpel, Blumenkasten, Garten ---------- */
+function addPennant(group, slot) {
+  if (group.getObjectByName("pennant")) return;
+  const g = new THREE.Group(); g.name = "pennant";
+  const H = slot.pos.h * FH;
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.9, 6), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.8 }));
+  pole.position.y = H + 0.45;
+  const flag = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints ? (() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute([0, 0, 0, 0.55, -0.12, 0, 0, -0.24, 0], 3));
+    geo.setIndex([0, 1, 2]); geo.computeVertexNormals(); return geo;
+  })() : new THREE.PlaneGeometry(0.5, 0.25), new THREE.MeshStandardMaterial({ color: 0xd9a441, side: THREE.DoubleSide, roughness: 0.7 }));
+  flag.position.set(0.03, H + 0.85, 0); flag.name = "pflag";
+  g.add(pole, flag);
+  g.position.set(slot.pos.w * CELL * 0.38, 0, slot.pos.d * CELL * 0.38);
+  group.add(g);
+}
+function addFlowerBox(group, slot) {
+  if (group.getObjectByName("flowerbox") || !["box", "bay", "wing", "tower"].includes(slot.form)) return;
+  const g = new THREE.Group(); g.name = "flowerbox";
+  const D = slot.pos.d * CELL, H = slot.pos.h * FH;
+  const faceZ = slot.pos.z >= 0 ? 1 : -1;
+  const box = new THREE.Mesh(new RoundedBoxGeometry(0.7, 0.16, 0.18, 2, 0.04), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 }));
+  box.position.set(0, H * 0.55 - 0.45, faceZ * (D / 2 + 0.1));
+  g.add(box);
+  [0xe4572e, 0xf3d34e, 0xc9a0ff].forEach((c, i) => {
+    const bl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.07, 0), new THREE.MeshBasicMaterial({ color: c }));
+    bl.position.set((i - 1) * 0.2, H * 0.55 - 0.33, faceZ * (D / 2 + 0.1));
+    g.add(bl);
+  });
+  group.add(g);
+}
+function decorateBlock(group, slot) {
+  const code = slot.optionen ? ((S.placed[S.mode][slot.slot] || {}).opt || slot.code) : slot.code;
+  if (S.quiz[code]) addPennant(group, slot);
+  if (S.quests[slot.slot] && S.quests[slot.slot].done) { addSparkle(group, slot); addFlowerBox(group, slot); }
+}
+const gardenGroup = new THREE.Group(); scene.add(gardenGroup);
+function rebuildGarden() {
+  gardenGroup.clear();
+  const n = Object.values(S.quiz).filter(Boolean).length + Object.values(S.quests).filter((q) => q.done).length;
+  const wood = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
+  if (n >= 5) { // Gartenbank am Weg
+    const bank = new THREE.Group();
+    const sitz = new THREE.Mesh(new RoundedBoxGeometry(1.5, 0.1, 0.45, 2, 0.03), wood); sitz.position.y = 0.45;
+    const lehne = new THREE.Mesh(new RoundedBoxGeometry(1.5, 0.5, 0.08, 2, 0.03), wood); lehne.position.set(0, 0.72, -0.2);
+    const f1 = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.45, 0.4), wood); f1.position.set(-0.6, 0.22, 0);
+    const f2 = f1.clone(); f2.position.x = 0.6;
+    bank.add(sitz, lehne, f1, f2);
+    bank.position.set(0, 0.24, 4.2); bank.rotation.y = Math.PI;
+    bank.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+    gardenGroup.add(bank);
+  }
+  if (n >= 10) { // Sonnenkollektor
+    const sp = new THREE.Group();
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.06, 1.1), new THREE.MeshStandardMaterial({ color: 0x1b2c50, roughness: 0.25, metalness: 0.5 }));
+    panel.rotation.x = -0.5; panel.position.y = 0.7;
+    const fuss = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.7, 6), new THREE.MeshStandardMaterial({ color: 0x9aa2b5 }));
+    fuss.position.y = 0.35;
+    sp.add(panel, fuss);
+    sp.position.set(-4, 0.24, 6); sp.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+    gardenGroup.add(sp);
+  }
+  if (n >= 15) { // Fahnenmast mit UZH-blauer Fahne
+    const fm = new THREE.Group();
+    const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 5, 8), new THREE.MeshStandardMaterial({ color: 0xd8dce6, roughness: 0.4, metalness: 0.6 }));
+    mast.position.y = 2.5;
+    const fl = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 0.8), new THREE.MeshStandardMaterial({ color: 0x0028a5, side: THREE.DoubleSide }));
+    fl.position.set(0.72, 4.4, 0); fl.name = "flag";
+    fm.add(mast, fl);
+    fm.position.set(4.5, 0.24, 6); fm.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+    gardenGroup.add(fm);
+  }
+  if (n >= 20) { // Brunnen
+    const br = new THREE.Group();
+    const becken = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1, 0.4, 14), new THREE.MeshStandardMaterial({ color: 0xb9c0cf, roughness: 0.8, flatShading: true }));
+    becken.position.y = 0.2;
+    const wasser = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.78, 0.06, 14), new THREE.MeshStandardMaterial({ color: 0x6db3d9, roughness: 0.15, metalness: 0.2 }));
+    wasser.position.y = 0.4;
+    const saeule = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.14, 0.8, 8), becken.material);
+    saeule.position.y = 0.7;
+    br.add(becken, wasser, saeule);
+    br.position.set(0, 0.24, -5.2); br.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    gardenGroup.add(br);
+  }
+}
+
 /* ---------- Geist-Vorschau ---------- */
 let ghost = null, ghostSlot = null, ghostOK = false;
 function showGhost(slot) {
@@ -574,7 +672,10 @@ function updateEnvironment() {
   amb.visible = !!cfg.amb;
   if (cfg.amb) ambMat.color.set(cfg.amb);
   document.getElementById("todIcon").textContent = nightK > 0.3 ? "🌙" : dayK > 0.45 ? "🌤️" : "🌅";
-  document.querySelectorAll("#envRow .envbtn").forEach((b) => b.classList.toggle("on", b.dataset.season === S.season));
+  document.querySelectorAll("#envRow .envbtn[data-season]").forEach((b) => b.classList.toggle("on", b.dataset.season === S.season));
+  const ea = document.getElementById("btnEnvAuto");
+  if (ea) ea.classList.toggle("on", !!S.envAuto);
+  SND.ambientMode(!S.sound ? "off" : nightK > 0.45 ? "night" : sun.intensity > 0.4 ? "day" : "off");
 }
 
 /* ---------- Avatar ---------- */
@@ -627,9 +728,10 @@ function rebuildAll() {
   Object.keys(S.placed[S.mode]).forEach((id) => {
     const slot = SLOTS[id]; if (!slot) return;
     const g = buildBlockMesh(slot);
-    if (S.quests[id] && S.quests[id].done) addSparkle(g, slot);
+    decorateBlock(g, slot);
     blockGroup.add(g); blockMeshes[id] = g;
   });
+  rebuildGarden();
   mscPlotGroup.visible = true;
 }
 function placeSlot(slot) {
@@ -639,6 +741,7 @@ function placeSlot(slot) {
   S.placed[S.mode][slot.slot] = entry;
   save();
   const g = buildBlockMesh(slot);
+  decorateBlock(g, slot);
   blockGroup.add(g); blockMeshes[slot.slot] = g;
   // Drop-Animation
   const endY = g.position.y;
@@ -763,6 +866,23 @@ canvas.addEventListener("pointerup", (e) => {
   const moved = Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]);
   downAt = null;
   if (moved > 6) return; // war Kamerabewegung
+  if (interior) { // Kompetenz-Tafeln im Raum anklicken
+    const r = canvas.getBoundingClientRect();
+    ptr.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+    ptr.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+    ray.setFromCamera(ptr, camera);
+    const hits = ray.intersectObjects(interior.group.children, true);
+    for (const h of hits) {
+      let o = h.object;
+      while (o && !o.userData.kompId) o = o.parent;
+      if (o && o.userData.kompId) {
+        const k = KOMP[o.userData.kompId];
+        if (k) { toast(`${k.id} · ${L(k.name)} — «${L(k.ich)}»`); SND.pick(); }
+        return;
+      }
+    }
+    return;
+  }
   if (ghost && ghostSlot) {
     const id = pick(e);
     if (id === ghostSlot.slot || id === null) { placeSlot(ghostSlot); return; }
@@ -772,7 +892,12 @@ canvas.addEventListener("pointerup", (e) => {
 });
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && ghostSlot) placeSlot(ghostSlot);
-  if (e.key === "Escape") { clearGhost(); closeCard(); document.querySelectorAll(".modal.open").forEach((m) => m.classList.remove("open")); }
+  if (e.key === "Escape") {
+    if (interior) { leaveRoom(); return; }
+    document.getElementById("tutor").classList.remove("open");
+    clearGhost(); closeCard();
+    document.querySelectorAll(".modal.open").forEach((m) => m.classList.remove("open"));
+  }
 });
 
 /* ---------- HUD: Bauplan ---------- */
@@ -819,6 +944,7 @@ function renderPlan() {
         b.innerHTML = `<span class="cdot" style="background:${col}"></span>
           <span class="cname">${slotTitel(slot)}</span>
           ${id === nextId ? `<span class="nextbadge">🔨 ${t("naechstes")}</span>` : ""}
+          ${S.quiz[quizCode(slot)] ? '<span class="quest-star" title="Quiz ✓">🚩</span>' : ""}
           ${q && q.done ? '<span class="quest-star">✦</span>' : ""}
           ${st === "built" ? '<span class="tick">✔</span>' : S.mode === "serious" && S.bestanden[id] ? '<span class="tick">☑</span>' : ""}
           <span class="cects">${slot.ects}</span>`;
@@ -867,7 +993,107 @@ function profilWerte() {
   return { score, max };
 }
 let profilView = null; // null = Übersicht, sonst Kompetenz-ID
+let profilTab = "profil"; // profil | karriere
+
+/* Radar mit 6 Achsen (Aggregate) */
+const RADAR_ACHSEN = [
+  { ids: ["Fa1", "Fa8", "Fa9"], name: { de: "Fachwissen & Praxis", en: "Knowledge & practice" }, farbe: "#1a3e8f" },
+  { ids: ["Fa2", "Fa3", "Fa5"], name: { de: "Methoden & Daten", en: "Methods & data" }, farbe: "#1a3e8f" },
+  { ids: ["Fa4", "Fa6", "Fa7", "Fa10"], name: { de: "Denken & Kommunikation", en: "Thinking & communication" }, farbe: "#1a3e8f" },
+  { ids: ["KI1", "KI2", "KI3"], name: { de: "KI anwenden & gestalten", en: "Applying & creating AI" }, farbe: "#0e8f7e" },
+  { ids: ["KI4", "KI5", "KI6"], name: { de: "KI verstehen & prüfen", en: "Understanding & auditing AI" }, farbe: "#0e8f7e" },
+  { ids: ["Fu1", "Fu2", "Fu3"], name: { de: "Future Skills", en: "Future skills" }, farbe: "#4a90d9" }
+];
+function radarSVG(score, max, size = 210) {
+  const c = size / 2, r0 = size * 0.36, n = RADAR_ACHSEN.length;
+  const pt = (i, r) => { const a = -Math.PI / 2 + (i / n) * Math.PI * 2; return [c + Math.cos(a) * r, c + Math.sin(a) * r]; };
+  let grid = "";
+  for (const f of [0.33, 0.66, 1]) {
+    grid += `<polygon points="${[...Array(n)].map((_, i) => pt(i, r0 * f).join(",")).join(" ")}" fill="none" stroke="#dbe1ef" stroke-width="1"/>`;
+  }
+  let axes = "", labels = "";
+  RADAR_ACHSEN.forEach((ax, i) => {
+    const [x, y] = pt(i, r0);
+    axes += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="#dbe1ef" stroke-width="1"/>`;
+    const [lx, ly] = pt(i, r0 + 16);
+    labels += `<text x="${lx}" y="${ly}" font-size="7.5" font-weight="700" fill="${ax.farbe}" text-anchor="middle" dominant-baseline="middle">${L(ax.name).replace("&", "&amp;")}</text>`;
+  });
+  const vals = RADAR_ACHSEN.map((ax) => {
+    const s = ax.ids.reduce((a, id) => a + (score[id] || 0), 0), m = ax.ids.reduce((a, id) => a + (max[id] || 0), 0);
+    return m ? s / m : 0;
+  });
+  const poly = vals.map((v, i) => pt(i, Math.max(0.03, v) * r0).join(",")).join(" ");
+  const dots = vals.map((v, i) => { const [x, y] = pt(i, Math.max(0.03, v) * r0); return `<circle cx="${x}" cy="${y}" r="2.6" fill="#0028a5"/>`; }).join("");
+  return `<svg viewBox="0 0 ${size} ${size}" style="width:100%;max-width:230px;display:block;margin:2px auto 6px">
+    ${grid}${axes}
+    <polygon points="${poly}" fill="rgba(0,40,165,.16)" stroke="#0028a5" stroke-width="2" stroke-linejoin="round"/>
+    ${dots}${labels}</svg>`;
+}
+
+/* Verlauf: Kompetenzgewicht pro Semester (gestapelt Fa/KI/Fu) */
+function verlaufHTML() {
+  const sems = [];
+  for (const hausId of ["bsc", "msc"]) {
+    for (const sem of ST.bauplan[hausId]) {
+      if (!sem.slots.length && hausId === "bsc" && sem.sem === 2) { sems.push({ lbl: "B2", fa: 0, ki: 0, fu: 0 }); continue; }
+      const e = { lbl: (hausId === "bsc" ? "B" : "M") + sem.sem, fa: 0, ki: 0, fu: 0 };
+      for (const id of sem.slots) {
+        if (!isPlaced(id)) continue;
+        const slot = SLOTS[id];
+        const { komp } = slotKomp(slot);
+        e.fa += (komp.fa || []).length * slot.ects;
+        e.ki += (komp.ki || []).length * slot.ects;
+        e.fu += (komp.fu || []).length * slot.ects;
+      }
+      sems.push(e);
+    }
+  }
+  const maxSum = Math.max(1, ...sems.map((s) => s.fa + s.ki + s.fu));
+  const bar = (s) => {
+    const h = (v) => Math.round((v / maxSum) * 100);
+    return `<div class="vbar" title="${s.lbl}">
+      <span class="vseg" style="height:${h(s.fu)}%;background:${ST.felder.fu.farbe}"></span>
+      <span class="vseg" style="height:${h(s.ki)}%;background:${ST.felder.ki.farbe}"></span>
+      <span class="vseg" style="height:${h(s.fa)}%;background:${ST.felder.fa.farbe}"></span>
+    </div>`;
+  };
+  return `<div class="kfeld" style="margin-top:14px">${t("verlauf_titel")}</div>
+    <div class="verlauf">${sems.map(bar).join("")}</div>
+    <div class="verlauf-lbl">${sems.map((s) => `<span>${s.lbl}</span>`).join("")}</div>`;
+}
+
+/* Karriere-Ansicht */
+function renderKarriere() {
+  const { score, max } = profilWerte();
+  const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
+  const el = document.getElementById("profilList");
+  let html = `<p style="font-size:11px;color:#5b6478;margin:2px 6px 6px;line-height:1.45">${t("karriere_info")}</p>`;
+  for (const p of (window.KARRIERE.pfade || [])) {
+    const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
+    const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
+    // Nächste Bausteine für diesen Pfad
+    const cand = ST.slots.filter((s) => !isPlaced(s.slot)).map((s) => {
+      const { komp, haupt } = slotKomp(s);
+      const ids = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+      const v = ids.reduce((a, id) => a + (p.w[id] || 0) * ((haupt || []).includes(id) ? 2 : 1), 0);
+      return { s, v, ok: canPlace(s).ok };
+    }).filter((x) => x.v > 0).sort((a, b) => (b.ok - a.ok) || (b.v - a.v)).slice(0, 3);
+    html += `<div class="pfad">
+      <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct">${ready}%</span></div>
+      <div class="phint">${L(p.hint)}</div>
+      <div class="track"><div class="fill" style="width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></div></div>
+      ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => `<button data-slot="${c.s.slot}">${slotTitel(c.s).split(",")[0].slice(0, 34)}</button>`).join("")}</div>` : ""}
+    </div>`;
+  }
+  html += verlaufHTML();
+  el.innerHTML = html;
+  el.querySelectorAll(".pnext button").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
+}
+
 function renderProfil(changed = []) {
+  document.getElementById("ptabProfil").classList.toggle("on", profilTab === "profil");
+  document.getElementById("ptabKarriere").classList.toggle("on", profilTab === "karriere");
+  if (profilTab === "karriere") { renderKarriere(); return; }
   if (profilView) { renderKompDetail(profilView); return; }
   const { score, max } = profilWerte();
   const el = document.getElementById("profilList");
@@ -883,6 +1109,7 @@ function renderProfil(changed = []) {
     html += `<div class="donut"><div class="ring" style="background:conic-gradient(${f.farbe} ${pct * 3.6}deg, #e8ebf4 0)"><b>${pct}%</b></div><span>${feld === "fa" ? "Fach" : feld === "ki" ? "KI" : "Future"}</span></div>`;
   }
   html += `</div>`;
+  html += radarSVG(score, max);
   for (const feld of ["fa", "ki", "fu"]) {
     const f = ST.felder[feld];
     html += `<div class="kfeld"><span class="fdot" style="background:${f.farbe}"></span>${L(f.name)}</div>`;
@@ -895,6 +1122,8 @@ function renderProfil(changed = []) {
   el.innerHTML = html;
   el.querySelectorAll(".kbar").forEach((b) => (b.onclick = () => { profilView = b.dataset.k; SND.pick(); renderProfil(); }));
 }
+document.getElementById("ptabProfil").onclick = () => { profilTab = "profil"; profilView = null; renderProfil(); };
+document.getElementById("ptabKarriere").onclick = () => { profilTab = "karriere"; profilView = null; SND.pick(); renderProfil(); };
 
 function kompStufe(id) {
   let s = 0;
@@ -943,10 +1172,42 @@ function renderKompDetail(id) {
         <span style="font-size:10.5px;color:#5b6478;margin-left:4px">${stufeNow ? L(ST.stufen[stufeNow - 1].name) : "—"}</span></div>
       <div class="subhead">${t("k_aufgebaut")} (${builtRows.length})</div>
       ${builtRows.length ? builtRows.map(row).join("") : `<p style="font-size:11.5px;color:#8b94ab;margin:2px 6px">${t("k_keine")}</p>`}
+      ${cvBlock(id, stufeNow)}
+      ${evidenzBlock(id, builtRows)}
       ${nextRows.length ? `<div class="subhead">${t("k_naechste")}</div>` + nextRows.map(row).join("") : ""}
     </div>`;
   el.querySelector(".kdetail-back").onclick = () => { profilView = null; renderProfil(); };
   el.querySelectorAll(".modrow").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
+  const cp = el.querySelector("[data-cvcopy]");
+  if (cp) cp.onclick = async () => {
+    try { await navigator.clipboard.writeText(cp.dataset.cvcopy); } catch (e) {}
+    cp.textContent = "✓ " + t("cv_copied");
+    SND.pick();
+  };
+}
+function cvText(id, stufe) {
+  const cv = (window.KARRIERE && window.KARRIERE.cv) || {};
+  const e = cv[id];
+  if (!e || !stufe) return null;
+  const s = e[stufe] || e[String(stufe)] || (Array.isArray(e.stufen) ? e.stufen[stufe - 1] : null);
+  return s ? L(s) : null;
+}
+function cvBlock(id, stufe) {
+  const txt = cvText(id, stufe);
+  if (!txt) return "";
+  return `<div class="subhead">📝 ${t("cv_titel")} (${t("stufe")} ${stufe})</div>
+    <div class="cvrow"><p>«${txt}»</p><button data-cvcopy="${txt.replace(/"/g, "&quot;")}">📋 ${t("cv_copy")}</button></div>`;
+}
+function evidenzBlock(id, builtRows) {
+  const items = [];
+  for (const r of builtRows) {
+    const code = quizCode(r.slot);
+    if (S.quiz[code]) items.push(`<div class="evrow"><span class="evic">🚩</span><span>${t("ev_quiz")}: ${slotTitel(r.slot).split(",")[0]}</span></div>`);
+    const q = S.quests[r.slot.slot];
+    if (q && q.done) items.push(`<div class="evrow"><span class="evic">✦</span><span>${t("ev_quest")}: ${slotTitel(r.slot).split(",")[0]}${q.note ? ` — <i>«${q.note}»</i>` : ""}</span></div>`);
+  }
+  if (!items.length) return "";
+  return `<div class="subhead">🗂 ${t("evidenz_titel")} (${items.length})</div>` + items.join("");
 }
 
 /* ---------- HUD: Info-Karte ---------- */
@@ -998,19 +1259,88 @@ function renderCardBody(slot) {
   if (cardTab === "zukunft") {
     el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + kompPills(slot);
   } else if (cardTab === "lernziele") {
-    el.innerHTML = tx && tx.lernziele && tx.lernziele.length ? `<ul>${tx.lernziele.map((z) => `<li>${L(z)}</li>`).join("")}</ul>` : none;
+    const dot = (tags, b, col, ti) => `<i class="${(tags || []).includes(b) ? "on" : ""}" style="background:${col}" title="${ti}"></i>`;
+    const dots = (z) => `<span class="lz-dots">${dot(z.b, "F", ST.felder.fa.farbe, L(ST.felder.fa.name))}${dot(z.b, "K", ST.felder.ki.farbe, L(ST.felder.ki.name))}${dot(z.b, "S", ST.felder.fu.farbe, L(ST.felder.fu.name))}</span>`;
+    el.innerHTML = tx && tx.lernziele && tx.lernziele.length
+      ? `<ul style="list-style:none;padding-left:2px">${tx.lernziele.map((z) => `<li>${dots(z)}${L(z)}</li>`).join("")}</ul>`
+      : none;
   } else if (cardTab === "ki") {
     const { kat } = slotKomp(slot);
     const katList = (kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]);
     el.innerHTML = (tx ? `<p>${L(tx.ki)}</p>` : none) +
       `<ul style="margin-top:8px">` + katList.map((x) => `<li><b style="color:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</b> — ${L(ST.pruefungslogik[x].def)}</li>`).join("") + `</ul>`;
   } else if (cardTab === "quest") {
-    const q = S.quests[slot.slot] || {};
-    const qt = tx && tx.quest;
-    el.innerHTML = (qt ? `<p><b>✦ ${L(qt.titel)}</b></p><p style="margin-top:4px">${L(qt.text)}</p>` : none) +
-      (q.done ? `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b>${q.note ? ` — «${q.note}»` : ""}</p>` : "");
+    renderQuestTab(slot, el, tx, none);
   }
 }
+/* ---------- Quiz im Quest-Tab ---------- */
+let cardQuiz = null; // { code, i, oks: [bool,bool,bool], picked: idx|null }
+function renderQuestTab(slot, el, tx, none) {
+  const fragen = quizFor(slot);
+  const code = quizCode(slot);
+  let html = "";
+  if (fragen && fragen.length) {
+    if (S.quiz[code]) {
+      html += `<div class="quiz-done-banner">🚩 ${t("quiz_bestanden")}</div>`;
+    } else {
+      if (!cardQuiz || cardQuiz.code !== code) cardQuiz = { code, i: 0, oks: [], picked: null };
+      const qz = cardQuiz;
+      const f = fragen[qz.i];
+      html += `<p style="font-weight:800;margin-bottom:2px">🧩 ${t("quiz_titel")}</p>`;
+      if (S.mode === "serious" && !isPlaced(slot.slot)) html += `<p style="font-size:11px;color:#b35c00;margin-bottom:6px">${t("quiz_gate_hint")}</p>`;
+      html += `<div class="quiz-progress">${[0, 1, 2].map((n) => `<span class="qp ${qz.oks[n] ? "done" : n === qz.i ? "cur" : ""}"></span>`).join("")}</div>`;
+      html += `<p style="font-size:10.5px;color:#8b94ab">${t("quiz_von").replace("{i}", qz.i + 1)}</p>`;
+      html += `<p class="quiz-q">${L(f.q)}</p>`;
+      f.a.forEach((a, ai) => {
+        let cls = "";
+        if (qz.picked !== null) cls = ai === f.korrekt ? "ok" : ai === qz.picked ? "no" : "";
+        html += `<button class="quiz-a ${cls}" data-ai="${ai}" ${qz.picked !== null ? "disabled" : ""}>${L(a)}</button>`;
+      });
+      if (qz.picked !== null) {
+        html += `<div class="quiz-erkl">${qz.picked === f.korrekt ? "✅" : "❌"} ${L(f.erkl)}</div>`;
+        const last = qz.i === fragen.length - 1;
+        const allOk = qz.oks.every(Boolean) && qz.oks.length === fragen.length;
+        if (!last) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
+        else if (!allOk) html += `<button class="ghostbtn" style="margin-top:8px" data-qretry>↺ ${t("quiz_retry")}</button>`;
+      }
+    }
+  } else if (S.mode === "serious") {
+    html += `<p style="font-size:11.5px;color:#8b94ab">${t("quiz_fehlt")}</p>`;
+  }
+  // Praxis-Quest darunter
+  const q = S.quests[slot.slot] || {};
+  const qt = tx && tx.quest;
+  html += `<p style="font-weight:800;margin:12px 0 2px">✦ ${t("praxis_quest")}</p>`;
+  html += qt ? `<p><b>${L(qt.titel)}</b></p><p style="margin-top:4px">${L(qt.text)}</p>` : none;
+  if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b>${q.note ? ` — «${q.note}»` : ""}</p>`;
+  el.innerHTML = html;
+
+  el.querySelectorAll(".quiz-a").forEach((b) => (b.onclick = () => {
+    if (!cardQuiz || cardQuiz.picked !== null) return;
+    const ai = +b.dataset.ai;
+    const f = fragen[cardQuiz.i];
+    cardQuiz.picked = ai;
+    cardQuiz.oks[cardQuiz.i] = ai === f.korrekt;
+    if (ai === f.korrekt) SND.quest(); else SND.err();
+    const last = cardQuiz.i === fragen.length - 1;
+    if (last && cardQuiz.oks.every(Boolean) && cardQuiz.oks.length === fragen.length) {
+      S.quiz[code] = true; save();
+      setTimeout(() => {
+        SND.fanfare();
+        const g = blockMeshes[slot.slot];
+        if (g) { addPennant(g, slot); burstConfetti(g.position.x, g.position.y + 2.5, g.position.z, 60, 3); }
+        rebuildGarden();
+        renderPlan(); renderCardBody(slot); renderCardActions(slot);
+      }, 900);
+    }
+    renderCardBody(slot);
+  }));
+  const nx = el.querySelector("[data-qnext]");
+  if (nx) nx.onclick = () => { cardQuiz.i++; cardQuiz.picked = null; renderCardBody(slot); };
+  const rt = el.querySelector("[data-qretry]");
+  if (rt) rt.onclick = () => { cardQuiz = { code, i: 0, oks: [], picked: null }; renderCardBody(slot); };
+}
+
 function renderCardActions(slot) {
   const el = document.getElementById("cardActions");
   el.innerHTML = "";
@@ -1122,6 +1452,12 @@ function renderCardActions(slot) {
       }
     };
     el.appendChild(bq);
+    if (["box", "tower", "wing", "bay"].includes(slot.form)) {
+      const be = document.createElement("button"); be.className = "ghostbtn";
+      be.textContent = t("betreten");
+      be.onclick = () => enterRoom(slot.slot);
+      el.appendChild(be);
+    }
     if (S.mode === "frei") {
       const br = document.createElement("button"); br.className = "ghostbtn";
       br.textContent = t("entfernen");
@@ -1135,7 +1471,7 @@ function refreshBlock(id) {
   const old = blockMeshes[id];
   if (old) blockGroup.remove(old);
   const g = buildBlockMesh(slot);
-  if (S.quests[id] && S.quests[id].done) addSparkle(g, slot);
+  decorateBlock(g, slot);
   blockGroup.add(g); blockMeshes[id] = g;
 }
 
@@ -1326,6 +1662,7 @@ document.getElementById("btnPass").onclick = () => {
         <span style="width:36px;text-align:right">${pct}%</span></div>`;
     }
   }
+  const foto = hausFoto();
   const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>Kompetenzpass</title>
   <style>body{font-family:"Helvetica Neue",Arial,sans-serif;color:#1c2333;max-width:820px;margin:24px auto;padding:0 16px}
   h1{color:#0028a5;font-size:24px} table{border-collapse:collapse;width:100%;font-size:11.5px;margin-top:10px}
@@ -1335,6 +1672,7 @@ document.getElementById("btnPass").onclick = () => {
   <button class="noprint" onclick="print()" style="float:right;padding:8px 16px;border:0;background:#0028a5;color:#fff;border-radius:8px;cursor:pointer">🖨 PDF</button>
   <h1>🎓 ${t("pass")} — ${S.name || "—"}</h1>
   <p style="font-size:12.5px;color:#5b6478">${t("passdatum")}: ${dat} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")} · BSc: ${ectsSum("bsc")}/120 · MSc: ${ectsSum("msc")}/120 ${t("ects")}</p>
+  ${foto ? `<img src="${foto}" alt="Kompetenzhaus" style="width:100%;border-radius:12px;margin:8px 0">` : ""}
   ${bars}
   <h3 style="margin-top:18px">${t("bauplan")}</h3>
   <table><tr><th>Code</th><th>Modul</th><th>${t("ects")}</th><th>[A/B/C]</th><th>Quest ✦</th></tr>${rows}</table>
@@ -1351,15 +1689,287 @@ document.getElementById("btnPass").onclick = () => {
   }
 };
 
-/* ---------- Umgebungs-Steuerung ---------- */
-document.querySelectorAll("#envRow .envbtn").forEach((b) => {
-  b.onclick = () => { S.season = b.dataset.season; save(); updateEnvironment(); };
+/* ---------- Umgebungs-Steuerung & Echtzeit ---------- */
+function applyRealEnv() {
+  if (!S.envAuto) return;
+  S.season = autoSeason();
+  const now = new Date();
+  const h = now.getHours() + now.getMinutes() / 60;
+  S.tod = Math.max(0, Math.min(100, Math.round(((h - 5.5) / 17) * 100)));
+  const slider = document.getElementById("todSlider");
+  if (slider) slider.value = S.tod;
+  updateEnvironment();
+}
+document.querySelectorAll("#envRow .envbtn[data-season]").forEach((b) => {
+  b.onclick = () => { S.envAuto = false; S.season = b.dataset.season; save(); updateEnvironment(); };
 });
-document.getElementById("todSlider").oninput = (e) => { S.tod = +e.target.value; save(); updateEnvironment(); };
+document.getElementById("todSlider").oninput = (e) => { S.envAuto = false; S.tod = +e.target.value; save(); updateEnvironment(); };
+document.getElementById("btnEnvAuto").onclick = () => {
+  S.envAuto = !S.envAuto; save();
+  if (S.envAuto) applyRealEnv();
+  updateEnvironment();
+  toast(t(S.envAuto ? "envauto_an" : "envauto_aus"));
+};
+setInterval(applyRealEnv, 60000);
+
+/* ---------- Foto-Modus ---------- */
+document.getElementById("btnFoto").onclick = () => {
+  document.body.classList.add("foto");
+  const p0 = camera.position.clone(), t0 = controls.target.clone();
+  const focus = mscOpen() && ectsSum("msc") > 0 ? new THREE.Vector3(0, 3, 0) : new THREE.Vector3(-11, 3, 0);
+  flyTo(new THREE.Vector3(focus.x - 16, 11, 24), focus, 1.2, () => {
+    step();
+    renderer.render(scene, camera);
+    try {
+      const a = document.createElement("a");
+      a.href = renderer.domElement.toDataURL("image/png");
+      a.download = "kompetenzhaus-" + new Date().toISOString().slice(0, 10) + ".png";
+      a.click();
+      toast("📷 " + t("foto_hint"));
+    } catch (e) {}
+    setTimeout(() => {
+      document.body.classList.remove("foto");
+      flyTo(p0, t0, 1);
+    }, 600);
+  });
+};
+function hausFoto() { // für den Kompetenzpass
+  renderer.render(scene, camera);
+  try { return renderer.domElement.toDataURL("image/jpeg", 0.82); } catch (e) { return null; }
+}
 
 /* Panels mobil */
 document.getElementById("togL").onclick = () => document.getElementById("panelL").classList.toggle("open");
 document.getElementById("togR").onclick = () => document.getElementById("panelR").classList.toggle("open");
+
+/* ---------- Innenansicht ---------- */
+let interior = null; // { id, group, saved: [{mat, opacity, transparent}], btn, prevMin }
+function propBox(w, h, d, color, x, y, z, ry = 0) {
+  const m = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 2, Math.min(0.04, w / 4)), new THREE.MeshStandardMaterial({ color, roughness: 0.85 }));
+  m.position.set(x, y, z); m.rotation.y = ry;
+  return m;
+}
+function buildRoom(slot, W, H, D) {
+  const g = new THREE.Group();
+  const wallMat = new THREE.MeshStandardMaterial({ color: 0xf3efe6, roughness: 0.95, side: THREE.DoubleSide });
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0xc9a877, roughness: 0.9 });
+  const iw = W - 0.2, ih = H - 0.15, idp = D - 0.2;
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(iw, 0.06, idp), floorMat); floor.position.y = 0.05; g.add(floor);
+  const back = new THREE.Mesh(new THREE.PlaneGeometry(iw, ih), wallMat); back.position.set(0, ih / 2, -idp / 2); g.add(back);
+  const left = new THREE.Mesh(new THREE.PlaneGeometry(idp, ih), wallMat); left.rotation.y = Math.PI / 2; left.position.set(-iw / 2, ih / 2, 0); g.add(left);
+  const right = left.clone(); right.rotation.y = -Math.PI / 2; right.position.x = iw / 2; g.add(right);
+  // Möblierung nach Modulgruppe
+  const gr = slot.gruppe;
+  const y0 = 0.08;
+  if (gr === "meth" || gr === "mein") {
+    g.add(propBox(0.9, 0.06, 0.5, 0x8a6642, -iw * 0.2, y0 + 0.38, -idp * 0.25));
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.32), new THREE.MeshStandardMaterial({ color: 0x0c1830, emissive: 0x7fb4e8, emissiveIntensity: 0.55 }));
+    screen.position.set(-iw * 0.2, y0 + 0.62, -idp * 0.25); g.add(screen);
+    g.add(propBox(0.34, 0.5, 0.34, 0x39415a, -iw * 0.2, y0 + 0.25, idp * 0.05));
+  } else if (gr === "prop") {
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++) g.add(propBox(0.34, 0.42, 0.3, 0x3f6cc8, (c - 1) * 0.5, y0 + 0.21, idp * 0.05 + r * 0.45));
+    g.add(propBox(0.8, 0.55, 0.35, 0x8a6642, 0, y0 + 0.28, -idp * 0.3));
+  } else if (gr === "klin") {
+    g.add(propBox(0.45, 0.4, 0.42, 0xd96a4b, -iw * 0.22, y0 + 0.2, 0, 0.5));
+    g.add(propBox(0.45, 0.4, 0.42, 0x2a9d8f, iw * 0.22, y0 + 0.2, 0, -0.5));
+    g.add(propBox(0.32, 0.3, 0.32, 0x8a6642, 0, y0 + 0.15, -idp * 0.05));
+    const plant = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 0), new THREE.MeshStandardMaterial({ color: 0x4e9440, flatShading: true }));
+    plant.position.set(iw * 0.34, y0 + 0.45, -idp * 0.32); g.add(plant);
+    g.add(propBox(0.1, 0.28, 0.1, 0xb98a5a, iw * 0.34, y0 + 0.14, -idp * 0.32));
+  } else if (gr === "enk") {
+    g.add(propBox(0.3, 0.55, 0.3, 0xd8dce6, 0, y0 + 0.28, -idp * 0.15));
+    const brain = new THREE.Mesh(new THREE.IcosahedronGeometry(0.2, 1), new THREE.MeshStandardMaterial({ color: 0xe8a0b4, roughness: 0.6, flatShading: true }));
+    brain.position.set(0, y0 + 0.72, -idp * 0.15); brain.name = "spin"; g.add(brain);
+  } else if (gr === "swod") {
+    const tisch = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.06, 12), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.85 }));
+    tisch.position.set(0, y0 + 0.4, 0); g.add(tisch);
+    g.add(propBox(0.08, 0.4, 0.08, 0x6b5138, 0, y0 + 0.2, 0));
+    for (let i = 0; i < 4; i++) { const a = (i / 4) * Math.PI * 2; g.add(propBox(0.3, 0.38, 0.28, 0xd9a441, Math.cos(a) * 0.72, y0 + 0.19, Math.sin(a) * 0.72, -a)); }
+  } else { // Bibliothek/Studierzimmer
+    const shelf = propBox(1.1, 1.1, 0.24, 0x8a6642, -iw * 0.24, y0 + 0.55, -idp * 0.36);
+    g.add(shelf);
+    [0xd96a4b, 0x2a9d8f, 0x3f6cc8, 0xd9a441, 0x5e60ce].forEach((c, i) => g.add(propBox(0.1, 0.26, 0.16, c, -iw * 0.24 - 0.4 + i * 0.2, y0 + 0.78, -idp * 0.36)));
+    g.add(propBox(0.7, 0.06, 0.45, 0xa9855e, iw * 0.2, y0 + 0.38, 0));
+    g.add(propBox(0.3, 0.44, 0.3, 0x39415a, iw * 0.2, y0 + 0.22, idp * 0.28));
+  }
+  // Kompetenz-Tafeln an der Rückwand (Klick → Ich-Satz)
+  const { komp, haupt } = slotKomp(slot);
+  const all = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].slice(0, 6);
+  all.forEach((id, i) => {
+    const k = KOMP[id]; if (!k) return;
+    const col = ST.felder[k.feld].farbe;
+    const plq = new THREE.Group();
+    const frame = new THREE.Mesh(new THREE.PlaneGeometry(0.56, 0.42), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 }));
+    const sp = textSprite(id, col);
+    sp.scale.set(0.62, 0.24, 1); sp.position.z = 0.02;
+    plq.add(frame, sp);
+    const cols = Math.min(3, all.length);
+    const cx = ((i % cols) - (cols - 1) / 2) * 0.75;
+    const cy = ih * 0.62 - Math.floor(i / cols) * 0.55;
+    plq.position.set(cx, cy, -idp / 2 + 0.03);
+    plq.userData.kompId = id;
+    plq.children.forEach((ch) => (ch.userData.kompId = id));
+    g.add(plq);
+  });
+  g.traverse((o) => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
+  return g;
+}
+function enterRoom(id) {
+  if (interior) leaveRoom();
+  const slot = SLOTS[id]; const bg = blockMeshes[id];
+  if (!slot || !bg || !["box", "tower", "wing", "bay"].includes(slot.form)) return;
+  const W = slot.pos.w * CELL, D = slot.form === "wing" ? slot.pos.d * CELL : slot.pos.d * CELL, H = (slot.form === "wing" ? 1.7 : slot.pos.h) * FH;
+  const room = buildRoom(slot, W, H, D);
+  room.position.copy(bg.position);
+  scene.add(room);
+  const saved = [];
+  bg.traverse((o) => {
+    if (o.isMesh && o.material) {
+      saved.push({ mat: o.material, opacity: o.material.opacity, transparent: o.material.transparent });
+      o.material.transparent = true; o.material.opacity = 0.13; o.material.depthWrite = false;
+      o.material.needsUpdate = true;
+    }
+  });
+  const faceZ = slot.pos.z >= 0 || slot.form === "wing" ? 1 : -1;
+  const target = bg.position.clone().add(new THREE.Vector3(0, H * 0.45, 0));
+  const camPos = bg.position.clone().add(new THREE.Vector3(0, H * 0.55, faceZ * (D * 1.9 + 1.2)));
+  const prevMin = controls.minDistance;
+  controls.minDistance = 0.4;
+  flyTo(camPos, target, 1.1);
+  const btn = document.createElement("button");
+  btn.className = "iconbtn blue";
+  btn.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:26";
+  btn.textContent = "🚪 " + t("verlassen");
+  btn.onclick = leaveRoom;
+  document.body.appendChild(btn);
+  closeCard();
+  interior = { id, group: room, saved, btn, prevMin };
+  SND.pick();
+}
+function leaveRoom() {
+  if (!interior) return;
+  scene.remove(interior.group);
+  interior.saved.forEach((s) => { s.mat.opacity = s.opacity; s.mat.transparent = s.transparent; s.mat.depthWrite = true; s.mat.needsUpdate = true; });
+  interior.btn.remove();
+  controls.minDistance = interior.prevMin;
+  const bg = blockMeshes[interior.id];
+  if (bg) flyTo(bg.position.clone().add(new THREE.Vector3(-8, 7, 13)), bg.position.clone(), 1);
+  interior = null;
+}
+
+/* ---------- Onboarding-Tour ---------- */
+function startTour() {
+  if (S.tourDone) return;
+  if (document.getElementById("milestone").classList.contains("open")) { setTimeout(startTour, 2500); return; }
+  const coach = document.getElementById("coach");
+  const steps = [
+    { sel: "#panelL", tt: "tour1_t", tx: "tour1", css: "left:322px;top:120px" },
+    { sel: "#card", tt: "tour2_t", tx: "tour2", css: "left:50%;transform:translateX(-50%);bottom:calc(46vh + 20px)" },
+    { sel: "#panelR", tt: "tour3_t", tx: "tour3", css: "right:322px;top:120px;left:auto" }
+  ];
+  let i = 0;
+  const show = () => {
+    document.querySelectorAll(".coach-target").forEach((e) => e.classList.remove("coach-target"));
+    if (i >= steps.length) { coach.classList.remove("open"); S.tourDone = true; save(); return; }
+    const s = steps[i];
+    const tgt = document.querySelector(s.sel);
+    if (tgt && tgt.offsetParent !== null) tgt.classList.add("coach-target");
+    coach.style.cssText = s.css;
+    coach.innerHTML = `<b>${t(s.tt)}</b>${t(s.tx)}<div class="cactions"><span class="cstep">${i + 1}/3</span><button>${i === steps.length - 1 ? t("tour_fertig") : t("tour_weiter")}</button></div>`;
+    coach.classList.add("open");
+    coach.querySelector("button").onclick = () => { i++; SND.pick(); show(); };
+  };
+  show();
+}
+
+/* ---------- KI-Baututor (nur wenn window.claude verfügbar, z.B. Artifact) ---------- */
+function initTutor() {
+  const api = window.claude && typeof window.claude.complete === "function" ? window.claude.complete.bind(window.claude) : null;
+  if (!api) return;
+  const fab = document.getElementById("tutorFab"), box = document.getElementById("tutor"), msgs = document.getElementById("tutorMsgs");
+  fab.style.display = "block";
+  const hist = [];
+  const add = (who, txt) => {
+    const d = document.createElement("div");
+    d.className = "tmsg " + who; d.textContent = txt;
+    msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+    return d;
+  };
+  fab.onclick = () => { box.classList.toggle("open"); if (box.classList.contains("open") && !msgs.children.length) add("bot", t("tutor_hi")); };
+  document.getElementById("tutorClose").onclick = () => box.classList.remove("open");
+  const ctx = () => {
+    const built = ST.slots.filter((s) => isPlaced(s.slot)).map((s) => slotTitel(s)).join("; ") || "-";
+    const next = nextRecommended();
+    return `Du bist der «KI-Baututor» im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc/MSc; Module = Bausteine eines Hauses; Kompetenzen: Fa1–Fa10 fachlich, KI1–KI6 KI, Fu1–Fu3 Future Skills; Prüfungslogik [A] KI-frei / [B] teilweise / [C] KI-integriert; Basis: Kompetenzaufbaumodell 02.07.2026, ein ENTWURF als Gesprächsbasis). Antworte kurz (max. 120 Wörter), freundlich, auf ${S.lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}. Keine Rechtsauskünfte; verweise bei Studienberatung an die Studienprogrammleitung. Spielstand: gebaut = ${built}. Empfohlener nächster Baustein: ${next ? slotTitel(SLOTS[next]) : "-"}.`;
+  };
+  const send = async () => {
+    const inp = document.getElementById("tutorInput");
+    const q = inp.value.trim(); if (!q) return;
+    inp.value = "";
+    add("me", q);
+    const wait = add("bot", "…");
+    hist.push("Studierende:r: " + q);
+    try {
+      const out = await api(ctx() + "\n\n" + hist.slice(-6).join("\n") + "\nBaututor:");
+      wait.textContent = String(out).trim();
+      hist.push("Baututor: " + wait.textContent);
+    } catch (e) { wait.textContent = t("tutor_err"); }
+  };
+  document.getElementById("tutorSend").onclick = send;
+  document.getElementById("tutorInput").addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
+}
+
+/* ---------- Exporte: Open Badges & Portfolio ---------- */
+function download(name, text, type = "application/json") {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name; a.click(); URL.revokeObjectURL(a.href);
+}
+function badgesExport() {
+  const seen = S.msSeen[S.mode] || [];
+  const badges = ST.meilensteine.filter((m) => seen.includes(m.id)).map((m) => ({
+    "@context": "https://www.w3.org/ns/credentials/v2",
+    type: ["VerifiableCredential", "OpenBadgeCredential"],
+    name: m.name.de,
+    description: m.text.de,
+    credentialSubject: {
+      type: ["AchievementSubject"],
+      identifier: S.name || "anonym",
+      achievement: {
+        type: ["Achievement"],
+        name: m.name.de,
+        description: m.text.de,
+        criteria: { narrative: "Meilenstein im Kompetenzhaus (Selbstdeklaration, unsigniert — Entwurf)" },
+        alignment: ST.kompetenzen.map((k) => ({ type: ["Alignment"], targetName: k.id + " " + k.name.de }))
+      }
+    },
+    issuer: { type: ["Profile"], name: "Das Kompetenzhaus — Psychologisches Institut UZH (Entwurf, unsigniert)" },
+    validFrom: new Date().toISOString(),
+    proof: []
+  }));
+  download("kompetenzhaus-badges.json", JSON.stringify(badges, null, 2));
+}
+function olatExport() {
+  const { score, max } = profilWerte();
+  let md = `# Kompetenzportfolio — ${S.name || "—"}\n\n_${t("passdatum")}: ${new Date().toLocaleDateString("de-CH")} · ${S.mode === "serious" ? "Serious Mode" : "Freies Bauen"} · BSc ${ectsSum("bsc")}/120 ECTS · MSc ${ectsSum("msc")}/120 ECTS_\n\n> Entwurf auf Basis des Kompetenzaufbaumodells vom 02.07.2026 — Selbstdeklaration, kein offizieller Leistungsnachweis.\n\n## Kompetenzprofil\n\n`;
+  for (const feld of ["fa", "ki", "fu"]) {
+    md += `### ${ST.felder[feld].name.de}\n\n`;
+    for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
+      const pct = max[k.id] ? Math.round((score[k.id] / max[k.id]) * 100) : 0;
+      const st = kompStufe(k.id);
+      md += `- **${k.id} ${k.name.de}** — ${pct}%${st ? `, Stufe ${st}` : ""}${cvText(k.id, st) ? `\n  - _${cvText(k.id, st)}_` : ""}\n`;
+    }
+    md += "\n";
+  }
+  md += `## Module & Reflexionen\n\n`;
+  for (const slot of ST.slots) {
+    if (!isPlaced(slot.slot)) continue;
+    const q = S.quests[slot.slot] || {};
+    const code = quizCode(slot);
+    md += `- **${slotTitel(slot)}** (${slot.ects} ECTS)${S.quiz[code] ? " · Quiz ✓" : ""}${q.done ? " · Quest ✦" : ""}${q.note ? `\n  - Merksatz: «${q.note}»` : ""}\n`;
+  }
+  download("kompetenzhaus-portfolio.md", md, "text/markdown");
+}
 
 /* ---------- Toast ---------- */
 let toastTimer = null;
@@ -1376,9 +1986,11 @@ document.getElementById("obStart").onclick = () => {
   S.onboarded = true; save();
   document.getElementById("modalOnboard").classList.remove("open");
   SND.unlock();
-  const first = SLOTS["003"];
   if (!isPlaced("003")) selectSlot("003");
+  setTimeout(startTour, 900);
 };
+document.getElementById("btnBadges").onclick = badgesExport;
+document.getElementById("btnOlat").onclick = olatExport;
 
 /* ---------- Render-Loop ---------- */
 const clock = new THREE.Clock();
@@ -1411,13 +2023,17 @@ function step() {
     const s = 1 + Math.sin(elapsed * 5) * 0.02;
     ghost.scale.set(s, s, s);
   }
-  // Funkeln drehen
+  // Funkeln, Fahnen, Wimpel drehen
   for (const g of Object.values(blockMeshes)) {
     const sp = g.getObjectByName("sparkle");
     if (sp) { sp.rotation.y += dt * 2.4; sp.position.y += Math.sin(elapsed * 3) * 0.0022; }
     const flag = g.getObjectByName("flag");
     if (flag) flag.rotation.y = Math.sin(elapsed * 2.2) * 0.25;
+    const pf = g.getObjectByName("pennant");
+    if (pf) { const w = pf.getObjectByName("pflag"); if (w) w.rotation.y = Math.sin(elapsed * 3.1 + g.position.x) * 0.35; }
   }
+  gardenGroup.traverse((o) => { if (o.name === "flag") o.rotation.y = Math.sin(elapsed * 1.8) * 0.3; });
+  if (interior) interior.group.traverse((o) => { if (o.name === "spin") o.rotation.y += dt * 0.8; });
   // Ambient-Partikel
   if (amb.visible) {
     const cfg = SEASONS[S.season];
@@ -1476,10 +2092,13 @@ const isVisitor = tryVisitor();
 rebuildAll();
 renderPlan();
 renderProfil();
+if (S.envAuto) applyRealEnv();
 updateEnvironment();
 document.getElementById("todSlider").value = S.tod;
+initTutor();
 if (!isVisitor && !S.onboarded) openModal("onboard");
-window.__game = { get state() { return S; }, checkMilestones, save, step, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
+else if (!isVisitor && !S.tourDone && Object.keys(S.placed[S.mode]).length < 3) setTimeout(startTour, 1200);
+window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
 animate();
 /* Fallback: läuft weiter, wenn der Tab gedrosselt ist (rAF pausiert) */
 setInterval(() => { if (performance.now() - lastTick > 400) step(); }, 250);

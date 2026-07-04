@@ -190,6 +190,76 @@
 
   #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5;
     background: radial-gradient(ellipse at center, transparent 62%, rgba(10, 16, 45, .18) 100%); }
+  body.foto #topbar, body.foto .panel, body.foto .panel-toggle, body.foto #card, body.foto #tip { display: none !important; }
+
+  /* Quiz */
+  .quiz-progress { display: flex; gap: 5px; margin: 4px 0 10px; }
+  .quiz-progress .qp { flex: 1; height: 5px; border-radius: 3px; background: #e8ebf4; }
+  .quiz-progress .qp.done { background: var(--ok); }
+  .quiz-progress .qp.cur { background: var(--blue); }
+  .quiz-q { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .quiz-a { display: block; width: 100%; text-align: left; border: 1.5px solid #dbe1ef; background: var(--paper);
+    border-radius: 10px; padding: 9px 12px; margin: 5px 0; font: 500 12.5px var(--font); cursor: pointer; }
+  .quiz-a:hover { background: #eef2fb; }
+  .quiz-a.ok { border-color: var(--ok); background: #e6f4ec; font-weight: 700; }
+  .quiz-a.no { border-color: var(--err); background: #faeaea; }
+  .quiz-erkl { font-size: 12px; background: var(--paper2); border-radius: 10px; padding: 8px 12px; margin-top: 6px; line-height: 1.45; }
+  .quiz-done-banner { display: flex; align-items: center; gap: 8px; background: #e6f4ec; color: #0a5c31;
+    border-radius: 10px; padding: 8px 12px; font: 700 12.5px var(--font); margin-bottom: 8px; }
+  .badge-quiz { font: 800 9.5px var(--font); color: var(--ok); border: 1.5px solid var(--ok); border-radius: 999px; padding: 2px 7px; }
+
+  /* Lernziel-Bereichspunkte */
+  .lz-dots { display: inline-flex; gap: 3px; margin-right: 6px; vertical-align: 1px; }
+  .lz-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .25; }
+  .lz-dots i.on { opacity: 1; }
+
+  /* Profil-Tabs & Karriere */
+  .ptabs { display: flex; gap: 4px; margin: 0 10px 4px; }
+  .ptabs button { flex: 1; border: 0; background: var(--paper2); border-radius: 999px; padding: 7px 0; font: 700 11.5px var(--font); color: #5b6478; cursor: pointer; }
+  .ptabs button.on { background: var(--blue); color: #fff; }
+  .pfad { background: var(--paper2); border-radius: 12px; padding: 10px 12px; margin: 6px 4px; }
+  .pfad .phead { display: flex; align-items: center; gap: 8px; font: 700 12.5px var(--font); }
+  .pfad .phead .pct { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--blue); }
+  .pfad .phint { font-size: 10.5px; color: #5b6478; margin: 2px 0 6px 26px; }
+  .pfad .track { height: 7px; border-radius: 4px; background: #e2e6f0; overflow: hidden; }
+  .pfad .fill { height: 100%; border-radius: 4px; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .pfad .pnext { font-size: 11px; color: #3c4356; margin-top: 7px; line-height: 1.5; }
+  .pfad .pnext button { border: 0; background: #fff; border-radius: 7px; padding: 2px 8px; font: 600 10.5px var(--font); cursor: pointer; margin: 1px 2px; border: 1px solid #dbe1ef; }
+  .verlauf { display: flex; align-items: flex-end; gap: 4px; height: 64px; margin: 8px 6px; }
+  .verlauf .vbar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; height: 100%; }
+  .verlauf .vseg { border-radius: 3px 3px 0 0; min-height: 2px; }
+  .verlauf-lbl { display: flex; gap: 4px; margin: 0 6px; }
+  .verlauf-lbl span { flex: 1; text-align: center; font: 600 9px var(--font); color: #8b94ab; }
+  .cvrow { display: flex; gap: 6px; align-items: flex-start; background: var(--paper2); border-radius: 10px; padding: 8px 10px; margin: 5px 4px; }
+  .cvrow p { flex: 1; font-size: 11.5px; line-height: 1.45; font-style: italic; color: #2c3550; }
+  .cvrow button { border: 0; background: #fff; border: 1px solid #dbe1ef; border-radius: 8px; padding: 4px 8px; cursor: pointer; font-size: 11px; flex: none; }
+  .evrow { display: flex; gap: 7px; align-items: center; font-size: 11.5px; padding: 4px 6px; }
+  .evrow .evic { flex: none; }
+
+  /* Tour */
+  #coach { position: fixed; z-index: 70; background: var(--blue); color: #fff; border-radius: 14px; padding: 14px 16px;
+    max-width: 270px; box-shadow: var(--shadow); font-size: 12.5px; line-height: 1.5; display: none; }
+  #coach.open { display: block; }
+  #coach b { display: block; margin-bottom: 4px; font-size: 13.5px; }
+  #coach .cactions { display: flex; justify-content: space-between; margin-top: 10px; align-items: center; }
+  #coach .cactions button { border: 0; background: #fff; color: var(--blue); border-radius: 999px; padding: 6px 14px; font: 700 12px var(--font); cursor: pointer; }
+  #coach .cstep { font-size: 10.5px; opacity: .8; }
+  .coach-target { outline: 3px solid var(--blue) !important; outline-offset: 3px; border-radius: var(--radius); animation: nextpulse 1.6s infinite; }
+
+  /* KI-Tutor */
+  #tutorFab { position: fixed; right: 320px; bottom: 16px; z-index: 22; width: 48px; height: 48px; border-radius: 50%;
+    border: 0; background: var(--blue); color: #fff; font-size: 22px; cursor: pointer; box-shadow: var(--shadow); display: none; }
+  #tutor { position: fixed; right: 320px; bottom: 74px; z-index: 22; width: 320px; max-width: calc(100vw - 32px); height: 420px;
+    background: var(--paper); border-radius: 16px; box-shadow: var(--shadow); display: none; flex-direction: column; overflow: hidden; }
+  #tutor.open { display: flex; }
+  #tutor .thead { background: var(--blue); color: #fff; padding: 10px 14px; font: 700 13px var(--font); display: flex; justify-content: space-between; }
+  #tutor .tmsgs { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  #tutor .tmsg { border-radius: 12px; padding: 8px 11px; font-size: 12px; line-height: 1.45; max-width: 88%; }
+  #tutor .tmsg.me { background: var(--blue); color: #fff; align-self: flex-end; }
+  #tutor .tmsg.bot { background: var(--paper2); align-self: flex-start; }
+  #tutor .tin { display: flex; gap: 6px; padding: 8px; border-top: 1px solid #edf0f7; }
+  #tutor .tin input { flex: 1; border: 1.5px solid #dbe1ef; border-radius: 10px; padding: 8px 10px; font: 500 12px var(--font); }
+  @media (max-width: 1080px) { #tutorFab, #tutor { right: 12px; } }
   button:focus-visible, input:focus-visible { outline: 2.5px solid var(--blue); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: .01s !important; transition-duration: .05s !important; }
@@ -245,15 +315,29 @@
 
 <div class="panel" id="panelR">
   <h3 data-i18n="profil">Kompetenzprofil</h3>
+  <div class="ptabs">
+    <button id="ptabProfil" class="on" data-i18n="ptab_profil">Profil</button>
+    <button id="ptabKarriere" data-i18n="ptab_karriere">Karriere</button>
+  </div>
   <div class="scroll" id="profilList"></div>
   <div class="envrow" id="envRow">
+    <button class="envbtn" id="btnEnvAuto" title="Echtzeit">🕐</button>
     <button class="envbtn" data-season="fruehling" title="Frühling">🌸</button>
     <button class="envbtn" data-season="sommer" title="Sommer">☀️</button>
     <button class="envbtn" data-season="herbst" title="Herbst">🍂</button>
     <button class="envbtn" data-season="winter" title="Winter">❄️</button>
     <input type="range" id="todSlider" min="0" max="100" value="35" title="Tageszeit">
     <span id="todIcon" style="font-size:14px">🌤️</span>
+    <button class="envbtn" id="btnFoto" title="Foto-Modus">📷</button>
   </div>
+</div>
+
+<div id="coach"></div>
+<button id="tutorFab" title="KI-Baututor">🤖</button>
+<div id="tutor">
+  <div class="thead"><span data-i18n="tutor_titel">KI-Baututor</span><button id="tutorClose" style="border:0;background:transparent;color:#fff;cursor:pointer">✕</button></div>
+  <div class="tmsgs" id="tutorMsgs"></div>
+  <div class="tin"><input type="text" id="tutorInput" maxlength="300"><button class="primary" id="tutorSend">➤</button></div>
 </div>
 
 <div id="card">
@@ -293,6 +377,8 @@
     <input type="file" id="fileImport" accept=".json" style="display:none">
     <button class="ghostbtn" id="btnReset" data-i18n="reset">🗑 Zurücksetzen</button>
     <button class="ghostbtn" id="btnHelp" data-i18n="hilfe">❓ Hilfe & Spielregeln</button>
+    <button class="ghostbtn" id="btnBadges" data-i18n="badges_export">🏅 Open Badges (JSON)</button>
+    <button class="ghostbtn" id="btnOlat" data-i18n="olat_export">📁 Portfolio-Paket (Markdown)</button>
     <button class="ghostbtn" id="btnPrivacy" data-i18n="datenschutz">🔒 Datenschutz</button>
     <button class="ghostbtn" id="btnAbout" data-i18n="ueber">ℹ️ Über dieses Projekt</button>
   </div>
@@ -337,6 +423,8 @@
 
 <script src="js/daten-struktur.js"></script>
 <script src="js/daten-texte.js" onerror="window.MODUL_TEXTE = window.MODUL_TEXTE || {}"></script>
+<script src="js/daten-quiz.js" onerror="window.QUIZ = window.QUIZ || {}"></script>
+<script src="js/daten-karriere.js" onerror="window.KARRIERE = window.KARRIERE || { pfade: [], cv: {} }"></script>
 <script src="js/i18n.js"></script>
 <script src="js/audio.js"></script>
 <script type="importmap">
