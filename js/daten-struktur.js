@@ -280,14 +280,6 @@ window.STRUKTUR = {
     { code: "10SMSTS-505", titel: { de: "Mentoring für die nächste Generation", en: "Mentoring the next generation" }, ects: 6, kategorie: "Wahl", gruppe: "erg" }
   ],
 
-  /* TIC-Wellen: didaktische Neukonzeption der Grossvorlesungen (ULF-Projekt), Premieren-Semester */
-  tic: {
-    "302": { welle: 1, premiere: "FS 2028" }, "400": { welle: 1, premiere: "FS 2028" }, "201": { welle: 1, premiere: "FS 2028" },
-    "101": { welle: 2, premiere: "HS 2028" }, "100": { welle: 2, premiere: "HS 2028" }, "200": { welle: 2, premiere: "HS 2028" },
-    "300": { welle: 3, premiere: "FS 2029" }, "103": { welle: 3, premiere: "FS 2029" },
-    "500": { welle: 4, premiere: "HS 2029" }, "301": { welle: 4, premiere: "HS 2029" }
-  },
-
   /* 8er-Baukasten aktivierender Elemente (skaliert auf Grossveranstaltungen) */
   baukasten: {
     defs: {

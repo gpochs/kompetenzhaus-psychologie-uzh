@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Das Kompetenzhaus — Psychologie UZH (Entwurf)</title>
 <style>
   :root {
@@ -50,7 +50,7 @@
   .panel .scroll { overflow-y: auto; flex: 1; padding: 0 10px 12px; }
   .panel .scroll::-webkit-scrollbar { width: 8px; } .panel .scroll::-webkit-scrollbar-thumb { background: #d5dbea; border-radius: 4px; }
   .panel-toggle { position: fixed; z-index: 16; top: 74px; border: 0; background: var(--paper); box-shadow: var(--shadow);
-    border-radius: 999px; width: 34px; height: 34px; font-size: 15px; cursor: pointer; display: none; }
+    border-radius: 999px; min-width: 44px; height: 44px; font-size: 14px; cursor: pointer; display: none; padding: 0 10px; font-weight: 700; }
   #togL { left: 12px; } #togR { right: 12px; }
 
   .semblock { margin: 6px 4px; }
@@ -65,13 +65,13 @@
   .chip .cects { font: 700 10.5px var(--font); color: #5b6478; flex: none; }
   .chip.built { background: #e6f4ec; }
   .chip.built .cname { color: #0a5c31; }
-  .chip.locked { opacity: .45; }
+  .chip.locked { background: #eef0f6; } .chip.locked .cname { color: #5b6478; } .chip.locked .cdot { opacity: .35; }
   .chip .tick { flex: none; font-size: 12px; }
   .chip .quest-star { color: #d9a400; font-size: 12px; flex: none; }
   .chip.next { outline: 2px solid var(--blue); animation: nextpulse 2s ease-in-out infinite; }
   .chip .nextbadge { flex: none; font: 800 9px var(--font); color: #fff; background: var(--blue); border-radius: 999px; padding: 2px 6px; letter-spacing: .4px; }
   @keyframes nextpulse { 0%,100% { outline-color: rgba(0,40,165,.9); } 50% { outline-color: rgba(0,40,165,.25); } }
-  .semhead .semprog { font-weight: 600; color: #8b94ab; }
+  .semhead .semprog { font-weight: 600; color: #5b6478; }
 
   .kbar { margin: 2px 0; padding: 4px 6px; border-radius: 9px; cursor: pointer; border: 0; width: 100%; text-align: left; background: transparent; display: block; }
   .kbar:hover { background: rgba(0,40,165,.06); }
@@ -91,7 +91,7 @@
   .kdetail h4 { font-size: 14px; margin: 2px 4px 2px; }
   .kdetail .ich { font-style: italic; font-size: 12.5px; color: #3c4356; margin: 4px 4px 10px; line-height: 1.45; }
   .kdetail .stufen { display: flex; gap: 5px; margin: 0 4px 10px; align-items: center; }
-  .kdetail .stufen .sdot { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 800 10.5px var(--font); background: #e8ebf4; color: #8b94ab; }
+  .kdetail .stufen .sdot { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 800 10.5px var(--font); background: #e8ebf4; color: #5b6478; }
   .kdetail .stufen .sdot.on { background: var(--blue); color: #fff; }
   .kdetail .modrow { display: flex; align-items: center; gap: 7px; font: 500 11.5px var(--font); padding: 5px 6px; border-radius: 8px; }
   .kdetail .modrow.builtrow { background: #eef7f1; }
@@ -121,7 +121,7 @@
   #card .head .titles { flex: 1; min-width: 0; }
   #card .head b { font-size: 14.5px; display: block; line-height: 1.2; }
   #card .head .code { font-size: 11px; color: #5b6478; }
-  #card .head .close { border: 0; background: var(--paper2); border-radius: 999px; width: 28px; height: 28px; cursor: pointer; font-size: 13px; flex: none; }
+  #card .head .close { border: 0; background: var(--paper2); border-radius: 999px; width: 40px; height: 40px; cursor: pointer; font-size: 15px; flex: none; }
   .badges { display: flex; gap: 6px; padding: 0 16px 8px; flex-wrap: wrap; }
   .badge { font: 700 10.5px var(--font); padding: 3px 9px; border-radius: 999px; color: #fff; }
   .tabs { display: flex; gap: 4px; padding: 0 12px; border-bottom: 1px solid #edf0f7; }
@@ -136,7 +136,7 @@
   #card .actions { display: flex; gap: 8px; padding: 10px 16px 14px; align-items: center; flex-wrap: wrap; border-top: 1px solid #edf0f7; }
   .stilpick, .schwerpick, .optpick { display: flex; gap: 4px; align-items: center; font-size: 11px; color: #5b6478; flex-wrap: wrap; }
   .stilpick button, .schwerpick button, .optpick button { border: 1.5px solid #dbe1ef; background: var(--paper); border-radius: 8px;
-    padding: 4px 8px; font: 600 11px var(--font); cursor: pointer; }
+    padding: 8px 11px; font: 600 11.5px var(--font); cursor: pointer; }
   .stilpick button.on, .schwerpick button.on, .optpick button.on { border-color: var(--blue); background: #e8edf9; }
   .primary { border: 0; background: var(--blue); color: #fff; border-radius: 10px; padding: 10px 18px; font: 700 13px var(--font); cursor: pointer; }
   .primary:hover { background: #001f85; }
@@ -225,12 +225,12 @@
   .pfad .track { height: 7px; border-radius: 4px; background: #e2e6f0; overflow: hidden; }
   .pfad .fill { height: 100%; border-radius: 4px; transition: width .8s cubic-bezier(.2,.8,.2,1); }
   .pfad .pnext { font-size: 11px; color: #3c4356; margin-top: 7px; line-height: 1.5; }
-  .pfad .pnext button { border: 0; background: #fff; border-radius: 7px; padding: 2px 8px; font: 600 10.5px var(--font); cursor: pointer; margin: 1px 2px; border: 1px solid #dbe1ef; }
+  .pfad .pnext button { border: 0; background: #fff; border-radius: 8px; padding: 7px 10px; font: 600 11px var(--font); cursor: pointer; margin: 2px; border: 1px solid #dbe1ef; }
   .verlauf { display: flex; align-items: flex-end; gap: 4px; height: 64px; margin: 8px 6px; }
   .verlauf .vbar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; height: 100%; }
   .verlauf .vseg { border-radius: 3px 3px 0 0; min-height: 2px; }
   .verlauf-lbl { display: flex; gap: 4px; margin: 0 6px; }
-  .verlauf-lbl span { flex: 1; text-align: center; font: 600 9px var(--font); color: #8b94ab; }
+  .verlauf-lbl span { flex: 1; text-align: center; font: 600 9px var(--font); color: #5b6478; }
   .cvrow { display: flex; gap: 6px; align-items: flex-start; background: var(--paper2); border-radius: 10px; padding: 8px 10px; margin: 5px 4px; }
   .cvrow p { flex: 1; font-size: 11.5px; line-height: 1.45; font-style: italic; color: #2c3550; }
   .cvrow button { border: 0; background: #fff; border: 1px solid #dbe1ef; border-radius: 8px; padding: 4px 8px; cursor: pointer; font-size: 11px; flex: none; }
@@ -265,13 +265,24 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: .01s !important; transition-duration: .05s !important; }
   }
+  #nextCta { display: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 17;
+    border: 0; background: var(--blue); color: #fff; border-radius: 999px; padding: 12px 20px; font: 700 13px var(--font);
+    box-shadow: var(--shadow); cursor: pointer; max-width: calc(100vw - 24px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .planlegende { font: 600 10px var(--font); color: #5b6478; padding: 8px 14px; border-top: 1px solid #edf0f7; }
+  .tglbl { font: 700 12px var(--font); }
+  .only-mobile { display: none !important; }
   @media (max-width: 1080px) {
+    #coach { left: 50% !important; right: auto !important; top: auto !important; bottom: 96px !important; transform: translateX(-50%) !important; max-width: calc(100vw - 28px); }
+    #btnCampus, #btnShare, #btnSound, #btnFoto { display: none; }
+    .only-mobile { display: flex !important; }
+    #nextCta { display: block; }
+    body.card-open #nextCta { display: none; }
     .panel { transform: translateX(calc(-100% - 20px)); width: min(296px, 84vw); }
     #panelR { transform: translateX(calc(100% + 20px)); }
     .panel.open { transform: translateX(0); }
     .panel-toggle { display: block; }
-    #panelL { top: 112px; } #panelR { top: 112px; }
-    #togL { top: 120px; } #togR { top: 120px; }
+    #panelL { top: 128px; } #panelR { top: 128px; }
+    #togL { top: 74px; left: 12px; } #togR { top: 74px; right: 12px; }
     #topbar { flex-wrap: wrap; }
     .brand .sub { display: none; }
   }
@@ -299,12 +310,12 @@
   <button class="iconbtn blue" id="btnPass">🎓 <span data-i18n="pass">Kompetenzpass</span></button>
   <button class="iconbtn" id="btnSound" title="Sound">🔊</button>
   <button class="iconbtn" id="btnLang">EN</button>
-  <button class="iconbtn" id="btnMenu">⋯</button>
+  <button class="iconbtn" id="btnMenu" aria-label="Menü">⋯</button>
 </div>
 <div id="vignette"></div>
 
-<button class="panel-toggle" id="togL">📋</button>
-<button class="panel-toggle" id="togR">📊</button>
+<button class="panel-toggle" id="togL" aria-label="Bauplan öffnen">📋 <span class="tglbl">Bauplan</span></button>
+<button class="panel-toggle" id="togR" aria-label="Kompetenzprofil öffnen">📊 <span class="tglbl">Profil</span></button>
 
 <div class="panel" id="panelL">
   <h3><span data-i18n="bauplan">Bauplan</span>
@@ -312,6 +323,7 @@
     <span style="font-size:10.5px;color:#5b6478" id="planHint"></span>
   </h3>
   <div class="scroll" id="planList"></div>
+  <div class="planlegende" id="planLegende"></div>
 </div>
 
 <div class="panel" id="panelR">
@@ -333,6 +345,7 @@
   </div>
 </div>
 
+<button id="nextCta"></button>
 <div id="coach"></div>
 <button id="tutorFab" title="KI-Baututor">🤖</button>
 <div id="tutor">
@@ -348,7 +361,7 @@
       <b id="cardTitle"></b>
       <div class="code" id="cardCode"></div>
     </div>
-    <button class="close" id="cardClose">✕</button>
+    <button class="close" id="cardClose" aria-label="Karte schliessen">✕</button>
   </div>
   <div class="badges" id="cardBadges"></div>
   <div class="tabs" id="cardTabs">
@@ -370,7 +383,7 @@
   </div>
 </div>
 
-<div class="modal" id="modalMenu"><div class="mbox">
+<div class="modal" role="dialog" aria-modal="true" id="modalMenu"><div class="mbox">
   <h2 data-i18n="menue">Menü</h2>
   <div class="mactions">
     <button class="ghostbtn" id="btnExport" data-i18n="export">⬇ Haus exportieren (JSON)</button>
@@ -378,6 +391,10 @@
     <input type="file" id="fileImport" accept=".json" style="display:none">
     <button class="ghostbtn" id="btnReset" data-i18n="reset">🗑 Zurücksetzen</button>
     <button class="ghostbtn" id="btnHelp" data-i18n="hilfe">❓ Hilfe & Spielregeln</button>
+    <button class="ghostbtn only-mobile" id="btnCampusM">🏘️ Campus</button>
+    <button class="ghostbtn only-mobile" id="btnShareM">🔗 Teilen</button>
+    <button class="ghostbtn only-mobile" id="btnSoundM">🔊 Sound an/aus</button>
+    <button class="ghostbtn only-mobile" id="btnFotoM">📷 Foto-Modus</button>
     <button class="ghostbtn" id="btnBadges" data-i18n="badges_export">🏅 Open Badges (JSON)</button>
     <button class="ghostbtn" id="btnOlat" data-i18n="olat_export">📁 Portfolio-Paket (Markdown)</button>
     <button class="ghostbtn" id="btnPrivacy" data-i18n="datenschutz">🔒 Datenschutz</button>
@@ -386,18 +403,18 @@
   <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 
-<div class="modal" id="modalHelp"><div class="mbox" id="helpBox"></div></div>
-<div class="modal" id="modalPrivacy"><div class="mbox" id="privacyBox"></div></div>
-<div class="modal" id="modalAbout"><div class="mbox" id="aboutBox"></div></div>
+<div class="modal" role="dialog" aria-modal="true" id="modalHelp"><div class="mbox" id="helpBox"></div></div>
+<div class="modal" role="dialog" aria-modal="true" id="modalPrivacy"><div class="mbox" id="privacyBox"></div></div>
+<div class="modal" role="dialog" aria-modal="true" id="modalAbout"><div class="mbox" id="aboutBox"></div></div>
 
-<div class="modal" id="modalShare"><div class="mbox">
+<div class="modal" role="dialog" aria-modal="true" id="modalShare"><div class="mbox">
   <h2 data-i18n="teilen_titel">Dein Haus teilen</h2>
   <p data-i18n="teilen_text">Dieser Link enthält deinen Bauplan (keine persönlichen Daten ausser dem gewählten Anzeigenamen). Wer ihn öffnet, sieht dein Haus in 3D.</p>
   <div class="linkbox"><input type="text" id="shareLink" readonly><button class="primary" id="btnCopy" data-i18n="kopieren">Kopieren</button></div>
   <div class="mactions"><button class="ghostbtn" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 
-<div class="modal" id="modalOnboard"><div class="mbox">
+<div class="modal" role="dialog" aria-modal="true" id="modalOnboard"><div class="mbox">
   <h2 data-i18n="ob_titel">Willkommen auf deiner Baustelle! 🏗️</h2>
   <p data-i18n="ob_text1">Hier baust du dein Psychologiestudium — Modul für Modul — zu einem Haus. Jeder Baustein trainiert Kompetenzen: Fachkompetenzen, KI-Kompetenzen und Future Skills. Erst das Bachelor-Haus, dann der Master.</p>
   <ul>
@@ -413,14 +430,14 @@
   <p style="margin-top:10px;font-size:11px" data-i18n="ob_hinweis">Alles wird nur lokal in deinem Browser gespeichert. Entwurf auf Basis des Kompetenzaufbaumodells vom 02.07.2026 — Gesprächsbasis, kein beschlossenes Curriculum.</p>
 </div></div>
 
-<div class="modal" id="modalP0"><div class="mbox">
+<div class="modal" role="dialog" aria-modal="true" id="modalP0"><div class="mbox">
   <h2 data-i18n="p0_titel">📬 Vor dem Studium — Vorstufe ⓪</h2>
   <p data-i18n="p0_text">Was bringst du schon mit — z.B. aus dem Gymnasium oder dem Schwerpunktfach PPP? Ehrliche Selbstdeklaration: Jedes Häkchen gibt deinem Profil einen kleinen Startbonus.</p>
   <div id="p0List" style="display:flex;flex-direction:column;gap:8px;margin:12px 0"></div>
   <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 
-<div class="modal" id="modalMinor"><div class="mbox">
+<div class="modal" role="dialog" aria-modal="true" id="modalMinor"><div class="mbox">
   <h2 data-i18n="minor_titel">🌱 Dein Minor (60 ECTS)</h2>
   <p data-i18n="minor_text">Neben dem Psychologie-Major läuft dein Minor. Hake abgeschlossene Minor-Semester ab — im Garten wächst dein Beet mit. (Rein illustrativ, zählt nicht ins Kompetenzprofil.)</p>
   <div id="minorList" style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"></div>
@@ -433,7 +450,7 @@
   <button id="visitorOwn" style="background:rgba(255,255,255,.2);color:#fff" data-i18n="eigenes_haus">Eigenes Haus bauen</button>
 </div>
 
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <div id="tip"></div>
 
 <script src="js/daten-struktur.js"></script>

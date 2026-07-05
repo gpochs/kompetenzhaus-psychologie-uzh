@@ -144,7 +144,14 @@ function canPlace(slot, mode) {
 
 /* ---------- Three.js Grundgerüst ---------- */
 const canvas = document.getElementById("c3d");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+} catch (e) {
+  document.body.insertAdjacentHTML("beforeend",
+    `<div style="position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#f4f6fb;padding:24px"><div style="max-width:420px;text-align:center;font-family:Helvetica,Arial,sans-serif"><div style="font-size:40px">🏗️</div><h2 style="color:#0028a5;margin:10px 0">3D wird hier nicht unterstützt</h2><p style="color:#3c4356;line-height:1.5">Dein Browser kann WebGL gerade nicht starten. Bitte öffne das Kompetenzhaus in Safari, Chrome oder Firefox (nicht im In-App-Browser) — oder auf einem anderen Gerät.</p></div></div>`);
+  throw e;
+}
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -502,26 +509,10 @@ function addFlowerBox(group, slot) {
   });
   group.add(g);
 }
-function addTicSign(group, slot, tic) {
-  if (group.getObjectByName("ticsign")) return;
-  const g = new THREE.Group(); g.name = "ticsign";
-  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.85, 6), new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 }));
-  post.position.y = 0.42;
-  const sign = new THREE.Mesh(new RoundedBoxGeometry(0.6, 0.4, 0.05, 2, 0.03), new THREE.MeshStandardMaterial({ color: 0xf3c623, roughness: 0.6 }));
-  sign.position.y = 0.95;
-  const lbl = textSprite("🚧 W" + tic.welle, "#b35c00");
-  lbl.scale.set(0.62, 0.24, 1); lbl.position.set(0, 0.95, 0.05);
-  g.add(post, sign, lbl);
-  g.position.set(-slot.pos.w * CELL * 0.36, 0, slot.pos.d * CELL * 0.42);
-  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
-  group.add(g);
-}
 function decorateBlock(group, slot) {
   const code = slot.optionen ? ((S.placed[S.mode][slot.slot] || {}).opt || slot.code) : slot.code;
   if (S.quiz[code]) addPennant(group, slot);
   if (S.quests[slot.slot] && S.quests[slot.slot].done) { addSparkle(group, slot); addFlowerBox(group, slot); }
-  const tic = (ST.tic || {})[slot.slot];
-  if (tic) addTicSign(group, slot, tic);
 }
 const gardenGroup = new THREE.Group(); scene.add(gardenGroup);
 function rebuildGarden() {
@@ -829,7 +820,7 @@ function placeSlot(slot) {
         inner.scale.set(1 + sq * 0.09, 1 - sq * 0.14, 1 + sq * 0.09);
       }, (k) => k, () => inner.scale.set(1, 1, 1));
       burstDust(g.position.x, endY + 0.1, g.position.z);
-      shockRing(g.position.x, endY, g.position.z, Math.max(slot.pos.w, slot.pos.d) * CELL * 0.9);
+      if (slot.ects >= 8) shockRing(g.position.x, endY, g.position.z, Math.max(slot.pos.w, slot.pos.d) * CELL * 0.9); // grosse Steine dürfen beben
       floatKompChips(g, slot);
       SND.thock();
       if (!REDUCE_MOTION) { shakeT = 0.22; hitstopT = 0.07; }
@@ -846,7 +837,7 @@ function placeSlot(slot) {
   return true;
 }
 function removeSlot(id) {
-  if (S.mode !== "frei") return;
+  if (S.mode === "serious" && !confirm(t("entfernen_confirm"))) return;
   const dependents = ST.slots.filter((s) => isPlaced(s.slot) && (s.voraus || []).includes(id));
   if (dependents.length) { toast(t("grund_voraus") + dependents.map((d) => L(d.titel).split(",")[0]).slice(0, 2).join(" · ")); SND.err(); return; }
   delete S.placed[S.mode][id]; save();
@@ -1066,6 +1057,16 @@ function renderPlan() {
   planList.innerHTML = "";
   planList.appendChild(frag);
   document.getElementById("planHint").textContent = S.mode === "serious" ? "☑ = " + t("bestanden") : "";
+  document.getElementById("planLegende").textContent = t("legende");
+  // Mobiler CTA-Chip: nächster empfohlener Baustein
+  const cta = document.getElementById("nextCta");
+  if (cta) {
+    if (nextId && !visitor.active) {
+      cta.textContent = `${t("cta_naechster")} ${slotTitel(SLOTS[nextId]).split(",")[0].slice(0, 34)}`;
+      cta.onclick = () => { selectSlot(nextId); };
+      cta.style.visibility = "visible";
+    } else cta.style.visibility = "hidden";
+  }
 }
 function ectsSum(hausId) {
   return ST.slots.filter((s) => s.haus === hausId && isPlaced(s.slot))
@@ -1372,18 +1373,17 @@ function openCard(id) {
   document.getElementById("cardTitle").textContent = slotTitel(slot);
   document.getElementById("cardCode").textContent = `${(st.opt) || slot.code} · ${L(ST.gruppen[slot.gruppe].name)}`;
   const katList = (kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]);
-  const ticInfo = (ST.tic || {})[slot.slot];
   document.getElementById("cardBadges").innerHTML =
     `<span class="badge" style="background:#5b6478">${slot.ects} ${t("ects")}</span>
      <span class="badge" style="background:#39415a">${t("stufe")} ${slot.stufe}</span>
      <span class="badge" style="background:#7a86a3">${t(slot.rhythmus === "beide" ? "beide" : slot.rhythmus.toLowerCase())}${slot.sem2 ? " · " + t("zweisem") : ""}</span>` +
-    katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("") +
-    (ticInfo ? `<span class="badge" style="background:#b35c00" title="${t("tic_hint")}">${t("tic_badge").replace("{w}", ticInfo.welle).replace("{p}", ticInfo.premiere)}</span>` : "");
+    katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("");
   renderCardBody(slot);
   renderCardActions(slot);
   card.classList.add("open");
+  document.body.classList.add("card-open");
 }
-function closeCard() { card.classList.remove("open"); selectedId = null; renderPlan(); }
+function closeCard() { card.classList.remove("open"); document.body.classList.remove("card-open"); selectedId = null; renderPlan(); }
 document.getElementById("cardClose").onclick = () => { closeCard(); clearGhost(); };
 document.getElementById("cardTabs").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
@@ -1425,7 +1425,14 @@ function renderCardBody(slot) {
   }
 }
 /* ---------- Quiz im Quest-Tab ---------- */
-let cardQuiz = null; // { code, i, oks: [bool,bool,bool], picked: idx|null }
+const REAKT = {
+  de: { ok: ["Sauber hergeleitet! 🧠", "Signifikant richtig.", "Das sitzt — weiter so!", "Evidenzbasiert geantwortet. ✓", "Dein Hippocampus liefert."],
+        no: ["Fast! Schau dir das Warum an:", "Guter Versuch — hier steckt der Denkfehler:", "Kein Drama: Fehler = Lernmoment.", "Knapp daneben — die Erklärung hilft:", "Das war der beliebteste Distraktor:"] },
+  en: { ok: ["Cleanly reasoned! 🧠", "Significantly correct.", "That one stuck — keep going!", "An evidence-based answer. ✓", "Your hippocampus delivers."],
+        no: ["Almost! Check the why:", "Good try — here's the catch:", "No drama: errors are learning moments.", "Close — the explanation helps:", "That was the most popular distractor:"] }
+};
+let cardQuiz = null; // { code, i, oks: [bool,...], picked: idx|null, order: [..] }
+function qShuffle(n) { const a = [...Array(n).keys()]; for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function renderQuestTab(slot, el, tx, none) {
   const fragen = quizFor(slot);
   const code = quizCode(slot);
@@ -1434,26 +1441,30 @@ function renderQuestTab(slot, el, tx, none) {
     if (S.quiz[code]) {
       html += `<div class="quiz-done-banner">🚩 ${t("quiz_bestanden")}</div>`;
     } else {
-      if (!cardQuiz || cardQuiz.code !== code) cardQuiz = { code, i: 0, oks: [], picked: null };
+      if (!cardQuiz || cardQuiz.code !== code) cardQuiz = { code, i: 0, oks: [], picked: null, order: qShuffle(fragen[0].a.length) };
       const qz = cardQuiz;
       const f = fragen[qz.i];
+      if (!qz.order || qz.order.length !== f.a.length) qz.order = qShuffle(f.a.length);
       html += `<p style="font-weight:800;margin-bottom:2px">🧩 ${t("quiz_titel")}</p>`;
       if (S.mode === "serious" && !isPlaced(slot.slot)) html += `<p style="font-size:11px;color:#b35c00;margin-bottom:6px">${t("quiz_gate_hint")}</p>`;
       html += `<div class="quiz-progress">${[0, 1, 2].map((n) => `<span class="qp ${qz.oks[n] ? "done" : n === qz.i ? "cur" : ""}"></span>`).join("")}</div>`;
-      html += `<p style="font-size:10.5px;color:#8b94ab">${t("quiz_von").replace("{i}", qz.i + 1)}</p>`;
+      html += `<p style="font-size:10.5px;color:#5b6478">${t("quiz_von").replace("{i}", qz.i + 1)}</p>`;
       html += `<p class="quiz-q">${L(f.q)}</p>`;
-      f.a.forEach((a, ai) => {
+      qz.order.forEach((ai) => {
+        const a = f.a[ai];
         let cls = "";
         if (qz.picked !== null) cls = ai === f.korrekt ? "ok" : ai === qz.picked ? "no" : "";
         html += `<button class="quiz-a ${cls}" data-ai="${ai}" ${qz.picked !== null ? "disabled" : ""}>${L(a)}</button>`;
       });
       if (qz.picked !== null) {
-        html += `<div class="quiz-erkl">${qz.picked === f.korrekt ? "✅" : "❌"} ${L(f.erkl)}</div>`;
-        if (HAS_AI && qz.picked !== f.korrekt) html += `<button class="ghostbtn" data-qai style="margin-top:6px">${t("ai_quizhilfe")}</button><div data-qaiout class="quiz-erkl" style="display:none;margin-top:6px"></div>`;
+        const richtig = qz.picked === f.korrekt;
+        const rk = REAKT[S.lang] || REAKT.de;
+        const flavor = (richtig ? rk.ok : rk.no)[(qz.i + f.korrekt) % 5];
+        html += `<div class="quiz-erkl"><b>${richtig ? "✅ " : "❌ "}${flavor}</b><br>${L(f.erkl)}</div>`;
+        if (HAS_AI && !richtig) html += `<button class="ghostbtn" data-qai style="margin-top:6px">${t("ai_quizhilfe")}</button><div data-qaiout class="quiz-erkl" style="display:none;margin-top:6px"></div>`;
         const last = qz.i === fragen.length - 1;
-        const allOk = qz.oks.every(Boolean) && qz.oks.length === fragen.length;
-        if (!last) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
-        else if (!allOk) html += `<button class="ghostbtn" style="margin-top:8px" data-qretry>↺ ${t("quiz_retry")}</button>`;
+        if (!richtig) html += `<button class="primary" style="margin-top:8px" data-qredo>↺ ${t("quiz_nochmal")}</button>`;
+        else if (!last) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
       }
     }
   } else if (S.mode === "serious") {
@@ -1509,9 +1520,9 @@ function renderQuestTab(slot, el, tx, none) {
     renderCardBody(slot);
   }));
   const nx = el.querySelector("[data-qnext]");
-  if (nx) nx.onclick = () => { cardQuiz.i++; cardQuiz.picked = null; renderCardBody(slot); };
-  const rt = el.querySelector("[data-qretry]");
-  if (rt) rt.onclick = () => { cardQuiz = { code, i: 0, oks: [], picked: null }; renderCardBody(slot); };
+  if (nx) nx.onclick = () => { cardQuiz.i++; cardQuiz.picked = null; cardQuiz.order = null; renderCardBody(slot); };
+  const rd = el.querySelector("[data-qredo]");
+  if (rd) rd.onclick = () => { cardQuiz.picked = null; cardQuiz.order = qShuffle(fragen[cardQuiz.i].a.length); renderCardBody(slot); };
   const qa = el.querySelector("[data-qai]");
   if (qa) qa.onclick = async () => {
     const out = el.querySelector("[data-qaiout]");
@@ -1549,6 +1560,8 @@ function renderCardActions(slot) {
     Object.keys(ST.schwerpunkte).forEach((sp) => {
       const b = document.createElement("button");
       b.textContent = sp;
+      b.title = L(ST.schwerpunkte[sp].name);
+      b.setAttribute("aria-label", L(ST.schwerpunkte[sp].name));
       b.style.borderColor = ST.schwerpunkte[sp].farbe;
       const cur = placed ? (S.placed[S.mode][slot.slot].sp || "DeNC") : pendingSp;
       b.classList.toggle("on", cur === sp);
@@ -1607,7 +1620,7 @@ function renderCardActions(slot) {
     bq.textContent = q.done ? t("quest_undone") : t("quest_done");
     bq.onclick = () => {
       if (q.done) {
-        S.quests[slot.slot] = { done: false, note: "" };
+        S.quests[slot.slot] = { done: false, note: q.note || "" }; // Merksatz bleibt erhalten
         removeSparkle(blockMeshes[slot.slot]);
         save(); renderPlan(); renderCardActions(slot); renderCardBody(slot);
       } else {
@@ -1641,7 +1654,7 @@ function renderCardActions(slot) {
       be.onclick = () => enterRoom(slot.slot);
       el.appendChild(be);
     }
-    if (S.mode === "frei") {
+    {
       const br = document.createElement("button"); br.className = "ghostbtn";
       br.textContent = t("entfernen");
       br.onclick = () => removeSlot(slot.slot);
@@ -1660,6 +1673,10 @@ function refreshBlock(id) {
 
 /* ---------- Modus, Sprache, Menü ---------- */
 function setMode(m) {
+  if (m === "serious" && !S.seriousSeen) {
+    S.seriousSeen = true;
+    setTimeout(() => alert(t("serious_erklaert")), 150);
+  }
   S.mode = m; save();
   document.getElementById("modeFrei").classList.toggle("on", m === "frei");
   document.getElementById("modeSerious").classList.toggle("on", m === "serious");
@@ -1711,6 +1728,7 @@ document.getElementById("btnExport").onclick = () => {
 document.getElementById("btnImport").onclick = () => document.getElementById("fileImport").click();
 document.getElementById("fileImport").onchange = (e) => {
   const f = e.target.files[0]; if (!f) return;
+  if (!confirm(t("import_confirm"))) { e.target.value = ""; return; }
   const rd = new FileReader();
   rd.onload = () => {
     try {
@@ -2160,16 +2178,19 @@ function startTour() {
   if (S.tourDone) return;
   if (document.getElementById("milestone").classList.contains("open")) { setTimeout(startTour, 2500); return; }
   const coach = document.getElementById("coach");
+  const mobil = window.innerWidth <= 1080;
   const steps = [
-    { sel: "#panelL", tt: "tour1_t", tx: "tour1", css: "left:322px;top:120px" },
+    { sel: "#panelL", open: "panelL", tt: "tour1_t", tx: "tour1", css: "left:322px;top:120px" },
     { sel: "#card", tt: "tour2_t", tx: "tour2", css: "left:50%;transform:translateX(-50%);bottom:calc(46vh + 20px)" },
-    { sel: "#panelR", tt: "tour3_t", tx: "tour3", css: "right:322px;top:120px;left:auto" }
+    { sel: "#panelR", open: "panelR", tt: "tour3_t", tx: "tour3", css: "right:322px;top:120px;left:auto" }
   ];
   let i = 0;
   const show = () => {
     document.querySelectorAll(".coach-target").forEach((e) => e.classList.remove("coach-target"));
+    if (mobil) { document.getElementById("panelL").classList.remove("open"); document.getElementById("panelR").classList.remove("open"); }
     if (i >= steps.length) { coach.classList.remove("open"); S.tourDone = true; save(); return; }
     const s = steps[i];
+    if (mobil && s.open) document.getElementById(s.open).classList.add("open");
     const tgt = document.querySelector(s.sel);
     if (tgt && tgt.offsetParent !== null) tgt.classList.add("coach-target");
     coach.style.cssText = s.css;
@@ -2428,12 +2449,21 @@ rebuildAll();
 growMinor();
 renderPlan();
 renderProfil();
-if (S.envAuto) applyRealEnv();
+/* Erstbesuch: Golden Hour als Postkarten-Start; Echtzeit erst nach dem Onboarding */
+if (!S.onboarded) { S.season = autoSeason(); S.tod = 62; }
+else if (S.envAuto) applyRealEnv();
 updateEnvironment();
 document.getElementById("todSlider").value = S.tod;
 initTutor();
+if (!storageOK) setTimeout(() => toast(t("storage_warn")), 1500);
 if (!isVisitor && !S.onboarded) openModal("onboard");
 else if (!isVisitor && !S.tourDone && Object.keys(S.placed[S.mode]).length < 3) setTimeout(startTour, 1200);
+/* Mobile-Menü-Duplikate */
+const wireM = (mid, target) => { const b = document.getElementById(mid); if (b && target) b.onclick = () => { document.getElementById("modalMenu").classList.remove("open"); target.click(); }; };
+wireM("btnCampusM", document.getElementById("btnCampus"));
+wireM("btnShareM", document.getElementById("btnShare"));
+wireM("btnSoundM", document.getElementById("btnSound"));
+wireM("btnFotoM", document.getElementById("btnFoto"));
 window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
 animate();
 /* Fallback: läuft weiter, wenn der Tab gedrosselt ist (rAF pausiert) */

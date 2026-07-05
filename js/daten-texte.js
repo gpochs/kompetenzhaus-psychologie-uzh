@@ -1,4 +1,4 @@
-/* Zukunftsmodul-Texte (de/en) inkl. F/K/S-Tags pro Lernziel — Stand 2026-07-04. Entwurf/Gesprächsbasis. */
+/* Zukunftsmodul-Texte (de/en) inkl. F/K/S-Tags pro Lernziel — Stand 2026-07-05. Entwurf/Gesprächsbasis. */
 window.MODUL_TEXTE = {
  "06SM200-001": {
   "heute": {
@@ -179,7 +179,7 @@ window.MODUL_TEXTE = {
    "en": "Advanced psychology students teach foundational skills for studying and career entry in seminar groups of around 30; the IPS also builds a social network and introduces interactive teaching formats. Assessment: completion of assignments (50%) and active participation (50%); passed only at 100%."
   },
   "zukunft": {
-   "de": "Ab HS26 trägt das IPS die vier KI-Grundpfeiler: P1 «Wie ‹denkt› ein LLM?» (KI4), P2 Spielregeln & Disclosure (KI5), P3 Fakten-Check-Übung (KI6) und P4 Erste Nutzung mit Haltung (KI1 + Fu2) — getragen vom bewährten Peer-Teaching (ETH/UZH, 2025). Fachlich bleibt es das Stufe-1-Modul für Fa10, Fa6 und Fa7; der Merksatz «assistieren, nicht ersetzen — deklarieren — verifizieren» wird hier zur gelebten Routine (Ehlers et al., 2024). Die abschliessende [C]-Lernworkflow-Aufgabe ist ausdrücklich als anspruchsvollstes Format gerahmt — Newskilling von der ersten Woche an, ohne Deskilling-Risiko. So wird das kleinste Modul des Propädeutikums zum Fundamentgeber des gesamten gestuften KI-Kompetenzaufbaus.",
+   "de": "Ab HS26 trägt das IPS die vier KI-Grundpfeiler: P1 «Wie ‹denkt› ein LLM?» (KI4), P2 Spielregeln & Disclosure (KI5), P3 Fakten-Check-Übung (KI6) und P4 Erste Nutzung mit Haltung (KI1 + Fu2) — getragen vom bewährten Peer-Teaching (ETH/UZH, 2025). Fachlich bleibt es das Stufe-1-Modul für Fa10, Fa6 und Fa7; der Merksatz «assistieren, nicht ersetzen — deklarieren — verifizieren» wird hier zur gelebten Routine (Ehlers et al., 2024). Die abschliessende [B]-Lernworkflow-Aufgabe ist ausdrücklich als anspruchsvollstes Format gerahmt — Newskilling von der ersten Woche an, ohne Deskilling-Risiko. So wird das kleinste Modul des Propädeutikums zum Fundamentgeber des gesamten gestuften KI-Kompetenzaufbaus.",
    "en": "From HS26 the IPS carries the four AI foundations: P1 'How does an LLM ‹think›?' (KI4), P2 rules & disclosure (KI5), P3 fact-check exercise (KI6) and P4 first use with the right attitude (KI1 + Fu2) — delivered through proven peer teaching (ETH/UZH, 2025). Professionally it remains the level-1 module for Fa10, Fa6 and Fa7; the guiding rule 'assist, don't replace — declare — verify' becomes lived routine here (Ehlers et al., 2024). The concluding [C] learning-workflow task is explicitly framed as the most demanding format — newskilling from week one, without deskilling risk. The smallest module of the propaedeutic programme thus lays the foundation for the entire staged build-up of AI competencies."
   },
   "lernziele": [
@@ -216,10 +216,10 @@ window.MODUL_TEXTE = {
    }
   ],
   "ki": {
-   "de": "Prüfungslogik [B] teilweise KI-integriert als Standard: kleine deklarierte KI-Aufgaben mit Disclosure Form und Reflexion innerhalb der bestehenden Arbeitsaufträge. Eine [C]-Lernworkflow-Aufgabe bildet den anspruchsvollsten Auftrag: KI erstellt Verständnisfragen, gibt Feedback, die Studierenden verifizieren gegen Lehrbuch/Datenbank und reflektieren, ob die KI ihr Verstehen unterstützt oder ersetzt hat. Elemente: Prompt-&-Disclosure-Übung und Two-Stage-Quiz — alles über UZH-Infrastruktur (OLAT, Copilot Chat, KlickerUZH), keine Pflicht-Tools mit externem Login oder Kosten.",
+   "de": "Prüfungslogik [B] teilweise KI-integriert als Standard: kleine deklarierte KI-Aufgaben mit Disclosure Form und Reflexion innerhalb der bestehenden Arbeitsaufträge. Eine [B]-Lernworkflow-Aufgabe (deklariert und verifiziert). Elemente: Prompt-&-Disclosure-Übung und Two-Stage-Quiz — alles über UZH-Infrastruktur (OLAT, Copilot Chat, KlickerUZH), keine Pflicht-Tools mit externem Login oder Kosten.",
    "en": "Assessment logic [B] partially AI-integrated as the standard: small declared AI tasks with Disclosure Form and reflection within the existing assignments. One [C] learning-workflow task forms the most demanding assignment: AI generates comprehension questions and feedback, students verify against textbook/database and reflect on whether the AI supported or replaced their understanding. Elements: prompt-and-disclosure exercise and two-stage quiz — all on UZH infrastructure (OLAT, Copilot Chat, KlickerUZH), no mandatory tools with external login or costs."
   },
-  "kat": "B/C",
+  "kat": "B",
   "komp": {
    "fa": [
     "Fa6",

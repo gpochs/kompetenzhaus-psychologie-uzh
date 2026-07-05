@@ -18,7 +18,19 @@ window.KARRIERE = {
     { id: "data", icon: "📊",
       name: { de: "Data, Tech & UX", en: "Data, tech & UX" },
       hint: { de: "Data Science, People Analytics, UX Research, KI-Entwicklung", en: "Data science, people analytics, UX research, AI development" },
-      w: { Fa2: 2, Fa3: 3, Fa4: 2, Fa9: 1, KI1: 2, KI2: 3, KI4: 2, KI6: 2, Fu1: 2, Fu2: 1 } }
+      w: { Fa2: 2, Fa3: 3, Fa4: 2, Fa9: 1, KI1: 2, KI2: 3, KI4: 2, KI6: 2, Fu1: 2, Fu2: 1 } },
+    { id: "schule", icon: "🏫",
+      name: { de: "Schulpsychologie & Bildung", en: "School psychology & education" },
+      hint: { de: "Schulpsychologische Dienste, Beratung von Kindern, Eltern und Lehrpersonen", en: "School psychology services, counselling children, parents and teachers" },
+      w: { Fa1: 2, Fa5: 2, Fa8: 2, Fa9: 3, Fa6: 2, Fa7: 1, KI5: 1, KI6: 1, Fu3: 2, Fu2: 1 } },
+    { id: "gutachten", icon: "⚖️",
+      name: { de: "Diagnostik & Gutachten", en: "Assessment & expert reports" },
+      hint: { de: "Forensische, verkehrs- und versicherungspsychologische Begutachtung", en: "Forensic, traffic and insurance psychology assessment" },
+      w: { Fa5: 3, Fa7: 3, Fa6: 2, Fa4: 2, Fa1: 1, KI6: 2, KI5: 2, Fu2: 1 } },
+    { id: "ppp", icon: "🎓",
+      name: { de: "PPP-Lehrperson (Gymnasium)", en: "PPP teacher (high school)" },
+      hint: { de: "Unterricht im Schwerpunktfach Philosophie/Pädagogik/Psychologie — der Kreis zur Vorstufe ⓪ schliesst sich", en: "Teaching the PPP major — closing the loop to stage ⓪" },
+      w: { Fa1: 3, Fa6: 3, Fa4: 2, Fa9: 2, Fa10: 1, KI1: 1, KI4: 1, KI5: 1, Fu3: 2, Fu1: 1 } }
   ],
   cv: {
  "Fa1": {

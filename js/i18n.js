@@ -130,8 +130,6 @@ window.T = {
     keller: "In den Keller",
     fs12_titel: "Die Future-Skills-Felder im Detail",
     fs12_hint: "Detailebene nach AIComp (Ehlers et al., 2024) — Fortschritt abgeleitet aus den verknüpften Fach- und KI-Kompetenzen.",
-    tic_badge: "🚧 TIC-Welle {w} · Premiere {p}",
-    tic_hint: "Diese Grossveranstaltung wird im ULF-Projekt «Teaching Innovation in large Classes» didaktisch neu konzipiert.",
     baukasten_titel: "🧰 So wird gelehrt",
     p0_titel: "📬 Vor dem Studium — Vorstufe ⓪",
     p0_text: "Was bringst du schon mit — z.B. aus dem Gymnasium oder dem Schwerpunktfach PPP? Ehrliche Selbstdeklaration: Jedes Häkchen gibt deinem Profil einen kleinen Startbonus.",
@@ -147,7 +145,14 @@ window.T = {
     ai_cv_btn: "🤖 Für Bewerbung anpassen",
     ai_vignette: "🩺 Fallgespräch üben (KI)",
     ai_vignette_sys: "Fallgespräch aktiv — die KI spielt eine fiktive Klientin. Beenden mit «Stopp».",
-    ai_nur_artifact: "KI-Funktionen sind in der Claude-Artifact-Version verfügbar."
+    ai_nur_artifact: "KI-Funktionen sind in der Claude-Artifact-Version verfügbar.",
+    quiz_nochmal: "Nochmals versuchen",
+    legende: "✔ gebaut · ☑ bestanden · 🚩 Quiz · ✦ Quest · 🔨 nächster Schritt",
+    cta_naechster: "🔨 Bauen:",
+    serious_erklaert: "Serious Mode hat einen eigenen Bauplatz: Hier setzt du nur Module, die du wirklich bestanden hast (Häkchen + Quiz). Dein Haus aus dem Freien Bauen bleibt gespeichert — du kannst jederzeit zurückwechseln.",
+    entfernen_confirm: "Diesen Baustein wirklich entfernen? (Quiz- und Quest-Stand bleiben erhalten.)",
+    import_confirm: "Import ersetzt deinen aktuellen Spielstand (beide Modi, Quests, Notizen). Fortfahren?",
+    storage_warn: "⚠️ Dieser Browser speichert keinen Fortschritt (privater Modus/In-App-Browser). Spielen geht — nutze «Haus exportieren» oder öffne den Link in Safari/Chrome."
   },
   en: {
     titel: "The Competence House",
@@ -279,8 +284,6 @@ window.T = {
     keller: "Into the basement",
     fs12_titel: "The future-skills fields in detail",
     fs12_hint: "Detail level per AIComp (Ehlers et al., 2024) — progress derived from the linked domain and AI competences.",
-    tic_badge: "🚧 TIC wave {w} · premiere {p}",
-    tic_hint: "This large lecture is being didactically redesigned in the ULF project 'Teaching Innovation in large Classes'.",
     baukasten_titel: "🧰 How it's taught",
     p0_titel: "📬 Before your studies — stage ⓪",
     p0_text: "What do you already bring along — e.g. from high school or the PPP major? Honest self-declaration: each tick gives your profile a small head start.",
@@ -296,7 +299,14 @@ window.T = {
     ai_cv_btn: "🤖 Tailor for application",
     ai_vignette: "🩺 Practise a case conversation (AI)",
     ai_vignette_sys: "Case conversation active — the AI plays a fictional client. End with 'Stop'.",
-    ai_nur_artifact: "AI features are available in the Claude artifact edition."
+    ai_nur_artifact: "AI features are available in the Claude artifact edition.",
+    quiz_nochmal: "Try again",
+    legende: "✔ built · ☑ passed · 🚩 quiz · ✦ quest · 🔨 next step",
+    cta_naechster: "🔨 Build:",
+    serious_erklaert: "Serious mode has its own building site: here you only place modules you have actually passed (tick + quiz). Your free-build house stays saved — switch back anytime.",
+    entfernen_confirm: "Really remove this block? (Quiz and quest progress are kept.)",
+    import_confirm: "Importing replaces your current state (both modes, quests, notes). Continue?",
+    storage_warn: "⚠️ This browser does not save progress (private mode/in-app browser). You can still play — use 'Export house' or open the link in Safari/Chrome."
   }
 };
 
@@ -355,6 +365,7 @@ window.ABOUT_HTML = {
     <li>QAA. (2023). <i>Subject benchmark statement: Psychology</i>. <a href="https://www.qaa.ac.uk/the-quality-code/subject-benchmark-statements/psychology" target="_blank" rel="noopener">qaa.ac.uk</a></li>
     <li>Sailer, M., & Homner, L. (2020). The gamification of learning: A meta-analysis. <i>Educational Psychology Review, 32</i>, 77–112. <a href="https://link.springer.com/article/10.1007/s10648-019-09498-w" target="_blank" rel="noopener">springer.com</a></li>
   </ul>
+  <p style="font-size:11.5px;background:#f4f6fb;border-radius:10px;padding:8px 12px"><b>Modell-Konkordanz</b> (für Workshops mit Materialien des Competence Mapping v2.x): F1–F10 ↔ Fa1–Fa10 · K1–K6 ↔ KI1–KI6 · Z1–Z3 ↔ Facetten von Fu2 (die 12 AIComp-Felder FS1–FS12 decken alle drei Fu-Bereiche ab) · Stufen ①Aneignen/②Vertiefen/③Erschaffen ↔ Spielstufen 1/2/3–4 (der MSc ist im Spiel in zwei Stufen geteilt) · «[A] KI-bewusst» ↔ «[A] KI-frei» (gleiche Kategorie, neuere Benennung des Entwurfs vom 02.07.2026).</p>
   <p style="font-size:11.5px">Entwickelt am Psychologischen Institut der Universität Zürich (Lehrentwicklung), 2026. Spieldesign evidenzbasiert (u.a. Sailer & Homner, 2020; Deci et al., 1999; Tondello & Nacke, 2019) — bewusst ohne Ranglisten und Punkte.</p>`,
   en: `<h2>About this project</h2>
   <p>"The Competence House" visualises competence development in the UZH psychology programmes (BSc 06B-7200-120, MSc 06M-7200-120) as a 3D building game. It is based on the module catalogue and model curricula (June/August 2026) and the <b>competence build-up model of 2 July 2026</b> — a <b>draft intended as a basis for discussion</b>, not an approved curriculum. The "future module" descriptions are proposals for a competence-oriented, AI-integrated evolution of the existing modules.</p>
