@@ -287,7 +287,7 @@ const beetGroup = new THREE.Group();
   erde.position.y = 0.11;
   erde.receiveShadow = true;
   beetGroup.add(erde);
-  beetGroup.position.set(-11, 0.24, 7.6);
+  beetGroup.position.set(-4.2, 0.24, 8.2); // rechts vom Eingang, gibt die Porch frei
   beetGroup.traverse((o) => { if (o.isMesh) o.userData.action = "minor"; });
   scene.add(beetGroup);
 }
@@ -358,6 +358,8 @@ let shakeT = 0, hitstopT = 0;
 const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* KI-Funktionen nur, wenn die Umgebung sie bereitstellt (Claude-Artifact) */
 const HAS_AI = !!(window.claude && typeof window.claude.complete === "function");
+/* Fallback: Companion-Chat-Artifact «KI-Baututor» auf claude.ai — URL eintragen, sobald publiziert */
+const TUTOR_URL = "";
 async function aiComplete(prompt) { return String(await window.claude.complete(prompt)).trim(); }
 let tutorCtl = null;
 
@@ -2019,7 +2021,8 @@ document.getElementById("btnPass").onclick = () => {
   bars += `<p style="font-size:9.5px;color:#8b94ab;margin-top:4px">FS1–FS12: AIComp-Future-Skills-Felder (Ehlers et al., 2024) — Detailebene zu Fu1–Fu3.</p>`;
   const foto = hausFoto();
   const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>Kompetenzpass</title>
-  <style>body{font-family:"Helvetica Neue",Arial,sans-serif;color:#1c2333;max-width:820px;margin:24px auto;padding:0 16px}
+  <style>*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;color:#1c2333;max-width:820px;margin:24px auto;padding:0 16px}
   h1{color:#0028a5;font-size:24px} table{border-collapse:collapse;width:100%;font-size:11.5px;margin-top:10px}
   td,th{border:1px solid #d8dce8;padding:5px 8px;text-align:left} th{background:#f0f3fa}
   .hint{font-size:10.5px;color:#5b6478;margin-top:18px;line-height:1.5}
@@ -2388,7 +2391,16 @@ function startTour() {
 /* ---------- KI-Baututor (nur wenn window.claude verfügbar, z.B. Artifact) ---------- */
 function initTutor() {
   const api = window.claude && typeof window.claude.complete === "function" ? window.claude.complete.bind(window.claude) : null;
-  if (!api) return;
+  if (!api) {
+    if (TUTOR_URL) { // ohne window.claude: 🤖-Button öffnet das Companion-Chat-Artifact
+      const fab = document.getElementById("tutorFab");
+      fab.style.display = "block";
+      fab.title = t("tutor_ext");
+      fab.setAttribute("aria-label", t("tutor_ext"));
+      fab.onclick = () => window.open(TUTOR_URL, "_blank", "noopener");
+    }
+    return;
+  }
   const fab = document.getElementById("tutorFab"), box = document.getElementById("tutor"), msgs = document.getElementById("tutorMsgs");
   fab.style.display = "block";
   let hist = [];
