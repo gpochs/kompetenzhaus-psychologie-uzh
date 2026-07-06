@@ -237,6 +237,21 @@
   .evrow { display: flex; gap: 7px; align-items: center; font-size: 11.5px; padding: 4px 6px; }
   .evrow .evic { flex: none; }
 
+  /* Ampel-Feedback in der Modul-Karte */
+  #fbRow { display: none; align-items: center; gap: 6px; flex-wrap: wrap; padding: 7px 16px; border-top: 1px solid #edf0f7; background: #fafbfe; }
+  #fbRow .fblbl { font: 600 11px var(--font); color: #5b6478; }
+  #fbRow .fbamp { border: 1.5px solid transparent; background: transparent; border-radius: 999px; font-size: 15px; padding: 3px 5px; cursor: pointer; opacity: .45; line-height: 1; }
+  #fbRow .fbamp:hover { opacity: .85; }
+  #fbRow .fbamp.on { opacity: 1; border-color: var(--blue); background: #e8edf9; }
+  #fbRow input { flex: 1; min-width: 150px; border: 1.5px solid #dbe1ef; border-radius: 8px; padding: 5px 9px; font: 500 11px var(--font); }
+
+  /* Bauhütte & Changelog */
+  .bhrow { background: var(--paper2); border-radius: 10px; padding: 8px 12px; margin: 6px 0; }
+  .bhrow b { font-size: 12.5px; }
+  .bhrow p { margin-top: 2px; }
+  .bhrow .bhev { font-size: 11px; color: #3c4356; background: #eef3ee; border-radius: 8px; padding: 5px 8px; margin-top: 5px; line-height: 1.45; }
+  .bheffort { font-size: 12px; background: #fdf6e7; border-radius: 10px; padding: 9px 12px; margin-top: 10px; line-height: 1.5; }
+
   /* Tour */
   #coach { position: fixed; z-index: 70; background: var(--blue); color: #fff; border-radius: 14px; padding: 14px 16px;
     max-width: 270px; box-shadow: var(--shadow); font-size: 12.5px; line-height: 1.5; display: none; }
@@ -371,6 +386,7 @@
     <button data-tab="quest" data-i18n="tab_quest">Quest ✦</button>
   </div>
   <div id="cardBody"></div>
+  <div id="fbRow"></div>
   <div class="actions" id="cardActions"></div>
 </div>
 
@@ -397,6 +413,8 @@
     <button class="ghostbtn only-mobile" id="btnFotoM">📷 Foto-Modus</button>
     <button class="ghostbtn" id="btnBadges" data-i18n="badges_export">🏅 Open Badges (JSON)</button>
     <button class="ghostbtn" id="btnOlat" data-i18n="olat_export">📁 Portfolio-Paket (Markdown)</button>
+    <button class="ghostbtn" id="btnFb" data-i18n="fb_export">🚦 Feedback exportieren (CSV)</button>
+    <button class="ghostbtn" id="btnChangelog" data-i18n="changelog">🪧 Was ist neu?</button>
     <button class="ghostbtn" id="btnPrivacy" data-i18n="datenschutz">🔒 Datenschutz</button>
     <button class="ghostbtn" id="btnAbout" data-i18n="ueber">ℹ️ Über dieses Projekt</button>
   </div>
@@ -434,6 +452,22 @@
   <h2 data-i18n="p0_titel">📬 Vor dem Studium — Vorstufe ⓪</h2>
   <p data-i18n="p0_text">Was bringst du schon mit — z.B. aus dem Gymnasium oder dem Schwerpunktfach PPP? Ehrliche Selbstdeklaration: Jedes Häkchen gibt deinem Profil einen kleinen Startbonus.</p>
   <div id="p0List" style="display:flex;flex-direction:column;gap:8px;margin:12px 0"></div>
+  <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" role="dialog" aria-modal="true" id="modalBauhuette"><div class="mbox">
+  <h2 data-i18n="bh_titel">🛠️ Bauhütte — Wie hier gebaut wird</h2>
+  <p data-i18n="bh_intro">Dieses Haus wird nicht mit Frontalunterricht gebaut. Acht aktivierende Lehrelemente tragen die Vorlesungen und Seminare — hier steht, was sie bewirken und woher wir das wissen.</p>
+  <div id="bhList" style="margin:12px 0 4px"></div>
+  <div id="bhEffort" class="bheffort"></div>
+  <div id="bhLit"></div>
+  <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" role="dialog" aria-modal="true" id="modalChangelog"><div class="mbox">
+  <h2 data-i18n="clog_titel">🪧 Was ist neu?</h2>
+  <p data-i18n="clog_text">Der Rückmelde-Loop: Euer Ampel-Feedback 🚦 fliesst in jede neue Version ein — hier siehst du, was sich getan hat.</p>
+  <div id="clogList" style="margin:12px 0 4px"></div>
   <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 

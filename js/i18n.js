@@ -152,7 +152,25 @@ window.T = {
     serious_erklaert: "Serious Mode hat einen eigenen Bauplatz: Hier setzt du nur Module, die du wirklich bestanden hast (Häkchen + Quiz). Dein Haus aus dem Freien Bauen bleibt gespeichert — du kannst jederzeit zurückwechseln.",
     entfernen_confirm: "Diesen Baustein wirklich entfernen? (Quiz- und Quest-Stand bleiben erhalten.)",
     import_confirm: "Import ersetzt deinen aktuellen Spielstand (beide Modi, Quests, Notizen). Fortfahren?",
-    storage_warn: "⚠️ Dieser Browser speichert keinen Fortschritt (privater Modus/In-App-Browser). Spielen geht — nutze «Haus exportieren» oder öffne den Link in Safari/Chrome."
+    storage_warn: "⚠️ Dieser Browser speichert keinen Fortschritt (privater Modus/In-App-Browser). Spielen geht — nutze «Haus exportieren» oder öffne den Link in Safari/Chrome.",
+    fb1_t: "Willkommen auf deiner Baustelle! 👋",
+    fb1: "Dein Studium beginnt mit einem Klick: Setz den grün leuchtenden Baustein — das Interaktive Proseminar, deine Eingangstreppe. Alles Weitere erklärt sich danach.",
+    fb1_go: "🔨 Grundstein legen",
+    fb1_skip: "Erst umschauen",
+    fb_frage: "Wie überzeugt dich dieses Zukunftsmodul?",
+    fb_g: "Grün — überzeugt mich",
+    fb_y: "Gelb — okay, mit offenen Fragen",
+    fb_r: "Rot — sehe ich kritisch",
+    fb_ph: "Optional: Warum? Dein Kommentar fliesst in die Weiterentwicklung ein.",
+    fb_danke: "Danke! Feedback lokal gespeichert — exportierbar im Menü (CSV).",
+    fb_leer: "Noch kein Feedback vorhanden — nutze die Ampel 🚦 in einer Modul-Karte.",
+    fb_export: "🚦 Feedback exportieren (CSV)",
+    fb_exported: "{n} × Feedback exportiert (CSV)",
+    changelog: "🪧 Was ist neu?",
+    clog_titel: "🪧 Was ist neu?",
+    clog_text: "Der Rückmelde-Loop: Euer Ampel-Feedback 🚦 fliesst in jede neue Version ein — hier siehst du, was sich getan hat.",
+    bh_titel: "🛠️ Bauhütte — Wie hier gebaut wird",
+    bh_intro: "Dieses Haus wird nicht mit Frontalunterricht gebaut. Acht aktivierende Lehrelemente tragen die Vorlesungen und Seminare — hier steht, was sie bewirken und woher wir das wissen."
   },
   en: {
     titel: "The Competence House",
@@ -306,7 +324,25 @@ window.T = {
     serious_erklaert: "Serious mode has its own building site: here you only place modules you have actually passed (tick + quiz). Your free-build house stays saved — switch back anytime.",
     entfernen_confirm: "Really remove this block? (Quiz and quest progress are kept.)",
     import_confirm: "Importing replaces your current state (both modes, quests, notes). Continue?",
-    storage_warn: "⚠️ This browser does not save progress (private mode/in-app browser). You can still play — use 'Export house' or open the link in Safari/Chrome."
+    storage_warn: "⚠️ This browser does not save progress (private mode/in-app browser). You can still play — use 'Export house' or open the link in Safari/Chrome.",
+    fb1_t: "Welcome to your building site! 👋",
+    fb1: "Your degree starts with one click: place the glowing green block — the interactive proseminar, your entrance steps. Everything else explains itself afterwards.",
+    fb1_go: "🔨 Lay the foundation stone",
+    fb1_skip: "Look around first",
+    fb_frage: "How convincing is this future module?",
+    fb_g: "Green — convinces me",
+    fb_y: "Yellow — okay, with open questions",
+    fb_r: "Red — I'm sceptical",
+    fb_ph: "Optional: why? Your comment feeds into the next iteration.",
+    fb_danke: "Thanks! Feedback stored locally — export it from the menu (CSV).",
+    fb_leer: "No feedback yet — use the traffic light 🚦 on a module card.",
+    fb_export: "🚦 Export feedback (CSV)",
+    fb_exported: "{n} feedback entries exported (CSV)",
+    changelog: "🪧 What's new?",
+    clog_titel: "🪧 What's new?",
+    clog_text: "The feedback loop: your traffic-light feedback 🚦 feeds into every new version — here you can see what changed.",
+    bh_titel: "🛠️ Site hut — How this house is built",
+    bh_intro: "This house is not built with lecturing alone. Eight activating teaching elements carry the lectures and seminars — here is what they do and how we know."
   }
 };
 

@@ -1,9 +1,11 @@
 # v7-Backlog «Das Kompetenzhaus» — die grossen Würfe
 
-Stand: 05.07.2026 (nach v6, Commit 9e68ea2). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+Stand: 06.07.2026 (nach v7). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+
+**In v7 umgesetzt (06.07.2026):** A1 Erstbau-Sequenz ✅ · B8 Bauhütte ✅ · C15 Ampel-Feedback ✅ · dazu das **Architektur-Paket** (Gians Wunsch, ausserhalb dieses Backlogs): Sockelblöcke ragen ins Erdreich (KELLER_T=2.1), Keller-Innenansicht wirklich unter Bodenniveau (offene Decke, Boden-Fade, Treppe), Innenräume 1:1 aus Aussenmassen (kein erfundener Raum mehr), Haus vergrössert (CELL 1.35→1.6, FH 1.5→1.9), Porch mit Vordach/Pfosten/Stufen, Sprossenfenster mit Sims, beschleunigender Drop + Mikro-Bounce, Gruppenname im Hover-Tooltip.
 
 ## A. Erlebnis & Session-Rhythmus (Benchmark-Recherche)
-1. **Erstbau in 60 Sekunden** statt Onboarding-Modal: QR-Besucher landen direkt in einer geführten Erstbau-Sequenz (Kamera → pulsierender Baustein → Klick → Drop mit voller Juice-Ladung); Erklärungen erst danach. Vorbild Duolingo «gradual engagement». Aufwand M.
+1. ✅ **v7** — **Erstbau in 60 Sekunden** statt Onboarding-Modal: QR-Besucher landen direkt in einer geführten Erstbau-Sequenz (Kamera → pulsierender Baustein → Klick → Drop mit voller Juice-Ladung); Erklärungen erst danach (Onboarding-Modal + Tour NACH dem Grundstein-Meilenstein). Vorbild Duolingo «gradual engagement».
 2. **Tagesbrief im Briefkasten**: täglich 1–3 druckfreie Mini-Aufgaben («Betritt einen Raum, den du noch nie gesehen hast»), Belohnung Deko — keine Streaks/Verluste. Duolingo Quests × Animal Crossing. Aufwand M.
 3. **Session-Abschlusskarte**: Kompetenz-Delta direkt nach der Aktion animiert («+2% KI»); beim Verlassen ruhige «Heute gebaut»-Karte mit genau einem Vorschlag fürs nächste Mal. Aufwand M.
 4. **Deko-Vitrine** (Gartenschuppen/Kellerregal): Erhaltenes farbig, Künftiges als graue Silhouette mit neugierig machendem Namen — nie Countdown/Verfall (Forest, IKEA-Effekt). Aufwand M.
@@ -12,7 +14,7 @@ Stand: 05.07.2026 (nach v6, Commit 9e68ea2). Quellen: Benchmark-Recherche (Duoli
 7. **Sokratische KI-Hints** (Khanmigo-Stil): gestufte Leitfragen statt Lösungen bei Quiz/Quest (baut auf HAS_AI auf). Aufwand S.
 
 ## B. Inhalt aus dem Projektordner (Tiefenprüfung)
-8. **Bauhütte**: begehbarer Ort, der die 8 aktivierenden Lehrelemente MIT Evidenz erklärt (Hake g .23→.48, Kestin ~0.73 SD, Freeman +0.47 SD; «warum sich aktives Lernen anstrengender anfühlt»). Quelle: 04_TIC_Umsetzungsleitfaden §3. Aufwand M.
+8. ✅ **v7** — **Bauhütte**: anklickbare Holzhütte auf dem Grundstück; Modal erklärt die 8 aktivierenden Lehrelemente MIT Evidenz (Hake g .23→.48, Kestin ~0.73 SD, Freeman, Deslauriers-«warum anstrengender»-Box) + APA-Literatur mit DOIs, de/en. Quelle: 04_TIC_Umsetzungsleitfaden §3.
 9. **Kohorten-Zeitstrahl**: «Ich starte HS26/27 …» → zeigt, welche umgebauten Vorlesungen die eigene Kohorte real erlebt (Roadmap aus Kompetenz-App `roadmap`). ACHTUNG: Als separate Info-Ebene gestalten — Gians Entscheid: das HAUS selbst zeigt den Zielzustand, keine Bauschilder an Blöcken. Aufwand M.
 10. **Etagen-Selbstchecks P1–P3**: die 17 Ich-Sätze aus Kompetenz-App `pass` als Checkliste bei jedem Richtfest; fliesst in Radar/Evidenz/Pass. Aufwand M.
 11. **Teilkompetenz-Sammelkarten**: die 16 kuratierten Teilkompetenzen (RAG-Literacy, Silicon Samples, Agenten-Literacy …) mit klickbaren APA-Quellen, auffindbar in passenden Räumen. Quelle: App `teilkompetenzen`. Aufwand M.
@@ -21,7 +23,7 @@ Stand: 05.07.2026 (nach v6, Commit 9e68ea2). Quellen: Benchmark-Recherche (Duoli
 14. **Bauamt-Vitrine**: «Warum das alles?» — 5 Kernaussagen des Begleitmemos + Beschlussstatus B1–B6 als Schautafeln («Baugenehmigung: Entwurf»). Quelle: 10_Begleitmemo §3–4. Aufwand S.
 
 ## C. Spiel als Validierungsinstrument (FAPS/AG Lehre)
-15. **Ampel-Feedback** an jedem Zukunftsmodul/jeder Tafel (Grün/Gelb/Rot + Freitext), lokal gesammelt, als JSON/CSV exportierbar → Schiene-C-Protokoll; Changelog-Tafel für den Rückmelde-Loop. Quelle: 09_Validierungskonzept. Aufwand M.
+15. ✅ **v7** — **Ampel-Feedback** 🚦 in jeder Modul-Karte (Grün/Gelb/Rot + Freitext, nochmals klicken = zurückziehen), lokal in `S.fb`, CSV-Export im Menü (Semikolon+BOM für Excel) → Schiene-C-Protokoll; Changelog-Tafel «Was ist neu?» für den Rückmelde-Loop. Quelle: 09_Validierungskonzept.
 16. **Workshop-Modus «FAPS-Rundgang»**: geführte 20-Min-Tour entlang der 5 Validierungsfragen + Priorisierungs-Minispiel («3 Bau-Punkte verteilen»). Aufwand L.
 17. **MAILS-10-Selbsttest** (Carolus et al., 2023) + 4 Survey-Items als optionaler «Bau-Tauglichkeitstest» (erster/letzter Besuch, anonymer Export) → liefert TIC die Baseline. Aufwand M.
 

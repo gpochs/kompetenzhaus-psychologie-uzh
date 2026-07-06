@@ -7,7 +7,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
 const ST = window.STRUKTUR, TEXTE = window.MODUL_TEXTE || {};
-const CELL = 1.35, FH = 1.5;
+const CELL = 1.6, FH = 1.9;
+const KELLER_T = 2.1; // unterirdische Kellertiefe (Weltmeter) — Sockelblöcke ragen in den Boden
 const STORE = "uzh-kompetenzhaus-v1";
 
 /* ---------- Fallback-Kompetenzmapping (bis die Volltexte generiert sind) ---------- */
@@ -61,7 +62,7 @@ const FALLBACK = {
 /* ---------- State ---------- */
 const defaultState = () => ({
   v: 2, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
-  placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {},
+  placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {}, fb: {},
   msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
   sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false]
 });
@@ -159,15 +160,15 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 400);
-camera.position.set(-20, 15, 26);
+camera.position.set(-23, 17, 30);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true; controls.dampingFactor = 0.06;
-controls.maxPolarAngle = Math.PI * 0.49; controls.minDistance = 6; controls.maxDistance = 90;
-controls.target.set(-6, 2.5, 0);
+controls.maxPolarAngle = Math.PI * 0.49; controls.minDistance = 6; controls.maxDistance = 105;
+controls.target.set(-7, 3, 0);
 const hemi = new THREE.HemisphereLight(0xbfd9ff, 0x8a7a55, 0.75); scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffe9c4, 2.2);
 sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
-sun.shadow.camera.left = -40; sun.shadow.camera.right = 40; sun.shadow.camera.top = 40; sun.shadow.camera.bottom = -40;
+sun.shadow.camera.left = -48; sun.shadow.camera.right = 48; sun.shadow.camera.top = 48; sun.shadow.camera.bottom = -48;
 sun.shadow.camera.far = 120; sun.shadow.bias = -0.0004; sun.shadow.radius = 6;
 scene.add(sun); scene.add(sun.target);
 scene.fog = new THREE.Fog(0xbfe0f5, 60, 160);
@@ -179,6 +180,7 @@ const ground = new THREE.Mesh(new THREE.CylinderGeometry(90, 90, 0.6, 48), grass
 ground.position.y = -0.3; ground.receiveShadow = true; worldGroup.add(ground);
 const plotMat = new THREE.MeshStandardMaterial({ color: 0xcabfa8, roughness: 0.95 });
 const pathMat = new THREE.MeshStandardMaterial({ color: 0xd8d2c2, roughness: 1 });
+const betonMat = new THREE.MeshStandardMaterial({ color: 0x9b978c, roughness: 0.95 });
 function makePlot(hausId) {
   const h = ST.haeuser[hausId];
   const g = new THREE.Group();
@@ -235,8 +237,8 @@ const flowers = new THREE.InstancedMesh(flowerGeo, flowerMat, 90);
   const m4 = new THREE.Matrix4();
   let n = 0;
   while (n < 90) {
-    const x = (Math.random() - 0.5) * 70, z = (Math.random() - 0.5) * 48;
-    if (Math.abs(x) < 20 && Math.abs(z) < 8) continue; // Grundstücke frei halten
+    const x = (Math.random() - 0.5) * 76, z = (Math.random() - 0.5) * 52;
+    if (Math.abs(x) < 22 && Math.abs(z) < 9) continue; // Grundstücke frei halten
     m4.makeScale(1, 1 + Math.random(), 1); m4.setPosition(x, 0.12, z);
     flowers.setMatrixAt(n, m4);
     flowers.setColorAt(n, new THREE.Color(cols[n % cols.length]));
@@ -305,6 +307,28 @@ function growMinor() {
     }
   });
 }
+/* Bauhütte — erklärt, WIE hier gebaut (gelehrt) wird: 8 aktivierende Elemente + Evidenz */
+const bauhuette = new THREE.Group();
+{
+  const holz = new THREE.MeshStandardMaterial({ color: 0x9a7550, roughness: 0.95 });
+  const holzD = new THREE.MeshStandardMaterial({ color: 0x6b4f33, roughness: 0.95 });
+  const korpus = new THREE.Mesh(new RoundedBoxGeometry(2.6, 1.9, 1.9, 2, 0.06), holz);
+  korpus.position.y = 0.95;
+  const dach = new THREE.Mesh(prismGeometry(3.0, 2.3, 0.75), new THREE.MeshStandardMaterial({ color: 0x39415a, roughness: 0.85, flatShading: true, side: THREE.DoubleSide }));
+  dach.position.y = 1.9;
+  const tuer = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 1.3), holzD);
+  tuer.position.set(-0.55, 0.66, 0.96);
+  const fenster = new THREE.Mesh(new THREE.PlaneGeometry(0.85, 0.55), new THREE.MeshStandardMaterial({ color: 0x2a3550, roughness: 0.3, metalness: 0.3 }));
+  fenster.position.set(0.6, 1.2, 0.96);
+  const schild = textSprite("🛠️", "#0028a5");
+  schild.scale.set(1.2, 0.48, 1); schild.position.set(0, 3.05, 0);
+  bauhuette.add(korpus, dach, tuer, fenster, schild);
+  bauhuette.position.set(-19.5, 0.02, 10.4);
+  bauhuette.rotation.y = 0.55;
+  bauhuette.traverse((o) => { if (o.isMesh) o.castShadow = true; o.userData.action = "bauhuette"; });
+  scene.add(bauhuette);
+}
+
 /* Sterne & Glühwürmchen */
 function makePoints(n, size, color, spread, yMin, yMax) {
   const pos = new Float32Array(n * 3);
@@ -326,6 +350,7 @@ const fireflies = makePoints(26, 0.35, 0xffd166, 46, 0.6, 3.2);
 /* ---------- Tweens ---------- */
 const tweens = [];
 const easeOutCubic = (k) => 1 - Math.pow(1 - k, 3);
+const easeInQuad = (k) => k * k; // beschleunigender Fall — Schwerkraft statt Abbremsen
 const easeOutBack = (k) => { const c = 1.9; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
 const easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 function tween(dur, fn, ease = easeOutCubic, onDone = null) { tweens.push({ t: 0, dur, fn, ease, onDone }); }
@@ -402,19 +427,43 @@ function buildBlockMesh(slot, opts = {}) {
     main = new THREE.Mesh(rb(W, H, D, 0.07), mat);
     main.position.y = H / 2;
     g.add(main);
-    if (slot.form === "step") { // Eingangstür am IPS
-      const door = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 1.1), new THREE.MeshStandardMaterial({ color: 0x5a3d26, roughness: 0.8 }));
-      door.position.set(0, H + 0.55, -D / 2 + 0.02);
+    // Sockel ragt in den Boden: unterirdischer Kellerteil + sichtbare Fundamentlippe
+    const ug = new THREE.Mesh(new THREE.BoxGeometry(W, KELLER_T, D), betonMat.clone());
+    ug.position.y = -KELLER_T / 2 + 0.02;
+    ug.userData.noShadow = true; ug.userData.nopick = true; // unterirdisch: kein Schatten, kein Raycast durchs Terrain
+    g.add(ug);
+    const lip = new THREE.Mesh(new THREE.BoxGeometry(W + 0.16, 0.16, D + 0.16), betonMat.clone());
+    lip.position.y = 0.08;
+    lip.receiveShadow = true;
+    g.add(lip);
+    if (slot.form === "step") { // Porch am IPS: Haustür, Pfosten, Vordach, Stufen
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
+      const door = new THREE.Mesh(new THREE.PlaneGeometry(0.92, 1.5), new THREE.MeshStandardMaterial({ color: 0x5a3d26, roughness: 0.8 }));
+      door.position.set(0, H + 0.75, -D / 2 + 0.02);
       g.add(door);
-      const knob = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 6), new THREE.MeshStandardMaterial({ color: 0xd9b23e, metalness: 0.7, roughness: 0.35 }));
-      knob.position.set(0.22, H + 0.5, -D / 2 + 0.05);
+      const knob = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 6), new THREE.MeshStandardMaterial({ color: 0xd9b23e, metalness: 0.7, roughness: 0.35 }));
+      knob.position.set(0.3, H + 0.68, -D / 2 + 0.06);
       g.add(knob);
+      for (const px of [-1, 1]) {
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.07, 1.9, 8), woodMat);
+        post.position.set(px * (W / 2 - 0.16), H + 0.95, D / 2 - 0.16);
+        g.add(post);
+      }
+      const canopy = new THREE.Mesh(prismGeometry(W * 1.14, D * 1.25, 0.42), roofMat());
+      canopy.position.y = H + 1.9;
+      g.add(canopy);
+      for (let s = 0; s < 2; s++) { // Stufen hinunter zum Gartenweg
+        const tread = new THREE.Mesh(new THREE.BoxGeometry(W * 0.55, H * (2 - s) / 3, 0.34), betonMat.clone());
+        tread.position.set(0, (H * (2 - s) / 3) / 2, D / 2 + 0.17 + s * 0.34);
+        tread.receiveShadow = true;
+        g.add(tread);
+      }
     }
   } else if (slot.form === "roof") {
     main = new THREE.Mesh(prismGeometry(W, D, H * 0.72), roofMat());
     g.add(main);
-    const chimney = new THREE.Mesh(rb(0.5, 1, 0.5, 0.05), styleMat(base, stil));
-    chimney.position.set(W * 0.28, H * 0.6, 0); g.add(chimney);
+    const chimney = new THREE.Mesh(rb(0.55, 1.25, 0.55, 0.05), styleMat(base, stil));
+    chimney.position.set(W * 0.28, H * 0.62, 0); g.add(chimney);
   } else if (slot.form === "spire") {
     const cone = new THREE.Mesh(new THREE.ConeGeometry(W * CELL * 0.42, H, 4), roofMat());
     cone.rotation.y = Math.PI / 4; cone.position.y = H / 2; g.add(cone); main = cone;
@@ -437,16 +486,20 @@ function buildBlockMesh(slot, opts = {}) {
     const wm = windowMat();
     const frameMat = new THREE.MeshStandardMaterial({ color: 0xf2f0e9, roughness: 0.7 });
     const nWin = Math.max(1, Math.round(pos.w));
+    const wy = H * 0.55;
     for (let i = 0; i < nWin; i++) {
       const fx = (i - (nWin - 1) / 2) * (W / nWin);
-      const frame = new THREE.Mesh(new THREE.PlaneGeometry(0.66, 0.76), frameMat);
-      frame.position.set(fx, H * 0.55, faceZ * (D / 2 + 0.008));
-      if (faceZ < 0) frame.rotation.y = Math.PI;
-      g.add(frame);
-      const win = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.62), wm);
-      win.position.set(fx, H * 0.55, faceZ * (D / 2 + 0.016));
-      if (faceZ < 0) win.rotation.y = Math.PI;
-      g.add(win);
+      const frame = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 1.0), frameMat);
+      frame.position.set(fx, wy, faceZ * (D / 2 + 0.008));
+      const win = new THREE.Mesh(new THREE.PlaneGeometry(0.64, 0.84), wm);
+      win.position.set(fx, wy, faceZ * (D / 2 + 0.016));
+      const mullH = new THREE.Mesh(new THREE.PlaneGeometry(0.64, 0.035), frameMat);
+      mullH.position.set(fx, wy, faceZ * (D / 2 + 0.022));
+      const mullV = new THREE.Mesh(new THREE.PlaneGeometry(0.035, 0.84), frameMat);
+      mullV.position.set(fx, wy, faceZ * (D / 2 + 0.022));
+      const sill = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.06, 0.1), frameMat);
+      sill.position.set(fx, wy - 0.56, faceZ * (D / 2 + 0.04));
+      for (const el of [frame, win, mullH, mullV, sill]) { if (faceZ < 0) el.rotation.y = Math.PI; g.add(el); }
     }
     if (slot.form === "bay" || slot.form === "wing") {
       const cap = new THREE.Mesh(prismGeometry(W * 1.06, D * 1.06, 0.5 * FH * 0.5), roofMat());
@@ -460,7 +513,7 @@ function buildBlockMesh(slot, opts = {}) {
       }
     }
   }
-  g.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+  g.traverse((o) => { if (o.isMesh && !o.userData.noShadow) { o.castShadow = true; o.receiveShadow = true; } });
   const h = ST.haeuser[slot.haus];
   g.position.set(h.origin[0] + pos.x * CELL, floorBase(pos.y), h.origin[2] + pos.z * CELL);
   g.userData.slot = slot.slot;
@@ -811,14 +864,15 @@ function placeSlot(slot) {
   blob.position.set(g.position.x, endY + 0.03, g.position.z);
   scene.add(blob);
   tween(0.14, (k) => blob.scale.setScalar(0.15 + 0.85 * k), easeOutCubic);
-  tween(0.55 + 0.1, () => {}, (k) => k, () => { scene.remove(blob); blob.geometry.dispose(); blobMat.dispose(); });
-  tween(0.55, (k) => { inner.position.y = endY + 9 * (1 - k); }, easeOutCubic, () => {
+  tween(0.5 + 0.15, () => {}, (k) => k, () => { scene.remove(blob); blob.geometry.dispose(); blobMat.dispose(); });
+  tween(0.5, (k) => { inner.position.y = endY + 10 * (1 - k); }, easeInQuad, () => {
     inner.position.y = endY;
     try {
       tween(0.22, (k) => {
         const sq = Math.sin(k * Math.PI);
         inner.scale.set(1 + sq * 0.09, 1 - sq * 0.14, 1 + sq * 0.09);
       }, (k) => k, () => inner.scale.set(1, 1, 1));
+      tween(0.18, (k) => { inner.position.y = endY + Math.sin(k * Math.PI) * 0.07; }, (k) => k, () => { inner.position.y = endY; }); // Mikro-Bounce
       burstDust(g.position.x, endY + 0.1, g.position.z);
       if (slot.ects >= 8) shockRing(g.position.x, endY, g.position.z, Math.max(slot.pos.w, slot.pos.d) * CELL * 0.9); // grosse Steine dürfen beben
       floatKompChips(g, slot);
@@ -829,11 +883,17 @@ function placeSlot(slot) {
     checkMilestones();
   });
   const h = ST.haeuser[slot.haus];
-  avatarGoTo(h.origin[0] + slot.pos.x * CELL + 2.2, h.origin[2] + slot.pos.z * CELL + 3.4);
+  avatarGoTo(h.origin[0] + slot.pos.x * CELL + 2.6, h.origin[2] + slot.pos.z * CELL + 4);
   clearGhost();
   const { komp } = slotKomp(slot);
   renderPlan(); renderProfil([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])]);
-  openCard(slot.slot);
+  if (S.onboarded) openCard(slot.slot);
+  else { // Erstbau: erst bauen, erklären später
+    document.getElementById("coach").classList.remove("open");
+    if (slot.slot !== "003") setTimeout(() => { // ohne Grundstein-Meilenstein käme das Onboarding sonst nie
+      if (!S.onboarded && !visitor.active) { document.getElementById("obStart").textContent = t("tour_fertig"); openModal("onboard"); }
+    }, 1400);
+  }
   return true;
 }
 function removeSlot(id) {
@@ -863,7 +923,7 @@ function triggerMilestone(ms) {
   const h = ST.haeuser[ms.haus];
   const cx = h.origin[0], cz = h.origin[2];
   const big = ms.id === "bsc_fertig" || ms.id === "msc_fertig";
-  flyTo(new THREE.Vector3(cx + (ms.haus === "bsc" ? -14 : 14), 10, 22), new THREE.Vector3(cx, 3, cz), 1.4, () => {
+  flyTo(new THREE.Vector3(cx + (ms.haus === "bsc" ? -17 : 17), 12, 26), new THREE.Vector3(cx, 3.5, cz), 1.4, () => {
     burstConfetti(cx, 8, cz, big ? 220 : 120, big ? 10 : 6);
     SND.fanfare();
     if (big) {
@@ -883,7 +943,13 @@ function triggerMilestone(ms) {
     }, big ? 1400 : 700);
   });
 }
-document.getElementById("msClose").onclick = () => document.getElementById("milestone").classList.remove("open");
+document.getElementById("msClose").onclick = () => {
+  document.getElementById("milestone").classList.remove("open");
+  if (!S.onboarded && !visitor.active) { // Erstbau-Sequenz: Erklärungen kommen NACH dem ersten Stein
+    document.getElementById("obStart").textContent = t("tour_fertig");
+    openModal("onboard");
+  }
+};
 
 /* ---------- Raycast / Hover ---------- */
 const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
@@ -896,7 +962,7 @@ function pick(e) {
   ray.setFromCamera(ptr, camera);
   const objs = [...Object.values(blockMeshes)];
   if (ghost) objs.push(ghost);
-  const hits = ray.intersectObjects(objs, true);
+  const hits = ray.intersectObjects(objs, true).filter((h) => !h.object.userData.nopick);
   if (!hits.length) return null;
   let o = hits[0].object;
   while (o && !o.userData.slot) o = o.parent;
@@ -920,7 +986,7 @@ canvas.addEventListener("pointermove", (e) => {
     tip.style.display = "block";
     tip.style.left = e.clientX + 14 + "px"; tip.style.top = e.clientY + 14 + "px";
     const q = S.quests[id];
-    tip.innerHTML = `<b>${slotTitel(slot)}</b><br>${slot.ects} ${t("ects")} · ${t("stufe")} ${slot.stufe}${q && q.done ? " · ✦" : ""}`;
+    tip.innerHTML = `<b>${slotTitel(slot)}</b><br>${slot.ects} ${t("ects")} · ${t("stufe")} ${slot.stufe}${q && q.done ? " · ✦" : ""}<br><span style="opacity:.72">${L(ST.gruppen[slot.gruppe].name)}</span>`;
     canvas.style.cursor = "pointer";
   } else { tip.style.display = "none"; canvas.style.cursor = "default"; }
 });
@@ -949,16 +1015,19 @@ canvas.addEventListener("pointerup", (e) => {
     }
     return;
   }
-  { // Briefkasten & Minor-Beet anklickbar
+  { // Briefkasten, Minor-Beet & Bauhütte anklickbar
     const r = canvas.getBoundingClientRect();
     ptr.x = ((e.clientX - r.left) / r.width) * 2 - 1;
     ptr.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     ray.setFromCamera(ptr, camera);
-    const hits = ray.intersectObjects([briefkasten, beetGroup], true);
+    // Hausblöcke als Occluder mitschneiden: nur wenn das NÄCHSTE Objekt eine Aktion trägt, zählt der Klick
+    const hits = ray.intersectObjects([briefkasten, beetGroup, bauhuette, blockGroup], true).filter((h) => !h.object.userData.nopick);
     if (hits.length) {
-      const act = hits[0].object.userData.action;
+      let o = hits[0].object, act = null;
+      while (o && !act) { act = o.userData.action || null; o = o.parent; }
       if (act === "p0") { openP0(); SND.pick(); return; }
       if (act === "minor") { openMinor(); SND.pick(); return; }
+      if (act === "bauhuette") { openBauhuette(); SND.pick(); return; }
     }
   }
   if (ghost && ghostSlot) {
@@ -990,8 +1059,60 @@ function openMinor() {
   }
   openModal("minor");
 }
+/* Bauhütte: Evidenz zu den 8 aktivierenden Lehrelementen (Quelle: TIC-Umsetzungsleitfaden §3) */
+const BH_EV = {
+  de: {
+    ev: {
+      PI: "Hake (1998, N≈6500): Lernzuwachs ~verdoppelt (⟨g⟩ .23 → .48) — skaliert exzellent auf Grossveranstaltungen.",
+      LC: "KI-Antworten live prüfen verbindet kritisches Denken mit AI Literacy — der KI-Output ist das Übungsobjekt.",
+      JT: "Kurzer Feedback-Loop vor der Sitzung: Die Lehre startet bei den häufigsten Fehlkonzepten statt bei Folie 1.",
+      AC: "Richmond & Nicholls (2025, UNSW, N=363): rubrikbasierte KI-Kritik fördert Fach-, KI- und Informationskompetenz zugleich.",
+      TB: "Kestin et al. (2025, Harvard-RCT): ~0.73 SD über aktivem Lernen — aber nur mit Hint-only-Design (nie die Lösung verraten).",
+      RS: "Simulierte Klient:innen erlauben risikofreies Üben (deliberate practice) mit weniger Performanzangst.",
+      TSQ: "Erst einzeln, dann im Team: höhere Leistung und weniger Prüfungsangst — in 200–300er-Klassen erprobt.",
+      PD: "Verankert die KI-Spielregeln (deklarieren, dokumentieren, verifizieren) als wöchentliche Praxis statt Papier."
+    },
+    effort: `<b>Warum sich das anstrengender anfühlt — und trotzdem mehr bringt:</b> Aktives Lernen fühlt sich subjektiv mühsamer an als eine brillante Vorlesung, führt aber messbar zu mehr Lernen (Deslauriers et al., 2019). Und der Klassiker: Aktivierende Formate senken die Durchfallquoten deutlich (Freeman et al., 2014, Metaanalyse über 225 Studien).`,
+    lit_titel: "Literatur"
+  },
+  en: {
+    ev: {
+      PI: "Hake (1998, N≈6,500): learning gains roughly doubled (⟨g⟩ .23 → .48) — scales excellently to large classes.",
+      LC: "Checking AI answers live combines critical thinking with AI literacy — the AI output is the practice object.",
+      JT: "A short pre-session feedback loop: teaching starts from the most common misconceptions, not from slide 1.",
+      AC: "Richmond & Nicholls (2025, UNSW, N=363): rubric-based AI critique builds domain, AI and information literacy at once.",
+      TB: "Kestin et al. (2025, Harvard RCT): ~0.73 SD above active learning — but only with a hint-only design (never reveal the solution).",
+      RS: "Simulated clients enable risk-free deliberate practice with less performance anxiety.",
+      TSQ: "Solo first, then as a team: higher performance and less test anxiety — proven in classes of 200–300.",
+      PD: "Anchors the AI ground rules (declare, document, verify) as weekly practice instead of paper."
+    },
+    effort: `<b>Why this feels harder — and still teaches more:</b> active learning subjectively feels more effortful than a brilliant lecture, yet measurably produces more learning (Deslauriers et al., 2019). And the classic: active formats substantially cut failure rates (Freeman et al., 2014, meta-analysis of 225 studies).`,
+    lit_titel: "References"
+  },
+  lit: `<ul style="font-size:11px;line-height:1.5">
+    <li>Deslauriers, L., McCarty, L. S., Miller, K., Callaghan, K., & Kestin, G. (2019). Measuring actual learning versus feeling of learning in response to being actively engaged in the classroom. <i>PNAS, 116</i>(39), 19251–19257. <a href="https://doi.org/10.1073/pnas.1821936116" target="_blank" rel="noopener">doi.org/10.1073/pnas.1821936116</a></li>
+    <li>Freeman, S., Eddy, S. L., McDonough, M., Smith, M. K., Okoroafor, N., Jordt, H., & Wenderoth, M. P. (2014). Active learning increases student performance in science, engineering, and mathematics. <i>PNAS, 111</i>(23), 8410–8415. <a href="https://doi.org/10.1073/pnas.1319030111" target="_blank" rel="noopener">doi.org/10.1073/pnas.1319030111</a></li>
+    <li>Hake, R. R. (1998). Interactive-engagement versus traditional methods: A six-thousand-student survey of mechanics test data for introductory physics courses. <i>American Journal of Physics, 66</i>(1), 64–74. <a href="https://doi.org/10.1119/1.18809" target="_blank" rel="noopener">doi.org/10.1119/1.18809</a></li>
+    <li>Kestin, G., Miller, K., Klales, A., Milbourne, T., & Ponti, G. (2025). AI tutoring outperforms in-class active learning: An RCT introducing a novel research-based design in an authentic educational setting. <i>Scientific Reports, 15</i>, 17458. <a href="https://doi.org/10.1038/s41598-025-97652-6" target="_blank" rel="noopener">doi.org/10.1038/s41598-025-97652-6</a></li>
+    <li>Richmond, J. L., & Nicholls, K. (2025). Using generative AI to promote psychological, feedback, and artificial intelligence literacies in undergraduate psychology. <i>Teaching of Psychology</i>. <a href="https://doi.org/10.1177/00986283241287203" target="_blank" rel="noopener">doi.org/10.1177/00986283241287203</a></li>
+    <li>Crouch, C. H., & Mazur, E. (2001). Peer Instruction: Ten years of experience and results. <i>American Journal of Physics, 69</i>(9), 970–977. <a href="https://doi.org/10.1119/1.1374249" target="_blank" rel="noopener">doi.org/10.1119/1.1374249</a></li>
+  </ul>`
+};
+function openBauhuette() {
+  const EV = BH_EV[S.lang] || BH_EV.de;
+  const order = ["PI", "LC", "JT", "AC", "TB", "RS", "TSQ", "PD"];
+  document.getElementById("bhList").innerHTML = order.map((id) => {
+    const d = ST.baukasten.defs[id]; if (!d) return "";
+    return `<div class="bhrow"><b>${L(d.name)}</b><p>${L(d.kurz)}</p>${EV.ev[id] ? `<p class="bhev">📊 ${EV.ev[id]}</p>` : ""}</div>`;
+  }).join("");
+  document.getElementById("bhEffort").innerHTML = EV.effort;
+  document.getElementById("bhLit").innerHTML = `<div class="subhead" style="margin:10px 0 4px;font:700 10.5px var(--font);text-transform:uppercase;letter-spacing:.5px;color:#5b6478">${EV.lit_titel}</div>` + BH_EV.lit;
+  openModal("bauhuette");
+}
+
 window.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && ghostSlot) placeSlot(ghostSlot);
+  const typing = e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA");
+  if (e.key === "Enter" && ghostSlot && !typing) placeSlot(ghostSlot);
   if (e.key === "Escape") {
     if (interior) { leaveRoom(); return; }
     document.getElementById("tutor").classList.remove("open");
@@ -1073,6 +1194,7 @@ function ectsSum(hausId) {
     .reduce((n, s) => { const p = S.placed[S.mode][s.slot]; const e = p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : s.ects; return n + e; }, 0);
 }
 function selectSlot(id) {
+  if (interior) leaveRoom(); // sonst bliebe der Boden ausgeblendet, während man anderswo weiterbaut
   selectedId = id;
   const slot = SLOTS[id];
   SND.pick();
@@ -1082,7 +1204,7 @@ function selectSlot(id) {
   // Kamera sanft hinschwenken
   const h = ST.haeuser[slot.haus];
   const target = new THREE.Vector3(h.origin[0] + slot.pos.x * CELL, floorBase(slot.pos.y) + 1, h.origin[2] + slot.pos.z * CELL);
-  const dir = camera.position.clone().sub(controls.target).normalize().multiplyScalar(Math.min(26, camera.position.distanceTo(target) + 6));
+  const dir = camera.position.clone().sub(controls.target).normalize().multiplyScalar(Math.min(30, camera.position.distanceTo(target) + 7));
   flyTo(target.clone().add(dir), target, 0.9);
 }
 
@@ -1380,8 +1502,29 @@ function openCard(id) {
     katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("");
   renderCardBody(slot);
   renderCardActions(slot);
+  renderFbRow(slot);
   card.classList.add("open");
   document.body.classList.add("card-open");
+}
+/* Ampel-Feedback (Schiene C, Validierung): 🟢🟡🔴 + Freitext pro Zukunftsmodul, lokal, exportierbar */
+function renderFbRow(slot) {
+  const el = document.getElementById("fbRow");
+  if (!el) return;
+  if (visitor.active) { el.style.display = "none"; return; }
+  el.style.display = "flex";
+  const fb = (S.fb || {})[slot.slot] || {};
+  el.innerHTML = `<span class="fblbl">🚦 ${t("fb_frage")}</span>
+    ${["g", "y", "r"].map((a) => `<button class="fbamp ${fb.a === a ? "on" : ""}" data-amp="${a}" title="${t("fb_" + a)}" aria-label="${t("fb_" + a)}">${a === "g" ? "🟢" : a === "y" ? "🟡" : "🔴"}</button>`).join("")}
+    ${fb.a ? `<input type="text" data-fbnote maxlength="200" placeholder="${t("fb_ph")}" value="${(fb.note || "").replace(/"/g, "&quot;")}">` : ""}`;
+  el.querySelectorAll(".fbamp").forEach((b) => (b.onclick = () => {
+    if (!S.fb) S.fb = {};
+    const cur = S.fb[slot.slot] || {};
+    if (cur.a === b.dataset.amp) delete S.fb[slot.slot]; // nochmals klicken = zurückziehen
+    else { S.fb[slot.slot] = { a: b.dataset.amp, note: cur.note || "", ts: new Date().toISOString().slice(0, 10) }; if (!cur.a) toast(t("fb_danke")); }
+    save(); SND.pick(); renderFbRow(slot);
+  }));
+  const note = el.querySelector("[data-fbnote]");
+  if (note) note.onchange = () => { if (S.fb && S.fb[slot.slot]) { S.fb[slot.slot].note = note.value.trim().slice(0, 200); save(); } };
 }
 function closeCard() { card.classList.remove("open"); document.body.classList.remove("card-open"); selectedId = null; renderPlan(); }
 document.getElementById("cardClose").onclick = () => { closeCard(); clearGhost(); };
@@ -1700,7 +1843,7 @@ document.getElementById("btnLang").onclick = () => {
   if (selectedId) openCard(selectedId);
   fillModals();
 };
-const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor" };
+const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", changelog: "modalChangelog" };
 function openModal(k) { document.getElementById(modals[k]).classList.add("open"); }
 document.querySelectorAll(".modal").forEach((m) => {
   m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) m.classList.remove("open"); });
@@ -1805,7 +1948,8 @@ function nameSprite(txt) {
 }
 function buildNeighborHouses() {
   neighborGroup.clear();
-  const bases = [[-24, -22], [0, -26], [24, -22]];
+  const bases = [[-27, -23], [0, -28], [27, -23]];
+  const SC = 0.75;
   (S.nachbarn || []).slice(0, 3).forEach((nb, i) => {
     const [ox, oz] = bases[i];
     const grp = new THREE.Group();
@@ -1813,9 +1957,9 @@ function buildNeighborHouses() {
       const slot = SLOTS[id]; if (!slot) continue;
       const g = buildBlockMesh(slot, { state: st });
       const h = ST.haeuser[slot.haus];
-      // relativ zum Nachbar-Grundstück: beide Häuser zusammenrücken
-      g.position.set(ox + (h.origin[0] * 0.5) + slot.pos.x * CELL * 0.9, floorBase(slot.pos.y), oz + slot.pos.z * CELL * 0.9);
-      g.scale.set(0.9, 0.9, 0.9);
+      // relativ zum Nachbar-Grundstück: beide Häuser zusammenrücken, Höhen mitskalieren
+      g.position.set(ox + (h.origin[0] * 0.45) + slot.pos.x * CELL * SC, floorBase(slot.pos.y) * SC, oz + slot.pos.z * CELL * SC);
+      g.scale.set(SC, SC, SC);
       grp.add(g);
     }
     const label = nameSprite(nb.n || "?");
@@ -1830,10 +1974,10 @@ document.getElementById("btnCampus").onclick = () => {
   buildNeighborHouses();
   neighborGroup.visible = campusOn;
   if (campusOn) {
-    flyTo(new THREE.Vector3(0, 34, 44), new THREE.Vector3(0, 2, -6), 1.6);
+    flyTo(new THREE.Vector3(0, 40, 52), new THREE.Vector3(0, 2, -7), 1.6);
     toast(t("campus_an"));
   } else {
-    flyTo(new THREE.Vector3(-20, 15, 26), new THREE.Vector3(-6, 2.5, 0), 1.4);
+    flyTo(new THREE.Vector3(-23, 17, 30), new THREE.Vector3(-7, 3, 0), 1.4);
     toast(t("campus_aus"));
   }
 };
@@ -1930,8 +2074,8 @@ setInterval(applyRealEnv, 60000);
 document.getElementById("btnFoto").onclick = () => {
   document.body.classList.add("foto");
   const p0 = camera.position.clone(), t0 = controls.target.clone();
-  const focus = mscOpen() && ectsSum("msc") > 0 ? new THREE.Vector3(0, 3, 0) : new THREE.Vector3(-11, 3, 0);
-  flyTo(new THREE.Vector3(focus.x - 16, 11, 24), focus, 1.2, () => {
+  const focus = mscOpen() && ectsSum("msc") > 0 ? new THREE.Vector3(0, 3.5, 0) : new THREE.Vector3(-11, 3.5, 0);
+  flyTo(new THREE.Vector3(focus.x - 19, 13, 28), focus, 1.2, () => {
     step();
     renderer.render(scene, camera);
     try {
@@ -2064,8 +2208,10 @@ function buildRoom(slot, W, H, D) {
   const schirm = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.12, 10, 1, true), new THREE.MeshStandardMaterial({ color: 0xf3d34e, side: THREE.DoubleSide, emissive: 0xffe3b3, emissiveIntensity: 0.35 }));
   schirm.position.set(0, ih * 0.9, 0);
   g.add(schirm);
-  const decke = new THREE.Mesh(new THREE.PlaneGeometry(iw, idp), new THREE.MeshStandardMaterial({ color: keller ? 0xc7c3b9 : 0xe8e4da, side: THREE.DoubleSide, roughness: 1 }));
-  decke.rotation.x = Math.PI / 2; decke.position.y = ih; g.add(decke);
+  if (!keller) { // Kellerräume bleiben oben offen — Puppenhaus-Blick in die Grube
+    const decke = new THREE.Mesh(new THREE.PlaneGeometry(iw, idp), new THREE.MeshStandardMaterial({ color: 0xe8e4da, side: THREE.DoubleSide, roughness: 1 }));
+    decke.rotation.x = Math.PI / 2; decke.position.y = ih; g.add(decke);
+  }
   if (!keller) {
     const teppich = new THREE.Mesh(new THREE.CircleGeometry(Math.min(iw, idp) * 0.32, 22), new THREE.MeshStandardMaterial({ color: new THREE.Color(ST.gruppen[slot.gruppe].farbe).lerp(new THREE.Color(0xffffff), 0.62), roughness: 1 }));
     teppich.rotation.x = -Math.PI / 2; teppich.position.y = 0.09; g.add(teppich);
@@ -2075,10 +2221,18 @@ function buildRoom(slot, W, H, D) {
     bild.rotation.y = -Math.PI / 2; bild.position.set(iw / 2 - 0.085, ih * 0.6, 0); g.add(bild);
     const berg = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.12, 4), new THREE.MeshStandardMaterial({ color: 0x4e7a5a, flatShading: true }));
     berg.rotation.y = -Math.PI / 2; berg.position.set(iw / 2 - 0.09, ih * 0.57, 0.03); g.add(berg);
-  } else { // Kellerfenster mit Tageslicht-Schimmer
+  } else { // Kellerfenster (Lichtschächte) mit Tageslicht-Schimmer + Treppe nach oben
     for (const fx of [-iw * 0.28, iw * 0.28]) {
-      const kf = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.18), new THREE.MeshStandardMaterial({ color: 0xbcd8ee, emissive: 0xbcd8ee, emissiveIntensity: 0.35 }));
-      kf.position.set(fx, ih * 0.86, -idp / 2 + 0.02); g.add(kf);
+      const kf = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.2), new THREE.MeshStandardMaterial({ color: 0xbcd8ee, emissive: 0xbcd8ee, emissiveIntensity: 0.4 }));
+      kf.position.set(fx, ih * 0.9, -idp / 2 + 0.02); g.add(kf);
+    }
+    if (idp > 3.2) { // Treppe nach oben (nur in grossen Kellerräumen)
+      const nSt = 6, sh = ih / (nSt + 1);
+      for (let s = 0; s < nSt; s++) {
+        const st = new THREE.Mesh(new THREE.BoxGeometry(0.78, sh, 0.36), betonMat.clone());
+        st.position.set(iw / 2 - 0.44, sh / 2 + s * sh, idp / 2 - 0.28 - (nSt - 1 - s) * 0.37);
+        g.add(st);
+      }
     }
   }
   // IPS-Grundpfeiler-Poster (P1–P4) in der Garderobe
@@ -2129,11 +2283,13 @@ function enterRoom(id) {
   const slot = SLOTS[id]; const bg = blockMeshes[id];
   if (!slot || !bg || !["box", "tower", "wing", "bay", "slab", "step"].includes(slot.form)) return;
   const kellerRaum = slot.form === "slab" || slot.form === "step";
-  const W = kellerRaum ? Math.min(slot.pos.w * CELL, 4.6) : slot.pos.w * CELL;
+  // Innen = Aussen: Raummasse 1:1 aus der Aussenhülle des Blocks abgeleitet
+  const W = slot.pos.w * CELL;
   const D = slot.pos.d * CELL;
-  const H = kellerRaum ? 1.05 * FH : (slot.form === "wing" ? 1.7 : slot.pos.h) * FH;
+  const H = kellerRaum ? KELLER_T - 0.12 : (slot.form === "wing" ? 1.7 : slot.pos.h) * FH;
   const room = buildRoom(slot, W, H, D);
   room.position.copy(bg.position);
+  if (kellerRaum) room.position.y = 0.24 - KELLER_T; // der Keller liegt wirklich unter dem Bodenniveau
   scene.add(room);
   const saved = [];
   bg.traverse((o) => {
@@ -2143,10 +2299,15 @@ function enterRoom(id) {
       o.material.needsUpdate = true;
     }
   });
+  if (kellerRaum) { // Boden ausblenden, damit der Blick in die Grube frei ist
+    for (const m of [grassMat, plotMat, pathMat]) { m.transparent = true; m.opacity = 0.14; m.depthWrite = false; m.needsUpdate = true; }
+  }
   const faceZ = slot.pos.z >= 0 || slot.form === "wing" ? 1 : -1;
-  const target = bg.position.clone().add(new THREE.Vector3(0, H * 0.45, 0));
-  const camDist = kellerRaum ? D * 0.95 + 1.4 : D * 1.9 + 1.2;
-  const camPos = bg.position.clone().add(new THREE.Vector3(0, H * (kellerRaum ? 0.9 : 0.55), faceZ * camDist));
+  const target = room.position.clone().add(new THREE.Vector3(0, H * 0.45, 0));
+  const camDist = kellerRaum ? D * 0.62 + 1.6 : D * 1.9 + 1.2;
+  const camPos = kellerRaum
+    ? room.position.clone().add(new THREE.Vector3(0, KELLER_T + 2.6, faceZ * camDist))
+    : bg.position.clone().add(new THREE.Vector3(0, H * 0.55, faceZ * camDist));
   const prevMin = controls.minDistance;
   controls.minDistance = 0.4;
   document.body.classList.add("inroom");
@@ -2158,7 +2319,7 @@ function enterRoom(id) {
   btn.onclick = leaveRoom;
   document.body.appendChild(btn);
   closeCard();
-  interior = { id, group: room, saved, btn, prevMin };
+  interior = { id, group: room, saved, btn, prevMin, keller: kellerRaum };
   SND.pick();
 }
 function leaveRoom() {
@@ -2166,11 +2327,34 @@ function leaveRoom() {
   document.body.classList.remove("inroom");
   scene.remove(interior.group);
   interior.saved.forEach((s) => { s.mat.opacity = s.opacity; s.mat.transparent = s.transparent; s.mat.depthWrite = true; s.mat.needsUpdate = true; });
+  if (interior.keller) for (const m of [grassMat, plotMat, pathMat]) { m.opacity = 1; m.transparent = false; m.depthWrite = true; m.needsUpdate = true; }
   interior.btn.remove();
   controls.minDistance = interior.prevMin;
   const bg = blockMeshes[interior.id];
-  if (bg) flyTo(bg.position.clone().add(new THREE.Vector3(-8, 7, 13)), bg.position.clone(), 1);
+  if (bg) flyTo(bg.position.clone().add(new THREE.Vector3(-9, 8, 15)), bg.position.clone(), 1);
   interior = null;
+}
+
+/* ---------- Erstbau in 60 Sekunden (statt Onboarding-Modal) ---------- */
+function startFirstBuild() {
+  const coach = document.getElementById("coach");
+  if (isPlaced("003")) { // z.B. Reload, bevor das Onboarding abgeschlossen war
+    document.getElementById("obStart").textContent = t("tour_fertig");
+    openModal("onboard");
+    return;
+  }
+  const slot = SLOTS["003"];
+  const h = ST.haeuser[slot.haus];
+  const p = new THREE.Vector3(h.origin[0] + slot.pos.x * CELL, 0.7, h.origin[2] + slot.pos.z * CELL);
+  const mob = window.innerWidth < 720; // mobil weiter weg, sonst füllt die Porch den Schirm
+  flyTo(new THREE.Vector3(p.x + 3, mob ? 6.5 : 4.5, p.z + (mob ? 13 : 8)), p, 1.7, () => {
+    if (!isPlaced("003") && !S.onboarded && coach.classList.contains("open")) { showGhost(slot); selectedId = "003"; renderPlan(); }
+  });
+  coach.style.cssText = "left:50%;transform:translateX(-50%);bottom:26px";
+  coach.innerHTML = `<b>${t("fb1_t")}</b>${t("fb1")}<div class="cactions"><button data-fbskip style="background:rgba(255,255,255,.18);color:#fff">${t("fb1_skip")}</button><button data-fbgo>${t("fb1_go")}</button></div>`;
+  coach.classList.add("open");
+  coach.querySelector("[data-fbgo]").onclick = () => { SND.unlock(); if (!isPlaced("003")) placeSlot(SLOTS["003"]); };
+  coach.querySelector("[data-fbskip]").onclick = () => { coach.classList.remove("open"); clearGhost(); openModal("onboard"); };
 }
 
 /* ---------- Onboarding-Tour ---------- */
@@ -2324,11 +2508,59 @@ document.getElementById("obStart").onclick = () => {
   S.onboarded = true; save();
   document.getElementById("modalOnboard").classList.remove("open");
   SND.unlock();
-  if (!isPlaced("003")) selectSlot("003");
+  const nxt = isPlaced("003") ? nextRecommended() : "003"; // nach dem Erstbau direkt den nächsten Schritt zeigen
+  if (nxt) selectSlot(nxt);
   setTimeout(startTour, 900);
 };
+/* Backdrop-Schliessen des Onboardings zählt als «ohne Namen abschliessen» — sonst bliebe S.onboarded für immer false */
+document.getElementById("modalOnboard").addEventListener("click", (e) => {
+  if ((e.target === document.getElementById("modalOnboard") || e.target.hasAttribute("data-close")) && !S.onboarded && !visitor.active) {
+    S.onboarded = true; save();
+    setTimeout(startTour, 900);
+  }
+});
 document.getElementById("btnBadges").onclick = badgesExport;
 document.getElementById("btnOlat").onclick = olatExport;
+
+/* Ampel-Feedback-Export (CSV, für FAPS/AG Lehre — Schiene-C-Protokoll) */
+document.getElementById("btnFb").onclick = () => {
+  const rows = Object.entries(S.fb || {});
+  if (!rows.length) { toast(t("fb_leer")); return; }
+  const esc = (s) => '"' + String(s || "").replace(/"/g, '""') + '"';
+  const AMP = { g: "gruen", y: "gelb", r: "rot" };
+  let csv = "﻿code;modul;ampel;kommentar;datum\n"; // BOM für Excel
+  for (const [id, fb] of rows) {
+    const slot = SLOTS[id]; if (!slot) continue;
+    const code = (S.placed[S.mode][id] || {}).opt || slot.code;
+    csv += [esc(code), esc(slotTitel(slot)), AMP[fb.a] || "", esc(fb.note), fb.ts || ""].join(";") + "\n";
+  }
+  download("kompetenzhaus-feedback-" + new Date().toISOString().slice(0, 10) + ".csv", csv, "text/csv;charset=utf-8");
+  toast("🚦 " + t("fb_exported").replace("{n}", rows.length));
+};
+
+/* Changelog-Tafel: der Rückmelde-Loop wird sichtbar */
+const CHANGELOG = {
+  de: [
+    ["v7 · Juli 2026", "Echter Keller unter dem Bodenniveau (Sockel ragen ins Erdreich), Haus vergrössert & Innenräume 1:1 an die Aussenhülle gekoppelt, Porch mit Vordach und Stufen, Erstbau-Sequenz für neue Besucher:innen, Bauhütte mit Evidenz zu den 8 Lehrelementen, Ampel-Feedback 🚦 an jedem Modul mit CSV-Export."],
+    ["v6 · Juli 2026", "Mobile-Überarbeitung (Tour, Kontraste, grössere Ziele), Quiz mit Erklärung und Sofort-Wiederholung, 7 Karrierewege, Faktenkorrektur IPS-Leistungsnachweis [B]."],
+    ["v5 · Juli 2026", "Baukasten-Chips in der Modul-Karte, Vorstufe-⓪-Briefkasten, Minor-Beet, KI-Suite in der Artifact-Version."],
+    ["v4 · Juli 2026", "Begehbare Kellerräume, 12 Future-Skills-Felder (AIComp), Innenraum-Politur, Kompetenzpass als PDF."],
+    ["v3 · Juli 2026", "Quiz-Gate im Serious Mode, Karriere-Profil, Innenansicht mit Kompetenz-Tafeln, Foto-Modus, Open-Badges- und Portfolio-Export."]
+  ],
+  en: [
+    ["v7 · July 2026", "A real basement below ground level (plinths reach into the earth), bigger house with interiors matched 1:1 to the exterior shell, porch with canopy and steps, first-build sequence for new visitors, site hut with evidence for the 8 teaching elements, traffic-light feedback 🚦 on every module with CSV export."],
+    ["v6 · July 2026", "Mobile overhaul (tour, contrast, larger targets), quiz with explanations and instant retry, 7 career paths, factual fix for the IPS assessment [B]."],
+    ["v5 · July 2026", "Teaching-toolkit chips on module cards, stage-⓪ mailbox, minor garden bed, AI suite in the artifact edition."],
+    ["v4 · July 2026", "Walkable basement rooms, 12 future-skills fields (AIComp), interior polish, passport as PDF."],
+    ["v3 · July 2026", "Quiz gate in serious mode, career profile, interior view with competence plaques, photo mode, Open Badges and portfolio export."]
+  ]
+};
+document.getElementById("btnChangelog").onclick = () => {
+  const list = CHANGELOG[S.lang] || CHANGELOG.de;
+  document.getElementById("clogList").innerHTML = list.map(([v, tx]) => `<div class="bhrow"><b>${v}</b><p>${tx}</p></div>`).join("");
+  document.getElementById("modalMenu").classList.remove("open");
+  openModal("changelog");
+};
 
 /* ---------- Render-Loop ---------- */
 const clock = new THREE.Clock();
@@ -2456,7 +2688,7 @@ updateEnvironment();
 document.getElementById("todSlider").value = S.tod;
 initTutor();
 if (!storageOK) setTimeout(() => toast(t("storage_warn")), 1500);
-if (!isVisitor && !S.onboarded) openModal("onboard");
+if (!isVisitor && !S.onboarded) setTimeout(startFirstBuild, 700);
 else if (!isVisitor && !S.tourDone && Object.keys(S.placed[S.mode]).length < 3) setTimeout(startTour, 1200);
 /* Mobile-Menü-Duplikate */
 const wireM = (mid, target) => { const b = document.getElementById(mid); if (b && target) b.onclick = () => { document.getElementById("modalMenu").classList.remove("open"); target.click(); }; };
@@ -2464,7 +2696,7 @@ wireM("btnCampusM", document.getElementById("btnCampus"));
 wireM("btnShareM", document.getElementById("btnShare"));
 wireM("btnSoundM", document.getElementById("btnSound"));
 wireM("btnFotoM", document.getElementById("btnFoto"));
-window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
+window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, openBauhuette, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
 animate();
 /* Fallback: läuft weiter, wenn der Tab gedrosselt ist (rAF pausiert) */
 setInterval(() => { if (performance.now() - lastTick > 400) step(); }, 250);
