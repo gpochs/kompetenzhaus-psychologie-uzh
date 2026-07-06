@@ -27,9 +27,10 @@ Stand: 06.07.2026 (nach v7). Quellen: Benchmark-Recherche (Duolingo/Brilliant/us
 16. **Workshop-Modus «FAPS-Rundgang»**: geführte 20-Min-Tour entlang der 5 Validierungsfragen + Priorisierungs-Minispiel («3 Bau-Punkte verteilen»). Aufwand L.
 17. **MAILS-10-Selbsttest** (Carolus et al., 2023) + 4 Survey-Items als optionaler «Bau-Tauglichkeitstest» (erster/letzter Besuch, anonymer Export) → liefert TIC die Baseline. Aufwand M.
 
-## D. Offene Entscheidung: KI-Features für alle
-- **Selbsttest ausstehend:** Erscheint im publizierten Artifact (claude.ai/code/artifact/…) der 🤖-Button unten rechts? Ja → `window.claude` vorhanden, GenAI-Suite läuft dort.
-- Falls nein, zwei Wege: **(a)** Companion-Chat-Artifact «KI-Baututor» (klein, in claude.ai erstellt, vom Spiel verlinkt); **(b)** Cloudflare-Worker-Proxy mit eigenem API-Key → KI auf der GitHub-Pages-URL für alle ohne Konto (Kosten/Datenschutz vorher klären).
+## D. KI-Features für alle — ENTSCHIEDEN (07.07.2026)
+- **Testergebnis (Gian, 06.07.2026): 🤖-Button NICHT sichtbar** → publizierte Claude-Code-Artifacts stellen kein `window.claude` bereit.
+- **Gewählt: Variante (a)** Companion-Chat-Artifact «KI-Baututor»: Datei + Anleitung liegen in `50_Chat-Artifact/` (Baututor-Chat, 4 Fallgespräch-Szenarien mit Sicherheitsrahmen 143/147, CV-Formulierer, Spielstand-Import, de/en). Gian erstellt daraus in claude.ai ein Chat-Artifact und publiziert es; der Link kommt dann als `TUTOR_URL` in `js/main.js` (Fallback ist seit v7.1 eingebaut: ohne `window.claude` öffnet der 🤖-Button diese URL).
+- Variante (b) Cloudflare-Worker-Proxy bleibt als spätere Option, falls KI ohne claude.ai-Login gewünscht ist (Kosten/Datenschutz vorher klären).
 
 ## Betriebs-Spickzettel
 - Live: https://gpochs.github.io/kompetenzhaus-psychologie-uzh/ · Repo: github.com/gpochs/kompetenzhaus-psychologie-uzh · Artifact: https://claude.ai/code/artifact/8f899be9-b298-4e45-b0de-2918b3ff8fc9 (Redeploy: gleiche Datei erneut publizieren)
