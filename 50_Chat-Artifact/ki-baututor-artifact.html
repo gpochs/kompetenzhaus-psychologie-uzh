@@ -77,7 +77,7 @@
       </div>
       <div id="cvRow">
         <select id="cvKomp"></select>
-        <input id="cvRolle" data-phde="Zielrolle, z.B. «UX Researcher bei einer Bank»" data-phen="Target role, e.g. 'UX researcher at a bank'" placeholder="Zielrolle, z.B. «UX Researcher bei einer Bank»">
+        <input id="cvRolle" data-phde="Zielrolle eingeben …" data-phen="Enter target role …" placeholder="Zielrolle eingeben …">
         <button class="primary" id="cvGo" style="padding:7px 12px;font-size:11.5px" data-de="Satz formulieren" data-en="Draft sentence">Satz formulieren</button>
       </div>
       <div class="inrow">
@@ -115,11 +115,33 @@ const KOMP = [
   ["Fu1","Arbeiten/Gestalten (mit & ohne KI)","Working/creating (with & without AI)"],["Fu2","Persönliche Fähigkeiten","Personal capabilities"],["Fu3","Soziales Umfeld gestalten","Shaping the social environment"]
 ];
 const VIGN = [
-  { id:"klin", de:"Klinisches Erstgespräch (fiktiv)", en:"Clinical intake conversation (fictional)", ctx:{de:"Erstgespräch in einer psychotherapeutischen Ambulanz; die fiktive Person kommt mit diffusen Belastungssymptomen.", en:"Intake at an outpatient psychotherapy clinic; the fictional person presents with diffuse strain symptoms."} },
-  { id:"diag", de:"Testrückmeldung Diagnostik (fiktiv)", en:"Assessment feedback (fictional)", ctx:{de:"Rückmeldegespräch nach einer psychologischen Testung; die fiktive Person ist skeptisch gegenüber den Ergebnissen.", en:"Feedback conversation after psychological testing; the fictional person is sceptical about the results."} },
-  { id:"ges", de:"Gesundheitsberatung (fiktiv)", en:"Health counselling (fictional)", ctx:{de:"Beratungsgespräch zur Verhaltensänderung (Bewegung/Schlaf); die fiktive Person ist ambivalent.", en:"Counselling on behaviour change (exercise/sleep); the fictional person is ambivalent."} },
-  { id:"ao", de:"Teamkonflikt AO-Psychologie (fiktiv)", en:"Team conflict, W&O psychology (fictional)", ctx:{de:"Gespräch mit einer fiktiven Teamleiterin über einen eskalierenden Konflikt in ihrem Team.", en:"Conversation with a fictional team lead about an escalating conflict in her team."} }
+  { id:"klin", de:"Klinisches Erstgespräch (fiktiv) · passt zu Modul 400/402", en:"Clinical intake (fictional) · fits modules 400/402", ctx:{de:"Erstgespräch in einer psychotherapeutischen Ambulanz; die fiktive Person kommt mit diffusen Belastungssymptomen. Übungsfokus: Gesprächsführung und strukturierte Anamnese (Einführung Klinische Psychologie/PTO).", en:"Intake at an outpatient psychotherapy clinic; the fictional person presents with diffuse strain symptoms. Practice focus: conversation skills and structured anamnesis (intro to clinical psychology/PTO)."} },
+  { id:"diag", de:"Testrückmeldung Diagnostik (fiktiv) · passt zu Modul 501", en:"Assessment feedback (fictional) · fits module 501", ctx:{de:"Rückmeldegespräch nach einer psychologischen Testung; die fiktive Person ist skeptisch gegenüber den Ergebnissen. Übungsfokus: Gütekriterien verständlich erklären, faire Interpretation (Psychologische Diagnostik).", en:"Feedback conversation after psychological testing; the fictional person is sceptical about the results. Practice focus: explaining quality criteria clearly, fair interpretation (psychological assessment)."} },
+  { id:"ges", de:"Gesundheitsberatung (fiktiv) · passt zu Modul 502", en:"Health counselling (fictional) · fits module 502", ctx:{de:"Beratungsgespräch zur Verhaltensänderung (Bewegung/Schlaf); die fiktive Person ist ambivalent. Übungsfokus: Theorien des Gesundheitsverhaltens anwenden, Ambivalenz aushalten (Gesundheitspsychologie).", en:"Counselling on behaviour change (exercise/sleep); the fictional person is ambivalent. Practice focus: applying health-behaviour theories, tolerating ambivalence (health psychology)."} },
+  { id:"ao", de:"Teamkonflikt (fiktiv) · passt zu Modul 301/302", en:"Team conflict (fictional) · fits modules 301/302", ctx:{de:"Gespräch mit einer fiktiven Teamleiterin über einen eskalierenden Konflikt in ihrem Team. Übungsfokus: AO-psychologische Konzepte zu Teams, Führung und Arbeitsgestaltung anwenden.", en:"Conversation with a fictional team lead about an escalating conflict in her team. Practice focus: applying W&O concepts on teams, leadership and work design."} }
 ];
+/* Passende Zielrollen-Beispiele pro Kompetenz (psychologienahe Berufsfelder) */
+const ROLLEN = {
+  Fa1:{de:"Psychologin in Ausbildung in einer psychiatrischen Klinik",en:"psychologist in training at a psychiatric clinic"},
+  Fa2:{de:"Research Assistant in einem klinischen Forschungsprojekt",en:"research assistant on a clinical research project"},
+  Fa3:{de:"Data Analyst:in im Gesundheitswesen",en:"data analyst in healthcare"},
+  Fa4:{de:"wissenschaftliche:r Mitarbeiter:in in der Evaluationsforschung",en:"research associate in evaluation research"},
+  Fa5:{de:"Psychologin im schulpsychologischen Dienst",en:"psychologist in a school psychology service"},
+  Fa6:{de:"Fachredaktor:in für Wissenschaftskommunikation",en:"science communication editor"},
+  Fa7:{de:"Mitarbeiter:in einer Ethikkommission",en:"staff member of an ethics committee"},
+  Fa8:{de:"Berater:in in der betrieblichen Gesundheitsförderung",en:"consultant in workplace health promotion"},
+  Fa9:{de:"Psycholog:in in der interkulturellen Beratung",en:"psychologist in intercultural counselling"},
+  Fa10:{de:"Projektleiter:in in einem Praxisforschungsprojekt",en:"project lead on an applied research project"},
+  KI1:{de:"UX Researcher in einem Digital-Health-Team",en:"UX researcher on a digital-health team"},
+  KI2:{de:"People-Analytics-Spezialist:in im HR",en:"people-analytics specialist in HR"},
+  KI3:{de:"Produktmanager:in für digitale Gesundheitsanwendungen",en:"product manager for digital health applications"},
+  KI4:{de:"wissenschaftliche:r Mitarbeiter:in Mensch-KI-Interaktion",en:"research associate in human–AI interaction"},
+  KI5:{de:"AI-Governance-Verantwortliche:r in einem Spital",en:"AI governance officer at a hospital"},
+  KI6:{de:"Testpsycholog:in bei einem Assessment-Anbieter",en:"test psychologist at an assessment provider"},
+  Fu1:{de:"Innovationsmanager:in im Gesundheitsbereich",en:"innovation manager in the health sector"},
+  Fu2:{de:"Doktorand:in in einem Graduiertenprogramm",en:"doctoral student in a graduate programme"},
+  Fu3:{de:"Teamleiter:in in einer Beratungsstelle",en:"team lead at a counselling centre"}
+};
 
 /* ===== Zustand ===== */
 let lang = "de";
@@ -146,7 +168,13 @@ function applyLang() {
 function fillSelects() {
   $("vignSel").innerHTML = VIGN.map((v) => `<option value="${v.id}">${lang === "de" ? v.de : v.en}</option>`).join("");
   $("cvKomp").innerHTML = KOMP.map((k) => `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}</option>`).join("");
+  updateRollePlaceholder();
 }
+function updateRollePlaceholder() { // Zielrollen-Beispiel passend zur gewählten Kompetenz
+  const r = ROLLEN[$("cvKomp").value];
+  if (r) $("cvRolle").placeholder = (lang === "de" ? "Zielrolle, z.B. «" : "Target role, e.g. '") + (lang === "de" ? r.de : r.en) + (lang === "de" ? "»" : "'");
+}
+$("cvKomp").addEventListener("change", updateRollePlaceholder);
 function add(who, txt, asHtml) {
   const d = document.createElement("div");
   d.className = "m " + who;
@@ -191,7 +219,7 @@ function standText() {
   return spielstand.titel.join("; ") + ` (${spielstand.ects} ECTS)`;
 }
 function ctxTutor() {
-  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses; Kompetenzen: Fa1–Fa10 fachlich, KI1–KI6 KI, Fu1–Fu3 Future Skills; Prüfungslogik [A] KI-frei / [B] teilweise KI-integriert / [C] KI-integriert; Basis: Kompetenzaufbaumodell vom 02.07.2026 — ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum). Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung — dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026 — ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung — dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
 }
 function ctxVign(v) {
   return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Du spielst eine FIKTIVE Person. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist erfunden — keine realen Ratschläge, keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in der Rolle, antworte kurz (2–4 Sätze), realistisch, aber didaktisch ergiebig. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; falls die Nutzenden solche Themen einbringen, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Wenn die Nutzenden «Stopp» schreiben, verlasse die Rolle und stelle GENAU EINE kurze Reflexionsfrage zum Gespräch. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
