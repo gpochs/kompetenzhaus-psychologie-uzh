@@ -358,8 +358,8 @@ let shakeT = 0, hitstopT = 0;
 const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* KI-Funktionen nur, wenn die Umgebung sie bereitstellt (Claude-Artifact) */
 const HAS_AI = !!(window.claude && typeof window.claude.complete === "function");
-/* Fallback: Companion-Chat-Artifact «KI-Baututor» auf claude.ai — URL eintragen, sobald publiziert */
-const TUTOR_URL = "";
+/* Fallback: Companion-Chat-Artifact «KI-Baututor» auf claude.ai (publiziert 07.07.2026) */
+const TUTOR_URL = "https://claude.ai/public/artifacts/a4a2c241-0740-4f9c-bbb4-9fa956a6c5cb";
 async function aiComplete(prompt) { return String(await window.claude.complete(prompt)).trim(); }
 let tutorCtl = null;
 

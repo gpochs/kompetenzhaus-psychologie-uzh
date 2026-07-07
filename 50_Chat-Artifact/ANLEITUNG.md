@@ -1,5 +1,9 @@
 # Companion-Chat-Artifact «KI-Baututor» — Anleitung
 
+> **✅ ERLEDIGT (07.07.2026, automatisiert via Chrome):** Das Artifact ist erstellt, getestet und publiziert:
+> **https://claude.ai/public/artifacts/a4a2c241-0740-4f9c-bbb4-9fa956a6c5cb**
+> (Quell-Chat: claude.ai → «HTML-Code als Artifact erstellen»). Die URL ist als `TUTOR_URL` in `js/main.js` eingetragen — der 🤖-Button im Spiel öffnet sie überall dort, wo `window.claude` fehlt (GitHub Pages + Code-Artifact). Die Schritte unten braucht es nur noch, falls das Artifact einmal neu erstellt werden muss.
+
 **Warum:** Der Test hat gezeigt, dass publizierte **Claude-Code-Artifacts kein `window.claude` bereitstellen** — die GenAI-Suite im Spiel bleibt dort stumm. **Chat-Artifacts** (in einem normalen claude.ai-Chat erstellt) haben die KI-Schnittstelle dagegen eingebaut. Darum läuft der KI-Baututor als eigenes, kleines Chat-Artifact, auf das das Spiel verlinkt (Backlog-Punkt D, Variante a).
 
 ## Was die Datei kann

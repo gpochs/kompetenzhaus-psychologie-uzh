@@ -29,7 +29,7 @@ Stand: 06.07.2026 (nach v7). Quellen: Benchmark-Recherche (Duolingo/Brilliant/us
 
 ## D. KI-Features für alle — ENTSCHIEDEN (07.07.2026)
 - **Testergebnis (Gian, 06.07.2026): 🤖-Button NICHT sichtbar** → publizierte Claude-Code-Artifacts stellen kein `window.claude` bereit.
-- **Gewählt: Variante (a)** Companion-Chat-Artifact «KI-Baututor»: Datei + Anleitung liegen in `50_Chat-Artifact/` (Baututor-Chat, 4 Fallgespräch-Szenarien mit Sicherheitsrahmen 143/147, CV-Formulierer, Spielstand-Import, de/en). Gian erstellt daraus in claude.ai ein Chat-Artifact und publiziert es; der Link kommt dann als `TUTOR_URL` in `js/main.js` (Fallback ist seit v7.1 eingebaut: ohne `window.claude` öffnet der 🤖-Button diese URL).
+- **Gewählt und UMGESETZT (07.07.2026): Variante (a)** Companion-Chat-Artifact «KI-Baututor», live unter **https://claude.ai/public/artifacts/a4a2c241-0740-4f9c-bbb4-9fa956a6c5cb** (Baututor-Chat, 4 Fallgespräch-Szenarien mit Sicherheitsrahmen 143/147, CV-Formulierer, Spielstand-Import, de/en; Quelle in `50_Chat-Artifact/`). URL ist als `TUTOR_URL` in `js/main.js` eingetragen — ohne `window.claude` öffnet der 🤖-Button dieses Artifact (Pages + Code-Artifact). KI-Antworten erfordern ein claude.ai-Login der Besucher:in; Kosten laufen nicht über das Institut.
 - Variante (b) Cloudflare-Worker-Proxy bleibt als spätere Option, falls KI ohne claude.ai-Login gewünscht ist (Kosten/Datenschutz vorher klären).
 
 ## Betriebs-Spickzettel
