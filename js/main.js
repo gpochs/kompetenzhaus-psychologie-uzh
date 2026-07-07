@@ -564,10 +564,59 @@ function addFlowerBox(group, slot) {
   });
   group.add(g);
 }
+/* Meister-Upgrade: Quiz UND Praxis-Quest erfüllt → sichtbares Architektur-Element je nach Bausteinform */
+function addUpgrade(group, slot) {
+  if (group.getObjectByName("upgrade")) return;
+  const g = new THREE.Group(); g.name = "upgrade";
+  const W = slot.pos.w * CELL, D = slot.pos.d * CELL, H = slot.pos.h * FH;
+  const holz = new THREE.MeshStandardMaterial({ color: 0x3d5a3d, roughness: 0.85 });
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd9a441, metalness: 0.75, roughness: 0.3 });
+  const gruen = new THREE.MeshStandardMaterial({ color: 0x4e9440, roughness: 1, flatShading: true });
+  if (["box", "tower"].includes(slot.form)) { // Fensterläden an jedem Fenster der Aussenseite
+    const outward = slot.pos.z >= 0 ? 1 : -1;
+    const faceZ = slot.haus && Math.abs(slot.pos.z) < 0.01 ? 1 : outward;
+    const nWin = Math.max(1, Math.round(slot.pos.w));
+    for (let i = 0; i < nWin; i++) {
+      const fx = (i - (nWin - 1) / 2) * (W / nWin);
+      for (const s of [-1, 1]) {
+        const laden = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.98, 0.03), holz);
+        laden.position.set(fx + s * 0.52, H * 0.55, faceZ * (D / 2 + 0.02));
+        if (faceZ < 0) laden.rotation.y = Math.PI;
+        g.add(laden);
+      }
+    }
+  } else if (slot.form === "bay" || slot.form === "wing") { // Efeu an der Vorderkante
+    for (let i = 0; i < 5; i++) {
+      const blatt = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16 + (i % 3) * 0.05, 0), gruen);
+      blatt.position.set(W * 0.42, H * (0.15 + i * 0.18), D / 2 + 0.06);
+      g.add(blatt);
+    }
+  } else if (slot.form === "slab" || slot.form === "step") { // Büsche an der Fundamentlippe
+    for (const px of [-1, 1]) {
+      const busch = new THREE.Mesh(new THREE.IcosahedronGeometry(0.3, 0), gruen);
+      busch.position.set(px * (W / 2 - 0.4), 0.3, D / 2 + 0.34);
+      g.add(busch);
+    }
+  } else if (slot.form === "roof") { // goldene Wetterfahne auf dem First
+    const stab = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.7, 6), gold);
+    stab.position.set(-W * 0.3, H * 0.72 + 0.35, 0);
+    const hahn = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.34, 4), gold);
+    hahn.rotation.z = -Math.PI / 2; hahn.position.set(-W * 0.3 + 0.16, H * 0.72 + 0.62, 0); hahn.name = "flag";
+    g.add(stab, hahn);
+  } else { // spire, lantern: goldene Kugel
+    const kugel = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 8), gold);
+    kugel.position.y = slot.pos.h * FH + (slot.form === "spire" ? 1.55 : 0.5);
+    g.add(kugel);
+  }
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  group.add(g);
+}
 function decorateBlock(group, slot) {
   const code = slot.optionen ? ((S.placed[S.mode][slot.slot] || {}).opt || slot.code) : slot.code;
+  const questDone = S.quests[slot.slot] && S.quests[slot.slot].done;
   if (S.quiz[code]) addPennant(group, slot);
-  if (S.quests[slot.slot] && S.quests[slot.slot].done) { addSparkle(group, slot); addFlowerBox(group, slot); }
+  if (questDone) { addSparkle(group, slot); addFlowerBox(group, slot); }
+  if (S.quiz[code] && questDone) addUpgrade(group, slot);
 }
 const gardenGroup = new THREE.Group(); scene.add(gardenGroup);
 function rebuildGarden() {
@@ -616,6 +665,42 @@ function rebuildGarden() {
     br.add(becken, wasser, saeule);
     br.position.set(0, 0.24, -5.2); br.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     gardenGroup.add(br);
+  }
+  if (n >= 28) { // Gewächshaus neben dem Beet
+    const gh = new THREE.Group();
+    const glas = new THREE.MeshStandardMaterial({ color: 0xbdd9e8, roughness: 0.15, metalness: 0.25, transparent: true, opacity: 0.55 });
+    const korpus = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.2, 1.5), glas);
+    korpus.position.y = 0.6;
+    const dach = new THREE.Mesh(prismGeometry(2.3, 1.6, 0.55), glas);
+    dach.position.y = 1.2;
+    const beetIn = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.2, 1), new THREE.MeshStandardMaterial({ color: 0x6b5138, roughness: 1 }));
+    beetIn.position.y = 0.12;
+    gh.add(korpus, dach, beetIn);
+    gh.position.set(1.2, 0.24, 8.4);
+    gardenGroup.add(gh);
+  }
+  if (n >= 40) { // Pergola mit Kletterpflanzen am Gartenweg
+    const pg = new THREE.Group();
+    const wood = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
+    for (const [px, pz] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+      const pf = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.8, 0.12), wood);
+      pf.position.set(px * 1.1, 0.9, pz * 0.8);
+      pg.add(pf);
+    }
+    for (let i = 0; i < 5; i++) {
+      const latte = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.06, 0.12), wood);
+      latte.position.set(0, 1.85, -0.8 + i * 0.4);
+      pg.add(latte);
+    }
+    const gruen = new THREE.MeshStandardMaterial({ color: 0x4e9440, roughness: 1, flatShading: true });
+    [[-1.1, 1.2, 0.8], [1.1, 1.5, -0.8], [0, 1.9, 0]].forEach(([x, y, z]) => {
+      const ranke = new THREE.Mesh(new THREE.IcosahedronGeometry(0.28, 0), gruen);
+      ranke.position.set(x, y, z);
+      pg.add(ranke);
+    });
+    pg.position.set(6.5, 0.24, 5.6);
+    pg.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+    gardenGroup.add(pg);
   }
 }
 
@@ -1186,6 +1271,7 @@ function renderPlan() {
   if (cta) {
     if (nextId && !visitor.active) {
       cta.textContent = `${t("cta_naechster")} ${slotTitel(SLOTS[nextId]).split(",")[0].slice(0, 34)}`;
+      cta.title = slotTitel(SLOTS[nextId]);
       cta.onclick = () => { selectSlot(nextId); };
       cta.style.visibility = "visible";
     } else cta.style.visibility = "hidden";
@@ -1323,7 +1409,7 @@ function renderKarriere() {
       <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct">${ready}%</span></div>
       <div class="phint">${L(p.hint)}</div>
       <div class="track"><div class="fill" style="width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></div></div>
-      ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => `<button data-slot="${c.s.slot}">${slotTitel(c.s).split(",")[0].slice(0, 34)}</button>`).join("")}</div>` : ""}
+      ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${slotTitel(c.s).split(",")[0].slice(0, 34)}</button>`).join("")}</div>` : ""}
     </div>`;
   }
   html += `<button class="ghostbtn" data-steckbrief style="margin:8px 4px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
@@ -1613,6 +1699,36 @@ function kompPills(slot) {
     return `<span class="kpill ${haupt.includes(id) ? "haupt" : ""}" style="border-color:${f.farbe};color:${f.farbe}">${id} ${L(k.name)}</span>`;
   }).join("") + `</div>`;
 }
+/* Spezifische Kompetenz-IDs für ein einzelnes Lernziel: aus dem Feld-Tag (F/K/S)
+   und den Haupt-/Modulkompetenzen des Moduls abgeleitet — priorisiert Hauptkompetenzen. */
+function lzKompIds(slot, bTags) {
+  const { komp, haupt } = slotKomp(slot);
+  const felder = { F: komp.fa || [], K: komp.ki || [], S: komp.fu || [] };
+  const ids = [];
+  for (const tag of (bTags || [])) {
+    const pool = felder[tag] || [];
+    const h = pool.filter((id) => (haupt || []).includes(id));
+    (h.length ? h : pool.slice(0, 1)).forEach((id) => { if (!ids.includes(id)) ids.push(id); });
+  }
+  return ids;
+}
+function lzKompBadges(slot, z) {
+  const ids = lzKompIds(slot, z.b);
+  return ids.map((id) => { const k = KOMP[id]; if (!k) return ""; const f = ST.felder[k.feld];
+    return `<span class="lz-kid" style="color:${f.farbe};border-color:${f.farbe}" title="${L(k.name)}">${id}</span>`; }).join("");
+}
+/* «Die Studierenden erwerben …»: kompakter Kompetenzsatz pro Modul (aus Hauptkompetenzen) */
+function modulKompetenzSatz(slot) {
+  const { komp, haupt } = slotKomp(slot);
+  const all = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+  const list = (haupt && haupt.length ? haupt : all).filter((id) => KOMP[id]).slice(0, 5);
+  if (!list.length) return "";
+  const namen = list.map((id) => `${id} ${L(KOMP[id].name)}`).join(", ");
+  const txt = S.lang === "de"
+    ? `<b>Die Studierenden</b> bauen in diesem Modul vor allem folgende Kompetenzen auf: ${namen}.`
+    : `<b>Students</b> primarily build the following competences in this module: ${namen}.`;
+  return `<p style="margin-top:8px;font-size:12px;color:#3c4356;line-height:1.5">${txt}</p>`;
+}
 function renderCardBody(slot) {
   const tx = slotText(slot);
   const el = document.getElementById("cardBody");
@@ -1620,13 +1736,12 @@ function renderCardBody(slot) {
   if (cardTab === "zukunft") {
     const bk = (ST.baukasten && ST.baukasten.zuordnung[slot.slot]) || [];
     const bkHtml = bk.length ? `<div style="margin-top:10px"><span style="font:700 11px var(--font);color:#5b6478">${t("baukasten_titel")}:</span>
-      <span class="komp-pills" style="display:inline-flex;margin-left:4px">${bk.map((id) => { const d = ST.baukasten.defs[id]; return d ? `<span class="kpill" title="${L(d.kurz)}" style="border-color:#b9c2d9">${L(d.name)}</span>` : ""; }).join("")}</span></div>` : "";
-    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + kompPills(slot) + bkHtml;
+      <span class="komp-pills" style="display:inline-flex;margin-left:4px">${bk.map((id) => { const d = ST.baukasten.defs[id]; return d ? `<span class="kpill" data-bk="${id}" role="button" tabindex="0" title="${L(d.kurz)}" style="border-color:#b9c2d9;cursor:pointer">${L(d.name)}</span>` : ""; }).join("")}</span></div>` : "";
+    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + modulKompetenzSatz(slot) + kompPills(slot) + bkHtml;
+    el.querySelectorAll("[data-bk]").forEach((b) => (b.onclick = () => { const d = ST.baukasten.defs[b.dataset.bk]; if (d) { toast(L(d.name) + ": " + L(d.kurz)); SND.pick(); } }));
   } else if (cardTab === "lernziele") {
-    const dot = (tags, b, col, ti) => `<i class="${(tags || []).includes(b) ? "on" : ""}" style="background:${col}" title="${ti}"></i>`;
-    const dots = (z) => `<span class="lz-dots">${dot(z.b, "F", ST.felder.fa.farbe, L(ST.felder.fa.name))}${dot(z.b, "K", ST.felder.ki.farbe, L(ST.felder.ki.name))}${dot(z.b, "S", ST.felder.fu.farbe, L(ST.felder.fu.name))}</span>`;
     el.innerHTML = tx && tx.lernziele && tx.lernziele.length
-      ? `<ul style="list-style:none;padding-left:2px">${tx.lernziele.map((z) => `<li>${dots(z)}${L(z)}</li>`).join("")}</ul>`
+      ? `<p style="font-size:10.5px;color:#8b94ab;margin:0 2px 6px">${t("lz_hint")}</p><ul style="list-style:none;padding-left:2px">${tx.lernziele.map((z) => `<li style="margin:5px 0"><span class="lz-kids">${lzKompBadges(slot, z)}</span>${L(z)}</li>`).join("")}</ul>`
       : none;
   } else if (cardTab === "ki") {
     const { kat } = slotKomp(slot);
@@ -1688,7 +1803,11 @@ function renderQuestTab(slot, el, tx, none) {
   const qt = tx && tx.quest;
   html += `<p style="font-weight:800;margin:12px 0 2px">✦ ${t("praxis_quest")}</p>`;
   html += qt ? `<p><b>${L(qt.titel)}</b></p><p style="margin-top:4px">${L(qt.text)}</p>` : none;
-  if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b>${q.note ? ` — «${q.note}»` : ""}</p>`;
+  if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b></p>`;
+  // Notizen zum Modul: immer verfügbar, werden lokal gespeichert und erscheinen im Kompetenzpass
+  html += `<p style="font-weight:700;font-size:12px;margin:10px 0 3px">📝 ${t("notiz_titel")}</p>
+    <textarea data-qnote rows="3" maxlength="500" placeholder="${t("notiz_ph")}" style="width:100%;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font);resize:vertical">${(q.note || "").replace(/</g, "&lt;")}</textarea>
+    <p data-qnotesaved style="font-size:10px;color:#8b94ab;margin:2px 0 0;visibility:hidden">✓ ${t("notiz_gespeichert")}</p>`;
   if (HAS_AI && qt) {
     html += `<details style="margin-top:10px"><summary style="cursor:pointer;font:700 12px var(--font);color:var(--blue)">${t("ai_feedback")}</summary>
       <textarea data-aiq rows="3" placeholder="${t("ai_feedback_ph")}" style="width:100%;margin-top:6px;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font)"></textarea>
@@ -1711,6 +1830,21 @@ function renderQuestTab(slot, el, tx, none) {
   };
   const vigBtn = el.querySelector("[data-aivig]");
   if (vigBtn) vigBtn.onclick = () => tutorCtl.open("vignette", slot);
+  const qnote = el.querySelector("[data-qnote]");
+  if (qnote) {
+    let noteTimer = null;
+    qnote.addEventListener("input", () => {
+      clearTimeout(noteTimer);
+      noteTimer = setTimeout(() => {
+        const cur = S.quests[slot.slot] || { done: false, note: "" };
+        cur.note = qnote.value.trim().slice(0, 500);
+        S.quests[slot.slot] = cur;
+        save();
+        const ind = el.querySelector("[data-qnotesaved]");
+        if (ind) { ind.style.visibility = "visible"; setTimeout(() => { ind.style.visibility = "hidden"; }, 1600); }
+      }, 500);
+    });
+  }
 
   el.querySelectorAll(".quiz-a").forEach((b) => (b.onclick = () => {
     if (!cardQuiz || cardQuiz.picked !== null) return;
@@ -1725,7 +1859,8 @@ function renderQuestTab(slot, el, tx, none) {
       setTimeout(() => {
         SND.fanfare();
         const g = blockMeshes[slot.slot];
-        if (g) { addPennant(g, slot); burstConfetti(g.position.x, g.position.y + 2.5, g.position.z, 60, 3); }
+        if (g) burstConfetti(g.position.x, g.position.y + 2.5, g.position.z, 60, 3);
+        if (isPlaced(slot.slot)) refreshBlock(slot.slot); // Wimpel und ggf. Meister-Upgrade anbringen
         rebuildGarden();
         renderPlan(); renderCardBody(slot); renderCardActions(slot);
       }, 900);
@@ -1832,33 +1967,20 @@ function renderCardActions(slot) {
     bq.className = q.done ? "ghostbtn" : "primary";
     bq.textContent = q.done ? t("quest_undone") : t("quest_done");
     bq.onclick = () => {
+      const cur = S.quests[slot.slot] || { done: false, note: "" }; // Notizen bleiben in beiden Richtungen erhalten
       if (q.done) {
-        S.quests[slot.slot] = { done: false, note: q.note || "" }; // Merksatz bleibt erhalten
+        S.quests[slot.slot] = { done: false, note: cur.note || "" };
         removeSparkle(blockMeshes[slot.slot]);
-        save(); renderPlan(); renderCardActions(slot); renderCardBody(slot);
+        refreshBlock(slot.slot);
       } else {
-        el.innerHTML = "";
-        const wrap = document.createElement("div");
-        wrap.style.cssText = "display:flex;gap:6px;flex:1;align-items:center;flex-wrap:wrap";
-        const lbl = document.createElement("span");
-        lbl.style.cssText = "font-size:11.5px;color:#5b6478;flex-basis:100%";
-        lbl.textContent = t("quest_frage");
-        const inp = document.createElement("input");
-        inp.type = "text"; inp.maxLength = 140;
-        inp.style.cssText = "flex:1;min-width:180px;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 12px;font:500 12.5px var(--font)";
-        const ok = document.createElement("button"); ok.className = "primary"; ok.textContent = "✦ OK";
-        ok.onclick = () => {
-          S.quests[slot.slot] = { done: true, note: inp.value.trim().slice(0, 140) };
-          addSparkle(blockMeshes[slot.slot], slot);
-          SND.quest();
-          const bm = blockMeshes[slot.slot];
-          burstConfetti(bm.position.x, bm.position.y + 2, bm.position.z, 40, 2.5);
-          save(); renderPlan(); renderCardActions(slot); renderCardBody(slot);
-        };
-        wrap.append(lbl, inp, ok);
-        el.appendChild(wrap);
-        inp.focus();
+        S.quests[slot.slot] = { done: true, note: cur.note || "" };
+        addSparkle(blockMeshes[slot.slot], slot);
+        SND.quest();
+        const bm = blockMeshes[slot.slot];
+        burstConfetti(bm.position.x, bm.position.y + 2, bm.position.z, 40, 2.5);
+        refreshBlock(slot.slot);
       }
+      save(); renderPlan(); renderCardActions(slot); renderCardBody(slot);
     };
     el.appendChild(bq);
     if (["box", "tower", "wing", "bay", "slab", "step"].includes(slot.form)) {
@@ -2063,7 +2185,7 @@ document.getElementById("btnPass").onclick = () => {
     const q = S.quests[slot.slot] || {};
     const { kat } = slotKomp(slot);
     const e = p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects;
-    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " + (q.note || "") : ""}</td></tr>`;
+    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + q.note : ""}</td></tr>`;
   }
   let bars = "";
   for (const feld of ["fa", "ki", "fu"]) {
@@ -2113,7 +2235,9 @@ document.getElementById("btnPass").onclick = () => {
       if (!isPlaced(slot.slot)) continue;
       const code = (S.placed[S.mode][slot.slot] || {}).opt || slot.code;
       (ICHL[code] || []).forEach((z) => {
-        if ((z.b || [])[0] === tag) rowsIch += `<li style="margin:2px 0">${L(z)} <span style="color:#8b94ab;font-size:9px;white-space:nowrap">· ${slotTitel(slot).split(",")[0]}</span></li>`;
+        if (!(z.b || []).includes(tag)) return;
+        const ids = lzKompIds(slot, [tag]).map((id) => `<b style="color:${f.farbe}">${id}</b>`).join(" ");
+        rowsIch += `<li style="margin:3px 0">${ids ? ids + " — " : ""}${L(z)} <span style="color:#8b94ab;font-size:9px;white-space:nowrap">· ${slotTitel(slot).split(",")[0]}</span></li>`;
       });
     }
     if (rowsIch) ich += `<p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#5b6478;margin:9px 0 2px">✓ ${t("ich_konkret")}</p>
@@ -2462,30 +2586,49 @@ function startFirstBuild() {
   coach.querySelector("[data-fbskip]").onclick = () => { coach.classList.remove("open"); clearGhost(); openModal("onboard"); };
 }
 
-/* ---------- Onboarding-Tour ---------- */
-function startTour() {
-  if (S.tourDone) return;
-  if (document.getElementById("milestone").classList.contains("open")) { setTimeout(startTour, 2500); return; }
+/* ---------- Onboarding-Tour: 8 Schritte mit Kameraflügen zu allen wichtigen Elementen ---------- */
+function startTour(force) {
+  if (S.tourDone && !force) return;
+  if (document.getElementById("milestone").classList.contains("open")) { setTimeout(() => startTour(force), 2500); return; }
   const coach = document.getElementById("coach");
   const mobil = window.innerWidth <= 1080;
+  const camP = camera.position.clone(), camT = controls.target.clone();
+  const unten = "left:50%;transform:translateX(-50%);bottom:26px";
+  const fabAn = document.getElementById("tutorFab").style.display === "block";
+  const flyAt = (x, z, dx, dz) => [new THREE.Vector3(x + dx, 3.6, z + dz), new THREE.Vector3(x, 0.9, z)];
   const steps = [
-    { sel: "#panelL", open: "panelL", tt: "tour1_t", tx: "tour1", css: "left:322px;top:120px" },
+    { sel: "#panelL", open: "panelL", tt: "tour1_t", tx: "tour1", css: mobil ? unten : "left:322px;top:120px" },
     { sel: "#card", tt: "tour2_t", tx: "tour2", css: "left:50%;transform:translateX(-50%);bottom:calc(46vh + 20px)" },
-    { sel: "#panelR", open: "panelR", tt: "tour3_t", tx: "tour3", css: "right:322px;top:120px;left:auto" }
-  ];
+    { sel: "#panelR", open: "panelR", tt: "tour3_t", tx: "tour3", css: mobil ? unten : "right:322px;top:120px;left:auto" },
+    { sel: "#btnPass", tt: "tour4_t", tx: "tour4", css: mobil ? unten : "right:12px;top:66px;left:auto" },
+    { fly: flyAt(briefkasten.position.x, briefkasten.position.z, 3.2, 4.5), tt: "tour5_t", tx: "tour5", css: unten },
+    { fly: flyAt(beetGroup.position.x, beetGroup.position.z, 3, 4.5), tt: "tour6_t", tx: "tour6", css: unten },
+    { fly: flyAt(bauhuette.position.x, bauhuette.position.z, 4, 5.5), tt: "tour7_t", tx: "tour7", css: unten },
+    fabAn ? { sel: "#tutorFab", tt: "tour8_t", tx: "tour8", css: mobil ? "right:12px;bottom:80px;left:auto" : "right:320px;bottom:80px;left:auto" } : null
+  ].filter(Boolean);
   let i = 0;
+  const ende = () => {
+    document.querySelectorAll(".coach-target").forEach((e) => e.classList.remove("coach-target"));
+    coach.classList.remove("open");
+    S.tourDone = true; save();
+    flyTo(camP, camT, 1.2);
+  };
   const show = () => {
     document.querySelectorAll(".coach-target").forEach((e) => e.classList.remove("coach-target"));
     if (mobil) { document.getElementById("panelL").classList.remove("open"); document.getElementById("panelR").classList.remove("open"); }
-    if (i >= steps.length) { coach.classList.remove("open"); S.tourDone = true; save(); return; }
+    if (i >= steps.length) { ende(); return; }
     const s = steps[i];
     if (mobil && s.open) document.getElementById(s.open).classList.add("open");
-    const tgt = document.querySelector(s.sel);
-    if (tgt && tgt.offsetParent !== null) tgt.classList.add("coach-target");
+    if (s.sel) {
+      const tgt = document.querySelector(s.sel);
+      if (tgt && tgt.offsetParent !== null) tgt.classList.add("coach-target");
+    }
+    if (s.fly) flyTo(s.fly[0], s.fly[1], 1.3);
     coach.style.cssText = s.css;
-    coach.innerHTML = `<b>${t(s.tt)}</b>${t(s.tx)}<div class="cactions"><span class="cstep">${i + 1}/3</span><button>${i === steps.length - 1 ? t("tour_fertig") : t("tour_weiter")}</button></div>`;
+    coach.innerHTML = `<b>${t(s.tt)}</b>${t(s.tx)}<div class="cactions"><span class="cstep">${i + 1}/${steps.length}</span><span style="display:flex;gap:6px"><button data-skip style="background:rgba(255,255,255,.18);color:#fff">${t("tour_skip")}</button><button data-next>${i === steps.length - 1 ? t("tour_fertig") : t("tour_weiter")}</button></span></div>`;
     coach.classList.add("open");
-    coach.querySelector("button").onclick = () => { i++; SND.pick(); show(); };
+    coach.querySelector("[data-next]").onclick = () => { i++; SND.pick(); show(); };
+    coach.querySelector("[data-skip]").onclick = () => { SND.pick(); ende(); };
   };
   show();
 }
@@ -2668,6 +2811,12 @@ const CHANGELOG = {
     ["v4 · July 2026", "Walkable basement rooms, 12 future-skills fields (AIComp), interior polish, passport as PDF."],
     ["v3 · July 2026", "Quiz gate in serious mode, career profile, interior view with competence plaques, photo mode, Open Badges and portfolio export."]
   ]
+};
+document.getElementById("btnTour").onclick = () => {
+  document.getElementById("modalMenu").classList.remove("open");
+  if (visitor.active) return;
+  closeCard();
+  startTour(true);
 };
 document.getElementById("btnChangelog").onclick = () => {
   const list = CHANGELOG[S.lang] || CHANGELOG.de;

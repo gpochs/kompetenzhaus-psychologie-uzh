@@ -31,8 +31,11 @@
   .m.sys { background:#fdf6e7; color:#6b4a00; align-self:stretch; max-width:100%; font-size:11.5px; }
   #ctl { padding:8px 12px; border-top:1px solid #edf0f7; display:flex; flex-direction:column; gap:8px; }
   #vignRow, #cvRow { display:none; gap:6px; flex-wrap:wrap; align-items:center; font-size:11.5px; color:#5b6478; }
-  select, #cvRolle { border:1.5px solid #dbe1ef; border-radius:9px; padding:7px 9px; font:600 12px var(--font); background:#fff; }
+  select, #cvRolle { border:1.5px solid #dbe1ef; border-radius:9px; padding:7px 9px; font:600 12px var(--font); background:#fff; max-width:100%; }
+  #cvKomp, #vignSel { flex:1; min-width:180px; }
   #cvRolle { flex:1; min-width:160px; }
+  #cvBeispiel { flex-basis:100%; font-size:10.5px; color:#5b6478; line-height:1.4; }
+  #cvBeispiel b { color:var(--blue); font-weight:700; cursor:pointer; text-decoration:underline dotted; }
   .inrow { display:flex; gap:6px; }
   .inrow input { flex:1; border:1.5px solid #dbe1ef; border-radius:10px; padding:10px 12px; font:500 13px var(--font); }
   .primary { border:0; background:var(--blue); color:#fff; border-radius:10px; padding:10px 16px; font:700 13px var(--font); cursor:pointer; }
@@ -63,7 +66,7 @@
   <details id="stand">
     <summary data-de="🏠 Spielstand einfügen (optional)" data-en="🏠 Paste your game state (optional)">🏠 Spielstand einfügen (optional)</summary>
     <textarea id="standTa" placeholder='{"placed": …}'></textarea>
-    <div class="hint" data-de="Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen — bitte keine echten Personendaten einfügen." data-en="In the game: menu ⋯ → 'Export house (JSON)' → open the file and paste its content here. The tutor will then know your built modules. Only module IDs are read — please do not paste real personal data.">Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen — bitte keine echten Personendaten einfügen.</div>
+    <div class="hint" data-de="Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen, bitte keine echten Personendaten einfügen." data-en="In the game: menu ⋯ → 'Export house (JSON)' → open the file and paste its content here. The tutor will then know your built modules. Only module IDs are read, please do not paste real personal data.">Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen, bitte keine echten Personendaten einfügen.</div>
     <div id="standInfo"></div>
   </details>
 
@@ -79,6 +82,7 @@
         <select id="cvKomp"></select>
         <input id="cvRolle" data-phde="Zielrolle eingeben …" data-phen="Enter target role …" placeholder="Zielrolle eingeben …">
         <button class="primary" id="cvGo" style="padding:7px 12px;font-size:11.5px" data-de="Satz formulieren" data-en="Draft sentence">Satz formulieren</button>
+        <div id="cvBeispiel"></div>
       </div>
       <div class="inrow">
         <input id="inp" maxlength="400" data-phde="Deine Frage …" data-phen="Your question …" placeholder="Deine Frage …">
@@ -87,7 +91,7 @@
     </div>
   </div>
 
-  <footer data-de="Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026 — keine Studienberatung; verbindliche Auskünfte gibt die Studienprogrammleitung. Deine Eingaben werden zur Beantwortung an Claude (Anthropic) übermittelt — keine Klarnamen, keine echten Falldaten. Fallgespräche sind vollständig fiktiv; bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche)." data-en="Everything here is a <b>DRAFT</b> based on the competence build-up model of 2 July 2026 — not study advising; binding answers come from the programme direction. Your input is sent to Claude (Anthropic) to generate answers — no real names, no real case data. Case conversations are entirely fictional; in a real crisis: 143 (Dargebotene Hand) / 147 (for adolescents).">Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026 — keine Studienberatung; verbindliche Auskünfte gibt die Studienprogrammleitung. Deine Eingaben werden zur Beantwortung an Claude (Anthropic) übermittelt — keine Klarnamen, keine echten Falldaten. Fallgespräche sind vollständig fiktiv; bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche).</footer>
+  <footer data-de="Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026, keine Studienberatung; verbindliche Auskünfte gibt die Studienprogrammleitung. Deine Eingaben werden zur Beantwortung an Claude (Anthropic) übermittelt, keine Klarnamen, keine echten Falldaten. Fallgespräche sind vollständig fiktiv; bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche)." data-en="Everything here is a <b>DRAFT</b> based on the competence build-up model of 2 July 2026, not study advising; binding answers come from the programme direction. Your input is sent to Claude (Anthropic) to generate answers, no real names, no real case data. Case conversations are entirely fictional; in a real crisis: 143 (Dargebotene Hand) / 147 (for adolescents).">Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026, keine Studienberatung; verbindliche Auskünfte gibt die Studienprogrammleitung. Deine Eingaben werden zur Beantwortung an Claude (Anthropic) übermittelt, keine Klarnamen, keine echten Falldaten. Fallgespräche sind vollständig fiktiv; bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche).</footer>
 </div>
 
 <script>
@@ -170,9 +174,14 @@ function fillSelects() {
   $("cvKomp").innerHTML = KOMP.map((k) => `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}</option>`).join("");
   updateRollePlaceholder();
 }
-function updateRollePlaceholder() { // Zielrollen-Beispiel passend zur gewählten Kompetenz
+function updateRollePlaceholder() { // Zielrollen-Beispiel sichtbar unter dem Feld (nicht als abgeschnittener Platzhalter)
   const r = ROLLEN[$("cvKomp").value];
-  if (r) $("cvRolle").placeholder = (lang === "de" ? "Zielrolle, z.B. «" : "Target role, e.g. '") + (lang === "de" ? r.de : r.en) + (lang === "de" ? "»" : "'");
+  const box = $("cvBeispiel");
+  if (r) {
+    const bsp = lang === "de" ? r.de : r.en;
+    box.innerHTML = (lang === "de" ? "Beispiel für diese Kompetenz: " : "Example for this competence: ") + `<b data-fill>${bsp}</b>` + (lang === "de" ? " (zum Übernehmen anklicken)" : " (click to use)");
+    box.querySelector("[data-fill]").onclick = () => { $("cvRolle").value = bsp; $("cvRolle").focus(); };
+  } else box.textContent = "";
 }
 $("cvKomp").addEventListener("change", updateRollePlaceholder);
 function add(who, txt, asHtml) {
@@ -192,8 +201,8 @@ function setMode(m) {
   $("cvRow").style.display = m === "cv" ? "flex" : "none";
   $("msgs").innerHTML = "";
   if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C] oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic or your next building step."));
-  if (m === "vignette") add("sys", T("Wähle oben ein Szenario und starte das Gespräch. Alles ist fiktiv — Übungszweck. Mit «Stopp» beendest du die Rolle und erhältst eine Reflexionsfrage.", "Pick a scenario above and start the conversation. Everything is fictional — for practice. Type 'Stop' to end the role and receive a reflection question."));
-  if (m === "cv") add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle — du erhältst genau einen CV-tauglichen Satz.", "Pick a competence, state your target role — you'll get exactly one CV-ready sentence."));
+  if (m === "vignette") add("sys", T("Wähle oben ein Szenario und starte das Gespräch. Alles ist fiktiv — Übungszweck. Mit «Stopp» beendest du die Rolle und erhältst eine Reflexionsfrage.", "Pick a scenario above and start the conversation. Everything is fictional, for practice. Type 'Stop' to end the role and receive a reflection question."));
+  if (m === "cv") add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence."));
 }
 
 /* ===== Spielstand ===== */
@@ -219,10 +228,10 @@ function standText() {
   return spielstand.titel.join("; ") + ` (${spielstand.ects} ECTS)`;
 }
 function ctxTutor() {
-  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026 — ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung — dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
 }
 function ctxVign(v) {
-  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Du spielst eine FIKTIVE Person. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist erfunden — keine realen Ratschläge, keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in der Rolle, antworte kurz (2–4 Sätze), realistisch, aber didaktisch ergiebig. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; falls die Nutzenden solche Themen einbringen, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Wenn die Nutzenden «Stopp» schreiben, verlasse die Rolle und stelle GENAU EINE kurze Reflexionsfrage zum Gespräch. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
+  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Du spielst eine FIKTIVE Person. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist erfunden, keine realen Ratschläge, keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in der Rolle, antworte kurz (2–4 Sätze), realistisch, aber didaktisch ergiebig. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; falls die Nutzenden solche Themen einbringen, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Wenn die Nutzenden «Stopp» schreiben, verlasse die Rolle und stelle GENAU EINE kurze Reflexionsfrage zum Gespräch. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
 }
 
 /* ===== Senden ===== */
@@ -241,8 +250,8 @@ async function send(forced, silent) {
     const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
     wait.textContent = out;
     hist.push(bot + ": " + out);
-  } catch (e) { wait.textContent = T("Gerade nicht erreichbar — versuch es nochmals.", "Unavailable right now — please try again."); }
-  if (mode === "vignette" && /^stopp?\b/i.test(q)) { vignAktiv = null; hist = []; add("sys", T("Rolle beendet. Zurück im Tutor-Modus dieses Tabs — starte oben ein neues Szenario.", "Role ended. Back in this tab's tutor mode — start a new scenario above.")); }
+  } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
+  if (mode === "vignette" && /^stopp?\b/i.test(q)) { vignAktiv = null; hist = []; add("sys", T("Rolle beendet. Zurück im Tutor-Modus dieses Tabs, starte oben ein neues Szenario.", "Role ended. Back in this tab's tutor mode, start a new scenario above.")); }
 }
 $("send").onclick = () => send();
 $("inp").addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
@@ -251,7 +260,7 @@ $("vignStart").onclick = () => {
   vignAktiv = VIGN.find((v) => v.id === $("vignSel").value) || VIGN[0];
   hist = [];
   $("msgs").innerHTML = "";
-  add("sys", T("Fallgespräch aktiv — die KI spielt eine fiktive Person. Beenden mit «Stopp».", "Case conversation active — the AI plays a fictional person. End with 'Stop'."));
+  add("sys", T("Fallgespräch aktiv, die KI spielt eine fiktive Person. Beenden mit «Stopp».", "Case conversation active, the AI plays a fictional person. End with 'Stop'."));
   send(T("(Beginne das Gespräch mit einer kurzen Vorstellung deiner fiktiven Rolle.)", "(Start the conversation with a short introduction of your fictional role.)"), true);
 };
 
@@ -264,8 +273,8 @@ $("cvGo").onclick = async () => {
   add("me", `${kid} · ${lang === "de" ? k[1] : k[2]} → ${rolle}`);
   const wait = add("bot", "…");
   try {
-    wait.textContent = await ask(`Formuliere GENAU EINEN CV-tauglichen Satz (${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${lang === "de" ? k[1] : k[2]}» (${kid}) aus dem Psychologiestudium UZH — zugeschnitten auf diese Zielrolle: ${rolle}. Kontext, falls hilfreich — absolvierte Module: ${standText()}. Nur der Satz, nichts anderes.`);
-  } catch (e) { wait.textContent = T("Gerade nicht erreichbar — versuch es nochmals.", "Unavailable right now — please try again."); }
+    wait.textContent = await ask(`Formuliere GENAU EINEN CV-tauglichen Satz (${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${lang === "de" ? k[1] : k[2]}» (${kid}) aus dem Psychologiestudium UZH, zugeschnitten auf diese Zielrolle: ${rolle}. Kontext, falls hilfreich, absolvierte Module: ${standText()}. Nur der Satz, nichts anderes.`);
+  } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
 };
 
 $("tabTutor").onclick = () => setMode("tutor");
@@ -279,8 +288,8 @@ setMode("tutor");
 if (!api) {
   $("noApi").style.display = "block";
   $("noApi").innerHTML = T(
-    "⚠️ <b>Keine KI-Verbindung.</b> Diese Seite muss als <b>Artifact in einem claude.ai-Chat</b> laufen — nur dort steht die KI-Schnittstelle (window.claude) zur Verfügung. Bitte öffne den geteilten Artifact-Link in claude.ai.",
-    "⚠️ <b>No AI connection.</b> This page must run as an <b>artifact inside a claude.ai chat</b> — only there is the AI interface (window.claude) available. Please open the shared artifact link on claude.ai."
+    "⚠️ <b>Keine KI-Verbindung.</b> Diese Seite muss als <b>Artifact in einem claude.ai-Chat</b> laufen, nur dort steht die KI-Schnittstelle (window.claude) zur Verfügung. Bitte öffne den geteilten Artifact-Link in claude.ai.",
+    "⚠️ <b>No AI connection.</b> This page must run as an <b>artifact inside a claude.ai chat</b>, only there is the AI interface (window.claude) available. Please open the shared artifact link on claude.ai."
   );
   $("send").disabled = true; $("vignStart").disabled = true; $("cvGo").disabled = true;
 }

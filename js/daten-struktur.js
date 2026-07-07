@@ -11,8 +11,8 @@ window.STRUKTUR = {
     version: "1.0",
     stand: "2026-07-03",
     hinweis: {
-      de: "Basiert auf dem Kompetenzaufbaumodell vom 02.07.2026 — ein Entwurf als Gesprächsbasis, kein beschlossenes Curriculum.",
-      en: "Based on the competence build-up model of 2 July 2026 — a draft intended as a basis for discussion, not an approved curriculum."
+      de: "Basiert auf dem Kompetenzaufbaumodell vom 02.07.2026, ein Entwurf als Gesprächsbasis, kein beschlossenes Curriculum.",
+      en: "Based on the competence build-up model of 2 July 2026, a draft intended as a basis for discussion, not an approved curriculum."
     }
   },
 
@@ -34,12 +34,12 @@ window.STRUKTUR = {
     { id: "Fa9",  feld: "fa", name: { de: "Diversität & Kontext", en: "Diversity & context" }, ich: { de: "Ich berücksichtige Vielfalt und Kontext von Menschen.", en: "I take people's diversity and context into account." } },
     { id: "Fa10", feld: "fa", name: { de: "Selbstmanagement", en: "Self-management" }, ich: { de: "Ich organisiere mein Lernen und meine berufliche Entwicklung.", en: "I organise my learning and my professional development." } },
     { id: "KI1",  feld: "ki", name: { de: "Anwenden", en: "Applying" }, ich: { de: "Ich nutze KI-Werkzeuge gezielt für Studium und Arbeit.", en: "I use AI tools purposefully for study and work." } },
-    { id: "KI2",  feld: "ki", name: { de: "Gestalten", en: "Creating" }, ich: { de: "Ich entwickle mit KI Neues — Lernhilfen, Workflows, eigene Bots.", en: "I create new things with AI — learning aids, workflows, my own bots." } },
-    { id: "KI3",  feld: "ki", name: { de: "Zusammenarbeiten", en: "Collaborating" }, ich: { de: "Ich arbeite mit Menschen und KI zusammen — und weiss, was die KI übernehmen darf.", en: "I work with people and AI — and know what AI may take on." } },
-    { id: "KI4",  feld: "ki", name: { de: "Verstehen", en: "Understanding" }, ich: { de: "Ich verstehe, wie KI funktioniert — und warum sie überzeugen kann, ohne richtig zu liegen.", en: "I understand how AI works — and why it can convince without being right." } },
+    { id: "KI2",  feld: "ki", name: { de: "Gestalten", en: "Creating" }, ich: { de: "Ich entwickle mit KI Neues — Lernhilfen, Workflows, eigene Bots.", en: "I create new things with AI, learning aids, workflows, my own bots." } },
+    { id: "KI3",  feld: "ki", name: { de: "Zusammenarbeiten", en: "Collaborating" }, ich: { de: "Ich arbeite mit Menschen und KI zusammen, und weiss, was die KI übernehmen darf.", en: "I work with people and AI, and know what AI may take on." } },
+    { id: "KI4",  feld: "ki", name: { de: "Verstehen", en: "Understanding" }, ich: { de: "Ich verstehe, wie KI funktioniert, und warum sie überzeugen kann, ohne richtig zu liegen.", en: "I understand how AI works, and why it can convince without being right." } },
     { id: "KI5",  feld: "ki", name: { de: "Verantworten", en: "Taking responsibility" }, ich: { de: "Ich gehe verantwortungsvoll mit KI um: deklarieren, Daten schützen, verantwortlich bleiben.", en: "I use AI responsibly: declare, protect data, stay accountable." } },
     { id: "KI6",  feld: "ki", name: { de: "Evaluieren", en: "Evaluating" }, ich: { de: "Ich prüfe KI-Ergebnisse so kritisch wie jede andere Quelle.", en: "I scrutinise AI outputs as critically as any other source." } },
-    { id: "Fu1",  feld: "fu", name: { de: "Arbeiten/Gestalten (mit und ohne KI)", en: "Working/creating (with & without AI)" }, ich: { de: "Ich setze Ideen um und gestalte Lösungen — mit und ohne KI.", en: "I turn ideas into solutions — with and without AI." },
+    { id: "Fu1",  feld: "fu", name: { de: "Arbeiten/Gestalten (mit und ohne KI)", en: "Working/creating (with & without AI)" }, ich: { de: "Ich setze Ideen um und gestalte Lösungen, mit und ohne KI.", en: "I turn ideas into solutions, with and without AI." },
       sub: [
         { id: "FS1", name: { de: "Aktivitäts- & Umsetzungskompetenz", en: "Activity & implementation competence" }, proxy: ["KI1"] },
         { id: "FS2", name: { de: "Systemdesignkompetenz", en: "System design competence" }, proxy: ["KI2"] },
@@ -72,7 +72,7 @@ window.STRUKTUR = {
 
   pruefungslogik: {
     A: { name: { de: "[A] KI-frei", en: "[A] AI-free" }, farbe: "#0a7d40", def: { de: "Kernfertigkeiten ohne KI zeigen", en: "Demonstrate core skills without AI" } },
-    B: { name: { de: "[B] teilweise KI-integriert", en: "[B] partially AI-integrated" }, farbe: "#b35c00", def: { de: "Einzelne Schritte mit KI, andere ohne — mit Disclosure und Prozesslog", en: "Some steps with AI, others without — with disclosure and process log" } },
+    B: { name: { de: "[B] teilweise KI-integriert", en: "[B] partially AI-integrated" }, farbe: "#b35c00", def: { de: "Einzelne Schritte mit KI, andere ohne, mit Disclosure und Prozesslog", en: "Some steps with AI, others without, with disclosure and process log" } },
     C: { name: { de: "[C] KI-integriert", en: "[C] AI-integrated" }, farbe: "#a50028", def: { de: "KI in jedem Arbeitsschritt; anspruchsvolles Newskilling", en: "AI in every step; demanding newskilling" } }
   },
 
@@ -284,11 +284,11 @@ window.STRUKTUR = {
   baukasten: {
     defs: {
       PI:  { name: { de: "Peer Instruction", en: "Peer instruction" }, kurz: { de: "Konzeptfrage → Nachdenken → Austausch → erneut abstimmen (KlickerUZH)", en: "Concept question → think → pair → re-vote (KlickerUZH)" } },
-      LC:  { name: { de: "Live-Check", en: "Live check" }, kurz: { de: "«Stimmt das, was die KI sagt?» — KI-Antwort live im Plenum prüfen", en: "'Is the AI right?' — checking an AI answer live in class" } },
+      LC:  { name: { de: "Live-Check", en: "Live check" }, kurz: { de: "«Stimmt das, was die KI sagt?» — KI-Antwort live im Plenum prüfen", en: "'Is the AI right?', checking an AI answer live in class" } },
       JT:  { name: { de: "JiTT-WarmUp", en: "JiTT warm-up" }, kurz: { de: "Kurzquiz vor der Vorlesung; Antworten steuern die Sitzung", en: "Short pre-lecture quiz; answers steer the session" } },
       AC:  { name: { de: "AI-Critique", en: "AI critique" }, kurz: { de: "KI-Output systematisch gegen Primärliteratur prüfen", en: "Systematically testing AI output against the primary literature" } },
       TB:  { name: { de: "Tutoring-Bot", en: "Tutoring bot" }, kurz: { de: "Sokratischer hint-only-Bot als 24/7-Übungspartner", en: "Socratic hint-only bot as a 24/7 practice partner" } },
-      RS:  { name: { de: "KI-Rollenspiel", en: "AI role-play" }, kurz: { de: "KI simuliert Klient:in/Gegenüber — risikofrei üben", en: "AI simulates a client/counterpart — risk-free practice" } },
+      RS:  { name: { de: "KI-Rollenspiel", en: "AI role-play" }, kurz: { de: "KI simuliert Klient:in/Gegenüber, risikofrei üben", en: "AI simulates a client/counterpart, risk-free practice" } },
       TSQ: { name: { de: "Two-Stage-Quiz", en: "Two-stage quiz" }, kurz: { de: "Erst einzeln, dann im Team lösen", en: "Solve individually first, then as a team" } },
       PD:  { name: { de: "Prompt-&-Disclosure-Übung", en: "Prompt & disclosure exercise" }, kurz: { de: "KI-Nutzung dokumentieren und deklarieren lernen", en: "Learning to document and declare AI use" } }
     },
@@ -310,7 +310,7 @@ window.STRUKTUR = {
   /* Vorstufe ⓪ — Selbstcheck Vorwissen (Gymnasium, v.a. SPF PPP); kleiner Startbonus (Endowed Progress) */
   vorstufe: [
     { text: { de: "Ich kann wissenschaftliche von alltagspsychologischen Erklärungen unterscheiden (z.B. anhand Falsifizierbarkeit).", en: "I can distinguish scientific from folk-psychological explanations (e.g. via falsifiability)." }, ids: ["Fa4"] },
-    { text: { de: "Ich kenne grundlegende Forschungsdesigns und Kennwerte (Mittelwert, Streuung) — z.B. aus dem PPP-Unterricht.", en: "I know basic research designs and statistics (mean, dispersion) — e.g. from PPP classes." }, ids: ["Fa2", "Fa3"] },
+    { text: { de: "Ich kenne grundlegende Forschungsdesigns und Kennwerte (Mittelwert, Streuung), z.B. aus dem PPP-Unterricht.", en: "I know basic research designs and statistics (mean, dispersion), e.g. from PPP classes." }, ids: ["Fa2", "Fa3"] },
     { text: { de: "Ich kenne einige klassische Studien und Theorien der Psychologie.", en: "I know some classic studies and theories of psychology." }, ids: ["Fa1"] },
     { text: { de: "Ich habe KI-Tools schon fürs Lernen genutzt und ihre Antworten mindestens einmal kritisch geprüft.", en: "I have used AI tools for learning and critically checked their answers at least once." }, ids: ["KI1", "KI6"] }
   ],
@@ -318,19 +318,19 @@ window.STRUKTUR = {
   /* Meilensteine (Richtfeste) */
   meilensteine: [
     { id: "grundstein",  haus: "bsc", slots: ["003"], name: { de: "Grundsteinlegung", en: "Laying the foundation stone" },
-      text: { de: "Dein Studium hat begonnen — das Interaktive Proseminar ist deine Eingangsstufe.", en: "Your studies have begun — the interactive proseminar is your entrance step." } },
+      text: { de: "Dein Studium hat begonnen, das Interaktive Proseminar ist deine Eingangsstufe.", en: "Your studies have begun, the interactive proseminar is your entrance step." } },
     { id: "richtfest1",  haus: "bsc", slots: ["001", "002", "003"], name: { de: "Richtfest: Fundament komplett!", en: "Topping-out: foundation complete!" },
       text: { de: "38 ECTS Propädeutikum tragen jetzt alles, was kommt. Stufe 1 geschafft: Orientieren und eigenes Können sichern.", en: "38 ECTS of propaedeutic modules now carry everything to come. Stage 1 complete." } },
     { id: "richtfest2",  haus: "bsc", slots: ["100", "101", "102", "200", "201", "400"], name: { de: "Richtfest: Erdgeschoss steht!", en: "Topping-out: ground floor up!" },
-      text: { de: "Methoden-Backbone und erste Fachräume sind gebaut — mitten in Stufe 2: Vertiefen, anwenden und prüfen.", en: "The methods backbone and first subject rooms are built — deep in stage 2." } },
+      text: { de: "Methoden-Backbone und erste Fachräume sind gebaut, mitten in Stufe 2: Vertiefen, anwenden und prüfen.", en: "The methods backbone and first subject rooms are built, deep in stage 2." } },
     { id: "richtfest3",  haus: "bsc", slots: ["103", "300", "301", "302", "401", "402", "403"], name: { de: "Richtfest: Obergeschoss steht!", en: "Topping-out: upper floor up!" },
-      text: { de: "Statistik 2, AO- und Klinik-Räume komplett — das Haus wartet auf sein Dach.", en: "Statistics 2, W&O and clinical rooms complete — the house awaits its roof." } },
+      text: { de: "Statistik 2, AO- und Klinik-Räume komplett, das Haus wartet auf sein Dach.", en: "Statistics 2, W&O and clinical rooms complete, the house awaits its roof." } },
     { id: "bsc_fertig",  haus: "bsc", slots: ["BA"], name: { de: "Schlüsselübergabe: Bachelor-Haus fertig!", en: "Key handover: Bachelor house complete!" },
-      text: { de: "Die Bachelorarbeit setzt das Dach — deine «Gesellenprüfung» mit AI Use Plan, Disclosure und Verifikation. Das MSc-Grundstück ist jetzt frei.", en: "The Bachelor's thesis tops the house — your journeyman's piece with AI use plan, disclosure and verification. The MSc plot is now open." } },
+      text: { de: "Die Bachelorarbeit setzt das Dach, deine «Gesellenprüfung» mit AI Use Plan, Disclosure und Verifikation. Das MSc-Grundstück ist jetzt frei.", en: "The Bachelor's thesis tops the house, your journeyman's piece with AI use plan, disclosure and verification. The MSc plot is now open." } },
     { id: "msc_sockel",  haus: "msc", slots: ["500", "501", "502"], name: { de: "Richtfest: Master-Sockel steht!", en: "Topping-out: Master base laid!" },
-      text: { de: "Der Einstiegs-Dreierblock ist der Schlüsselstein — ohne ihn bleibt der ganze Abschlussturm gesperrt.", en: "The entry block is the keystone — without it the completion tower stays locked." } },
+      text: { de: "Der Einstiegs-Dreierblock ist der Schlüsselstein, ohne ihn bleibt der ganze Abschlussturm gesperrt.", en: "The entry block is the keystone, without it the completion tower stays locked." } },
     { id: "msc_profil",  haus: "msc", slots: ["s04", "s05", "s06", "s07", "s08", "s09"], name: { de: "Richtfest: Profil komplett!", en: "Topping-out: profile complete!" },
-      text: { de: "Sechs Vertiefungen gesetzt — deine Fassade zeigt jetzt dein Profil aus DeNC, HEA und SEOP.", en: "Six specialisations placed — your façade now shows your DeNC/HEA/SEOP profile." } },
+      text: { de: "Sechs Vertiefungen gesetzt, deine Fassade zeigt jetzt dein Profil aus DeNC, HEA und SEOP.", en: "Six specialisations placed, your façade now shows your DeNC/HEA/SEOP profile." } },
     { id: "msc_fertig",  haus: "msc", slots: ["909"], name: { de: "Fahne gehisst: Master-Haus fertig!", en: "Flag raised: Master house complete!" },
       text: { de: "Masterprüfung bestanden — «Verteidigung mit/gegen KI» auf höchster Stufe. Dein Kompetenzhaus ist komplett. Zeit für den Kompetenzpass!", en: "Master's examination passed — 'defending with/against AI' at the highest level. Your competence house is complete. Time for the competence passport!" } }
   ],

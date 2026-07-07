@@ -209,10 +209,12 @@
     border-radius: 10px; padding: 8px 12px; font: 700 12.5px var(--font); margin-bottom: 8px; }
   .badge-quiz { font: 800 9.5px var(--font); color: var(--ok); border: 1.5px solid var(--ok); border-radius: 999px; padding: 2px 7px; }
 
-  /* Lernziel-Bereichspunkte */
+  /* Lernziel-Bereichspunkte & Kompetenz-Kürzel */
   .lz-dots { display: inline-flex; gap: 3px; margin-right: 6px; vertical-align: 1px; }
   .lz-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .25; }
   .lz-dots i.on { opacity: 1; }
+  .lz-kids { display: inline-flex; gap: 3px; margin-right: 6px; vertical-align: 1px; flex-wrap: wrap; }
+  .lz-kid { font: 800 9px var(--font); border: 1.2px solid; border-radius: 5px; padding: 1px 4px; white-space: nowrap; }
 
   /* Profil-Tabs & Karriere */
   .ptabs { display: flex; gap: 4px; margin: 0 10px 4px; }
@@ -407,6 +409,7 @@
     <input type="file" id="fileImport" accept=".json" style="display:none">
     <button class="ghostbtn" id="btnReset" data-i18n="reset">🗑 Zurücksetzen</button>
     <button class="ghostbtn" id="btnHelp" data-i18n="hilfe">❓ Hilfe & Spielregeln</button>
+    <button class="ghostbtn" id="btnTour" data-i18n="tour_menu">🎓 Tour noch einmal ansehen</button>
     <button class="ghostbtn only-mobile" id="btnCampusM">🏘️ Campus</button>
     <button class="ghostbtn only-mobile" id="btnShareM">🔗 Teilen</button>
     <button class="ghostbtn only-mobile" id="btnSoundM">🔊 Sound an/aus</button>

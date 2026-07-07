@@ -27,7 +27,7 @@ window.ICH_STUFEN = {
     { de: "Ich stelle erste Theorie-Evidenz-Bezüge her und hinterfrage Behauptungen anhand von Belegen.", en: "I draw first theory–evidence connections and question claims against evidence." },
     { de: "Ich beurteile Studien kritisch nach Design, Stichprobe, Messung und Interpretation.", en: "I appraise studies critically by design, sample, measurement and interpretation." },
     { de: "Ich ordne Befunde als Erklärung, Vorhersage oder Intervention ein und wäge Alternativerklärungen ab.", en: "I classify findings as explanation, prediction or intervention and weigh alternative explanations." },
-    { de: "Ich verteidige wissenschaftliche Urteile eigenständig — auch gegen plausibel klingende KI-Gegenargumente.", en: "I defend scientific judgements independently — including against plausible-sounding AI counter-arguments." }
+    { de: "Ich verteidige wissenschaftliche Urteile eigenständig, auch gegen plausibel klingende KI-Gegenargumente.", en: "I defend scientific judgements independently, including against plausible-sounding AI counter-arguments." }
   ],
   Fa5: [
     { de: "Ich kenne die Grundidee psychologischen Messens und erste Gütekriterien.", en: "I know the basic idea of psychological measurement and first quality criteria." },
@@ -38,7 +38,7 @@ window.ICH_STUFEN = {
   Fa6: [
     { de: "Ich suche und lese wissenschaftliche Texte und fasse sie korrekt zusammen.", en: "I find and read scientific texts and summarise them accurately." },
     { de: "Ich schreibe wissenschaftliche Arbeiten klar, korrekt und adressatengerecht.", en: "I write scientific reports clearly, correctly and audience-appropriately." },
-    { de: "Ich berichte Forschung transparent — inklusive Reporting-Standards und Open-Science-Elementen.", en: "I report research transparently, including reporting standards and open-science elements." },
+    { de: "Ich berichte Forschung transparent, inklusive Reporting-Standards und Open-Science-Elementen.", en: "I report research transparently, including reporting standards and open-science elements." },
     { de: "Ich präsentiere und verteidige eigene Forschung adressatengerecht vor Fachpublikum.", en: "I present and defend my own research to expert audiences." }
   ],
   Fa7: [
@@ -66,10 +66,10 @@ window.ICH_STUFEN = {
     { de: "Ich entwickle meine professionelle Identität weiter und leite begründete Konsequenzen für meine Spezialisierung ab.", en: "I develop my professional identity and derive reasoned consequences for my specialisation." }
   ],
   KI1: [
-    { de: "Ich nutze KI als aktiven Lernpartner — nicht als Antwortmaschine — und reflektiere den Effekt auf mein Verstehen.", en: "I use AI as an active learning partner — not an answer machine — and reflect on its effect on my understanding." },
+    { de: "Ich nutze KI als aktiven Lernpartner, nicht als Antwortmaschine, und reflektiere den Effekt auf mein Verstehen.", en: "I use AI as an active learning partner, not an answer machine, and reflect on its effect on my understanding." },
     { de: "Ich binde KI produktiv in wissenschaftliche Arbeitsprozesse ein und prüfe die Ergebnisse danach fachlich.", en: "I integrate AI productively into scientific workflows and verify the results afterwards." },
     { de: "Ich setze KI in der Evidenzarbeit ein (z. B. RAG-Literaturübersicht) und prüfe Quellen auf Existenz und korrekte Interpretation.", en: "I use AI for evidence work (e.g. RAG literature reviews) and verify sources for existence and correct interpretation." },
-    { de: "Ich steuere komplette KI-gestützte Forschungspipelines — vom Literaturmonitoring bis zum Schreibfeedback.", en: "I steer complete AI-supported research pipelines — from literature monitoring to writing feedback." }
+    { de: "Ich steuere komplette KI-gestützte Forschungspipelines, vom Literaturmonitoring bis zum Schreibfeedback.", en: "I steer complete AI-supported research pipelines, from literature monitoring to writing feedback." }
   ],
   KI2: [
     { de: "Ich gestalte erste KI-Lernartefakte wie Prompt-Vorlagen für Selbstquiz oder Quellenprüfung.", en: "I create first AI learning artefacts such as prompt templates for self-quizzing or source checks." },
@@ -81,31 +81,31 @@ window.ICH_STUFEN = {
     { de: "Ich kläre in Kleingruppen Mensch-KI-Rollen: Wer promptet, wer prüft, wer verantwortet?", en: "I clarify human–AI roles in small groups: who prompts, who verifies, who is accountable?" },
     { de: "Ich strukturiere Mensch-KI-Teamarbeit und halte Rollen, KI-Schritte und Prüfpflichten im Prozesslog fest.", en: "I structure human–AI teamwork and record roles, AI steps and verification duties in a process log." },
     { de: "Ich lege Peer-Review, Prüfpflichten und menschliche Letztverantwortung im Audit-Log fest.", en: "I define peer review, verification duties and final human responsibility in an audit log." },
-    { de: "Ich verantworte die Mensch-KI-Arbeitsteilung in Forschungsgruppe, Praktikum oder Kolloquium — inklusive Abbruchkriterien.", en: "I own the human–AI division of labour in research groups, internships or colloquia — including stop criteria." }
+    { de: "Ich verantworte die Mensch-KI-Arbeitsteilung in Forschungsgruppe, Praktikum oder Kolloquium, inklusive Abbruchkriterien.", en: "I own the human–AI division of labour in research groups, internships or colloquia, including stop criteria." }
   ],
   KI4: [
     { de: "Ich erkläre, warum eine KI-Antwort plausibel klingen kann, ohne zuverlässig richtig zu sein.", en: "I explain why an AI answer can sound plausible without being reliably correct." },
     { de: "Ich verstehe Overfitting, Trainings-/Testlogik und Modellgrenzen und erkläre KI-Vorschläge fachlich.", en: "I understand overfitting, training/test logic and model limits and explain AI suggestions in disciplinary terms." },
     { de: "Ich prüfe KI-Vorschläge zu Modellwahl oder Diagnosepfaden auf Annahmen, Passung und Interpretationsrisiken.", en: "I examine AI suggestions for models or diagnostic paths for assumptions, fit and interpretation risks." },
-    { de: "Ich beurteile fortgeschrittene KI-Artefakte — von synthetischen Daten bis zu algorithmischer Diagnostik — nach Funktionsweise und Grenzen.", en: "I evaluate advanced AI artefacts — from synthetic data to algorithmic assessment — by mechanism and limits." }
+    { de: "Ich beurteile fortgeschrittene KI-Artefakte, von synthetischen Daten bis zu algorithmischer Diagnostik, nach Funktionsweise und Grenzen.", en: "I evaluate advanced AI artefacts, from synthetic data to algorithmic assessment, by mechanism and limits." }
   ],
   KI5: [
     { de: "Ich fülle das Disclosure-Formular korrekt aus und entscheide Fallbeispiele zu erlaubter KI-Nutzung.", en: "I complete the disclosure form correctly and decide cases of permitted AI use." },
     { de: "Ich deklariere KI-Schritte transparent und gebe keine sensiblen Daten in nicht freigegebene Tools ein.", en: "I declare AI steps transparently and never enter sensitive data into non-approved tools." },
     { de: "Ich lege für Diagnostik, Praktikum und Gesundheit fest, welche Daten nicht in KI-Systeme gehören.", en: "I define for assessment, internship and health contexts which data must not enter AI systems." },
-    { de: "Ich nutze KI in klinischen, diagnostischen und HR-Kontexten nie als Entscheidungsersatz — die Verantwortung bleibt bei mir.", en: "I never use AI as a decision substitute in clinical, diagnostic or HR contexts — responsibility stays with me." }
+    { de: "Ich nutze KI in klinischen, diagnostischen und HR-Kontexten nie als Entscheidungsersatz, die Verantwortung bleibt bei mir.", en: "I never use AI as a decision substitute in clinical, diagnostic or HR contexts, responsibility stays with me." }
   ],
   KI6: [
-    { de: "Ich prüfe KI-Antworten gegen Lehrbuch, Kursmaterial und PsycINFO — Faktencheck als Basiskompetenz.", en: "I check AI answers against textbook, course materials and PsycINFO — fact-checking as a core skill." },
+    { de: "Ich prüfe KI-Antworten gegen Lehrbuch, Kursmaterial und PsycINFO — Faktencheck als Basiskompetenz.", en: "I check AI answers against textbook, course materials and PsycINFO, fact-checking as a core skill." },
     { de: "Ich teste KI-generierten R-Code, Outputs, Quellen und Schlussfolgerungen systematisch und korrigiere Fehler.", en: "I systematically test AI-generated R code, outputs, sources and conclusions and correct errors." },
     { de: "Ich auditiere algorithmische Vorschläge auf Bias, Fairness, Gütekriterien und Alternativerklärungen.", en: "I audit algorithmic suggestions for bias, fairness, quality criteria and alternative explanations." },
     { de: "Ich verifiziere KI-Outputs nachweisbar gegen Primärliteratur, Originaldaten und eigene Re-Analysen.", en: "I verify AI outputs verifiably against primary literature, original data and my own re-analyses." }
   ],
   Fu1: [
-    { de: "Ich setze erste eigene Lösungen um — mit und ohne KI — und verbessere sie iterativ.", en: "I implement first solutions of my own — with and without AI — and improve them iteratively." },
+    { de: "Ich setze erste eigene Lösungen um, mit und ohne KI, und verbessere sie iterativ.", en: "I implement first solutions of my own, with and without AI, and improve them iteratively." },
     { de: "Ich gestalte Arbeits- und Lernworkflows selbst und entscheide begründet, wo KI hilft und wo nicht.", en: "I design my own work and learning workflows and decide with reasons where AI helps and where not." },
     { de: "Ich entwickle Systeme und Artefakte für Forschung und Praxis und treffe fundierte Design-Entscheidungen.", en: "I develop systems and artefacts for research and practice and make well-founded design decisions." },
-    { de: "Ich gestalte neue Forschungs- und Arbeitsprozesse eigenverantwortlich — von der Idee bis zum validierten Artefakt.", en: "I shape new research and work processes on my own responsibility — from idea to validated artefact." }
+    { de: "Ich gestalte neue Forschungs- und Arbeitsprozesse eigenverantwortlich, von der Idee bis zum validierten Artefakt.", en: "I shape new research and work processes on my own responsibility, from idea to validated artefact." }
   ],
   Fu2: [
     { de: "Ich steuere mein Lernen selbst und reflektiere, ob KI mein Verstehen unterstützt oder ersetzt.", en: "I direct my own learning and reflect on whether AI supports or replaces my understanding." },
@@ -114,7 +114,7 @@ window.ICH_STUFEN = {
     { de: "Ich handle in komplexen, unsicheren Situationen selbstwirksam und trage die fachliche Letztverantwortung.", en: "I act self-efficaciously in complex, uncertain situations and carry final professional responsibility." }
   ],
   Fu3: [
-    { de: "Ich übe Transparenz und faire Zusammenarbeit in Peer-Gruppen ein — auch im Umgang mit KI.", en: "I practise transparency and fair collaboration in peer groups — including around AI." },
+    { de: "Ich übe Transparenz und faire Zusammenarbeit in Peer-Gruppen ein, auch im Umgang mit KI.", en: "I practise transparency and fair collaboration in peer groups, including around AI." },
     { de: "Ich kommuniziere KI-Nutzung offen und gestalte Teamregeln für Datenschutz und Ethik mit.", en: "I communicate AI use openly and co-create team rules for data protection and ethics." },
     { de: "Ich kläre Mensch-KI-Rollen in Projekten und sichere ethische Standards in der Zusammenarbeit.", en: "I clarify human–AI roles in projects and safeguard ethical standards in collaboration." },
     { de: "Ich präge Kommunikations-, Ethik- und Kooperationsregeln in Forschung und Praxis aktiv mit.", en: "I actively shape communication, ethics and cooperation rules in research and practice." }

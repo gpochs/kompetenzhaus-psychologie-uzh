@@ -84,8 +84,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich kläre in Kleingruppen Mensch-KI-Rollen — wer promptet, wer prüft, wer verantwortet die finale Antwort — und plane meine Arbeitsaufträge selbstgesteuert mit oder bewusst ohne KI.",
-   "en": "I clarify human–AI roles in small groups — who prompts, who verifies, who is accountable for the final answer — and plan my assignments self-directedly with or deliberately without AI.",
+   "de": "Ich kläre in Kleingruppen Mensch-KI-Rollen, wer promptet, wer prüft, wer verantwortet die finale Antwort, und plane meine Arbeitsaufträge selbstgesteuert mit oder bewusst ohne KI.",
+   "en": "I clarify human–AI roles in small groups, who prompts, who verifies, who is accountable for the final answer, and plan my assignments self-directedly with or deliberately without AI.",
    "b": [
     "K",
     "S"
@@ -207,8 +207,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich erkläre Overfitting, Trainings-/Testlogik und Modellgüte formal — und damit die statistische Logik hinter Machine Learning und generativer KI.",
-   "en": "I formally explain overfitting, training/test logic, and model fit — and thereby the statistical logic behind machine learning and generative AI.",
+   "de": "Ich erkläre Overfitting, Trainings-/Testlogik und Modellgüte formal, und damit die statistische Logik hinter Machine Learning und generativer KI.",
+   "en": "I formally explain overfitting, training/test logic, and model fit, and thereby the statistical logic behind machine learning and generative AI.",
    "b": [
     "F",
     "K"
@@ -541,8 +541,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich analysiere im AI-Reflection-Abschnitt des Praktikumsberichts, welche Aufgaben meines Praktikumsfelds KI übernehmen kann, darf und soll — und welche nicht.",
-   "en": "In the AI-reflection section of the internship report, students analyse which tasks in my internship field AI can, may, and should take on — and which not.",
+   "de": "Ich analysiere im AI-Reflection-Abschnitt des Praktikumsberichts, welche Aufgaben meines Praktikumsfelds KI übernehmen kann, darf und soll, und welche nicht.",
+   "en": "In the AI-reflection section of the internship report, students analyse which tasks in my internship field AI can, may, and should take on, and which not.",
    "b": [
     "F",
     "K",
@@ -591,8 +591,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich diskutiere kritisch-konstruktiv in Echtzeit — ohne KI-Unterstützung.",
-   "en": "I discuss critically and constructively in real time — without AI support.",
+   "de": "Ich diskutiere kritisch-konstruktiv in Echtzeit, ohne KI-Unterstützung.",
+   "en": "I discuss critically and constructively in real time, without AI support.",
    "b": [
     "F",
     "S"
@@ -864,8 +864,8 @@ window.ICH_LERNZIELE = {
  ],
  "06SM200-501": [
   {
-   "de": "Ich beurteile diagnostische Verfahren — klassische wie algorithmische — nach Haupt- und Nebengütekriterien und begründe mein Urteil.",
-   "en": "I appraise diagnostic instruments — classical and algorithmic — against primary and secondary quality criteria.",
+   "de": "Ich beurteile diagnostische Verfahren, klassische wie algorithmische, nach Haupt- und Nebengütekriterien und begründe mein Urteil.",
+   "en": "I appraise diagnostic instruments, classical and algorithmic, against primary and secondary quality criteria.",
    "b": [
     "F",
     "K"
@@ -908,7 +908,7 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich bewerte Chatbot- und App-basierte Gesundheitsinterventionen nach Evidenzlage, Theoriebasis und Risiken — einschliesslich Krisensituationen.",
+   "de": "Ich bewerte Chatbot- und App-basierte Gesundheitsinterventionen nach Evidenzlage, Theoriebasis und Risiken, einschliesslich Krisensituationen.",
    "en": "I appraise chatbot- and app-based health interventions by evidence base, theoretical grounding and risks.",
    "b": [
     "F",
@@ -1208,8 +1208,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich steuere eine KI-gestützte Forschungspipeline — Literaturmonitoring, Datenmanagement, Skript-Review, Schreibfeedback — und dokumentiere jeden KI-Schritt im Prozesslog.",
-   "en": "I steer an AI-supported research pipeline — literature monitoring, data management, script review, writing feedback — with full disclosure.",
+   "de": "Ich steuere eine KI-gestützte Forschungspipeline — Literaturmonitoring, Datenmanagement, Skript-Review, Schreibfeedback, und dokumentiere jeden KI-Schritt im Prozesslog.",
+   "en": "I steer an AI-supported research pipeline, literature monitoring, data management, script review, writing feedback, with full disclosure.",
    "b": [
     "F",
     "K"
@@ -1315,8 +1315,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich formuliere kritisch-konstruktive Diskussionsbeiträge zu fremden Projektplanungen — inklusive deren KI-Workflow-Entscheiden.",
-   "en": "I formulate critical-constructive contributions on peers' project plans — including my AI decisions.",
+   "de": "Ich formuliere kritisch-konstruktive Diskussionsbeiträge zu fremden Projektplanungen, inklusive deren KI-Workflow-Entscheiden.",
+   "en": "I formulate critical-constructive contributions on peers' project plans, including my AI decisions.",
    "b": [
     "F",
     "K",
@@ -1360,7 +1360,7 @@ window.ICH_LERNZIELE = {
   },
   {
    "de": "Ich diskutiere Projektplanungen und Forschungsergebnisse eigener wie fremder Arbeiten kritisch-konstruktiv.",
-   "en": "I discuss project plans and research results — my own and others' — critically and constructively.",
+   "en": "I discuss project plans and research results, my own and others', critically and constructively.",
    "b": [
     "F",
     "S"
@@ -1383,8 +1383,8 @@ window.ICH_LERNZIELE = {
    ]
   },
   {
-   "de": "Ich ordne ein, wo KI in meinem Forschungsfeld trägt und wo sie täuscht — von Halluzinationen bis zu Persuasionsrisiken.",
-   "en": "I situate where AI carries in my research field and where it deceives — from hallucinations to persuasion risks.",
+   "de": "Ich ordne ein, wo KI in meinem Forschungsfeld trägt und wo sie täuscht, von Halluzinationen bis zu Persuasionsrisiken.",
+   "en": "I situate where AI carries in my research field and where it deceives, from hallucinations to persuasion risks.",
    "b": [
     "F",
     "K"

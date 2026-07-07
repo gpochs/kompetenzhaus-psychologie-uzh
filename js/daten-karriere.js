@@ -29,7 +29,7 @@ window.KARRIERE = {
       w: { Fa5: 3, Fa7: 3, Fa6: 2, Fa4: 2, Fa1: 1, KI6: 2, KI5: 2, Fu2: 1 } },
     { id: "ppp", icon: "🎓",
       name: { de: "PPP-Lehrperson (Gymnasium)", en: "PPP teacher (high school)" },
-      hint: { de: "Unterricht im Schwerpunktfach Philosophie/Pädagogik/Psychologie — der Kreis zur Vorstufe ⓪ schliesst sich", en: "Teaching the PPP major — closing the loop to stage ⓪" },
+      hint: { de: "Unterricht im Schwerpunktfach Philosophie/Pädagogik/Psychologie, der Kreis zur Vorstufe ⓪ schliesst sich", en: "Teaching the PPP major, closing the loop to stage ⓪" },
       w: { Fa1: 3, Fa6: 3, Fa4: 2, Fa9: 2, Fa10: 1, KI1: 1, KI4: 1, KI5: 1, Fu3: 2, Fu1: 1 } }
   ],
   cv: {
@@ -83,8 +83,8 @@ window.KARRIERE = {
    "en": "Applies multilevel and structural equation models in R, validates model assumptions and documents analyses reproducibly."
   },
   "4": {
-   "de": "Verantwortet die komplette Datenpipeline eines Forschungsprojekts — von Datenmanagement über Analyse bis zum reproduzierbaren R-Code — und leitet andere im Skript-Review an.",
-   "en": "Owns a research project's full data pipeline — from data management through analysis to reproducible R code — and guides others through script reviews."
+   "de": "Verantwortet die komplette Datenpipeline eines Forschungsprojekts, von Datenmanagement über Analyse bis zum reproduzierbaren R-Code, und leitet andere im Skript-Review an.",
+   "en": "Owns a research project's full data pipeline, from data management through analysis to reproducible R code, and guides others through script reviews."
   }
  },
  "Fa4": {
@@ -155,8 +155,8 @@ window.KARRIERE = {
    "en": "Assesses the ethical implications of research and practice (e.g. handling sensitive assessment and health data) and acts according to professional-ethics guidelines."
   },
   "4": {
-   "de": "Trägt die ethische Verantwortung für eigene Forschung — von Ethikantrag über Datenlebenszyklus bis zur transparenten Berichterstattung — und vertritt Integritätsstandards im Team.",
-   "en": "Takes ethical ownership of own research — from ethics application through the data lifecycle to transparent reporting — and champions integrity standards within teams."
+   "de": "Trägt die ethische Verantwortung für eigene Forschung, von Ethikantrag über Datenlebenszyklus bis zur transparenten Berichterstattung, und vertritt Integritätsstandards im Team.",
+   "en": "Takes ethical ownership of own research, from ethics application through the data lifecycle to transparent reporting, and champions integrity standards within teams."
   }
  },
  "Fa8": {
@@ -219,16 +219,16 @@ window.KARRIERE = {
    "en": "Uses AI tools purposefully as study aids (e.g. Socratic tutoring prompts, explanation dialogues) and knows their limits in day-to-day study."
   },
   "2": {
-   "de": "Setzt KI selbständig für fachliche Arbeitsschritte ein — Literatur-Mapping, APA-Checks, Textfeedback — und prüft die Resultate gegen Fachquellen.",
-   "en": "Independently deploys AI for subject-specific work steps — literature mapping, APA checks, feedback on drafts — and verifies outputs against scholarly sources."
+   "de": "Setzt KI selbständig für fachliche Arbeitsschritte ein — Literatur-Mapping, APA-Checks, Textfeedback, und prüft die Resultate gegen Fachquellen.",
+   "en": "Independently deploys AI for subject-specific work steps, literature mapping, APA checks, feedback on drafts, and verifies outputs against scholarly sources."
   },
   "3": {
    "de": "Integriert KI professionell in Forschungs- und Praxisworkflows, z.B. RAG-gestützte Literaturübersichten und KI-unterstützte Analysevorbereitung.",
    "en": "Professionally integrates AI into research and practice workflows, e.g. RAG-based literature reviews and AI-assisted analysis preparation."
   },
   "4": {
-   "de": "Betreibt eine KI-gestützte Forschungspipeline eigenverantwortlich — Literaturmonitoring, Präregistrierung, Datenmanagement, Skript-Review — und leitet andere in deren Nutzung an.",
-   "en": "Runs an AI-supported research pipeline autonomously — literature monitoring, preregistration, data management, script review — and coaches others in its use."
+   "de": "Betreibt eine KI-gestützte Forschungspipeline eigenverantwortlich — Literaturmonitoring, Präregistrierung, Datenmanagement, Skript-Review, und leitet andere in deren Nutzung an.",
+   "en": "Runs an AI-supported research pipeline autonomously, literature monitoring, preregistration, data management, script review, and coaches others in its use."
   }
  },
  "KI2": {
@@ -282,7 +282,7 @@ window.KARRIERE = {
   },
   "4": {
    "de": "Beurteilt neue KI-Verfahren eigenständig auf ihre Eignung für Forschungsfragen und erklärt deren Funktionsweise und Grenzen im Fachdiskurs und in der Anleitung anderer.",
-   "en": "Independently assesses new AI methods for research suitability and explains how they work — and where they fail — in expert discussion and when guiding others."
+   "en": "Independently assesses new AI methods for research suitability and explains how they work, and where they fail, in expert discussion and when guiding others."
   }
  },
  "KI5": {
@@ -327,8 +327,8 @@ window.KARRIERE = {
    "en": "Reliably completes well-defined tasks and explores digital and AI tools in a structured way."
   },
   "2": {
-   "de": "Entwickelt selbständig Lösungen für offene Aufgabenstellungen (z.B. Studienmaterialien, Auswertungsworkflows) und entscheidet begründet, wo KI hilft — und wo nicht.",
-   "en": "Independently develops solutions for open-ended tasks (e.g. study materials, analysis workflows) and makes reasoned calls on where AI helps — and where it doesn't."
+   "de": "Entwickelt selbständig Lösungen für offene Aufgabenstellungen (z.B. Studienmaterialien, Auswertungsworkflows) und entscheidet begründet, wo KI hilft, und wo nicht.",
+   "en": "Independently develops solutions for open-ended tasks (e.g. study materials, analysis workflows) and makes reasoned calls on where AI helps, and where it doesn't."
   },
   "3": {
    "de": "Gestaltet komplexe Arbeitsprozesse in Projekten aktiv mit (Systemdesign, Workflow-Aufbau) und trifft nachvollziehbar begründete Entscheidungen unter Zeitdruck.",
@@ -336,7 +336,7 @@ window.KARRIERE = {
   },
   "4": {
    "de": "Konzipiert und verantwortet komplette Arbeits- und Forschungsprozesse von der Idee bis zum Resultat und bleibt dabei auch ohne KI voll handlungsfähig.",
-   "en": "Designs and owns complete work and research processes from idea to result — and remains fully capable of delivering without AI."
+   "en": "Designs and owns complete work and research processes from idea to result, and remains fully capable of delivering without AI."
   }
  },
  "Fu2": {
@@ -359,7 +359,7 @@ window.KARRIERE = {
  },
  "Fu3": {
   "1": {
-   "de": "Arbeitet konstruktiv in Lerngruppen mit, kommuniziert verlässlich und hält vereinbarte Regeln — auch zur KI-Nutzung — ein.",
+   "de": "Arbeitet konstruktiv in Lerngruppen mit, kommuniziert verlässlich und hält vereinbarte Regeln, auch zur KI-Nutzung, ein.",
    "en": "Contributes constructively to study groups, communicates reliably and keeps agreed rules, including on AI use."
   },
   "2": {
