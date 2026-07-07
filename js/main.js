@@ -1233,17 +1233,17 @@ function profilWerte() {
 let profilView = null; // null = Übersicht, sonst Kompetenz-ID
 let profilTab = "profil"; // profil | karriere
 
-/* Radar mit 6 Achsen (Aggregate) */
+/* Radar mit 6 Achsen (Aggregate) — Begriffe entlang des Entwurfs vom 02.07.2026; «|» = Zeilenumbruch */
 const RADAR_ACHSEN = [
-  { ids: ["Fa1", "Fa8", "Fa9"], name: { de: "Fachwissen & Praxis", en: "Knowledge & practice" }, farbe: "#1a3e8f" },
-  { ids: ["Fa2", "Fa3", "Fa5"], name: { de: "Methoden & Daten", en: "Methods & data" }, farbe: "#1a3e8f" },
-  { ids: ["Fa4", "Fa6", "Fa7", "Fa10"], name: { de: "Denken & Kommunikation", en: "Thinking & communication" }, farbe: "#1a3e8f" },
-  { ids: ["KI1", "KI2", "KI3"], name: { de: "KI anwenden & gestalten", en: "Applying & creating AI" }, farbe: "#0e8f7e" },
-  { ids: ["KI4", "KI5", "KI6"], name: { de: "KI verstehen & prüfen", en: "Understanding & auditing AI" }, farbe: "#0e8f7e" },
-  { ids: ["Fu1", "Fu2", "Fu3"], name: { de: "Future Skills", en: "Future skills" }, farbe: "#4a90d9" }
+  { ids: ["Fa1", "Fa8", "Fa9"], name: { de: "Fachwissen &|Transfer", en: "Knowledge &|transfer" }, farbe: "#1a3e8f" },
+  { ids: ["Fa2", "Fa3", "Fa5"], name: { de: "Methoden, Daten|& Diagnostik", en: "Methods, data|& diagnostics" }, farbe: "#1a3e8f" },
+  { ids: ["Fa4", "Fa6", "Fa7", "Fa10"], name: { de: "Denken, Ethik &|Kommunikation", en: "Thinking, ethics|& communication" }, farbe: "#1a3e8f" },
+  { ids: ["KI1", "KI2", "KI3"], name: { de: "Mit KI arbeiten|& gestalten", en: "Working & creating|with AI" }, farbe: "#0e8f7e" },
+  { ids: ["KI4", "KI5", "KI6"], name: { de: "KI verstehen, prüfen|& verantworten", en: "Understanding, auditing|& owning AI" }, farbe: "#0e8f7e" },
+  { ids: ["Fu1", "Fu2", "Fu3"], name: { de: "Future Skills|(mit & ohne KI)", en: "Future skills|(with & without AI)" }, farbe: "#4a90d9" }
 ];
 function radarSVG(score, max, size = 210) {
-  const c = size / 2, r0 = size * 0.36, n = RADAR_ACHSEN.length;
+  const c = size / 2, r0 = size * 0.315, n = RADAR_ACHSEN.length;
   const pt = (i, r) => { const a = -Math.PI / 2 + (i / n) * Math.PI * 2; return [c + Math.cos(a) * r, c + Math.sin(a) * r]; };
   let grid = "";
   for (const f of [0.33, 0.66, 1]) {
@@ -1253,8 +1253,11 @@ function radarSVG(score, max, size = 210) {
   RADAR_ACHSEN.forEach((ax, i) => {
     const [x, y] = pt(i, r0);
     axes += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="#dbe1ef" stroke-width="1"/>`;
-    const [lx, ly] = pt(i, r0 + 16);
-    labels += `<text x="${lx}" y="${ly}" font-size="7.5" font-weight="700" fill="${ax.farbe}" text-anchor="middle" dominant-baseline="middle">${L(ax.name).replace("&", "&amp;")}</text>`;
+    const [lx, ly] = pt(i, r0 + 13);
+    const lines = L(ax.name).split("|"); // zweizeilige Labels: nichts wird mehr abgeschnitten
+    const y0 = ly - (lines.length - 1) * 4.5 + (i === 0 ? -3 : ly > c ? 5 : 0);
+    labels += `<text x="${lx}" y="${y0}" font-size="7.5" font-weight="700" fill="${ax.farbe}" text-anchor="middle" dominant-baseline="middle">` +
+      lines.map((ln, li) => `<tspan x="${lx}" dy="${li ? 9 : 0}">${ln.replace(/&/g, "&amp;")}</tspan>`).join("") + `</text>`;
   });
   const vals = RADAR_ACHSEN.map((ax) => {
     const s = ax.ids.reduce((a, id) => a + (score[id] || 0), 0), m = ax.ids.reduce((a, id) => a + (max[id] || 0), 0);
@@ -1323,9 +1326,74 @@ function renderKarriere() {
       ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => `<button data-slot="${c.s.slot}">${slotTitel(c.s).split(",")[0].slice(0, 34)}</button>`).join("")}</div>` : ""}
     </div>`;
   }
+  html += `<button class="ghostbtn" data-steckbrief style="margin:8px 4px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
   html += verlaufHTML();
   el.innerHTML = html;
   el.querySelectorAll(".pnext button").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
+  const sb = el.querySelector("[data-steckbrief]");
+  if (sb) sb.onclick = karriereSteckbrief;
+}
+
+/* ---------- Karrieresteckbrief als druckbares PDF ---------- */
+function karriereSteckbrief() {
+  const { score, max } = profilWerte();
+  const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
+  const dat = new Date().toLocaleDateString(S.lang === "de" ? "de-CH" : "en-GB");
+  const pfade = (window.KARRIERE.pfade || []).map((p) => {
+    const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
+    const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
+    const traeger = Object.entries(p.w).map(([id, w]) => ({ id, v: w * (pct[id] || 0) }))
+      .sort((a, b) => b.v - a.v).slice(0, 3).filter((x) => x.v > 0);
+    const cand = ST.slots.filter((s) => !isPlaced(s.slot)).map((s) => {
+      const { komp, haupt } = slotKomp(s);
+      const ids = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+      const v = ids.reduce((a, id) => a + (p.w[id] || 0) * ((haupt || []).includes(id) ? 2 : 1), 0);
+      return { s, v };
+    }).filter((x) => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 3);
+    return { p, ready, traeger, cand };
+  }).sort((a, b) => b.ready - a.ready);
+  let rows = "";
+  for (const { p, ready, traeger, cand } of pfade) {
+    rows += `<div style="border:1.5px solid #dbe1ef;border-radius:12px;padding:10px 14px;margin:8px 0;page-break-inside:avoid">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-size:17px">${p.icon}</span>
+        <b style="font-size:13px;flex:1">${L(p.name)}</b>
+        <b style="color:#0028a5;font-variant-numeric:tabular-nums">${ready}%</b></div>
+      <div style="height:8px;border-radius:4px;background:#e8ebf4;overflow:hidden;margin:5px 0"><span style="display:block;height:100%;width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></span></div>
+      <p style="font-size:10.5px;color:#5b6478;margin:2px 0 5px">${L(p.hint)}</p>
+      ${traeger.length ? `<p style="font-size:10.5px;margin:2px 0"><b>${t("steck_traeger")}</b> ${traeger.map((x) => { const k = KOMP[x.id]; return `${x.id} ${L(k.name)} (${Math.round((pct[x.id] || 0) * 100)}%)`; }).join(" · ")}</p>` : ""}
+      ${cand.length ? `<p style="font-size:10.5px;margin:2px 0"><b>${t("steck_next")}</b> ${cand.map((c) => slotTitel(c.s).split(",")[0]).join(" · ")}</p>` : ""}
+    </div>`;
+  }
+  let cvs = "";
+  for (const feld of ["fa", "ki", "fu"]) {
+    for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
+      const st = kompStufe(k.id);
+      const txt = cvText(k.id, st);
+      if (!txt) continue;
+      cvs += `<p style="font-size:11px;margin:5px 0;page-break-inside:avoid">«${txt}» <span style="color:#8b94ab;font-size:9.5px;white-space:nowrap">— ${k.id} ${L(k.name)}, ${t("stufe")} ${st}</span></p>`;
+    }
+  }
+  const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>${t("steck_titel")}</title>
+  <style>*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;color:#1c2333;max-width:780px;margin:24px auto;padding:0 16px}
+  h1{color:#0028a5;font-size:23px} h2{color:#0028a5;font-size:15px;margin:18px 0 4px}
+  .hint{font-size:10px;color:#5b6478;margin-top:16px;line-height:1.5}
+  @media print {.noprint{display:none}}</style></head><body>
+  <div class="noprint" style="float:right;text-align:right">
+    <button onclick="print()" style="padding:10px 20px;border:0;background:#0028a5;color:#fff;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px">💾 ${S.lang === "de" ? "Als PDF speichern" : "Save as PDF"}</button>
+    <div style="font-size:10px;color:#5b6478;margin-top:4px">${S.lang === "de" ? "Im Druckdialog «Als PDF sichern» wählen" : "Choose 'Save as PDF' in the print dialog"}</div>
+  </div>
+  <h1>💼 ${t("steck_titel")} — ${S.name || "—"}</h1>
+  <p style="font-size:12px;color:#5b6478">${t("passdatum")}: ${dat} · BSc ${ectsSum("bsc")}/120 · MSc ${ectsSum("msc")}/120 ${t("ects")} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")}</p>
+  <p style="font-size:11px;color:#5b6478;line-height:1.5">${t("karriere_info")}</p>
+  ${rows}
+  ${cvs ? `<h2>📝 ${t("steck_cv")}</h2>${cvs}` : ""}
+  <p class="hint">${L(ST.meta.hinweis)} ${t("steck_fussnote")}</p>
+  </body></html>`;
+  const w = window.open("about:blank");
+  if (w && w.document) { w.document.write(html); w.document.close(); }
+  else download("karrieresteckbrief.html", html, "text/html");
+  SND.pick();
 }
 
 function renderProfil(changed = []) {
@@ -2019,6 +2087,39 @@ document.getElementById("btnPass").onclick = () => {
     }
   }
   bars += `<p style="font-size:9.5px;color:#8b94ab;margin-top:4px">FS1–FS12: AIComp-Future-Skills-Felder (Ehlers et al., 2024) — Detailebene zu Fu1–Fu3.</p>`;
+  /* ---- Seite 2: «Ich kann …» — Kompetenznachweis im Detail (nach Kompetenzen gruppiert) ---- */
+  const ICHS = window.ICH_STUFEN || {}, ICHL = window.ICH_LERNZIELE || {};
+  let ich = `<div style="page-break-before:always"></div>
+  <h2 style="color:#0028a5;margin:8px 0 2px">🧭 ${t("ich_titel")}</h2>
+  <p style="font-size:11px;color:#5b6478;line-height:1.5;margin-bottom:6px">${t("ich_intro")}</p>`;
+  for (const feld of ["fa", "ki", "fu"]) {
+    const f = ST.felder[feld];
+    const tag = feld === "fa" ? "F" : feld === "ki" ? "K" : "S";
+    ich += `<h3 style="color:${f.farbe};border-bottom:2.5px solid ${f.farbe};padding-bottom:3px;margin:16px 0 6px">${L(f.name)}</h3>`;
+    let any = false;
+    for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
+      const st = kompStufe(k.id);
+      if (!st) continue;
+      any = true;
+      const anker = (ICHS[k.id] || [])[st - 1];
+      ich += `<div style="margin:8px 0 2px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+        <b style="font-size:12px">${k.id} · ${L(k.name)}</b>
+        <span style="font-size:9px;font-weight:700;color:#fff;background:${f.farbe};border-radius:999px;padding:2px 8px;white-space:nowrap">${t("stufe")} ${st} · ${L(ST.stufen[st - 1].name)}</span></div>`;
+      if (anker) ich += `<p style="font-size:11.5px;font-style:italic;color:#2c3550;margin:0 0 2px 2px">«${L(anker)}»</p>`;
+    }
+    if (!any) { ich += `<p style="font-size:10.5px;color:#8b94ab">${t("ich_keine")}</p>`; continue; }
+    let rowsIch = "";
+    for (const slot of ST.slots) {
+      if (!isPlaced(slot.slot)) continue;
+      const code = (S.placed[S.mode][slot.slot] || {}).opt || slot.code;
+      (ICHL[code] || []).forEach((z) => {
+        if ((z.b || [])[0] === tag) rowsIch += `<li style="margin:2px 0">${L(z)} <span style="color:#8b94ab;font-size:9px;white-space:nowrap">· ${slotTitel(slot).split(",")[0]}</span></li>`;
+      });
+    }
+    if (rowsIch) ich += `<p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#5b6478;margin:9px 0 2px">✓ ${t("ich_konkret")}</p>
+      <ul style="font-size:10.5px;line-height:1.5;padding-left:16px;margin:0 0 8px">${rowsIch}</ul>`;
+  }
+  ich += `<p style="font-size:9.5px;color:#8b94ab;margin-top:6px">${t("ich_fussnote")}</p>`;
   const foto = hausFoto();
   const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>Kompetenzpass</title>
   <style>*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
@@ -2035,6 +2136,7 @@ document.getElementById("btnPass").onclick = () => {
   <p style="font-size:12.5px;color:#5b6478">${t("passdatum")}: ${dat} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")} · BSc: ${ectsSum("bsc")}/120 · MSc: ${ectsSum("msc")}/120 ${t("ects")}</p>
   ${foto ? `<img src="${foto}" alt="Kompetenzhaus" style="width:100%;border-radius:12px;margin:8px 0">` : ""}
   ${bars}
+  ${ich}
   <h3 style="margin-top:18px">${t("bauplan")}</h3>
   <table><tr><th>Code</th><th>Modul</th><th>${t("ects")}</th><th>[A/B/C]</th><th>Quest ✦</th></tr>${rows}</table>
   <p class="hint">${L(ST.meta.hinweis)}<br>Kompetenzmodell: APA (2023); DGPs (2014); QAA (2023); Bass et al. (2025); Miao et al. (2024); Ehlers et al. (2024); Perkins et al. (2025).</p>

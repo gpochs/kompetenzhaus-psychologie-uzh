@@ -171,7 +171,18 @@ window.T = {
     clog_titel: "🪧 Was ist neu?",
     clog_text: "Der Rückmelde-Loop: Euer Ampel-Feedback 🚦 fliesst in jede neue Version ein — hier siehst du, was sich getan hat.",
     bh_titel: "🛠️ Bauhütte — Wie hier gebaut wird",
-    bh_intro: "Dieses Haus wird nicht mit Frontalunterricht gebaut. Acht aktivierende Lehrelemente tragen die Vorlesungen und Seminare — hier steht, was sie bewirken und woher wir das wissen."
+    bh_intro: "Dieses Haus wird nicht mit Frontalunterricht gebaut. Acht aktivierende Lehrelemente tragen die Vorlesungen und Seminare — hier steht, was sie bewirken und woher wir das wissen.",
+    ich_titel: "Kompetenznachweis im Detail — «Ich kann …»",
+    ich_intro: "Was hinter den Prozentwerten steckt: pro Kompetenz die erreichte Progressionsstufe mit ihrem Anker-Satz (Kompetenzaufbaumodell vom 02.07.2026) — und darunter alle konkreten Lernziele der gebauten Module in Ich-Form.",
+    ich_konkret: "Das habe ich konkret gelernt",
+    ich_keine: "In diesem Feld ist noch keine Kompetenz aufgebaut — baue die passenden Module.",
+    ich_fussnote: "Stufen: 1 Orientieren und eigenes Können sichern · 2 Vertiefen, anwenden und prüfen · 3 Professionell integrieren, gestalten und verantworten · 4 Eigenständig forschen, komplex handeln und professionell verantworten. Selbstdeklaration auf Basis der gebauten Module — kein offizieller Leistungsnachweis.",
+    karriere_pdf: "Karrieresteckbrief (PDF)",
+    steck_titel: "Karrieresteckbrief",
+    steck_traeger: "Tragende Kompetenzen:",
+    steck_next: "Stärkt diesen Pfad als Nächstes:",
+    steck_cv: "Bewerbungs-Textbausteine",
+    steck_fussnote: "Passung = gewichteter Anteil der aufgebauten Kompetenzen am Anforderungsprofil des Pfads (Selbstdeklaration, illustrativ)."
   },
   en: {
     titel: "The Competence House",
@@ -344,7 +355,18 @@ window.T = {
     clog_titel: "🪧 What's new?",
     clog_text: "The feedback loop: your traffic-light feedback 🚦 feeds into every new version — here you can see what changed.",
     bh_titel: "🛠️ Site hut — How this house is built",
-    bh_intro: "This house is not built with lecturing alone. Eight activating teaching elements carry the lectures and seminars — here is what they do and how we know."
+    bh_intro: "This house is not built with lecturing alone. Eight activating teaching elements carry the lectures and seminars — here is what they do and how we know.",
+    ich_titel: "Competence record in detail — 'I can …'",
+    ich_intro: "What the percentages stand for: per competence the progression stage reached with its anchor statement (competence build-up model of 2 July 2026) — followed by all concrete learning objectives of the built modules in first-person form.",
+    ich_konkret: "What I have concretely learned",
+    ich_keine: "No competence built in this field yet — build the matching modules.",
+    ich_fussnote: "Stages: 1 orient and secure core skills · 2 deepen, apply and examine · 3 integrate, design and take responsibility professionally · 4 research independently, act in complexity, own it professionally. Self-declared based on built modules — not an official transcript.",
+    karriere_pdf: "Career profile (PDF)",
+    steck_titel: "Career profile",
+    steck_traeger: "Supporting competences:",
+    steck_next: "Strengthens this path next:",
+    steck_cv: "CV building blocks",
+    steck_fussnote: "Fit = weighted share of built competences within the path's requirement profile (self-declared, illustrative)."
   }
 };
 
