@@ -100,7 +100,9 @@ const OPTMOD = {}; (ST.optionsmodule || []).forEach((m) => (OPTMOD[m.code] = m))
 const KOMP = {}; ST.kompetenzen.forEach((k) => (KOMP[k.id] = k));
 function slotText(slot) {
   const p = S.placed[S.mode][slot.slot];
-  const code = (p && p.opt) || slot.code;
+  // vor dem Platzieren folgt die Karte der gewählten Option (pendingOpt), danach der gespeicherten
+  const pend = typeof pendingOpt !== "undefined" && slot.optionen && slot.optionen.includes(pendingOpt) && selectedId === slot.slot ? pendingOpt : null;
+  const code = (p && p.opt) || pend || slot.code;
   return TEXTE[code] || null;
 }
 function slotKomp(slot) {
@@ -359,23 +361,26 @@ const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-m
 /* KI-Funktionen nur, wenn die Umgebung sie bereitstellt (Claude-Artifact) */
 const HAS_AI = !!(window.claude && typeof window.claude.complete === "function");
 /* Fallback: Companion-Chat-Artifact «KI-Baututor» auf claude.ai (v7.5, publiziert 08.07.2026) */
-const TUTOR_URL = "https://claude.ai/public/artifacts/5ecf2faa-fb34-4b79-b87f-243ce354fbde";
+const TUTOR_URL = "https://claude.ai/public/artifacts/57723e93-9c36-4534-89be-c36e539b942f";
 async function aiComplete(prompt) { return String(await window.claude.complete(prompt)).trim(); }
 let tutorCtl = null;
 
+let camTween = null;
 function flyTo(pos, target, dur = 1.6, after = null) {
+  if (camTween) { const i = tweens.indexOf(camTween); if (i >= 0) tweens.splice(i, 1); } // laufenden Flug abbrechen
   const p0 = camera.position.clone(), t0 = controls.target.clone();
   controls.enabled = false;
-  tween(dur, (k) => {
+  camTween = { t: 0, dur, ease: easeInOut, fn: (k) => {
     camera.position.lerpVectors(p0, pos, k);
     controls.target.lerpVectors(t0, target, k);
-  }, easeInOut, () => { controls.enabled = !visitor.active ? true : true; controls.enabled = true; if (after) after(); });
+  }, onDone: () => { camTween = null; controls.enabled = true; if (after) after(); } };
+  tweens.push(camTween);
 }
 
 /* ---------- Material-Stile ---------- */
-function colFor(slot) {
-  const p = S.placed[S.mode][slot.slot];
-  if (slot.schwerpunktwahl && p && p.sp) return new THREE.Color(ST.schwerpunkte[p.sp].farbe);
+function colFor(slot, state) {
+  const p = state || S.placed[S.mode][slot.slot]; // state: z.B. Nachbarhäuser mit eigenem Spielstand
+  if (slot.schwerpunktwahl && p && p.sp && ST.schwerpunkte[p.sp]) return new THREE.Color(ST.schwerpunkte[p.sp].farbe);
   return new THREE.Color(ST.gruppen[slot.gruppe].farbe);
 }
 function styleMat(baseColor, stil) {
@@ -414,7 +419,7 @@ function prismGeometry(w, d, h) { // Satteldach entlang x
 function buildBlockMesh(slot, opts = {}) {
   const p = opts.state || S.placed[S.mode][slot.slot] || {};
   const stil = p.stil || "klassisch";
-  const base = colFor(slot);
+  const base = colFor(slot, opts.state);
   const g = new THREE.Group();
   const pos = slot.pos;
   const W = pos.w * CELL, D = pos.d * CELL;
@@ -897,7 +902,32 @@ const avatar = new THREE.Group();
   scene.add(avatar);
 }
 let avatarWalk = null;
+/* Der Bauarbeiter steht immer NEBEN dem Haus: Zielpunkte werden aus den
+   Grundrissen (beide Häuser + Seitenflügel) an den nächstgelegenen Rand geschoben. */
+function avatarClamp(x, z) {
+  const rects = [];
+  for (const hid of ["bsc", "msc"]) {
+    const h = ST.haeuser[hid];
+    rects.push({ cx: h.origin[0], cz: h.origin[2], hw: (h.breite * CELL) / 2 + 1.0, hd: (h.tiefe * CELL) / 2 + 1.0 });
+  }
+  if (isPlaced("600")) { // Seitenflügel Ost des MSc-Hauses
+    const h = ST.haeuser.msc, p = SLOTS["600"].pos;
+    rects.push({ cx: h.origin[0] + p.x * CELL, cz: h.origin[2] + p.z * CELL, hw: (p.w * CELL) / 2 + 0.9, hd: (p.d * CELL) / 2 + 0.9 });
+  }
+  for (let pass = 0; pass < 2; pass++) { // zwei Pässe: das Herausschieben aus dem Flügel darf nicht ins Haupthaus führen
+    for (const r of rects) {
+      const dx = x - r.cx, dz = z - r.cz;
+      if (Math.abs(dx) < r.hw && Math.abs(dz) < r.hd) {
+        if (r.hd - Math.abs(dz) <= r.hw - Math.abs(dx)) z = r.cz + (dz >= 0 ? r.hd : -r.hd);
+        else x = r.cx + (dx >= 0 ? r.hw : -r.hw);
+      }
+    }
+  }
+  return [x, z];
+}
+const escHtml = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 function avatarGoTo(x, z, celebrate = false) {
+  [x, z] = avatarClamp(x, z);
   const from = avatar.position.clone(), to = new THREE.Vector3(x, 0.24, z);
   const dist = from.distanceTo(to);
   avatar.lookAt(to.x, 0.24, to.z);
@@ -920,6 +950,7 @@ function avatarGoTo(x, z, celebrate = false) {
 
 /* ---------- Platzieren ---------- */
 function rebuildAll() {
+  windowMats.length = 0; // verwaiste Fenstermaterialien nicht endlos ansammeln
   Object.keys(blockMeshes).forEach((id) => { blockGroup.remove(blockMeshes[id]); delete blockMeshes[id]; });
   Object.keys(S.placed[S.mode]).forEach((id) => {
     const slot = SLOTS[id]; if (!slot) return;
@@ -1270,7 +1301,7 @@ function renderPlan() {
   const cta = document.getElementById("nextCta");
   if (cta) {
     if (nextId && !visitor.active) {
-      cta.textContent = `${t("cta_naechster")} ${slotTitel(SLOTS[nextId]).split(",")[0].slice(0, 34)}`;
+      cta.textContent = `${t("cta_naechster")} ${slotTitel(SLOTS[nextId]).split(",")[0]}`;
       cta.title = slotTitel(SLOTS[nextId]);
       cta.onclick = () => { selectSlot(nextId); };
       cta.style.visibility = "visible";
@@ -1409,7 +1440,7 @@ function renderKarriere() {
       <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct">${ready}%</span></div>
       <div class="phint">${L(p.hint)}</div>
       <div class="track"><div class="fill" style="width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></div></div>
-      ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${slotTitel(c.s).split(",")[0].slice(0, 34)}</button>`).join("")}</div>` : ""}
+      ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => { const voll = slotTitel(c.s).split(",")[0]; return `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${voll.length > 34 ? voll.slice(0, 33) + "…" : voll}</button>`; }).join("")}</div>` : ""}
     </div>`;
   }
   html += `<button class="ghostbtn" data-steckbrief style="margin:8px 4px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
@@ -1469,7 +1500,7 @@ function karriereSteckbrief() {
     <button onclick="print()" style="padding:10px 20px;border:0;background:#0028a5;color:#fff;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px">💾 ${S.lang === "de" ? "Als PDF speichern" : "Save as PDF"}</button>
     <div style="font-size:10px;color:#5b6478;margin-top:4px">${S.lang === "de" ? "Im Druckdialog «Als PDF sichern» wählen" : "Choose 'Save as PDF' in the print dialog"}</div>
   </div>
-  <h1>💼 ${t("steck_titel")} — ${S.name || "—"}</h1>
+  <h1>💼 ${t("steck_titel")} — ${escHtml(S.name) || "—"}</h1>
   <p style="font-size:12px;color:#5b6478">${t("passdatum")}: ${dat} · BSc ${ectsSum("bsc")}/120 · MSc ${ectsSum("msc")}/120 ${t("ects")} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")}</p>
   <p style="font-size:11px;color:#5b6478;line-height:1.5">${t("karriere_info")}</p>
   ${rows}
@@ -1629,7 +1660,7 @@ function evidenzBlock(id, builtRows) {
     const code = quizCode(r.slot);
     if (S.quiz[code]) items.push(`<div class="evrow"><span class="evic">🚩</span><span>${t("ev_quiz")}: ${slotTitel(r.slot).split(",")[0]}</span></div>`);
     const q = S.quests[r.slot.slot];
-    if (q && q.done) items.push(`<div class="evrow"><span class="evic">✦</span><span>${t("ev_quest")}: ${slotTitel(r.slot).split(",")[0]}${q.note ? ` — <i>«${q.note}»</i>` : ""}</span></div>`);
+    if (q && q.done) items.push(`<div class="evrow"><span class="evic">✦</span><span>${t("ev_quest")}: ${slotTitel(r.slot).split(",")[0]}${q.note ? ` — <i>«${escHtml(q.note)}»</i>` : ""}</span></div>`);
   }
   if (!items.length) return "";
   return `<div class="subhead">🗂 ${t("evidenz_titel")} (${items.length})</div>` + items.join("");
@@ -1671,7 +1702,7 @@ function renderFbRow(slot) {
   const fb = (S.fb || {})[slot.slot] || {};
   el.innerHTML = `<span class="fblbl">🚦 ${t("fb_frage")}</span>
     ${["g", "y", "r"].map((a) => `<button class="fbamp ${fb.a === a ? "on" : ""}" data-amp="${a}" title="${t("fb_" + a)}" aria-label="${t("fb_" + a)}">${a === "g" ? "🟢" : a === "y" ? "🟡" : "🔴"}</button>`).join("")}
-    ${fb.a ? `<input type="text" data-fbnote maxlength="200" placeholder="${t("fb_ph")}" value="${(fb.note || "").replace(/"/g, "&quot;")}">` : ""}`;
+    ${fb.a ? `<input type="text" data-fbnote maxlength="200" placeholder="${t("fb_ph")}" value="${escHtml(fb.note)}">` : ""}`;
   el.querySelectorAll(".fbamp").forEach((b) => (b.onclick = () => {
     if (!S.fb) S.fb = {};
     const cur = S.fb[slot.slot] || {};
@@ -1806,7 +1837,7 @@ function renderQuestTab(slot, el, tx, none) {
   if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b></p>`;
   // Notizen zum Modul: immer verfügbar, werden lokal gespeichert und erscheinen im Kompetenzpass
   html += `<p style="font-weight:700;font-size:12px;margin:10px 0 3px">📝 ${t("notiz_titel")}</p>
-    <textarea data-qnote rows="3" maxlength="500" placeholder="${t("notiz_ph")}" style="width:100%;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font);resize:vertical">${(q.note || "").replace(/</g, "&lt;")}</textarea>
+    <textarea data-qnote rows="3" maxlength="500" placeholder="${t("notiz_ph")}" style="width:100%;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font);resize:vertical">${escHtml(q.note)}</textarea>
     <p data-qnotesaved style="font-size:10px;color:#8b94ab;margin:2px 0 0;visibility:hidden">✓ ${t("notiz_gespeichert")}</p>`;
   if (HAS_AI && qt) {
     html += `<details style="margin-top:10px"><summary style="cursor:pointer;font:700 12px var(--font);color:var(--blue)">${t("ai_feedback")}</summary>
@@ -1832,14 +1863,15 @@ function renderQuestTab(slot, el, tx, none) {
   if (vigBtn) vigBtn.onclick = () => tutorCtl.open("vignette", slot);
   const qnote = el.querySelector("[data-qnote]");
   if (qnote) {
-    let noteTimer = null;
+    let indTimer = null;
     qnote.addEventListener("input", () => {
-      clearTimeout(noteTimer);
-      noteTimer = setTimeout(() => {
-        const cur = S.quests[slot.slot] || { done: false, note: "" };
-        cur.note = qnote.value.trim().slice(0, 500);
-        S.quests[slot.slot] = cur;
-        save();
+      // sofort in den Zustand schreiben (kein Verlust bei Re-Render); save() ist selbst gedrosselt
+      const cur = S.quests[slot.slot] || { done: false, note: "" };
+      cur.note = qnote.value.trim().slice(0, 500);
+      S.quests[slot.slot] = cur;
+      save();
+      clearTimeout(indTimer);
+      indTimer = setTimeout(() => {
         const ind = el.querySelector("[data-qnotesaved]");
         if (ind) { ind.style.visibility = "visible"; setTimeout(() => { ind.style.visibility = "hidden"; }, 1600); }
       }, 500);
@@ -2185,7 +2217,7 @@ document.getElementById("btnPass").onclick = () => {
     const q = S.quests[slot.slot] || {};
     const { kat } = slotKomp(slot);
     const e = p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects;
-    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + q.note : ""}</td></tr>`;
+    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + escHtml(q.note) : ""}</td></tr>`;
   }
   let bars = "";
   for (const feld of ["fa", "ki", "fu"]) {
@@ -2256,7 +2288,7 @@ document.getElementById("btnPass").onclick = () => {
     <button onclick="print()" style="padding:10px 20px;border:0;background:#0028a5;color:#fff;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px">💾 ${S.lang === "de" ? "Als PDF speichern" : "Save as PDF"}</button>
     <div style="font-size:10px;color:#5b6478;margin-top:4px">${S.lang === "de" ? "Im Druckdialog «Als PDF sichern» wählen" : "Choose 'Save as PDF' in the print dialog"}</div>
   </div>
-  <h1>🎓 ${t("pass")} — ${S.name || "—"}</h1>
+  <h1>🎓 ${t("pass")} — ${escHtml(S.name) || "—"}</h1>
   <p style="font-size:12.5px;color:#5b6478">${t("passdatum")}: ${dat} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")} · BSc: ${ectsSum("bsc")}/120 · MSc: ${ectsSum("msc")}/120 ${t("ects")}</p>
   ${foto ? `<img src="${foto}" alt="Kompetenzhaus" style="width:100%;border-radius:12px;margin:8px 0">` : ""}
   ${bars}
@@ -2619,6 +2651,10 @@ function startTour(force) {
     if (i >= steps.length) { ende(); return; }
     const s = steps[i];
     if (mobil && s.open) document.getElementById(s.open).classList.add("open");
+    if (s.sel === "#card" && !document.getElementById("card").classList.contains("open")) {
+      const nxt = selectedId || nextRecommended(); // die Tour zeigt die Karte an einem echten Baustein
+      if (nxt) selectSlot(nxt);
+    }
     if (s.sel) {
       const tgt = document.querySelector(s.sel);
       if (tgt && tgt.offsetParent !== null) tgt.classList.add("coach-target");
@@ -2959,7 +2995,7 @@ wireM("btnCampusM", document.getElementById("btnCampus"));
 wireM("btnShareM", document.getElementById("btnShare"));
 wireM("btnSoundM", document.getElementById("btnSound"));
 wireM("btnFotoM", document.getElementById("btnFoto"));
-window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, openBauhuette, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
+window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, openBauhuette, avatarClamp, get avatarPos() { return { x: avatar.position.x, z: avatar.position.z }; }, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
 animate();
 /* Fallback: läuft weiter, wenn der Tab gedrosselt ist (rAF pausiert) */
 setInterval(() => { if (performance.now() - lastTick > 400) step(); }, 250);

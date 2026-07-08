@@ -18,7 +18,7 @@
 
   /* ---------- Top bar ---------- */
   #topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 10px;
-    padding: 10px 14px; pointer-events: none; }
+    padding: 10px 14px; pointer-events: none; flex-wrap: wrap; }
   #topbar > * { pointer-events: auto; }
   .brand { display: flex; align-items: center; gap: 10px; background: var(--paper); border-radius: var(--radius);
     padding: 8px 14px; box-shadow: var(--shadow); }
@@ -180,7 +180,8 @@
 
   /* ---------- Visitor banner ---------- */
   #visitor { position: fixed; top: 66px; left: 50%; transform: translateX(-50%); z-index: 25; background: var(--blue); color: #fff;
-    padding: 10px 16px; border-radius: 12px; box-shadow: var(--shadow); display: none; gap: 10px; align-items: center; font: 600 12.5px var(--font); }
+    padding: 10px 16px; border-radius: 12px; box-shadow: var(--shadow); display: none; gap: 10px; align-items: center; font: 600 12.5px var(--font);
+    max-width: calc(100vw - 24px); flex-wrap: wrap; justify-content: center; text-align: center; }
   #visitor.open { display: flex; }
   #visitor button { border: 0; border-radius: 8px; padding: 6px 12px; font: 700 11.5px var(--font); cursor: pointer; }
 
@@ -267,7 +268,7 @@
   /* KI-Tutor */
   #tutorFab { position: fixed; right: 320px; bottom: 16px; z-index: 22; width: 48px; height: 48px; border-radius: 50%;
     border: 0; background: var(--blue); color: #fff; font-size: 22px; cursor: pointer; box-shadow: var(--shadow); display: none; }
-  #tutor { position: fixed; right: 320px; bottom: 74px; z-index: 22; width: 320px; max-width: calc(100vw - 32px); height: 420px;
+  #tutor { position: fixed; right: 320px; bottom: 74px; z-index: 22; width: 320px; max-width: calc(100vw - 32px); height: 420px; max-height: calc(100vh - 120px);
     background: var(--paper); border-radius: 16px; box-shadow: var(--shadow); display: none; flex-direction: column; overflow: hidden; }
   #tutor.open { display: flex; }
   #tutor .thead { background: var(--blue); color: #fff; padding: 10px 14px; font: 700 13px var(--font); display: flex; justify-content: space-between; }
@@ -282,6 +283,10 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: .01s !important; transition-duration: .05s !important; }
   }
+  @media (max-height: 540px) { /* Landscape-Handys: Karte darf mehr Höhe nehmen, Innenbereich scrollt */
+    #card { max-height: calc(100vh - 70px); }
+    #cardBody { max-height: 30vh; }
+  }
   #nextCta { display: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 17;
     border: 0; background: var(--blue); color: #fff; border-radius: 999px; padding: 12px 20px; font: 700 13px var(--font);
     box-shadow: var(--shadow); cursor: pointer; max-width: calc(100vw - 24px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -291,6 +296,12 @@
   @media (max-width: 1080px) {
     #coach { left: 50% !important; right: auto !important; top: auto !important; bottom: 96px !important; transform: translateX(-50%) !important; max-width: calc(100vw - 28px); }
     #btnCampus, #btnShare, #btnSound, #btnFoto { display: none; }
+    .brand { padding: 7px 10px; } .brand b { font-size: 13.5px; }
+    .seg button { padding: 6px 10px; font-size: 12px; }
+    .iconbtn { padding: 8px 11px; font-size: 12px; }
+    #visitor { top: 128px; }
+    #tutorFab { bottom: 74px; }
+    #tutor { bottom: 130px; }
     .only-mobile { display: flex !important; }
     #nextCta { display: block; }
     body.card-open #nextCta { display: none; }
@@ -298,8 +309,8 @@
     #panelR { transform: translateX(calc(100% + 20px)); }
     .panel.open { transform: translateX(0); }
     .panel-toggle { display: block; }
-    #panelL { top: 128px; } #panelR { top: 128px; }
-    #togL { top: 74px; left: 12px; } #togR { top: 74px; right: 12px; }
+    #panelL { top: 182px; } #panelR { top: 182px; }
+    #togL { top: 128px; left: 12px; } #togR { top: 128px; right: 12px; }
     #topbar { flex-wrap: wrap; }
     .brand .sub { display: none; }
   }
@@ -331,8 +342,8 @@
 </div>
 <div id="vignette"></div>
 
-<button class="panel-toggle" id="togL" aria-label="Bauplan öffnen">📋 <span class="tglbl">Bauplan</span></button>
-<button class="panel-toggle" id="togR" aria-label="Kompetenzprofil öffnen">📊 <span class="tglbl">Profil</span></button>
+<button class="panel-toggle" id="togL" aria-label="Bauplan öffnen">📋 <span class="tglbl" data-i18n="bauplan">Bauplan</span></button>
+<button class="panel-toggle" id="togR" aria-label="Kompetenzprofil öffnen">📊 <span class="tglbl" data-i18n="ptab_profil">Profil</span></button>
 
 <div class="panel" id="panelL">
   <h3><span data-i18n="bauplan">Bauplan</span>

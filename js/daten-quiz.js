@@ -159,16 +159,16 @@ window.QUIZ = {
    },
    "a": [
     {
-     "de": "Wiederholtes Lesen der KI-Zusammenfassungen ist die effizientere Strategie, weil dabei weniger Abruffehler passieren und sich der Stoff dadurch fehlerfrei einprägt.",
-     "en": "Repeatedly reading the AI summaries is the more efficient strategy because fewer retrieval errors occur and the material is therefore memorised without mistakes."
+     "de": "Wiederholtes Lesen der KI-Zusammenfassungen ist die effizientere Strategie, weil dabei weniger Abruffehler passieren und sich der Stoff dadurch besonders zuverlässig einprägt.",
+     "en": "Re-reading the AI summaries is the more efficient strategy, because fewer retrieval errors occur and the material is therefore encoded particularly reliably."
     },
     {
      "de": "Der aktive Abruf aus dem eigenen Gedächtnis stärkt die langfristige Behaltensleistung (Testing-Effekt); wer ihn an die KI delegiert, überspringt genau den lernwirksamen Prozess.",
      "en": "Active retrieval from one's own memory strengthens long-term retention (the testing effect); delegating it to the AI skips exactly the process that makes learning stick."
     },
     {
-     "de": "Die KI-Zusammenfassung erzeugt beim Lesen dieselben Gedächtnisspuren wie eigener Abruf, weil der inhaltliche Gehalt der verarbeiteten Information identisch bleibt.",
-     "en": "Reading the AI summary creates the same memory traces as one's own retrieval because the informational content being processed remains identical."
+     "de": "Die KI-Zusammenfassung erzeugt beim Lesen weitgehend vergleichbare Gedächtnisspuren wie eigener Abruf, weil der inhaltliche Gehalt der verarbeiteten Information derselbe ist.",
+     "en": "Reading the AI summary produces largely comparable memory traces to self-retrieval, because the informational content being processed is the same."
     },
     {
      "de": "Entscheidend ist die insgesamt investierte Lernzeit; ob sie in Selbstabfragen oder in das Lesen von KI-Zusammenfassungen fliesst, verändert die Behaltensleistung kaum.",
@@ -223,8 +223,8 @@ window.QUIZ = {
      "en": "Search for the reference in PsycINFO or resolve the DOI, and check whether the work actually exists and genuinely supports the claim being made."
     },
     {
-     "de": "Dasselbe Sprachmodell direkt fragen, ob die Quelle echt ist; es hat Zugriff auf seine eigenen Trainingsdaten und kann die Herkunft der Angabe verlässlich bestätigen.",
-     "en": "Ask the same language model directly whether the source is real; it has access to its own training data and can reliably confirm where the reference came from."
+     "de": "Dasselbe Sprachmodell in einer neuen Sitzung erneut nach der Quelle fragen; liefert es zweimal dieselbe Angabe, spricht das für eine in den Trainingsdaten verankerte Referenz.",
+     "en": "Ask the same language model about the source again in a fresh session; if it produces the same reference twice, this suggests a citation anchored in its training data."
     },
     {
      "de": "Die formale APA-Korrektheit der Angabe kontrollieren; stimmen Format, Jahreszahl und Seitenzahlen, wurde die Quelle mit hoher Wahrscheinlichkeit aus echter Literatur übernommen.",
@@ -452,25 +452,25 @@ window.QUIZ = {
  "06SM200-400": [
   {
    "q": {
-    "de": "Eine Patientin zeigt seit drei Wochen gedrückte Stimmung, Interessenverlust, Schlaflosigkeit und Grübeln, nachdem ihr Vater vor zwei Wochen verstorben ist. Was ist bei der differenzialdiagnostischen Einordnung nach DSM-5-TR am wichtigsten?",
-    "en": "A patient has shown depressed mood, loss of interest, insomnia and rumination for three weeks after her father died two weeks ago. What is most important for the differential-diagnostic classification per DSM-5-TR?"
+    "de": "Eine Patientin zeigt seit zwei Wochen gedrückte Stimmung, Interessenverlust, Schlaflosigkeit und Grübeln, nachdem ihr Vater vor drei Wochen verstorben ist. Was ist bei der differenzialdiagnostischen Einordnung nach DSM-5-TR am wichtigsten?",
+    "en": "For the past two weeks, a patient has shown depressed mood, loss of interest, insomnia and rumination, after her father died three weeks ago. What is most important for the differential-diagnostic classification per DSM-5-TR?"
    },
    "a": [
     {
-     "de": "Eine Major Depression ist ausgeschlossen, solange ein Trauerfall vorliegt, weil Trauer und depressive Episode einander definitionsgemäss ausschliessen.",
-     "en": "A major depression is ruled out as long as there is bereavement, because grief and a depressive episode are by definition mutually exclusive."
+     "de": "Bei einem aktuellen Trauerfall sollte zunächst keine Major Depression diagnostiziert werden, da Trauerreaktionen bei der Einordnung Vorrang haben.",
+     "en": "When a recent bereavement is present, major depression should initially not be diagnosed, as grief reactions take precedence in classification."
     },
     {
      "de": "Ob Anzahl, Dauer und Schwere der Symptome die Kriterien einer Episode erfüllen und ob Merkmale wie Wertlosigkeit oder Suizidalität über normale Trauer hinausgehen.",
      "en": "Whether the number, duration and severity of symptoms meet the criteria for an episode and whether features such as worthlessness or suicidality go beyond normal grief."
     },
     {
-     "de": "Die Diagnose hängt allein davon ab, ob die Symptome länger als die im DSM-5-TR fixierte Zweimonatsfrist nach dem Verlust fortbestehen.",
-     "en": "The diagnosis depends solely on whether the symptoms persist beyond the two-month period after the loss fixed in DSM-5-TR."
+     "de": "Massgeblich ist, ob die Symptome die Zweimonatsfrist nach dem Verlust überdauern, wie sie das DSM-5-TR für diese Einordnung vorsieht.",
+     "en": "What matters is whether the symptoms persist beyond the two-month post-loss period that DSM-5-TR specifies for this classification."
     },
     {
-     "de": "Entscheidend ist, ob ein auslösendes Lebensereignis vorliegt, denn eine reaktive Depression wird grundsätzlich anders klassifiziert als eine endogene.",
-     "en": "The decisive point is whether a triggering life event is present, since a reactive depression is fundamentally classified differently from an endogenous one."
+     "de": "Wichtig ist, ob ein auslösendes Lebensereignis vorliegt, da reaktive Depressionen anders eingeordnet werden als endogene Formen.",
+     "en": "The key question is whether a triggering life event is present, since reactive depression is classified differently from endogenous forms."
     }
    ],
    "korrekt": 1,
@@ -939,7 +939,7 @@ window.QUIZ = {
      "en": "You replace the t-test with an ANOVA, because it covers more assumptions at once and is more robust."
     },
     {
-     "de": "Man prüft die Verteilungs- und Varianzannahmen und zieht bei Verletzung ein robustes oder nonparametrisches Verfahren in Betracht.",
+     "de": "Man prüft die Verteilungs- und Varianzannahmen und zieht bei Verletzung ein robustes oder nichtparametrisches (verteilungsfreies) Verfahren in Betracht.",
      "en": "You check the distributional and variance assumptions and, if they are violated, consider a robust or nonparametric procedure."
     },
     {
@@ -949,7 +949,7 @@ window.QUIZ = {
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "KI6 Evaluieren heisst, einen KI-Vorschlag gegen die statistischen Annahmen zu prüfen, nicht gegen sein selbstsicheres Auftreten: Bei starker Schiefe, Varianzheterogenität und kleinem n ist ein robustes oder nonparametrisches Verfahren angezeigt. Der Wechsel zur ANOVA hilft nicht, weil sie bei zwei Gruppen rechnerisch dem t-Test entspricht und dieselben Annahmen voraussetzt.",
+    "de": "KI6 Evaluieren heisst, einen KI-Vorschlag gegen die statistischen Annahmen zu prüfen, nicht gegen sein selbstsicheres Auftreten: Bei starker Schiefe, Varianzheterogenität und kleinem n ist ein robustes oder nichtparametrisches (verteilungsfreies) Verfahren angezeigt. Der Wechsel zur ANOVA hilft nicht, weil sie bei zwei Gruppen rechnerisch dem t-Test entspricht und dieselben Annahmen voraussetzt.",
     "en": "KI6 evaluation means testing an AI suggestion against the statistical assumptions, not against how confidently it is stated: with strong skew, heterogeneous variances and small n, a robust or nonparametric procedure is indicated. Switching to ANOVA does not help, because for two groups it is arithmetically equivalent to the t-test and rests on the same assumptions."
    }
   },
@@ -1080,7 +1080,7 @@ window.QUIZ = {
    },
    "a": [
     {
-     "de": "Majore Depression mit psychotischen Merkmalen, da die psychotische Symptomatik im Rahmen der depressiven Episoden begann",
+     "de": "Major Depression mit psychotischen Merkmalen, da die psychotische Symptomatik im Rahmen der depressiven Episoden begann",
      "en": "Major depression with psychotic features, because the psychotic symptoms first emerged during the depressive episodes"
     },
     {
@@ -1098,7 +1098,7 @@ window.QUIZ = {
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Die schizoaffektive Störung verlangt psychotische Symptome während mindestens zwei Wochen ohne affektive Episode, was die drei Wochen nach der Remission erfüllen; zugleich prägen die affektiven Episoden die Mehrheit der Krankheitsdauer. Die majore Depression mit psychotischen Merkmalen ist der verführerischste Distraktor, scheidet aber aus, weil dort psychotische Symptome ausschliesslich innerhalb der affektiven Episoden auftreten dürfen.",
+    "de": "Die schizoaffektive Störung verlangt psychotische Symptome während mindestens zwei Wochen ohne affektive Episode, was die drei Wochen nach der Remission erfüllen; zugleich prägen die affektiven Episoden die Mehrheit der Krankheitsdauer. Die Major Depression mit psychotischen Merkmalen ist der verführerischste Distraktor, scheidet aber aus, weil dort psychotische Symptome ausschliesslich innerhalb der affektiven Episoden auftreten dürfen.",
     "en": "Schizoaffective disorder requires psychotic symptoms for at least two weeks in the absence of a mood episode, which the three weeks after remission satisfy; at the same time, mood episodes are present for the majority of the illness. Major depression with psychotic features is the most seductive distractor, but it is ruled out because there the psychotic symptoms may occur only within the mood episodes."
    }
   },
@@ -1587,8 +1587,8 @@ window.QUIZ = {
      "en": "He discloses the AI steps in the disclosure form, documents them in the process log, and takes responsibility for the final text's claims himself."
     },
     {
-     "de": "Er verzichtet auf jede Dokumentation des KI-Einsatzes, weil bei [B] nur zählt, dass der Endtext in eigenen Worten formuliert worden ist.",
-     "en": "He forgoes any documentation of the AI use, because under [B] all that counts is that the final text has been written in his own words."
+     "de": "Er vermerkt den KI-Einsatz pauschal in einer Fussnote, da bei [B] eine detaillierte Dokumentation der einzelnen Arbeitsschritte nicht erwartet wird.",
+     "en": "He notes the AI use in a general footnote, since [B] does not expect detailed documentation of the individual steps."
     },
     {
      "de": "Er darf KI ausschliesslich für die Literaturrecherche einsetzen, weil [B] jede KI-Unterstützung beim Formulieren des Textes ausschliesst.",
@@ -1721,7 +1721,7 @@ window.QUIZ = {
    ],
    "korrekt": 3,
    "erkl": {
-    "de": "Wissenschaftliche Integrität verlangt die transparente Trennung von konfirmatorischen und explorativen Befunden: Das Nullresultat wird berichtet, der Zusatzbefund als explorativ gekennzeichnet und zur Replikation ausgeschrieben. Das nachträgliche Umformulieren der Hypothese (HARKing) ist am verführerischsten, weil die Arbeit stimmiger wirkt; es täuscht aber eine Vorhersage vor und unterläuft die Kontrolle des Alpha-Fehlers.",
+    "de": "Wissenschaftliche Integrität verlangt die transparente Trennung von konfirmatorischen und explorativen Befunden: Das Nullresultat wird berichtet, der Zusatzbefund als explorativ gekennzeichnet und als replikationsbedürftig ausgewiesen. Das nachträgliche Umformulieren der Hypothese (HARKing) ist am verführerischsten, weil die Arbeit stimmiger wirkt; es täuscht aber eine Vorhersage vor und unterläuft die Kontrolle des Alpha-Fehlers.",
     "en": "Scientific integrity requires transparently separating confirmatory from exploratory findings: the null result is reported and the additional finding labelled exploratory, awaiting replication. Rewriting the hypothesis after the fact (HARKing) is the most seductive option because the thesis appears more coherent; yet it fakes a prediction and undermines control of the Type I error rate."
    }
   },
@@ -1999,8 +1999,8 @@ window.QUIZ = {
    },
    "a": [
     {
-     "de": "Unzulässig, weil Gesundheitsdaten besonders schützenswerte Personendaten sind und die Eingabe in öffentliche Tools ohne Rechtsgrundlage und Einwilligung erfolgt.",
-     "en": "Inadmissible, because health data are specially protected personal data and entering them into public tools happens without a legal basis or consent."
+     "de": "Unzulässig, weil Gesundheitsdaten besonders schützenswerte Personendaten sind und ihre Eingabe in öffentliche Tools eine Bekanntgabe an Dritte ohne Einwilligung darstellt und die Berufsschweigepflicht verletzt.",
+     "en": "Impermissible, because health data are specially protected personal data and entering them into public tools constitutes disclosure to third parties without consent and violates professional confidentiality."
     },
     {
      "de": "Zulässig, weil das persönliche Konto der Praktikantin passwortgeschützt ist und die eingegebenen Daten damit nicht öffentlich einsehbar werden.",
@@ -2017,8 +2017,8 @@ window.QUIZ = {
    ],
    "korrekt": 0,
    "erkl": {
-    "de": "Angaben zu Diagnosen und Medikation sind besonders schützenswerte Personendaten; ihre Eingabe in einen öffentlichen Chatbot gibt sie ohne Rechtsgrundlage und Einwilligung an Dritte weiter, oft mit Weiterverwendung für das Training, und verletzt die Schweigepflicht. Der verführerischste Distraktor behauptet, ohne Namensnennung lägen keine Personendaten vor, doch die Klientin bleibt über indirekte Merkmale re-identifizierbar.",
-    "en": "Information about diagnoses and medication constitutes specially protected personal data; entering it into a public chatbot passes it to third parties without a legal basis or consent, often with reuse for training, and breaches professional confidentiality. The most tempting distractor claims that omitting the name removes the personal data problem, but the client remains re-identifiable through indirect attributes."
+    "de": "Angaben zu Diagnosen und Medikation sind besonders schützenswerte Personendaten; ihre Eingabe in einen öffentlichen Chatbot ist eine Bekanntgabe an Dritte ohne Einwilligung und verletzt zugleich die Berufsschweigepflicht (Art. 321 StGB). Der verführerischste Distraktor ist das passwortgeschützte Konto, denn der Schutz des Zugangs ändert nichts daran, dass die Daten den geschützten Rahmen verlassen.",
+    "en": "Details on diagnoses and medication are specially protected personal data; entering them into a public chatbot discloses them to third parties without consent and simultaneously violates professional confidentiality (Art. 321 Swiss Criminal Code). The most tempting distractor is the password-protected account, since protecting the login does not change the fact that the data leave the protected setting."
    }
   },
   {
@@ -2036,12 +2036,12 @@ window.QUIZ = {
      "en": "An app-only offering can widen existing health inequalities, because access, digital skills and cultural fit are unevenly distributed."
     },
     {
-     "de": "Digitale Stressinterventionen wirken deutlich schwächer als Präsenzangebote, weshalb für die Gemeinde einzig Kurse vor Ort eine vertretbare Option darstellen.",
-     "en": "Digital stress interventions work far less well than face-to-face formats, which is why only on-site courses are a defensible option for the community."
+     "de": "Digitale Stressinterventionen wirken generell schwächer als Präsenzangebote, weshalb für die Gemeinde primär Kurse vor Ort infrage kommen.",
+     "en": "Digital stress interventions are generally weaker than in-person offerings, which is why on-site courses should be the primary option for this community."
     },
     {
-     "de": "Das Hauptproblem liegt beim Serverstandort, weil Gesundheitsdaten aus rechtlichen Gründen ausschliesslich auf Servern in der Schweiz gespeichert werden dürfen.",
-     "en": "The main problem is server location, because for legal reasons health data may only be stored on servers located in Switzerland."
+     "de": "Das Hauptproblem liegt beim Serverstandort, weil Gesundheitsdaten in der Regel auf Servern in der Schweiz gespeichert werden sollten.",
+     "en": "The main problem is server location, since health data should as a rule be stored on servers in Switzerland."
     }
    ],
    "korrekt": 1,
@@ -2125,8 +2125,8 @@ window.QUIZ = {
      "en": "The written paper follows logic [C], because AI use documented with disclosure and a process log already counts as fully AI-integrated."
     },
     {
-     "de": "Die Kombination sichert über [A] die eigenständigen Kernfertigkeiten und prüft über [B] den transparent deklarierten KI-Einsatz in einzelnen Arbeitsschritten.",
-     "en": "The combination secures independent core skills via [A] and assesses transparently declared AI use in individual work steps via [B]."
+     "de": "Die Kombination sichert über [A] die eigenständigen Kernfertigkeiten und prüft über [B] den transparent deklarierten KI-Einsatz; die Logik [C] wird durch andere Prüfungselemente des Moduls abgedeckt.",
+     "en": "The combination secures independent core skills via [A] and assesses transparently declared AI use via [B]; logic [C] is covered by other assessment elements of the module."
     },
     {
      "de": "Die Kombination dient primär der Notengerechtigkeit, weil KI-gestützte Arbeiten sonst systematisch besser bewertet würden als KI-freie Arbeiten.",
@@ -2566,7 +2566,7 @@ window.QUIZ = {
      "en": "Because AI is used in every working step and designing and auditing the system itself becomes the assessed learning goal."
     },
     {
-     "de": "Weil einzelne Arbeitsschritte mit KI erfolgen und die Nutzung anschliessend im Disclosure Form offengelegt wird.",
+     "de": "Weil einzelne Arbeitsschritte mit KI erfolgen und die Nutzung anschliessend im Disclosure Form deklariert wird.",
      "en": "Because single working steps are done with AI and the use is afterwards disclosed in the disclosure form."
     },
     {
@@ -2897,8 +2897,8 @@ window.QUIZ = {
      "en": "The approach is not sufficient, because school building, class and rare event together act as quasi-identifiers and re-identification of the child remains possible."
     },
     {
-     "de": "Das Vorgehen genügt, sofern eine Unternehmensversion genutzt wird, deren Anbieter vertraglich zusichert, die Eingaben nicht für das Training seiner Modelle zu verwenden.",
-     "en": "The approach is sufficient, provided an enterprise version is used whose provider contractually guarantees that the inputs will not be used to train its models."
+     "de": "Das Vorgehen genügt, weil der vertragliche Ausschluss der Trainingsnutzung die Frage der Identifizierbarkeit hinfällig macht und damit jede Eingabe unbedenklich wird.",
+     "en": "The approach is sufficient, because contractually excluding training use renders the question of identifiability moot and thus makes any input unproblematic."
     },
     {
      "de": "Das Vorgehen genügt nicht, weil Angaben über Kinder selbst nach vollständiger Anonymisierung nicht in KI-Systeme eingegeben werden dürfen und nur der Verzicht vertretbar ist.",
@@ -2926,8 +2926,8 @@ window.QUIZ = {
      "en": "The real relationship stays AI-free because protecting the child's data rules out every form of AI use in the module, including the preparatory conversation simulation."
     },
     {
-     "de": "Die reale Beziehung bleibt KI-frei, weil Beziehungsgestaltung und Empathie Kernfertigkeiten im Sinn von [A] sind, die nur in echter Interaktion entstehen, während KI nach [B] vor- und nachbereitet.",
-     "en": "The real relationship stays AI-free because relationship building and empathy are core skills in the sense of [A] that only develop in real interaction, while AI prepares and debriefs under [B]."
+     "de": "Die reale Beziehung bleibt KI-frei, weil Beziehungsgestaltung und Empathie Kernfertigkeiten sind, die nur in echter Interaktion entstehen; das Rollenspiel dient der Vorbereitung mit Offenlegung.",
+     "en": "The real relationship stays AI-free because relationship-building and empathy are core skills that only develop in real interaction; the role-play serves as preparation, with disclosure."
     },
     {
      "de": "Die reale Beziehung bleibt KI-frei, weil Service-Learning-Leistungen vollständig der Logik [A] zugeordnet sind und KI-gestützte Anteile deshalb nicht in die Bewertung einfliessen dürfen.",
@@ -2949,16 +2949,16 @@ window.QUIZ = {
    },
    "a": [
     {
-     "de": "Die Kodierung ist reliabel, weil die prozentuale Übereinstimmung das robustere Mass ist und Kappa bei schiefen Verteilungen systematisch zu streng urteilt.",
-     "en": "The coding is reliable, because percent agreement is the more robust measure and kappa judges too strictly in a systematic way when distributions are skewed."
+     "de": "Die Kodierung ist reliabel, weil die prozentuale Übereinstimmung von 88 Prozent das entscheidende Mass ist und der tiefe Kappa-Wert hier vernachlässigt werden kann.",
+     "en": "The coding is reliable, because the 88 percent agreement is the decisive measure and the low kappa value can be neglected here."
     },
     {
      "de": "Die Stichprobe von 200 Segmenten ist für Kappa zu klein, weshalb der Wert instabil ist und erst ab rund 1000 Segmenten sinnvoll interpretiert werden kann.",
      "en": "The sample of 200 segments is too small for kappa, so the value is unstable and can only be interpreted meaningfully from about 1000 segments onwards."
     },
     {
-     "de": "Die hohe Übereinstimmung entsteht weitgehend durch die schiefe Kategorienverteilung; Kappa korrigiert für Zufallsübereinstimmung und zeigt geringe echte Übereinstimmung.",
-     "en": "The high agreement largely reflects the skewed category distribution; kappa corrects for chance agreement and shows that true agreement beyond chance is low."
+     "de": "Die hohe Übereinstimmung entsteht weitgehend durch die schiefe Kategorienverteilung; Kappa korrigiert für Zufallsübereinstimmung und zeigt hier nur geringe über den Zufall hinausgehende Übereinstimmung.",
+     "en": "The high agreement arises largely from the skewed category distribution; kappa corrects for chance agreement and here shows only little agreement beyond chance."
     },
     {
      "de": "Die Diskrepanz spricht für Fehler im menschlichen Goldstandard, da eine valide KI-Kodierung bei hoher Prozentübereinstimmung auch hohe Kappa-Werte erreichen würde.",
@@ -3402,7 +3402,7 @@ window.QUIZ = {
      "en": "You explain that a significant result with a small N would be especially convincing, because it prevailed despite the low statistical power."
     },
     {
-     "de": "Sie erklären, dass ein Wechsel auf einen nonparametrischen Test das Powerproblem löst, weil dieser ohne Verteilungsannahmen auskommt.",
+     "de": "Sie erklären, dass ein Wechsel auf einen nichtparametrischen Test das Powerproblem löst, weil dieser ohne Verteilungsannahmen auskommt.",
      "en": "You explain that switching to a nonparametric test solves the power problem, because such tests work without distributional assumptions."
     },
     {
@@ -3478,31 +3478,31 @@ window.QUIZ = {
  "06SM200-903": [
   {
    "q": {
-    "de": "In der Masterarbeitsgruppe zeigt eine Studentin ihren Modellvergleich: anova(m1, m2) in R fällt signifikant aus. Modell 2 enthält einen zusätzlichen Prädiktor mit fehlenden Werten, weshalb lm() dort 40 Fälle weniger verwendet als in Modell 1. Was ist das zentrale Problem dieser Analyse?",
-    "en": "In the master's thesis group, a student presents her model comparison: anova(m1, m2) in R comes out significant. Model 2 includes an additional predictor with missing values, so lm() uses 40 fewer cases there than in model 1. What is the central problem with this analysis?"
+    "de": "In der Masterarbeitsgruppe zeigt eine Studentin ihren Modellvergleich: AIC(m1, m2) spricht klar für Modell 2. Modell 2 enthält einen zusätzlichen Prädiktor mit fehlenden Werten, weshalb lm() dort 40 Fälle weniger verwendet als in Modell 1. Was ist das zentrale Problem dieser Analyse?",
+    "en": "In the thesis group a student presents her model comparison: AIC(m1, m2) clearly favours model 2. Model 2 contains an additional predictor with missing values, so lm() uses 40 fewer cases there than in model 1. What is the central problem of this analysis?"
    },
    "a": [
     {
-     "de": "Der zusätzliche Prädiktor erzeugt Multikollinearität, wodurch der F-Test des Modellvergleichs systematisch zu liberal ausfällt und korrigiert werden muss.",
-     "en": "The additional predictor introduces multicollinearity, which makes the F test of the model comparison systematically too liberal and requires correction."
+     "de": "Der zusätzliche Prädiktor erzeugt Multikollinearität, wodurch der AIC-Vergleich systematisch das komplexere Modell bevorzugt und korrigiert werden muss.",
+     "en": "The additional predictor creates multicollinearity, which systematically biases the AIC comparison towards the more complex model and must be corrected."
     },
     {
-     "de": "Geschachtelte Modelle dürfen in R nicht mit anova() verglichen werden; für diesen Zweck sind ausschliesslich Informationskriterien wie AIC oder BIC vorgesehen.",
-     "en": "Nested models must not be compared with anova() in R; information criteria such as AIC or BIC are the only tools intended for this purpose."
+     "de": "Modelle dürfen in R nicht über Informationskriterien verglichen werden; für geschachtelte Modelle ist der F-Test mit anova() das vorgesehene Verfahren.",
+     "en": "Models in R must not be compared via information criteria; for nested models the F test with anova() is the designated procedure."
     },
     {
-     "de": "Die beiden Modelle beruhen auf unterschiedlichen Fällen; der Vergleich ist erst gültig, wenn beide Modelle auf demselben Datensatz geschätzt werden.",
-     "en": "The two models are fitted to different sets of cases; the comparison only becomes valid once both models are estimated on the same data set."
+     "de": "Die beiden Modelle beruhen auf unterschiedlichen Fällen; AIC-Werte sind nur vergleichbar, wenn beide Modelle auf demselben Datensatz geschätzt werden.",
+     "en": "The two models are based on different cases; AIC values are only comparable when both models are estimated on the same data set."
     },
     {
-     "de": "Die geringere Fallzahl in Modell 2 senkt lediglich die Teststärke; da der Vergleich dennoch signifikant wurde, bleibt das Ergebnis interpretierbar.",
-     "en": "The smaller sample in model 2 merely lowers statistical power; since the comparison still turned out significant, the result remains interpretable."
+     "de": "Die geringere Fallzahl in Modell 2 senkt lediglich die Präzision; da das AIC dennoch klar für Modell 2 spricht, bleibt das Ergebnis interpretierbar.",
+     "en": "The smaller sample in model 2 merely lowers precision; since the AIC still clearly favours model 2, the result remains interpretable."
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Ein Vergleich geschachtelter Modelle setzt voraus, dass beide auf denselben Beobachtungen geschätzt wurden; durch den fallweisen Ausschluss vergleicht anova() hier faktisch zwei verschiedene Stichproben, was den Test ungültig macht. Der verführerischste Distraktor (nur reduzierte Power) übersieht, dass nicht die Fallzahl an sich das Problem ist, sondern die fehlende gemeinsame Datenbasis. Multikollinearität kann Schätzungen instabil machen, erklärt aber die ungleiche Fallbasis nicht.",
-    "en": "Comparing nested models requires that both are estimated on the same observations; because of listwise deletion, anova() effectively compares two different samples here, which invalidates the test. The most tempting distractor (reduced power only) overlooks that the problem is not the sample size itself but the missing common data basis. Multicollinearity can destabilise estimates, but it does not explain the unequal case base."
+    "de": "AIC-Werte sind nur bei identischer Datenbasis vergleichbar; durch den fallweisen Ausschluss vergleicht die Analyse faktisch zwei verschiedene Stichproben. anova() würde hier sogar mit einer Fehlermeldung abbrechen, AIC() rechnet dagegen kommentarlos weiter. Deshalb muss die Studentin die gemeinsame Datenbasis selbst sicherstellen, etwa indem sie beide Modelle auf dem listenweise bereinigten Datensatz schätzt.",
+    "en": "AIC values are only comparable on an identical data basis; due to casewise exclusion the analysis effectively compares two different samples. anova() would even abort with an error here, whereas AIC() silently keeps computing. The student must therefore ensure a common data basis herself, for instance by fitting both models on the listwise-cleaned data set."
    }
   },
   {

@@ -481,7 +481,7 @@ window.ICH_LERNZIELE = {
   },
   {
    "de": "Ich begründe in einem KI-freien Verteidigungselement, welche fachlichen Qualitätskriterien mein Artefakt erfüllt und wo seine Einsatzgrenzen liegen.",
-   "en": "In an AI-free defence element, students justify which disciplinary quality criteria my artefact meets and where its limits of use lie.",
+   "en": "In an AI-free defence element, I justify which disciplinary quality criteria my artefact meets and where its limits of use lie.",
    "b": [
     "F",
     "K",
@@ -542,7 +542,7 @@ window.ICH_LERNZIELE = {
   },
   {
    "de": "Ich analysiere im AI-Reflection-Abschnitt des Praktikumsberichts, welche Aufgaben meines Praktikumsfelds KI übernehmen kann, darf und soll, und welche nicht.",
-   "en": "In the AI-reflection section of the internship report, students analyse which tasks in my internship field AI can, may, and should take on, and which not.",
+   "en": "In the AI-reflection section of the internship report, I analyse which tasks in my internship field AI can, may, and should take on, and which not.",
    "b": [
     "F",
     "K",
