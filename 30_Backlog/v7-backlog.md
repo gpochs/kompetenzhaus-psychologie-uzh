@@ -21,7 +21,7 @@ Stand: 21.07.2026 (nach v8). Quellen: Benchmark-Recherche (Duolingo/Brilliant/us
 10. **Etagen-Selbstchecks P1–P3**: die 17 Ich-Sätze aus Kompetenz-App `pass` als Checkliste bei jedem Richtfest; fliesst in Radar/Evidenz/Pass. Aufwand M.
 11. **Teilkompetenz-Sammelkarten**: die 16 kuratierten Teilkompetenzen (RAG-Literacy, Silicon Samples, Agenten-Literacy …) mit klickbaren APA-Quellen, auffindbar in passenden Räumen. Quelle: App `teilkompetenzen`. Aufwand M.
 12. **Statik-Check**: Knopf prüft die [A]/[B]/[C]-Balance des gebauten Hauses gegen die Two-Lane-Regel (jede Kernkompetenz ≥1 [A], jede KI-Kompetenz ≥1 [B]/[C]) → Plakette. Quelle: 04 §4.1. Aufwand S–M.
-13. **Geräteschuppen**: Tool-Stack-Karten (OLAT, KlickerUZH+KI-Beta, Copilot Chat, AI Buddy PoC) mit Reifegrad-Ampel + Datenschutz-Hinweis. Quelle: 04 §5. Aufwand S–M.
+13. ✅ **v8** — **Geräteschuppen**: anklickbarer Schuppen mit Tool-Stack-Karten (Copilot Chat, KlickerUZH+AI Buddy, OLAT-KI, BaltiBot, EducationAI, Copilot Premium/GitHub Copilot) mit Reifegrad-Ampel 🟢🟡🔴 + Informationsklassen-Regeln. Quelle: KI-im-Curriculum-Kompass (16.07.2026) §2.1/2.2, Stand Juli 2026.
 14. **Bauamt-Vitrine**: «Warum das alles?» — 5 Kernaussagen des Begleitmemos + Beschlussstatus B1–B6 als Schautafeln («Baugenehmigung: Entwurf»). Quelle: 10_Begleitmemo §3–4. Aufwand S.
 
 ## C. Spiel als Validierungsinstrument (FAPS/AG Lehre)
