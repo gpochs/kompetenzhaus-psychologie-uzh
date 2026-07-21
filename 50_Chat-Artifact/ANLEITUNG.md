@@ -1,7 +1,7 @@
 # Companion-Chat-Artifact «KI-Baututor» — Anleitung
 
 > **✅ ERLEDIGT, Stand 08.07.2026 (fachlogische Revision, via Chrome mit Fable Max):** Aktuelle publizierte Fassung:
-> **https://claude.ai/public/artifacts/57723e93-9c36-4534-89be-c36e539b942f**
+> **https://claude.ai/public/artifacts/a21eaa67-43cd-4ece-a7cf-069e7f24a561**
 > (Quell-Chat: claude.ai → «HTML-Code als Artifact erstellen»; Download aus dem Chat ist byte-identisch mit `ki-baututor-artifact.html` in diesem Ordner). Die URL ist als `TUTOR_URL` in `js/main.js` eingetragen — der 🤖-Button im Spiel öffnet sie überall dort, wo `window.claude` fehlt (GitHub Pages + Code-Artifact).
 >
 > **Wichtig fürs nächste Update:** «Publish» nach einer Artifact-Änderung erzeugt eine **neue** öffentliche URL — danach `TUTOR_URL` nachziehen und das Spiel neu deployen. Die Vorversion (…/a4a2c241-0740-…) bleibt parallel online; sie kann in den claude.ai-Einstellungen des Chats unpublished werden, ist aber unschädlich. Die Schritte unten braucht es nur, falls das Artifact komplett neu erstellt werden muss.

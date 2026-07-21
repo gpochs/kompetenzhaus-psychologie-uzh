@@ -71,6 +71,7 @@
     <button id="tabTutor" class="on" data-de="💬 Baututor" data-en="💬 Tutor">💬 Baututor</button>
     <button id="tabVign" data-de="🩺 Fallgespräch" data-en="🩺 Case practice">🩺 Fallgespräch</button>
     <button id="tabCv" data-de="📝 CV-Baustein" data-en="📝 CV builder">📝 CV-Baustein</button>
+    <button id="tabKarr" data-de="🧭 Karriere" data-en="🧭 Career">🧭 Karriere</button>
   </div>
 
   <details id="stand">
@@ -94,6 +95,11 @@
         <input id="cvRolle" data-phde="Zielrolle eingeben …" data-phen="Enter target role …" placeholder="Zielrolle eingeben …">
         <button class="primary" id="cvGo" style="padding:7px 12px;font-size:11.5px" data-de="Satz formulieren" data-en="Draft sentence">Satz formulieren</button>
         <div id="cvBeispiel"></div>
+      </div>
+      <div id="karrRow" style="display:none;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:#5b6478">
+        <span data-de="Berufsweg:" data-en="Career path:">Berufsweg:</span>
+        <select id="karrSel" style="flex:1;min-width:180px"></select>
+        <button class="primary" id="karrGo" style="padding:7px 12px;font-size:11.5px" data-de="Weg prüfen" data-en="Check route">Weg prüfen</button>
       </div>
       <div class="inrow">
         <input id="inp" maxlength="400" data-phde="Deine Frage …" data-phen="Your question …" placeholder="Deine Frage …">
@@ -185,12 +191,47 @@ const ROLLEN = {
   Fu3:{de:"Teamleiter:in in einer Beratungsstelle",en:"team lead at a counselling centre"}
 };
 
+/* Wahlprofil-Logik v8: Themen-Tags der Wahlseminare/BA-Themenfelder → BSc-Richtung */
+const THEMA_R = { s11a:"ekn", s11b:"klin", s11c:"swo", s12a:"klin", s12b:"ekn", s12c:"swo", s13a:"swo", s13b:"ekn", s13c:"klin", BAk:"klin", BAe:"ekn", BAs:"swo" };
+const RICHT = { klin:{de:"Klinik & Gesundheit",en:"clinic & health"}, ekn:{de:"Entwicklung, Kognition & Neuro",en:"development, cognition & neuro"}, swo:{de:"Sozial, Wirtschaft & Organisation",en:"social, economic & organisational"} };
+/* 9 Berufswege mit verifizierten Fakten (Recherche 21.07.2026: PsyG/BAG/FSP/SVNP/SGFP/Universitäten; Stand Juli 2026) */
+const PFADE = [
+  { id:"psycho", de:"🛋️ Psychotherapie", en:"🛋️ Psychotherapy",
+    f:{de:"Zulassung: genügende Studienleistungen in klinischer Psychologie/Psychopathologie (Art. 7 PsyG; Branchenstandard mind. 12 ECTS Psychopathologie — mit UZH-BSc+MSc unabhängig vom Schwerpunkt erfüllt, klinische Wahl bleibt die sicherste Route). Weiterbildung: akkreditierter Gang 4–6 J. berufsbegleitend, ca. CHF 35'000–60'000 (UZH-MAS KVT: 8 Semester, gesamt ca. CHF 44'000); Einstieg als Assistenzpsychotherapeut:in (anfangs oft CHF 2'800–4'600/Mt., 70–80% Pensum empfohlen). Danach eidg. Titel + kantonale Berufsausübungsbewilligung (ZH: Deutsch B2); OKP-Zulassung: 3 J. Praxis inkl. 12 Mt. SIWF A/B/C; dann eigene Praxis im Anordnungsmodell (max. 15 Sitzungen pro Anordnung). Empfohlene Wahl: klinische Themen + HEA.",
+       en:"Admission: sufficient coursework in clinical psychology/psychopathology (Art. 7 PsyA; industry standard min. 12 ECTS psychopathology — met with UZH BSc+MSc regardless of track; clinical electives remain the safest route). Training: accredited programme 4–6 yrs part-time, approx. CHF 35,000–60,000 (UZH MAS CBT: 8 semesters, approx. CHF 44,000 total); entry as assistant psychotherapist (often CHF 2,800–4,600/month at first, 70–80% workload recommended). Then federal title + cantonal licence (ZH: German B2); insurance admission: 3 yrs practice incl. 12 months at an SIWF A/B/C site; then own practice under the prescription model (max. 15 sessions per prescription). Recommended electives: clinical topics + HEA."} },
+  { id:"klinik", de:"🩺 Klinische Psychologie & Gesundheit", en:"🩺 Clinical & health psychology",
+    f:{de:"FSP-Fachtitel Klinische Psychologie: 5 J. Weiterbildung (Vollzeitäquivalent; Anstellungen unter 50% zählen nicht), 4 J. klinische Praxis mit mind. 1 J. Psychiatrie plus 1025 Weiterbildungsstunden; Zulassung verlangt ausgewiesene Psychopathologie-Kenntnisse. Daneben existiert der eidg. Weiterbildungstitel «klinische Psychologie» (einer von fünf staatlichen Titeln). Empfohlene Wahl: klinische Themen + HEA.",
+       en:"FSP title in clinical psychology: 5 yrs training (full-time equivalent; posts below 50% don't count), 4 yrs clinical practice incl. min. 1 yr psychiatry plus 1,025 training hours; admission requires proven psychopathology coursework. There is also the federal title in clinical psychology (one of five state titles). Recommended electives: clinical topics + HEA."} },
+  { id:"neuro", de:"🧠 Neuropsychologie", en:"🧠 Neuropsychology",
+    f:{de:"Härtester Modul-Gate: neuropsychologische/neurowissenschaftliche Studieninhalte sind Voraussetzung (Richtwert Genf: ~18 ECTS prägradual) — Klinische Neuropsychologie (Wahlpflicht), DeNC-Vertiefungen und neurowissenschaftliche Themenwahl sind faktisch Pflicht. Weiterbildung: MAS Neuropsychologie (EAN) an UZH oder Genf, 5 J. berufsbegleitend (2 J. DAS + 3 J. MAS, Zürich: 800 Theorieeinheiten + 3 J. supervidierte Praxis); der alte FSP-Fachtitel-Weg läuft aus. OKP: neuropsychologische Diagnostik auf ärztliche Anordnung seit 1.7.2017 vergütet (Art. 50b KVV).",
+       en:"Hardest module gate: neuropsychology/neuroscience coursework is required (Geneva benchmark: ~18 pre-graduate ECTS) — Clinical Neuropsychology (compulsory elective), DeNC specialisations and neuroscience topics are de facto mandatory. Training: MAS in Neuropsychology (EAN) at UZH or Geneva, 5 yrs part-time (2-yr DAS + 3-yr MAS; Zurich: 800 theory units + 3 yrs supervised practice); the old FSP route is being phased out. Insurance: physician-prescribed neuropsychological assessment covered since 1 July 2017 (Art. 50b KVV)."} },
+  { id:"phd", de:"🔬 PhD & Forschung", en:"🔬 PhD & research",
+    f:{de:"Doktorat 3–5 J.; das Instrument Doc.CH wurde eingestellt — Anstellung meist über SNF-Projektförderung (Gesuch stellt die Betreuungsperson, max. 4 J.) oder Universitätsmittel. Postdoc-Reform: Postdoc.Mobility/Ambizione laufen aus, ab 2028 neues SNF-Postdoc-Instrument, danach SNSF Starting Grants. Entscheidend im Studium: Methoden-/Statistikstärke und eine starke Masterarbeit («Meisterstück»).",
+       en:"Doctorate 3–5 yrs; the Doc.CH scheme has been discontinued — employment usually via SNSF project funding (supervisor applies, max. 4 yrs) or university funds. Postdoc reform: Postdoc.Mobility/Ambizione are ending, a new SNSF postdoc scheme starts in 2028, then SNSF Starting Grants. Decisive during the degree: methods/statistics strength and a strong thesis ('masterpiece')."} },
+  { id:"schule", de:"🏫 Schulpsychologie & KJP", en:"🏫 School & child/adolescent psychology",
+    f:{de:"Eidg. Weg (EA KJP, Uni Basel) braucht eine Anstellung von mind. 40% in der psychosozialen Versorgung von Kindern/Jugendlichen — ohne Feldstelle startet die Weiterbildung nicht. Dauer 2–3 J. (max. 6), mind. 1795 Einheiten, ca. CHF 16'850 plus Supervision (ca. CHF 6'000–12'000). Alternativ/ergänzend: MAS Schulpsychologie UZH (60 ECTS, 2–3 J., CHF 18'800, an FSP-Fachtitel KJP anrechenbar). Anstellungsanforderungen sind kantonal unterschiedlich.",
+       en:"The federal route (EA KJP, University of Basel) requires a position of at least 40% in psychosocial services for children/adolescents — without a field position the training cannot start. Duration 2–3 yrs (max. 6), min. 1,795 units, approx. CHF 16,850 plus supervision (roughly CHF 6,000–12,000). Alternatively: MAS in School Psychology at UZH (60 ECTS, 2–3 yrs, CHF 18,800, creditable towards the FSP KJP title). Requirements differ by canton."} },
+  { id:"wirtschaft", de:"🏢 Wirtschaft, HR & Beratung", en:"🏢 Business, HR & consulting",
+    f:{de:"Unreguliertes Feld ohne Titelpflicht — Direkteinstieg in HR, Recruiting, Personal-/Organisationsentwicklung oder Beratung möglich (hohe Konkurrenz, Praktika zählen). Optional: Fachtitel Laufbahn- und Personalpsychologie FSP via FSP-anerkannte DAS/MAS (z. B. CC&HRM Bern/Freiburg), seit 2026 mit dokumentierter Supervision; FSP-Fachtitel dauern generell 2–6 J. Empfohlene Wahl: SWO-Themen + SEOP + Economic & Consumer Psychology.",
+       en:"An unregulated field with no title requirement — direct entry into HR, recruiting, personnel/organisational development or consulting is possible (high competition; internships count). Optional: FSP title in career & personnel psychology via FSP-recognised DAS/MAS (e.g. CC&HRM Bern/Fribourg), since 2026 with documented supervision; FSP titles generally take 2–6 yrs. Recommended electives: SWO topics + SEOP + Economic & Consumer Psychology."} },
+  { id:"data", de:"📊 Data, Tech & UX", en:"📊 Data, tech & UX",
+    f:{de:"Kein regulierter Weg — das Portfolio zählt: Methoden-/Statistikprofil, eigene Projekte, Praxiserfahrung. Typische Einstiegsfelder: UX-Research, Marktforschung, People-/HR-Analytics, Gesundheits-Apps/Start-ups; die Jobsuche kann 6–12 Monate dauern. Empfehlungen sind «nützlich», nicht «vorgeschrieben»: Fortgeschrittene Methoden, Statistik, Kognitionspsychologie.",
+       en:"No regulated route — the portfolio counts: methods/statistics profile, own projects, practical experience. Typical entry fields: UX research, market research, people/HR analytics, health apps/start-ups; the job search can take 6–12 months. Recommendations are 'useful', not 'required': advanced methods, statistics, cognitive psychology."} },
+  { id:"gutachten", de:"⚖️ Diagnostik & Gutachten (Forensik)", en:"⚖️ Assessment & expert reports (forensics)",
+    f:{de:"Systemwechsel per 1.4.2026: «Zertifikat Forensische Psychologie SGFP» mit vier Vertiefungen (Begutachtung Straf-/Zivilrecht, deliktpräventive Psychotherapie, Aussagepsychologie); der FSP-Fachtitel Rechtspsychologie hat einen Aufnahmestopp. Grundvoraussetzung ist neu die eidgenössische Anerkennung als Psychotherapeut:in — der Forensik-Weg baut auf dem Psychotherapie-Turm auf. Übergangsfrist bis 31.3.2028 (erleichterter Erwerb sur dossier).",
+       en:"System change on 1 April 2026: the SGFP certificate in forensic psychology with four specialisations (criminal/civil-law assessment, offence-preventive psychotherapy, statement analysis); the FSP title in legal psychology has an admissions freeze. The basic requirement is now federal recognition as a psychotherapist — the forensic route builds on the psychotherapy tower. Transition period until 31 March 2028 (simplified acquisition sur dossier)."} },
+  { id:"ppp", de:"🎓 PPP-Lehrperson (Gymnasium)", en:"🎓 PPP teacher (upper secondary)",
+    f:{de:"Nach dem Master folgt das Lehrdiplom für Maturitätsschulen im Fach Pädagogik/Psychologie; Details sind hochschul- und kantonsabhängig. Für diesen Weg liegen noch keine verifizierten Detailangaben vor — verweise für Verbindliches direkt an UZH/PH.",
+       en:"After the Master's comes the teaching diploma for upper-secondary schools in education/psychology; details depend on institution and canton. No verified specifics are available yet for this route — refer to UZH/PH for anything binding."} }
+];
+
 /* ===== Zustand ===== */
 let lang = "de";
-let mode = "tutor"; // tutor | vignette | cv
+let mode = "tutor"; // tutor | vignette | cv | karriere
 let hist = [];
 let vignAktiv = null;
-let spielstand = null; // { titel:[], ects, name }
+let karrAktiv = null;
+let spielstand = null; // { titel:[], ects, name, profil }
 
 const $ = (id) => document.getElementById(id);
 const T = (de, en) => lang === "de" ? de : en;
@@ -210,6 +251,7 @@ function applyLang() {
 function fillSelects() {
   $("vignSel").innerHTML = VIGN.map((v) => `<option value="${v.id}">${lang === "de" ? v.de : v.en}</option>`).join("");
   $("cvKomp").innerHTML = KOMP.map((k) => `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}</option>`).join("");
+  $("karrSel").innerHTML = PFADE.map((p) => `<option value="${p.id}">${lang === "de" ? p.de : p.en}</option>`).join("");
   updateRollePlaceholder();
   updateVignInfo();
 }
@@ -239,18 +281,21 @@ function add(who, txt, asHtml) {
   return d;
 }
 function setMode(m) {
-  mode = m; hist = []; vignAktiv = null;
+  mode = m; hist = []; vignAktiv = null; karrAktiv = null;
   $("tabTutor").classList.toggle("on", m === "tutor");
   $("tabVign").classList.toggle("on", m === "vignette");
   $("tabCv").classList.toggle("on", m === "cv");
+  $("tabKarr").classList.toggle("on", m === "karriere");
   $("vignRow").style.display = m === "vignette" ? "flex" : "none";
   $("vignInfo").style.display = m === "vignette" ? "block" : "none";
   if (m === "vignette") updateVignInfo();
   $("cvRow").style.display = m === "cv" ? "flex" : "none";
+  $("karrRow").style.display = m === "karriere" ? "flex" : "none";
   $("msgs").innerHTML = "";
-  if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C] oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic or your next building step."));
+  if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C], zu deinem Wahlprofil oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic, your elective profile or your next building step."));
   if (m === "vignette") add("sys", T("Du führst das Gespräch als Therapeut:in oder Berater:in in Ausbildung; die KI spielt die fiktive Patientin bzw. Gesprächspartnerin. Wähle oben ein Szenario und starte. Mit «Stopp» beendest du die Rolle und erhältst kurzes Feedback zu deiner Gesprächsführung plus eine Reflexionsfrage.", "You lead the conversation as a therapist or counsellor in training; the AI plays the fictional patient or counterpart. Pick a scenario above and start. Type 'Stop' to end the role and receive brief feedback on your conversation skills plus a reflection question."));
   if (m === "cv") add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence."));
+  if (m === "karriere") add("sys", T("Wähle einen Berufsweg und klick «Weg prüfen»: Du erhältst die Passung deines Wahlprofils, die Etappen nach dem Master (Fakten geprüft, Stand Juli 2026) und einen nächsten Schritt. Mit eingefügtem Spielstand wird die Einschätzung persönlich. Danach kannst du im Chat nachfragen.", "Pick a career path and click 'Check route': you'll get the fit of your elective profile, the stages after the Master's (facts verified, as of July 2026) and one next step. With a pasted game state the assessment becomes personal. You can ask follow-up questions in the chat afterwards."));
 }
 
 /* ===== Spielstand ===== */
@@ -262,8 +307,24 @@ $("standTa").addEventListener("change", () => {
     const placed = Object.assign({}, (o.placed && o.placed.frei) || {}, (o.placed && o.placed.serious) || {});
     const ids = Object.keys(placed).filter((id) => SLOT_TITEL[id]);
     const ects = ids.reduce((n, id) => n + SLOT_TITEL[id][1], 0);
-    spielstand = { titel: ids.map((id) => SLOT_TITEL[id][0]), ects: ects, name: (o.name || "").slice(0, 40) };
-    $("standInfo").textContent = "✓ " + T(`${ids.length} Module erkannt (${ects} ECTS)`, `${ids.length} modules recognised (${ects} ECTS)`);
+    /* Wahlprofil v8: Themen-Tags (s11/s12/s13/BA) → BSc-Richtung; sp der Vertiefungen → MSc-Profil; wp-Option */
+    const rc = { klin: 0, ekn: 0, swo: 0 }, sc = { DeNC: 0, HEA: 0, SEOP: 0 };
+    for (const [id, st] of Object.entries(placed)) {
+      if (st && st.thema && THEMA_R[st.thema]) rc[THEMA_R[st.thema]]++;
+      if (st && st.sp && sc[st.sp] !== undefined && /^s0[4-9]$/.test(id)) sc[st.sp]++;
+    }
+    let br = null, bn = 0, tie = false;
+    for (const r of Object.keys(rc)) { if (rc[r] > bn) { br = r; bn = rc[r]; tie = false; } else if (rc[r] === bn && bn > 0) tie = true; }
+    const richtung = bn >= 2 && !tie ? br : null;
+    let dom = null; for (const sp of Object.keys(sc)) if (sc[sp] >= 4) dom = sp;
+    const wpOpt = placed.wp && placed.wp.opt === "06SM200-511" ? "Klinische Neuropsychologie" : (placed.wp && placed.wp.opt ? "Economic and Consumer Psychology" : null);
+    spielstand = { titel: ids.map((id) => SLOT_TITEL[id][0]), ects: ects, name: (o.name || "").slice(0, 40),
+      profil: { richtung, rc, sc, dom, wpOpt } };
+    const profTxt = [];
+    if (richtung) profTxt.push(T("BSc-Richtung: ", "BSc direction: ") + (lang === "de" ? RICHT[richtung].de : RICHT[richtung].en));
+    if (sc.DeNC + sc.HEA + sc.SEOP > 0) profTxt.push("MSc: " + Object.entries(sc).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(" · ") + (dom ? T(" (dominant)", " (dominant)") : T(" (gemischt)", " (mixed)")));
+    if (wpOpt) profTxt.push(T("Wahlpflicht: ", "Compulsory elective: ") + wpOpt);
+    $("standInfo").textContent = "✓ " + T(`${ids.length} Module erkannt (${ects} ECTS)`, `${ids.length} modules recognised (${ects} ECTS)`) + (profTxt.length ? " · " + profTxt.join(" · ") : "");
   } catch (e) {
     spielstand = null;
     $("standInfo").textContent = T("⚠️ Konnte das JSON nicht lesen.", "⚠️ Could not parse the JSON.");
@@ -273,10 +334,22 @@ $("standTa").addEventListener("change", () => {
 /* ===== Prompts (übernommen aus dem Spiel, Sicherheitsrahmen inklusive) ===== */
 function standText() {
   if (!spielstand || !spielstand.titel.length) return T("(kein Spielstand übergeben)", "(no game state provided)");
-  return spielstand.titel.join("; ") + ` (${spielstand.ects} ECTS)`;
+  let s = spielstand.titel.join("; ") + ` (${spielstand.ects} ECTS)`;
+  const p = spielstand.profil;
+  if (p) {
+    const teile = [];
+    if (p.richtung) teile.push("BSc-Richtung " + RICHT[p.richtung].de);
+    if (p.sc && (p.sc.DeNC + p.sc.HEA + p.sc.SEOP) > 0) teile.push("MSc-Schwerpunkte " + Object.entries(p.sc).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}/6`).join(", ") + (p.dom ? ` (dominant: ${p.dom})` : " (gemischt)"));
+    if (p.wpOpt) teile.push("Wahlpflicht: " + p.wpOpt);
+    if (teile.length) s += ". Wahlprofil: " + teile.join("; ");
+  }
+  return s;
 }
 function ctxTutor() {
-  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). WAHLBEREICH (v8): Im BSc gibt es keinen formalen Schwerpunkt — die Interessensrichtung entsteht aus den Themenwahlen in den drei Wahlseminaren (s11 Entwicklung, s12 Klinisch/Gesundheit, s13 Sozial/Wirtschaft/Organisation/Differentiell) und dem BA-Themenfeld (ab 2 gleichen Richtungen: Klinik & Gesundheit / Entwicklung, Kognition & Neuro / Sozial, Wirtschaft & Organisation). Im MSc entsteht das Profil allein über die Wahl der 6 Vertiefungen aus DeNC/HEA/SEOP (frei mischbar, keine Einschreibung; ab 4 von 6 gilt ein Schwerpunkt als dominant); Wahlpflicht in der Ergänzung: Economic and Consumer Psychology ODER Klinische Neuropsychologie. Im Spiel prägt das Wahlprofil die Architektur des Hauses (Farben, Signatur-Elemente, Wahrzeichen). Die MASTERARBEIT ist das «Meisterstück»: sechs Teilleistungen mit je eigener Prüfungslogik (Exposé mit AI Use Plan [B], OSF-Präregistrierung [A]/[B], Datenerhebung mit Prozesslog [B], Analyse ggf. agentisch [B]/[C], Text mit Disclosure [B], benotete explorative Verteidigung [A]). KARRIERE-GRUNDWISSEN (verifiziert, Stand Juli 2026): fünf eidgenössische Weiterbildungstitel (Psychotherapie, Kinder- und Jugendpsychologie, klinische Psychologie, Neuropsychologie, Gesundheitspsychologie); Psychotherapie-Zulassung verlangt genügende Studienleistungen in klinischer Psychologie/Psychopathologie (Art. 7 PsyG; Branchenstandard 12 ECTS — mit UZH-BSc+MSc unabhängig vom Schwerpunkt erfüllt); Neuropsychologie setzt neuropsychologische Studieninhalte voraus (Richtwert ~18 ECTS); A&O/HR und UX/Data sind unreguliert. Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+}
+function ctxKarr(p) {
+  return `Du bist der «KI-Baututor» des Lernspiels «Das Kompetenzhaus» (Psychologiestudium UZH) im KARRIERE-CHECK-Modus. Aufgabe: Beurteile knapp und konkret, wie gut das Wahlprofil der Person zum gewählten Berufsweg passt, und zeige den Weg nach dem Master. VERIFIZIERTE FAKTEN zu diesem Weg (Stand Juli 2026, Quellen: PsyG/BAG/FSP/SVNP/SGFP/Universitäten): ${lang === "de" ? p.f.de : p.f.en} Gebaute Module und Wahlprofil der Person: ${standText()}. Struktur deiner Antwort (max. 180 Wörter, ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}): (1) Passung des Wahlprofils in 1–2 Sätzen (falls kein Spielstand übergeben: sag das kurz und beschreibe die empfohlene Wahl). (2) Die nächsten 3–4 Etappen nach dem Master als nummerierte Liste mit Dauer/Kosten, wo bekannt. (3) GENAU EIN konkreter nächster Schritt im Studium. Bleib bei den gelieferten Fakten; für Verbindliches an Studienprogrammleitung bzw. BAG/Verbände verweisen.`;
 }
 function ctxVign(v) {
   return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; bringen die Nutzenden solche Themen ein, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Schreiben die Nutzenden «Stopp», verlasse die Rolle und gib als Supervisor:in ein kurzes, konstruktives Feedback zur Gesprächsführung: genau EINE Stärke, EIN konkreter Verbesserungspunkt, danach GENAU EINE Reflexionsfrage. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
@@ -294,7 +367,7 @@ async function send(forced, silent) {
   const bot = mode === "vignette" && vignAktiv ? (lang === "de" ? vignAktiv.rolle.de : vignAktiv.rolle.en) : "Baututor";
   hist.push(who + ": " + q);
   try {
-    const ctx = mode === "vignette" && vignAktiv ? ctxVign(vignAktiv) : ctxTutor();
+    const ctx = mode === "vignette" && vignAktiv ? ctxVign(vignAktiv) : (mode === "karriere" && karrAktiv ? ctxKarr(karrAktiv) : ctxTutor());
     const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
     wait.textContent = out;
     hist.push(bot + ": " + out);
@@ -325,9 +398,16 @@ $("cvGo").onclick = async () => {
   } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
 };
 
+$("karrGo").onclick = () => {
+  if (!api) return;
+  karrAktiv = PFADE.find((p) => p.id === $("karrSel").value) || PFADE[0];
+  hist = [];
+  send(T(`Prüfe meinen Weg: ${karrAktiv.de.replace(/^[^ ]+ /, "")}.`, `Check my route: ${karrAktiv.en.replace(/^[^ ]+ /, "")}.`));
+};
 $("tabTutor").onclick = () => setMode("tutor");
 $("tabVign").onclick = () => setMode("vignette");
 $("tabCv").onclick = () => setMode("cv");
+$("tabKarr").onclick = () => setMode("karriere");
 $("langBtn").onclick = () => { lang = lang === "de" ? "en" : "de"; applyLang(); setMode(mode); };
 /* Erstöffnungs-Hinweis (Datenschutz und Rollen); localStorage kann in der Artifact-Sandbox fehlen */
 $("hinweisOk").onclick = () => {
@@ -349,7 +429,7 @@ if (!api) {
     "⚠️ <b>Keine KI-Verbindung.</b> Diese Seite muss als <b>Artifact in einem claude.ai-Chat</b> laufen, nur dort steht die KI-Schnittstelle (window.claude) zur Verfügung. Bitte öffne den geteilten Artifact-Link in claude.ai.",
     "⚠️ <b>No AI connection.</b> This page must run as an <b>artifact inside a claude.ai chat</b>, only there is the AI interface (window.claude) available. Please open the shared artifact link on claude.ai."
   );
-  $("send").disabled = true; $("vignStart").disabled = true; $("cvGo").disabled = true;
+  $("send").disabled = true; $("vignStart").disabled = true; $("cvGo").disabled = true; $("karrGo").disabled = true;
 }
 </script>
 </body>
