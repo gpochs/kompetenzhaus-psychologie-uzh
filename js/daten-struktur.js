@@ -97,12 +97,61 @@ window.STRUKTUR = {
     SEOP: { name: { de: "Social, Economic & Organisational Psychology (SEOP)", en: "Social, Economic & Organisational Psychology (SEOP)" }, farbe: "#00b877" }
   },
 
+  /* ---------- BSc-Interessensrichtungen ----------
+     Der BSc kennt keinen formalen Schwerpunkt. Die Richtung entsteht aus den
+     Themenwahlen in den drei Wahlseminaren (s11/s12/s13) und dem BA-Themenfeld:
+     Mehrheit der Tags = abgeleitete Richtung (Katalogtreue statt Einschreibung). */
+  richtungen: {
+    klin: { name: { de: "klinisch-gesundheitsorientiert", en: "clinical & health oriented" },
+            kurz: { de: "Klinik & Gesundheit", en: "Clinic & health" }, farbe: "#d96a4b", icon: "🩺" },
+    ekn:  { name: { de: "entwicklungs-kognitiv-neurowissenschaftlich", en: "developmental, cognitive & neuroscience oriented" },
+            kurz: { de: "Entwicklung, Kognition & Neuro", en: "Development, cognition & neuro" }, farbe: "#2a9d8f", icon: "🧠" },
+    swo:  { name: { de: "sozial-ökonomisch-organisational", en: "social, economic & organisational" },
+            kurz: { de: "Sozial, Wirtschaft & Organisation", en: "Social, economic & organisational" }, farbe: "#d9a441", icon: "🏢" }
+  },
+
+  /* Beispiel-Themengebiete je Wahlslot (Angebot wechselt real semesterweise —
+     die Wahl steht für die Interessensrichtung, nicht für ein fixes Modul). */
+  themen: {
+    s11: [
+      { id: "s11a", r: "ekn",  name: { de: "Kognitive Entwicklung & Lernen über die Lebensspanne", en: "Cognitive development & learning across the lifespan" } },
+      { id: "s11b", r: "klin", name: { de: "Entwicklungspsychopathologie & Resilienz", en: "Developmental psychopathology & resilience" } },
+      { id: "s11c", r: "swo",  name: { de: "Soziale & emotionale Entwicklung in Familie und Peers", en: "Social & emotional development in family and peer contexts" } }
+    ],
+    s12: [
+      { id: "s12a", r: "klin", name: { de: "Psychotherapieforschung & Interventionsansätze", en: "Psychotherapy research & intervention approaches" } },
+      { id: "s12b", r: "ekn",  name: { de: "Klinische Neurowissenschaft & Biopsychologie psychischer Störungen", en: "Clinical neuroscience & biopsychology of mental disorders" } },
+      { id: "s12c", r: "swo",  name: { de: "Gesundheitsverhalten & Prävention in Alltag und Arbeitswelt", en: "Health behaviour & prevention in everyday and work life" } }
+    ],
+    s13: [
+      { id: "s13a", r: "swo",  name: { de: "Organisations- & Personalpsychologie", en: "Organisational & personnel psychology" } },
+      { id: "s13b", r: "ekn",  name: { de: "Soziale Kognition & Urteilsbildung", en: "Social cognition & judgement" } },
+      { id: "s13c", r: "klin", name: { de: "Persönlichkeit, Differenzen & psychische Gesundheit", en: "Personality, individual differences & mental health" } }
+    ],
+    BA: [
+      { id: "BAk", r: "klin", name: { de: "Themenfeld Klinische Psychologie & Gesundheit", en: "Thesis field: clinical & health psychology" } },
+      { id: "BAe", r: "ekn",  name: { de: "Themenfeld Entwicklung, Kognition & Neurowissenschaft", en: "Thesis field: development, cognition & neuroscience" } },
+      { id: "BAs", r: "swo",  name: { de: "Themenfeld Sozial-, Wirtschafts- & Organisationspsychologie", en: "Thesis field: social, economic & organisational psychology" } }
+    ]
+  },
+
   /* ---------- Baustil-Varianten (Design-Anpassung pro Baustein) ---------- */
   stile: [
     { id: "klassisch", name: { de: "Klassisch", en: "Classic" } },
     { id: "hell",      name: { de: "Hell verputzt", en: "Light render" } },
     { id: "holz",      name: { de: "Holzfassade", en: "Timber façade" } },
-    { id: "glas",      name: { de: "Glas & Stahl", en: "Glass & steel" } }
+    { id: "glas",      name: { de: "Glas & Stahl", en: "Glass & steel" } },
+    { id: "backstein", name: { de: "Backstein", en: "Brick" } },
+    { id: "beton",     name: { de: "Sichtbeton", en: "Fair-faced concrete" } }
+  ],
+
+  /* ---------- Kuratierte Farbwelten (pro Haus wählbar, immer stimmig) ---------- */
+  paletten: [
+    { id: "uzh",     name: { de: "UZH Klassik", en: "UZH classic" },        rahmen: "#f2f0e9", dach: null,      holz: "#8a6642", akzent: "#0028a5" },
+    { id: "abend",   name: { de: "Terracotta-Abend", en: "Terracotta dusk" }, rahmen: "#f6efe3", dach: "#8c3b2e", holz: "#9a6b4f", akzent: "#b35c00" },
+    { id: "salbei",  name: { de: "Salbei & Kalk", en: "Sage & lime" },      rahmen: "#f4f6f0", dach: "#4a5d4e", holz: "#7d8a6a", akzent: "#5e7a68" },
+    { id: "nordisch",name: { de: "Nordisch", en: "Nordic" },                rahmen: "#ffffff", dach: "#1c2740", holz: "#54606e", akzent: "#39415a" },
+    { id: "sand",    name: { de: "Sand & Eiche", en: "Sand & oak" },        rahmen: "#faf3e6", dach: "#6b5138", holz: "#b98a5a", akzent: "#d9a441" }
   ],
 
   /* ---------- Slots = platzierbare Bausteine ----------

@@ -61,10 +61,11 @@ const FALLBACK = {
 
 /* ---------- State ---------- */
 const defaultState = () => ({
-  v: 2, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
+  v: 3, lang: "de", mode: "frei", name: "", direktMSc: false, onboarded: false,
   placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {}, fb: {},
   msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
-  sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false]
+  sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false],
+  pal: { bsc: "uzh", msc: "uzh" }, wzSeen: { frei: [], serious: [] }
 });
 function autoSeason() {
   const m = new Date().getMonth() + 1;
@@ -117,6 +118,44 @@ function slotTitel(slot) {
   return L(slot.titel);
 }
 const visitor = { active: false, data: null };
+
+/* ---------- Wahlprofil: Themen, Richtungen, Schwerpunkt-Profil, Paletten ---------- */
+const THEMEN = ST.themen || {};
+const PAL = {}; (ST.paletten || []).forEach((p) => (PAL[p.id] = p));
+function palFor(hausId) { return PAL[(S.pal && S.pal[hausId]) || "uzh"] || PAL.uzh || { rahmen: "#f2f0e9", dach: null, holz: "#8a6642", akzent: "#0028a5" }; }
+function themaFor(slotId, state) {
+  const p = state || S.placed[S.mode][slotId];
+  if (!p || !p.thema) return null;
+  return (THEMEN[slotId] || []).find((t) => t.id === p.thema) || null;
+}
+/* BSc-Interessensrichtung: Mehrheit der Themen-Tags aus s11/s12/s13 + BA-Themenfeld.
+   Mindestens 2 gleiche Tags und keine geteilte Spitze — sonst (noch) kein Profil. */
+function bscRichtung() {
+  const counts = { klin: 0, ekn: 0, swo: 0 };
+  for (const sid of ["s11", "s12", "s13", "BA"]) {
+    const th = themaFor(sid);
+    if (th && counts[th.r] !== undefined) counts[th.r]++;
+  }
+  let best = null, bn = 0, tie = false;
+  for (const r of Object.keys(counts)) {
+    if (counts[r] > bn) { best = r; bn = counts[r]; tie = false; }
+    else if (counts[r] === bn && bn > 0) tie = true;
+  }
+  return { counts, r: bn >= 2 && !tie ? best : null };
+}
+/* MSc-Profil: Verteilung der Schwerpunktwahlen über die 6 Vertiefungen; Dominanz ab 4/6. */
+function mscProfil() {
+  const counts = { DeNC: 0, HEA: 0, SEOP: 0 };
+  for (const sid of ["s04", "s05", "s06", "s07", "s08", "s09"]) {
+    const p = S.placed[S.mode][sid];
+    if (p && p.sp && counts[p.sp] !== undefined) counts[p.sp]++;
+  }
+  let dom = null;
+  for (const sp of Object.keys(counts)) if (counts[sp] >= 4) dom = sp;
+  return { counts, dom, total: counts.DeNC + counts.HEA + counts.SEOP };
+}
+/* Gewählte Wahlpflicht-Option (510 Economic/Consumer vs. 511 Klin. Neuropsychologie) */
+function wpWahl() { const p = S.placed[S.mode]["wp"]; return (p && p.opt) || null; }
 
 /* ---------- Regeln ---------- */
 function isPlaced(id, mode) { return !!S.placed[mode || S.mode][id]; }
@@ -331,6 +370,26 @@ const bauhuette = new THREE.Group();
   scene.add(bauhuette);
 }
 
+/* Geräteschuppen — der KI-Tool-Stack der UZH mit Reifegrad-Ampel (Quelle: KI-im-Curriculum-Kompass, 16.07.2026) */
+const geraeteschuppen = new THREE.Group();
+{
+  const wand = new THREE.MeshStandardMaterial({ color: 0x7d8a6a, roughness: 0.95 });
+  const wandD = new THREE.MeshStandardMaterial({ color: 0x5e6b4e, roughness: 0.95 });
+  const korpus = new THREE.Mesh(new RoundedBoxGeometry(1.9, 1.5, 1.3, 2, 0.05), wand);
+  korpus.position.y = 0.75;
+  const dach = new THREE.Mesh(new THREE.BoxGeometry(2.15, 0.09, 1.6), new THREE.MeshStandardMaterial({ color: 0x39415a, roughness: 0.85 }));
+  dach.position.y = 1.58; dach.rotation.x = -0.12;
+  const tuer = new THREE.Mesh(new THREE.PlaneGeometry(0.6, 1.1), wandD);
+  tuer.position.set(-0.35, 0.57, 0.66);
+  const schild = textSprite("🧰", "#0e8f7e");
+  schild.scale.set(1.05, 0.42, 1); schild.position.set(0, 2.35, 0);
+  geraeteschuppen.add(korpus, dach, tuer, schild);
+  geraeteschuppen.position.set(-24.2, 0.02, 5.6);
+  geraeteschuppen.rotation.y = 0.9;
+  geraeteschuppen.traverse((o) => { if (o.isMesh) o.castShadow = true; o.userData.action = "geraete"; });
+  scene.add(geraeteschuppen);
+}
+
 /* Sterne & Glühwürmchen */
 function makePoints(n, size, color, spread, yMin, yMax) {
   const pos = new Float32Array(n * 3);
@@ -381,6 +440,10 @@ function flyTo(pos, target, dur = 1.6, after = null) {
 function colFor(slot, state) {
   const p = state || S.placed[S.mode][slot.slot]; // state: z.B. Nachbarhäuser mit eigenem Spielstand
   if (slot.schwerpunktwahl && p && p.sp && ST.schwerpunkte[p.sp]) return new THREE.Color(ST.schwerpunkte[p.sp].farbe);
+  const th = p && p.thema ? (THEMEN[slot.slot] || []).find((t) => t.id === p.thema) : null;
+  if (th && ST.richtungen && ST.richtungen[th.r]) {
+    return new THREE.Color(ST.gruppen[slot.gruppe].farbe).lerp(new THREE.Color(ST.richtungen[th.r].farbe), 0.72);
+  }
   return new THREE.Color(ST.gruppen[slot.gruppe].farbe);
 }
 function styleMat(baseColor, stil) {
@@ -389,6 +452,8 @@ function styleMat(baseColor, stil) {
   if (stil === "hell") c.lerp(new THREE.Color(0xffffff), 0.45);
   if (stil === "holz") { c.lerp(new THREE.Color(0x8a6642), 0.55); rough = 0.95; }
   if (stil === "glas") { c.lerp(new THREE.Color(0x9db8d9), 0.5); rough = 0.28; metal = 0.35; }
+  if (stil === "backstein") { c.lerp(new THREE.Color(0x9c4a35), 0.6); rough = 0.92; }
+  if (stil === "beton") { c.lerp(new THREE.Color(0xb9bdc4), 0.55); rough = 0.6; }
   return new THREE.MeshStandardMaterial({ color: c, roughness: rough, metalness: metal });
 }
 const windowMats = [];
@@ -402,6 +467,96 @@ const roofDarken = (c) => c.clone().lerp(new THREE.Color(0x14203c), 0.45);
 const blockGroup = new THREE.Group(); scene.add(blockGroup);
 const blockMeshes = {}; // slot -> Group
 const floorBase = (y) => (y === 0 ? 0 : 0.55 + (y - 1)) * FH + 0.24;
+
+/* ---------- Statik: getragen oder auskragend? ----------
+   Ein Block gilt als getragen, wenn unter seiner Grundfläche (Zellkoordinaten)
+   ein platzierter Block des Geschosses darunter liegt. Auskragende Blöcke
+   erhalten sichtbare Stützen bis zum tragenden Niveau — nichts schwebt. */
+const KONSOLEN = new Set(["901", "902", "903", "904"]); // Turmkonsolen: immer mit Konsolstein zum Turm hin
+function footOverlap(a, b) {
+  return Math.abs(a.x - b.x) * 2 < (a.w + b.w) - 0.01 && Math.abs(a.z - b.z) * 2 < (a.d + b.d) - 0.01;
+}
+function isSupported(slot, state) {
+  if (slot.pos.y === 0) return true;
+  for (const s of ST.slots) {
+    if (s.haus !== slot.haus || s.slot === slot.slot) continue;
+    const below = s.pos.y === slot.pos.y - 1 || (s.form === "wing" && slot.pos.y <= 2);
+    if (!below) continue;
+    const placedS = state ? !!state[s.slot] : isPlaced(s.slot);
+    if (placedS && footOverlap(slot.pos, s.pos)) return true;
+  }
+  return false;
+}
+/* Konsolstein (Kragstein): schräge Stütze unter der Innenkante eines angebauten Blocks */
+function addKonsole(g, slot, mat) {
+  const W = slot.pos.w * CELL, D = slot.pos.d * CELL;
+  const innen = slot.pos.x >= 0 ? -1 : 1; // zur Hausmitte hin
+  for (const pz of [-0.32, 0.32]) {
+    const k = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.14, 0.55, 4), mat);
+    k.rotation.y = Math.PI / 4;
+    k.position.set(innen * (W / 2 - 0.18), -0.27, pz * D);
+    g.add(k);
+  }
+}
+/* Signatur-Elemente: machen die gewählte Richtung / den Schwerpunkt architektonisch sichtbar */
+function addSignatur(g, slot, key, pal) {
+  const pos = slot.pos, W = pos.w * CELL, D = pos.d * CELL, H = pos.h * FH;
+  const col = ((ST.schwerpunkte || {})[key] || (ST.richtungen || {})[key] || {}).farbe || "#ffffff";
+  const cm = new THREE.MeshStandardMaterial({ color: new THREE.Color(col), roughness: 0.55 });
+  const faceZ = Math.abs(pos.z) < 0.01 ? 1 : (pos.z >= 0 ? 1 : -1);
+  const band = new THREE.Mesh(new THREE.BoxGeometry(W + 0.06, 0.1, 0.06), cm); // Zierband an der Traufkante
+  band.position.set(0, H - 0.16, faceZ * (D / 2 + 0.02));
+  if (faceZ < 0) band.rotation.y = Math.PI;
+  g.add(band);
+  const typ = { DeNC: "rund", ekn: "rund", HEA: "gruen", klin: "gruen", SEOP: "glas", swo: "glas" }[key];
+  if (typ === "rund") { // Rundfenster — Observatoriums-Motiv
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.16, 0.23, 20), cm);
+    ring.position.set(0, H * 0.84, faceZ * (D / 2 + 0.02));
+    const glasR = new THREE.Mesh(new THREE.CircleGeometry(0.17, 20), windowMat());
+    glasR.position.set(0, H * 0.84, faceZ * (D / 2 + 0.014));
+    for (const el of [ring, glasR]) { if (faceZ < 0) el.rotation.y = Math.PI; g.add(el); }
+  } else if (typ === "gruen") { // Pflanzkästen — Gesundheits-/Therapiegarten-Motiv
+    const nWin = Math.max(1, Math.round(pos.w));
+    for (let i = 0; i < nWin; i++) {
+      const fx = (i - (nWin - 1) / 2) * (W / nWin);
+      const kasten = new THREE.Mesh(new RoundedBoxGeometry(0.66, 0.14, 0.16, 2, 0.04), cm);
+      kasten.position.set(fx, H * 0.55 - 0.62, faceZ * (D / 2 + 0.1));
+      g.add(kasten);
+      for (let b = 0; b < 3; b++) {
+        const bl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.055, 0), new THREE.MeshBasicMaterial({ color: [0xe4572e, 0xf3d34e, 0xffffff][b] }));
+        bl.position.set(fx + (b - 1) * 0.18, H * 0.55 - 0.5, faceZ * (D / 2 + 0.1));
+        g.add(bl);
+      }
+    }
+  } else if (typ === "glas") { // Glasband mit Metallleiste — Atrium-/Office-Motiv
+    const gb = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.82, 0.3), windowMat());
+    gb.position.set(0, H * 0.87, faceZ * (D / 2 + 0.012));
+    const leiste = new THREE.Mesh(new THREE.BoxGeometry(W * 0.85, 0.05, 0.05),
+      new THREE.MeshStandardMaterial({ color: new THREE.Color(col), metalness: 0.55, roughness: 0.35 }));
+    leiste.position.set(0, H * 0.72, faceZ * (D / 2 + 0.03));
+    for (const el of [gb, leiste]) { if (faceZ < 0) el.rotation.y = Math.PI; g.add(el); }
+  }
+}
+/* Stützpfeiler: vom Blockboden bis auf das tragende Niveau (oder den Boden) */
+function addStuetzen(g, slot, mat) {
+  const W = slot.pos.w * CELL, D = slot.pos.d * CELL;
+  const len = floorBase(slot.pos.y) - 0.24;
+  if (len < 0.4) return;
+  const grp = new THREE.Group(); grp.name = "stuetzen";
+  for (const [px, pz] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.11, len, 8), mat);
+    p.position.set(px * (W / 2 - 0.18), -len / 2, pz * (D / 2 - 0.18));
+    grp.add(p);
+  }
+  if (len > 2.2) { // Querstrebe für lange Stelzen — wirkt konstruktiv statt gestapelt
+    for (const pz of [-1, 1]) {
+      const q = new THREE.Mesh(new THREE.BoxGeometry(W - 0.3, 0.09, 0.09), mat);
+      q.position.set(0, -len * 0.55, pz * (D / 2 - 0.18));
+      grp.add(q);
+    }
+  }
+  g.add(grp);
+}
 
 function prismGeometry(w, d, h) { // Satteldach entlang x
   const hw = w / 2, hd = d / 2;
@@ -420,6 +575,7 @@ function buildBlockMesh(slot, opts = {}) {
   const p = opts.state || S.placed[S.mode][slot.slot] || {};
   const stil = p.stil || "klassisch";
   const base = colFor(slot, opts.state);
+  const pal = palFor(slot.haus);
   const g = new THREE.Group();
   const pos = slot.pos;
   const W = pos.w * CELL, D = pos.d * CELL;
@@ -429,7 +585,10 @@ function buildBlockMesh(slot, opts = {}) {
   let main;
   const rb = (w, h, d, r = 0.09) => new RoundedBoxGeometry(w, h, d, 2, r);
 
-  const roofMat = () => new THREE.MeshStandardMaterial({ color: roofDarken(base), roughness: 0.8, flatShading: true, side: THREE.DoubleSide });
+  const roofMat = () => {
+    const c = pal.dach ? roofDarken(base).lerp(new THREE.Color(pal.dach), 0.6) : roofDarken(base);
+    return new THREE.MeshStandardMaterial({ color: c, roughness: 0.8, flatShading: true, side: THREE.DoubleSide });
+  };
   if (slot.form === "slab" || slot.form === "step") {
     main = new THREE.Mesh(rb(W, H, D, 0.07), mat);
     main.position.y = H / 2;
@@ -444,7 +603,7 @@ function buildBlockMesh(slot, opts = {}) {
     lip.receiveShadow = true;
     g.add(lip);
     if (slot.form === "step") { // Porch am IPS: Haustür, Pfosten, Vordach, Stufen
-      const woodMat = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
+      const woodMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(pal.holz), roughness: 0.9 });
       const door = new THREE.Mesh(new THREE.PlaneGeometry(0.92, 1.5), new THREE.MeshStandardMaterial({ color: 0x5a3d26, roughness: 0.8 }));
       door.position.set(0, H + 0.75, -D / 2 + 0.02);
       g.add(door);
@@ -476,7 +635,7 @@ function buildBlockMesh(slot, opts = {}) {
     cone.rotation.y = Math.PI / 4; cone.position.y = H / 2; g.add(cone); main = cone;
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 1.5, 6), new THREE.MeshStandardMaterial({ color: 0x888, roughness: 0.4, metalness: 0.7 }));
     pole.position.y = H + 0.7; g.add(pole);
-    const flag = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.6), new THREE.MeshStandardMaterial({ color: 0x0028a5, side: THREE.DoubleSide, roughness: 0.7 }));
+    const flag = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.6), new THREE.MeshStandardMaterial({ color: new THREE.Color(pal.akzent), side: THREE.DoubleSide, roughness: 0.7 }));
     flag.position.set(0.58, H + 1.15, 0); flag.name = "flag"; g.add(flag);
   } else if (slot.form === "lantern") {
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, H, 6), new THREE.MeshStandardMaterial({ color: 0x39415a, roughness: 0.6, metalness: 0.4 }));
@@ -491,7 +650,7 @@ function buildBlockMesh(slot, opts = {}) {
     const outward = pos.z >= 0 ? 1 : -1;
     const faceZ = slot.haus && Math.abs(pos.z) < 0.01 ? 1 : outward;
     const wm = windowMat();
-    const frameMat = new THREE.MeshStandardMaterial({ color: 0xf2f0e9, roughness: 0.7 });
+    const frameMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(pal.rahmen), roughness: 0.7 });
     const nWin = Math.max(1, Math.round(pos.w));
     const wy = H * 0.55;
     for (let i = 0; i < nWin; i++) {
@@ -519,6 +678,27 @@ function buildBlockMesh(slot, opts = {}) {
         g.add(pil);
       }
     }
+  }
+  /* Wahl-Architektur: Schwerpunkt-/Themen-Signatur macht den gewählten Pfad am Baustein sichtbar */
+  const sigKey = (slot.schwerpunktwahl && p.sp) ? p.sp
+    : (p.thema ? ((THEMEN[slot.slot] || []).find((th) => th.id === p.thema) || {}).r : null);
+  if (sigKey && ["box", "bay"].includes(slot.form)) addSignatur(g, slot, sigKey, pal);
+  /* Wahlpflicht (gold) vs. freie Wahl (weiss): Eckleiste an der Aussenkante */
+  if (["box", "bay", "wing"].includes(slot.form) && (slot.kategorie === "Wahl" || slot.kategorie === "Wahlpflicht")) {
+    const wpGold = slot.kategorie === "Wahlpflicht";
+    const fz = Math.abs(pos.z) < 0.01 ? 1 : (pos.z >= 0 ? 1 : -1);
+    const kante = new THREE.Mesh(new THREE.BoxGeometry(0.075, H * 0.86, 0.075),
+      new THREE.MeshStandardMaterial({ color: wpGold ? 0xd9a441 : 0xffffff, roughness: 0.45, metalness: wpGold ? 0.5 : 0.05 }));
+    kante.position.set(-(W / 2 - 0.02), H / 2, fz * (D / 2 - 0.02));
+    g.add(kante);
+  }
+  /* Statik: Auskragendes wird sichtbar getragen — Konsolen am Turm, Stützen bis zum tragenden Niveau */
+  if (["box", "bay", "tower"].includes(slot.form) && pos.y > 0) {
+    const supMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(pal.holz).lerp(new THREE.Color(0x39415a), 0.35), roughness: 0.7, metalness: 0.15 });
+    const maSteht = opts.placedMap ? !!opts.placedMap.MA : isPlaced("MA");
+    const carried = isSupported(slot, opts.placedMap || null) || (KONSOLEN.has(slot.slot) && maSteht);
+    if (KONSOLEN.has(slot.slot)) addKonsole(g, slot, supMat);
+    if (!carried) addStuetzen(g, slot, supMat);
   }
   g.traverse((o) => { if (o.isMesh && !o.userData.noShadow) { o.castShadow = true; o.receiveShadow = true; } });
   const h = ST.haeuser[slot.haus];
@@ -706,6 +886,106 @@ function rebuildGarden() {
     pg.position.set(6.5, 0.24, 5.6);
     pg.traverse((o) => { if (o.isMesh) o.castShadow = true; });
     gardenGroup.add(pg);
+  }
+}
+
+/* ---------- Wahrzeichen: der gewählte Pfad wird zum Bauwerk ----------
+   BSc: abgeleitete Interessensrichtung (ab 2 gleichen Themen-Tags) baut ein kleines
+   Wahrzeichen neben dem Bachelor-Haus. MSc: Dominanz eines Schwerpunkts (≥4 von 6
+   Vertiefungen) baut ein grosses Wahrzeichen neben dem Master-Haus. Gemischte
+   Profile bleiben ehrlich gemischt — sie zeigen sich an den Bausteinen selbst. */
+const wahrzeichenGroup = new THREE.Group(); scene.add(wahrzeichenGroup);
+function wzSternwarte(colHex, gross) {
+  const s = gross ? 1 : 0.72, g = new THREE.Group();
+  const wand = new THREE.MeshStandardMaterial({ color: 0xe8e4da, roughness: 0.9 });
+  const kup = new THREE.MeshStandardMaterial({ color: new THREE.Color(colHex).lerp(new THREE.Color(0x39415a), 0.35), roughness: 0.5, metalness: 0.3, flatShading: true });
+  const basis = new THREE.Mesh(new THREE.CylinderGeometry(1.15 * s, 1.25 * s, 1.5 * s, 14), wand);
+  basis.position.y = 0.75 * s; g.add(basis);
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(1.18 * s, 16, 10, 0, Math.PI * 2, 0, Math.PI * 0.52), kup);
+  dome.position.y = 1.5 * s; g.add(dome);
+  const spalt = new THREE.Mesh(new THREE.BoxGeometry(0.28 * s, 1.05 * s, 0.1), new THREE.MeshStandardMaterial({ color: 0x141c38, roughness: 0.4 }));
+  spalt.position.set(0, 1.95 * s, 0.82 * s); spalt.rotation.x = -0.62; g.add(spalt);
+  const rohr = new THREE.Mesh(new THREE.CylinderGeometry(0.1 * s, 0.14 * s, 1.15 * s, 10), new THREE.MeshStandardMaterial({ color: 0x9aa2b5, metalness: 0.6, roughness: 0.3 }));
+  rohr.position.set(0, 2.2 * s, 0.55 * s); rohr.rotation.x = -0.7; g.add(rohr);
+  const tuer = new THREE.Mesh(new THREE.PlaneGeometry(0.5 * s, 0.9 * s), new THREE.MeshStandardMaterial({ color: 0x5a3d26, roughness: 0.85 }));
+  tuer.position.set(0, 0.45 * s, 1.21 * s); g.add(tuer);
+  return g;
+}
+function wzGarten(colHex, gross) {
+  const s = gross ? 1 : 0.72, g = new THREE.Group();
+  const holz = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
+  const gruen = new THREE.MeshStandardMaterial({ color: 0x4e9440, roughness: 1, flatShading: true });
+  for (const [px, pz] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) { // Pavillon
+    const pf = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2 * s, 0.12), holz);
+    pf.position.set(px * 1.05 * s, s, pz * 1.05 * s); g.add(pf);
+  }
+  const dach = new THREE.Mesh(new THREE.ConeGeometry(1.8 * s, 0.7 * s, 4), new THREE.MeshStandardMaterial({ color: new THREE.Color(colHex).lerp(new THREE.Color(0x39415a), 0.25), roughness: 0.8, flatShading: true }));
+  dach.rotation.y = Math.PI / 4; dach.position.y = 2.3 * s; g.add(dach);
+  const bank = new THREE.Mesh(new RoundedBoxGeometry(1.15 * s, 0.09, 0.4 * s, 2, 0.03), holz);
+  bank.position.y = 0.42 * s; g.add(bank);
+  for (const f of [-1, 1]) { const fu = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.4 * s, 0.34 * s), holz); fu.position.set(f * 0.45 * s, 0.2 * s, 0); g.add(fu); }
+  for (const bx of [-1, 1]) { // Beete mit Blüten in Signaturfarbe
+    const beet = new THREE.Mesh(new RoundedBoxGeometry(1.5 * s, 0.2, 0.6 * s, 2, 0.05), new THREE.MeshStandardMaterial({ color: 0x6b5138, roughness: 1 }));
+    beet.position.set(bx * 1.9 * s, 0.1, 0.4 * s); g.add(beet);
+    for (let i = 0; i < 4; i++) {
+      const bl = new THREE.Mesh(new THREE.IcosahedronGeometry(0.09 * s, 0), new THREE.MeshBasicMaterial({ color: i % 2 ? new THREE.Color(colHex) : new THREE.Color(0xffffff) }));
+      bl.position.set(bx * 1.9 * s - 0.5 * s + i * 0.34 * s, 0.3, 0.4 * s); g.add(bl);
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.02, 0.2, 5), gruen);
+      st.position.set(bx * 1.9 * s - 0.5 * s + i * 0.34 * s, 0.2, 0.4 * s); g.add(st);
+    }
+  }
+  const lat = new THREE.Mesh(new THREE.OctahedronGeometry(0.16 * s, 0), new THREE.MeshStandardMaterial({ color: 0xffd98a, emissive: 0xffb347, emissiveIntensity: 0.25 }));
+  lat.position.set(0, 1.75 * s, 1.05 * s); g.add(lat); windowMats.push(lat.material);
+  return g;
+}
+function wzAtrium(colHex, gross) {
+  const s = gross ? 1 : 0.72, g = new THREE.Group();
+  const glas = new THREE.MeshStandardMaterial({ color: 0xbdd9e8, roughness: 0.12, metalness: 0.3, transparent: true, opacity: 0.5 });
+  const metall = new THREE.MeshStandardMaterial({ color: new THREE.Color(colHex), metalness: 0.6, roughness: 0.3 });
+  const kubus = new THREE.Mesh(new THREE.BoxGeometry(2.4 * s, 1.9 * s, 2.4 * s), glas);
+  kubus.position.y = 0.95 * s; g.add(kubus);
+  for (const [px, pz] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) { // Rahmenkanten
+    const k = new THREE.Mesh(new THREE.BoxGeometry(0.09, 1.9 * s, 0.09), metall);
+    k.position.set(px * 1.2 * s, 0.95 * s, pz * 1.2 * s); g.add(k);
+  }
+  const deckel = new THREE.Mesh(new THREE.BoxGeometry(2.6 * s, 0.12, 2.6 * s), metall);
+  deckel.position.y = 1.95 * s; g.add(deckel);
+  const tisch = new THREE.Mesh(new THREE.CylinderGeometry(0.5 * s, 0.5 * s, 0.06, 12), new THREE.MeshStandardMaterial({ color: 0xf2f0e9, roughness: 0.6 }));
+  tisch.position.y = 0.5 * s; g.add(tisch);
+  const fuss = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.1, 0.5 * s, 8), metall);
+  fuss.position.y = 0.25 * s; g.add(fuss);
+  for (let i = 0; i < 3; i++) {
+    const a = (i / 3) * Math.PI * 2 + 0.5;
+    const stuhl = new THREE.Mesh(new RoundedBoxGeometry(0.3 * s, 0.34 * s, 0.3 * s, 2, 0.05), new THREE.MeshStandardMaterial({ color: 0xd9a441, roughness: 0.8 }));
+    stuhl.position.set(Math.cos(a) * 0.85 * s, 0.17 * s, Math.sin(a) * 0.85 * s); g.add(stuhl);
+  }
+  return g;
+}
+function rebuildWahrzeichen() {
+  wahrzeichenGroup.clear();
+  if (!S.wzSeen) S.wzSeen = { frei: [], serious: [] };
+  const items = [];
+  const br = bscRichtung();
+  if (br.r && ST.richtungen[br.r]) {
+    const mk = { klin: wzGarten, ekn: wzSternwarte, swo: wzAtrium }[br.r];
+    items.push({ key: "bsc:" + br.r, x: -17.5, z: -8.5, rot: 0.5, mesh: mk(ST.richtungen[br.r].farbe, false), name: t("wz_" + br.r) });
+  }
+  const mp = mscProfil();
+  if (mp.dom && ST.schwerpunkte[mp.dom]) {
+    const mk = { DeNC: wzSternwarte, HEA: wzGarten, SEOP: wzAtrium }[mp.dom];
+    items.push({ key: "msc:" + mp.dom, x: 20.5, z: -9, rot: -0.5, mesh: mk(ST.schwerpunkte[mp.dom].farbe, true), name: t("wz_" + mp.dom) });
+  }
+  for (const it of items) {
+    it.mesh.position.set(it.x, 0.24, it.z);
+    it.mesh.rotation.y = it.rot;
+    it.mesh.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    wahrzeichenGroup.add(it.mesh);
+    if (!visitor.active && !S.wzSeen[S.mode].includes(it.key)) {
+      S.wzSeen[S.mode].push(it.key); save();
+      burstConfetti(it.x, 4, it.z, 70, 3);
+      toast("🏛 " + t("wz_neu") + " " + it.name);
+      SND.fanfare();
+    }
   }
 }
 
@@ -959,17 +1239,29 @@ function rebuildAll() {
     blockGroup.add(g); blockMeshes[id] = g;
   });
   rebuildGarden();
+  rebuildWahrzeichen();
   mscPlotGroup.visible = true;
+}
+/* Blöcke direkt über dem veränderten Slot neu bauen: Stützen erscheinen/verschwinden korrekt */
+function refreshDependents(slot) {
+  for (const s of ST.slots) {
+    if (s.haus !== slot.haus || s.slot === slot.slot || !isPlaced(s.slot)) continue;
+    const above = s.pos.y === slot.pos.y + 1 || (slot.form === "wing" && s.pos.y <= 2);
+    if (above && footOverlap(s.pos, slot.pos)) refreshBlock(s.slot);
+    if (KONSOLEN.has(s.slot) && slot.slot === "MA") refreshBlock(s.slot);
+  }
 }
 function placeSlot(slot) {
   const chk = canPlace(slot);
   if (!chk.ok) { SND.err(); toast(chk.reason || t("gesperrt")); return false; }
-  const entry = { stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null };
+  const entry = { stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null, thema: THEMEN[slot.slot] ? pendingThema : null };
   S.placed[S.mode][slot.slot] = entry;
   save();
   const g = buildBlockMesh(slot);
   decorateBlock(g, slot);
   blockGroup.add(g); blockMeshes[slot.slot] = g;
+  refreshDependents(slot);
+  rebuildWahrzeichen();
   // Drop-Animation
   const endY = g.position.y;
   g.position.y = endY + 9;
@@ -1021,6 +1313,8 @@ function removeSlot(id) {
   delete S.placed[S.mode][id]; save();
   const g = blockMeshes[id];
   if (g) { blockGroup.remove(g); delete blockMeshes[id]; }
+  refreshDependents(SLOTS[id]);
+  rebuildWahrzeichen();
   renderPlan(); renderProfil(); closeCard();
 }
 
@@ -1139,13 +1433,14 @@ canvas.addEventListener("pointerup", (e) => {
     ptr.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     ray.setFromCamera(ptr, camera);
     // Hausblöcke als Occluder mitschneiden: nur wenn das NÄCHSTE Objekt eine Aktion trägt, zählt der Klick
-    const hits = ray.intersectObjects([briefkasten, beetGroup, bauhuette, blockGroup], true).filter((h) => !h.object.userData.nopick);
+    const hits = ray.intersectObjects([briefkasten, beetGroup, bauhuette, geraeteschuppen, blockGroup], true).filter((h) => !h.object.userData.nopick);
     if (hits.length) {
       let o = hits[0].object, act = null;
       while (o && !act) { act = o.userData.action || null; o = o.parent; }
       if (act === "p0") { openP0(); SND.pick(); return; }
       if (act === "minor") { openMinor(); SND.pick(); return; }
       if (act === "bauhuette") { openBauhuette(); SND.pick(); return; }
+      if (act === "geraete") { openGeraete(); SND.pick(); return; }
     }
   }
   if (ghost && ghostSlot) {
@@ -1228,6 +1523,42 @@ function openBauhuette() {
   openModal("bauhuette");
 }
 
+/* Geräteschuppen: UZH-KI-Tool-Stack mit Reifegrad-Ampel — Quelle: KI-im-Curriculum-Kompass UZH (Ochsner, 16.07.2026), Stand Juli 2026 */
+const GS_TOOLS = [
+  { amp: "g", name: "Microsoft 365 Copilot Chat (Basic)",
+    de: "Allgemeiner KI-Zugang für alle UZH-Angehörigen, in der M365-Lizenz enthalten. Freigegeben für öffentliche und interne Informationen; Verarbeitung in der Microsoft-Cloud (EU), Inhalte werden nicht fürs Modelltraining verwendet. Eigene Agents: derzeit nur eingeschränkt verlässlich.",
+    en: "General AI access for all UZH members, included in the M365 licence. Approved for public and internal information; processed in the Microsoft cloud (EU), content is not used for model training. Own agents: currently only partially reliable." },
+  { amp: "y", name: "KlickerUZH + AI Buddy (askUZH)",
+    de: "Kursbezogene Chatbots, KI-Feedback und KI-generierte Übungsinhalte; Lehrende richten Bots im Self-Service ein und geben sie frei. Public Beta ab HS26; Zugang über Kurs-Login, nutzungsabhängige Kosten.",
+    en: "Course-linked chatbots, AI feedback and AI-generated practice content; teachers configure and release bots via self-service. Public beta from autumn 2026; access via course login, usage-based costs." },
+  { amp: "y", name: "OLAT-KI-Angebot",
+    de: "Dialog mit freigegebenen OLAT-Kursinhalten (Materialien, Quizzes). Übergangslösung ab HS26, offizielle OLAT-Integration ab FS27 geplant — wichtig für die Skalierung, weil alle Fakultäten OLAT nutzen.",
+    en: "Dialogue with released OLAT course content (materials, quizzes). Interim solution from autumn 2026, official OLAT integration planned for spring 2027 — key for scaling, as all faculties use OLAT." },
+  { amp: "y", name: "BaltiBot",
+    de: "Unterstützt Studienprogrammverantwortliche ab Sommer 2026 bei der Orientierung im Studienprogrammentwicklungs-Prozess (ISSP) — auf Basis einer kuratierten Dokumentensammlung.",
+    en: "From summer 2026, supports programme directors in navigating the programme-development process (ISSP), based on a curated document collection." },
+  { amp: "y", name: "EducationAI",
+    de: "Intern getestete Anwendung für Lehrende: greift auf die Teaching Tools UZH zu und unterstützt Planung und Weiterentwicklung der Lehre (DPA mit dem LLM-Anbieter).",
+    en: "Internally tested application for teachers: draws on the UZH Teaching Tools and supports planning and developing courses (DPA with the LLM provider)." },
+  { amp: "r", name: "M365 Copilot Premium · GitHub Copilot",
+    de: "Nur für Mitarbeitende mit kostenpflichtiger Zusatzlizenz. Ein studentischer Zugang zu einer KI-Entwicklungsumgebung (agentische KI, Vibe Coding) ist noch offen — für datennahe Profile relevant.",
+    en: "Staff only, with a paid add-on licence. Student access to an AI development environment (agentic AI, vibe coding) is still open — relevant for data-oriented profiles." }
+];
+const GS_REGELN = {
+  de: `<b>Spielregeln für alle Werkzeuge:</b> Studierende dürfen nicht zu kostenpflichtigen Tools oder Tools mit persönlicher Registrierung verpflichtet werden. Informationsklassen beachten: Prüfungen und akademische Arbeiten gelten als <b>vertraulich</b>, bestimmte psychologische Forschungs- und Klientendaten als <b>geheim</b> — sie gehören in kein nicht dafür freigegebenes KI-System. Nicht von der UZH bereitgestellte Tools nur mit öffentlichen Informationen verwenden.`,
+  en: `<b>Ground rules for all tools:</b> students must not be required to use paid tools or tools needing personal registration. Mind the information classes: examinations and academic papers are <b>confidential</b>, certain psychological research and client data are <b>secret</b> — they belong in no AI system not approved for that class. Tools not provided by UZH may only be used with public information.`
+};
+function openGeraete() {
+  const AMP = { g: "🟢", y: "🟡", r: "🔴" };
+  document.getElementById("gsList").innerHTML = GS_TOOLS.map((tl) =>
+    `<div class="bhrow"><b>${AMP[tl.amp]} ${escHtml(tl.name)}</b><p>${S.lang === "de" ? tl.de : tl.en}</p></div>`).join("");
+  document.getElementById("gsRegeln").innerHTML = GS_REGELN[S.lang] || GS_REGELN.de;
+  document.getElementById("gsQuelle").textContent = S.lang === "de"
+    ? "Quelle: KI-im-Curriculum-Kompass UZH (Ochsner, 2026), Stand Juli 2026 — Angaben ändern sich laufend."
+    : "Source: UZH AI-in-the-Curriculum Compass (Ochsner, 2026), as of July 2026 — details change continuously.";
+  openModal("geraete");
+}
+
 window.addEventListener("keydown", (e) => {
   const typing = e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA");
   if (e.key === "Enter" && ghostSlot && !typing) placeSlot(ghostSlot);
@@ -1279,9 +1610,11 @@ function renderPlan() {
         if (selectedId === id) b.classList.add("sel");
         if (id === nextId) b.classList.add("next");
         const q = S.quests[id];
-        const col = slot.schwerpunktwahl && S.placed[S.mode][id] && S.placed[S.mode][id].sp ? ST.schwerpunkte[S.placed[S.mode][id].sp].farbe : ST.gruppen[slot.gruppe].farbe;
+        const col = "#" + colFor(slot).getHexString();
+        const katTag = slot.kategorie === "Wahlpflicht" ? `<span class="ckat wp" title="${t("kat_wahlpflicht")}">WP</span>` : slot.kategorie === "Wahl" ? `<span class="ckat" title="${t("kat_wahl")}">W</span>` : "";
         b.innerHTML = `<span class="cdot" style="background:${col}"></span>
           <span class="cname">${slotTitel(slot)}</span>
+          ${katTag}
           ${id === nextId ? `<span class="nextbadge">🔨 ${t("naechstes")}</span>` : ""}
           ${S.quiz[quizCode(slot)] ? '<span class="quest-star" title="Quiz ✓">🚩</span>' : ""}
           ${q && q.done ? '<span class="quest-star">✦</span>' : ""}
@@ -1359,7 +1692,7 @@ const RADAR_ACHSEN = [
   { ids: ["KI4", "KI5", "KI6"], name: { de: "KI verstehen, prüfen|& verantworten", en: "Understanding, auditing|& owning AI" }, farbe: "#0e8f7e" },
   { ids: ["Fu1", "Fu2", "Fu3"], name: { de: "Future Skills|(mit & ohne KI)", en: "Future skills|(with & without AI)" }, farbe: "#4a90d9" }
 ];
-function radarSVG(score, max, size = 210) {
+function radarSVG(score, max, size = 210, soll = null) {
   const c = size / 2, r0 = size * 0.315, n = RADAR_ACHSEN.length;
   const pt = (i, r) => { const a = -Math.PI / 2 + (i / n) * Math.PI * 2; return [c + Math.cos(a) * r, c + Math.sin(a) * r]; };
   let grid = "";
@@ -1382,8 +1715,12 @@ function radarSVG(score, max, size = 210) {
   });
   const poly = vals.map((v, i) => pt(i, Math.max(0.03, v) * r0).join(",")).join(" ");
   const dots = vals.map((v, i) => { const [x, y] = pt(i, Math.max(0.03, v) * r0); return `<circle cx="${x}" cy="${y}" r="2.6" fill="#0028a5"/>`; }).join("");
+  const sollPoly = soll && soll.length === n
+    ? `<polygon points="${soll.map((v, i) => pt(i, Math.max(0.03, Math.min(1, v)) * r0).join(",")).join(" ")}" fill="none" stroke="#b3831d" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>`
+    : "";
   return `<svg viewBox="0 0 ${size} ${size}" style="width:100%;max-width:230px;display:block;margin:2px auto 6px">
     ${grid}${axes}
+    ${sollPoly}
     <polygon points="${poly}" fill="rgba(0,40,165,.16)" stroke="#0028a5" stroke-width="2" stroke-linejoin="round"/>
     ${dots}${labels}</svg>`;
 }
@@ -1420,12 +1757,76 @@ function verlaufHTML() {
     <div class="verlauf-lbl">${sems.map((s) => `<span>${s.lbl}</span>`).join("")}</div>`;
 }
 
+/* Wahlprofil-Zusammenfassung (BSc-Richtung + MSc-Schwerpunkte) als HTML-Block */
+function wahlprofilHTML(kompakt) {
+  const br = bscRichtung(), mp = mscProfil();
+  const rTxt = br.r
+    ? `${ST.richtungen[br.r].icon} <b style="color:${ST.richtungen[br.r].farbe}">${L(ST.richtungen[br.r].kurz)}</b>`
+    : `<span style="color:#8b94ab">${t("richtung_keine")}</span>`;
+  const spTxt = mp.total
+    ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([sp, n]) => `<b style="color:${ST.schwerpunkte[sp].farbe}">${sp} ${n}</b>`).join(" · ")
+      + (mp.dom ? "" : ` <span style="color:#8b94ab">(${t("msc_mix")})</span>`)
+    : `<span style="color:#8b94ab">—</span>`;
+  return `<div style="border:1.5px solid #dbe1ef;border-radius:10px;padding:7px 10px;margin:0 4px 8px;font-size:11px;line-height:1.6">
+    <b style="font-size:11.5px">🧭 ${t("richtung_titel")}</b><br>
+    ${t("richtung_bsc")}: ${rTxt}<br>
+    ${t("richtung_msc")}: ${spTxt}${kompakt ? "" : `<br><span style="color:#8b94ab;font-size:10px">${t("msc_dom_hint")}</span>`}
+  </div>`;
+}
+/* Wahl-Empfehlungs-Check pro Pfad: ✓/○-Chips für Richtung, Schwerpunkt, Wahlpflichtmodul */
+function passungChips(p) {
+  if (!p.wahl) return "";
+  const br = bscRichtung(), mp = mscProfil();
+  const chips = [];
+  if (p.wahl.r && ST.richtungen[p.wahl.r]) {
+    const ok = br.r === p.wahl.r;
+    chips.push({ ok, txt: `BSc: ${L(ST.richtungen[p.wahl.r].kurz)}`, col: ST.richtungen[p.wahl.r].farbe });
+  }
+  if (p.wahl.sp && ST.schwerpunkte[p.wahl.sp]) {
+    const ok = (mp.counts[p.wahl.sp] || 0) >= 3;
+    chips.push({ ok, txt: `MSc: ${p.wahl.sp}`, col: ST.schwerpunkte[p.wahl.sp].farbe });
+  }
+  if (p.wahl.wp && OPTMOD[p.wahl.wp]) {
+    const ok = wpWahl() === p.wahl.wp;
+    chips.push({ ok, txt: L(OPTMOD[p.wahl.wp].titel), col: "#b3831d" });
+  }
+  if (!chips.length) return "";
+  const alle = chips.every((c) => c.ok);
+  return `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:4px 0 2px;font-size:10px">
+    <span style="color:#5b6478;font-weight:700">${alle ? "✓ " + t("passung_ok") : t("passung_titel")}</span>
+    ${chips.map((c) => `<span style="border:1px solid ${c.col};color:${c.ok ? "#fff" : c.col};background:${c.ok ? c.col : "transparent"};border-radius:999px;padding:1px 7px">${c.ok ? "✓ " : ""}${escHtml(c.txt)}</span>`).join("")}
+  </div>` + (p.wahl.hinweis && !alle ? `<p style="font-size:10px;color:#8b94ab;margin:2px 0 0">${L(p.wahl.hinweis)}</p>` : "");
+}
+/* Lückenanalyse: Zielstufen des Pfads vs. erreichte Stufen.
+   Zielstufen werden auf das im Curriculum Erreichbare geklemmt — eine Lücke,
+   die kein Baustein schliessen kann, wäre irreführend (Rest ist Weiterbildung). */
+let MAX_STUFE = null;
+function maxStufeFor(id) {
+  if (!MAX_STUFE) {
+    MAX_STUFE = {};
+    for (const s of ST.slots) {
+      const { komp } = slotKomp(s);
+      for (const k of [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])]) {
+        MAX_STUFE[k] = Math.max(MAX_STUFE[k] || 0, s.stufe);
+      }
+    }
+  }
+  return MAX_STUFE[id] || 0;
+}
+function gapList(p) {
+  if (!p.ziel) return [];
+  return Object.entries(p.ziel)
+    .map(([id, zielSt]) => ({ id, ziel: Math.min(zielSt, maxStufeFor(id)), ist: kompStufe(id) }))
+    .filter((g) => g.ist < g.ziel)
+    .sort((a, b) => (b.ziel - b.ist) - (a.ziel - a.ist));
+}
 /* Karriere-Ansicht */
 function renderKarriere() {
   const { score, max } = profilWerte();
   const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
   const el = document.getElementById("profilList");
   let html = `<p style="font-size:11px;color:#5b6478;margin:2px 6px 6px;line-height:1.45">${t("karriere_info")}</p>`;
+  html += wahlprofilHTML(false);
   for (const p of (window.KARRIERE.pfade || [])) {
     const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
     const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
@@ -1436,10 +1837,20 @@ function renderKarriere() {
       const v = ids.reduce((a, id) => a + (p.w[id] || 0) * ((haupt || []).includes(id) ? 2 : 1), 0);
       return { s, v, ok: canPlace(s).ok };
     }).filter((x) => x.v > 0).sort((a, b) => (b.ok - a.ok) || (b.v - a.v)).slice(0, 3);
+    const gaps = gapList(p);
+    const gapHtml = p.ziel ? `<details style="margin:4px 0 0"><summary style="cursor:pointer;font:700 10.5px var(--font);color:#5b6478">🎯 ${t("soll_titel")}</summary>
+      ${gaps.length
+        ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0"><span style="font-size:10px;color:#5b6478">${t("gap_titel")}:</span>${gaps.map((g) => { const k = KOMP[g.id]; const f = k ? ST.felder[k.feld] : null; return `<span style="font-size:10px;border:1px solid ${f ? f.farbe : "#b9c2d9"};color:${f ? f.farbe : "#5b6478"};border-radius:999px;padding:1px 7px" title="${k ? escHtml(L(k.name)) : ""}">${g.id} ${g.ist}→${g.ziel}</span>`; }).join("")}</div>`
+        : `<p style="font-size:10.5px;color:var(--ok);margin:4px 0">✓ ${t("gap_ok")}</p>`}</details>` : "";
+    const rmHtml = p.roadmap && p.roadmap.length ? `<details style="margin:3px 0 0"><summary style="cursor:pointer;font:700 10.5px var(--font);color:#5b6478">🚀 ${t("roadmap_titel")}</summary>
+      <ol style="font-size:10.5px;line-height:1.5;padding-left:16px;margin:4px 0">${p.roadmap.map((r) => `<li style="margin:3px 0"><b>${L(r.t)}</b> — ${L(r.d)}</li>`).join("")}</ol></details>` : "";
     html += `<div class="pfad">
       <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct">${ready}%</span></div>
       <div class="phint">${L(p.hint)}</div>
       <div class="track"><div class="fill" style="width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></div></div>
+      ${passungChips(p)}
+      ${gapHtml}
+      ${rmHtml}
       ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => { const voll = slotTitel(c.s).split(",")[0]; return `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${voll.length > 34 ? voll.slice(0, 33) + "…" : voll}</button>`; }).join("")}</div>` : ""}
     </div>`;
   }
@@ -1469,8 +1880,20 @@ function karriereSteckbrief() {
     }).filter((x) => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 3);
     return { p, ready, traeger, cand };
   }).sort((a, b) => b.ready - a.ready);
+  const br = bscRichtung(), mp = mscProfil();
   let rows = "";
   for (const { p, ready, traeger, cand } of pfade) {
+    const gaps = gapList(p);
+    const gapTxt = p.ziel
+      ? (gaps.length
+        ? `<p style="font-size:10.5px;margin:2px 0"><b>🎯 ${t("gap_titel")}:</b> ${gaps.map((g) => { const k = KOMP[g.id]; return `${g.id} ${k ? L(k.name) : ""} (${t("stufe")} ${g.ist}→${g.ziel})`; }).join(" · ")}</p>`
+        : `<p style="font-size:10.5px;margin:2px 0;color:#0a7d40"><b>✓ ${t("gap_ok")}</b></p>`)
+      : "";
+    const wahlTxt = p.wahl && p.wahl.hinweis ? `<p style="font-size:10.5px;margin:2px 0"><b>🧭 ${t("passung_titel")}</b> ${L(p.wahl.hinweis)}</p>` : "";
+    const rmTxt = p.roadmap && p.roadmap.length
+      ? `<p style="font-size:10.5px;margin:5px 0 2px"><b>🚀 ${t("roadmap_titel")}:</b></p>
+         <ol style="font-size:10.5px;line-height:1.55;margin:0 0 2px;padding-left:18px">${p.roadmap.map((r) => `<li style="margin:2px 0"><b>${L(r.t)}</b> — ${L(r.d)}</li>`).join("")}</ol>`
+      : "";
     rows += `<div style="border:1.5px solid #dbe1ef;border-radius:12px;padding:10px 14px;margin:8px 0;page-break-inside:avoid">
       <div style="display:flex;align-items:center;gap:8px"><span style="font-size:17px">${p.icon}</span>
         <b style="font-size:13px;flex:1">${L(p.name)}</b>
@@ -1478,9 +1901,27 @@ function karriereSteckbrief() {
       <div style="height:8px;border-radius:4px;background:#e8ebf4;overflow:hidden;margin:5px 0"><span style="display:block;height:100%;width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></span></div>
       <p style="font-size:10.5px;color:#5b6478;margin:2px 0 5px">${L(p.hint)}</p>
       ${traeger.length ? `<p style="font-size:10.5px;margin:2px 0"><b>${t("steck_traeger")}</b> ${traeger.map((x) => { const k = KOMP[x.id]; return `${x.id} ${L(k.name)} (${Math.round((pct[x.id] || 0) * 100)}%)`; }).join(" · ")}</p>` : ""}
+      ${wahlTxt}
+      ${gapTxt}
       ${cand.length ? `<p style="font-size:10.5px;margin:2px 0"><b>${t("steck_next")}</b> ${cand.map((c) => slotTitel(c.s).split(",")[0]).join(" · ")}</p>` : ""}
+      ${rmTxt}
     </div>`;
   }
+  const top = pfade[0];
+  const profilBlock = `<div style="border:1.5px solid #dbe1ef;border-radius:12px;padding:8px 14px;margin:8px 0;font-size:11.5px;line-height:1.6">
+    <b>🧭 ${t("richtung_titel")}</b><br>
+    ${t("richtung_bsc")}: ${br.r ? `<b style="color:${ST.richtungen[br.r].farbe}">${ST.richtungen[br.r].icon} ${L(ST.richtungen[br.r].kurz)}</b>` : t("richtung_keine")}<br>
+    ${t("richtung_msc")}: ${mp.total ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([sp, n]) => `<b style="color:${ST.schwerpunkte[sp].farbe}">${sp} ${n}/6</b>`).join(" · ") + (mp.dom ? "" : ` (${t("msc_mix")})`) : "—"}
+    ${wpWahl() && OPTMOD[wpWahl()] ? `<br>${t("kat_wahlpflicht")}: <b>${L(OPTMOD[wpWahl()].titel)}</b>` : ""}
+  </div>`;
+  const radarBlock = top && top.p.soll
+    ? `<div style="page-break-inside:avoid">${radarSVG(score, max, 230, top.p.soll).replace("max-width:230px", "max-width:300px")}
+       <p style="text-align:center;font-size:10px;color:#5b6478;margin:0 0 6px">${t("soll_legende")} (${top.p.icon} ${L(top.p.name)})</p></div>`
+    : "";
+  const lit = (window.KARRIERE.lit || []).length
+    ? `<h2>📚 ${S.lang === "de" ? "Literatur & offizielle Quellen" : "References & official sources"}</h2>
+       <ul style="font-size:10px;line-height:1.55;padding-left:18px">${window.KARRIERE.lit.map((x) => `<li style="margin:3px 0">${x.apa}${x.url ? ` <a href="${x.url}" target="_blank" rel="noopener" style="color:#0028a5">${x.url.replace(/^https?:\/\//, "")}</a>` : ""}</li>`).join("")}</ul>`
+    : "";
   let cvs = "";
   for (const feld of ["fa", "ki", "fu"]) {
     for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
@@ -1503,8 +1944,11 @@ function karriereSteckbrief() {
   <h1>💼 ${t("steck_titel")} — ${escHtml(S.name) || "—"}</h1>
   <p style="font-size:12px;color:#5b6478">${t("passdatum")}: ${dat} · BSc ${ectsSum("bsc")}/120 · MSc ${ectsSum("msc")}/120 ${t("ects")} · ${S.mode === "serious" ? t("modus_serious") : t("modus_frei")}</p>
   <p style="font-size:11px;color:#5b6478;line-height:1.5">${t("karriere_info")}</p>
+  ${profilBlock}
+  ${radarBlock}
   ${rows}
   ${cvs ? `<h2>📝 ${t("steck_cv")}</h2>${cvs}` : ""}
+  ${lit}
   <p class="hint">${L(ST.meta.hinweis)} ${t("steck_fussnote")}</p>
   </body></html>`;
   const w = window.open("about:blank");
@@ -1668,7 +2112,7 @@ function evidenzBlock(id, builtRows) {
 
 /* ---------- HUD: Info-Karte ---------- */
 const card = document.getElementById("card");
-let cardTab = "zukunft", pendingStil = "klassisch", pendingSp = "DeNC", pendingOpt = null;
+let cardTab = "zukunft", pendingStil = "klassisch", pendingSp = "DeNC", pendingOpt = null, pendingThema = null;
 function openCard(id) {
   const slot = SLOTS[id]; if (!slot) return;
   selectedId = id;
@@ -1677,14 +2121,20 @@ function openCard(id) {
   pendingStil = st.stil || pendingStil;
   pendingSp = st.sp || pendingSp;
   pendingOpt = st.opt || (slot.optionen ? slot.optionen[0] : null);
+  pendingThema = st.thema || null;
   const { kat } = slotKomp(slot);
-  document.getElementById("cardDot").style.background = slot.schwerpunktwahl && st.sp ? ST.schwerpunkte[st.sp].farbe : ST.gruppen[slot.gruppe].farbe;
+  document.getElementById("cardDot").style.background = "#" + colFor(slot).getHexString();
   document.getElementById("cardTitle").textContent = slotTitel(slot);
   document.getElementById("cardCode").textContent = `${(st.opt) || slot.code} · ${L(ST.gruppen[slot.gruppe].name)}`;
   const katList = (kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]);
+  const katBadge = slot.kategorie === "Wahlpflicht"
+    ? `<span class="badge" style="background:#b3831d">★ ${t("kat_wahlpflicht")}</span>`
+    : slot.kategorie === "Wahl"
+      ? `<span class="badge" style="background:#6b7a99">☆ ${t("kat_wahl")}</span>`
+      : `<span class="badge" style="background:#3c4356">${t("kat_pflicht")}</span>`;
   document.getElementById("cardBadges").innerHTML =
-    `<span class="badge" style="background:#5b6478">${slot.ects} ${t("ects")}</span>
-     <span class="badge" style="background:#39415a">${t("stufe")} ${slot.stufe}</span>
+    `<span class="badge" style="background:#5b6478">${slot.ects} ${t("ects")}</span>` + katBadge +
+    `<span class="badge" style="background:#39415a">${t("stufe")} ${slot.stufe}</span>
      <span class="badge" style="background:#7a86a3">${t(slot.rhythmus === "beide" ? "beide" : slot.rhythmus.toLowerCase())}${slot.sem2 ? " · " + t("zweisem") : ""}</span>` +
     katList.map((x) => `<span class="badge" style="background:${ST.pruefungslogik[x].farbe}">${L(ST.pruefungslogik[x].name)}</span>`).join("");
   renderCardBody(slot);
@@ -1953,6 +2403,32 @@ function renderCardActions(slot) {
     });
     el.appendChild(d);
   }
+  // Themen-Wahl (Wahlseminare s11/s12/s13 + BA-Themenfeld): prägt die BSc-Richtung
+  if (THEMEN[slot.slot]) {
+    const d = document.createElement("div"); d.className = "schwerpick themapick";
+    d.innerHTML = `<span>${t("thema")}</span>`;
+    THEMEN[slot.slot].forEach((th) => {
+      const b = document.createElement("button");
+      b.textContent = L(th.name);
+      b.title = L((ST.richtungen[th.r] || {}).kurz || th.name);
+      b.style.borderColor = (ST.richtungen[th.r] || {}).farbe || "#b9c2d9";
+      const cur = placed ? (S.placed[S.mode][slot.slot].thema || null) : pendingThema;
+      b.classList.toggle("on", cur === th.id);
+      b.onclick = () => {
+        if (placed) {
+          S.placed[S.mode][slot.slot].thema = (S.placed[S.mode][slot.slot].thema === th.id) ? null : th.id;
+          save(); refreshBlock(slot.slot);
+        } else { pendingThema = pendingThema === th.id ? null : th.id; if (ghostSlot) showGhost(ghostSlot); }
+        renderCardActions(slot); renderPlan(); renderProfil();
+      };
+      d.appendChild(b);
+    });
+    const hint = document.createElement("p");
+    hint.style.cssText = "font-size:10px;color:#8b94ab;margin:2px 4px 0";
+    hint.textContent = t("thema_hint");
+    d.appendChild(hint);
+    el.appendChild(d);
+  }
   // Stil-Wahl
   {
     const d = document.createElement("div"); d.className = "stilpick";
@@ -2036,6 +2512,7 @@ function refreshBlock(id) {
   const g = buildBlockMesh(slot);
   decorateBlock(g, slot);
   blockGroup.add(g); blockMeshes[id] = g;
+  rebuildWahrzeichen(); // Themen-/Schwerpunktwechsel kann das Wahrzeichen ändern
 }
 
 /* ---------- Modus, Sprache, Menü ---------- */
@@ -2067,7 +2544,7 @@ document.getElementById("btnLang").onclick = () => {
   if (selectedId) openCard(selectedId);
   fillModals();
 };
-const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", changelog: "modalChangelog" };
+const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog" };
 function openModal(k) { document.getElementById(modals[k]).classList.add("open"); }
 document.querySelectorAll(".modal").forEach((m) => {
   m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) m.classList.remove("open"); });
@@ -2082,6 +2559,27 @@ function fillModals() {
   document.getElementById("aboutBox").innerHTML = window.ABOUT_HTML[S.lang] + `<div class="mactions"><button class="primary" data-close>${t("schliessen")}</button></div>`;
   const ck = document.getElementById("ckDirektMsc");
   if (ck) { ck.checked = S.direktMSc; ck.onchange = (e) => { S.direktMSc = e.target.checked; save(); renderPlan(); toast(t("direkt_msc")); }; }
+  renderPalRows();
+}
+/* Farbwelt-Wahl: kuratierte Paletten pro Haus (Menü) */
+function renderPalRows() {
+  for (const hausId of ["bsc", "msc"]) {
+    const row = document.getElementById(hausId === "bsc" ? "palRowBsc" : "palRowMsc");
+    if (!row) continue;
+    row.innerHTML = `<span>${hausId === "bsc" ? "🏠" : "🏰"}</span>`;
+    (ST.paletten || []).forEach((p) => {
+      const b = document.createElement("button");
+      b.textContent = L(p.name);
+      b.style.borderColor = p.akzent;
+      b.classList.toggle("on", ((S.pal || {})[hausId] || "uzh") === p.id);
+      b.onclick = () => {
+        if (!S.pal) S.pal = { bsc: "uzh", msc: "uzh" };
+        S.pal[hausId] = p.id; save();
+        rebuildAll(); renderPalRows(); SND.pick();
+      };
+      row.appendChild(b);
+    });
+  }
 }
 
 /* Export / Import / Reset */
@@ -2179,7 +2677,7 @@ function buildNeighborHouses() {
     const grp = new THREE.Group();
     for (const [id, st] of Object.entries(nb.p || {})) {
       const slot = SLOTS[id]; if (!slot) continue;
-      const g = buildBlockMesh(slot, { state: st });
+      const g = buildBlockMesh(slot, { state: st, placedMap: nb.p });
       const h = ST.haeuser[slot.haus];
       // relativ zum Nachbar-Grundstück: beide Häuser zusammenrücken, Höhen mitskalieren
       g.position.set(ox + (h.origin[0] * 0.45) + slot.pos.x * CELL * SC, floorBase(slot.pos.y) * SC, oz + slot.pos.z * CELL * SC);
@@ -2217,7 +2715,8 @@ document.getElementById("btnPass").onclick = () => {
     const q = S.quests[slot.slot] || {};
     const { kat } = slotKomp(slot);
     const e = p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects;
-    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + escHtml(q.note) : ""}</td></tr>`;
+    const thName = (() => { const th = themaFor(slot.slot); return th ? " · " + L(th.name) : ""; })();
+    rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}${thName}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + escHtml(q.note) : ""}</td></tr>`;
   }
   let bars = "";
   for (const feld of ["fa", "ki", "fu"]) {
@@ -2834,6 +3333,7 @@ document.getElementById("btnFb").onclick = () => {
 /* Changelog-Tafel: der Rückmelde-Loop wird sichtbar */
 const CHANGELOG = {
   de: [
+    ["v8 · Juli 2026", "Dein Wahlprofil wird zum Haus: Themenwahl in den drei BSc-Wahlseminaren und im BA-Themenfeld prägt Erker, Dach und ein eigenes Wahrzeichen; im Master zeigt jede Vertiefung ihren Schwerpunkt architektonisch, ab 4 von 6 im selben Schwerpunkt entsteht ein grosses Wahrzeichen (Observatorium, Therapiegarten, Glasatrium). Wahlpflicht (goldene Kante) und freie Wahl (weisse Kante) sind sichtbar unterschieden, Auskragendes wird von Konsolen und Stützen getragen. Neu ausserdem: kuratierte Farbwelten pro Haus, zwei neue Baustile, Karriere-Tab mit Soll-Profilen, Lückenanalyse und «Nach dem Master»-Roadmaps (inkl. Psychotherapie- und Neuropsychologie-Weg), Masterarbeit als «Meisterstück» der Stufe 4."],
     ["v7 · Juli 2026", "Echter Keller unter dem Bodenniveau (Sockel ragen ins Erdreich), Haus vergrössert & Innenräume 1:1 an die Aussenhülle gekoppelt, Porch mit Vordach und Stufen, Erstbau-Sequenz für neue Besucher:innen, Bauhütte mit Evidenz zu den 8 Lehrelementen, Ampel-Feedback 🚦 an jedem Modul mit CSV-Export."],
     ["v6 · Juli 2026", "Mobile-Überarbeitung (Tour, Kontraste, grössere Ziele), Quiz mit Erklärung und Sofort-Wiederholung, 7 Karrierewege, Faktenkorrektur IPS-Leistungsnachweis [B]."],
     ["v5 · Juli 2026", "Baukasten-Chips in der Modul-Karte, Vorstufe-⓪-Briefkasten, Minor-Beet, KI-Suite in der Artifact-Version."],
@@ -2841,6 +3341,7 @@ const CHANGELOG = {
     ["v3 · Juli 2026", "Quiz-Gate im Serious Mode, Karriere-Profil, Innenansicht mit Kompetenz-Tafeln, Foto-Modus, Open-Badges- und Portfolio-Export."]
   ],
   en: [
+    ["v8 · July 2026", "Your elective profile becomes the house: topic choices in the three BSc elective seminars and the thesis field shape bay windows, roof and a landmark of your own; in the Master's each specialisation shows its track architecturally, and 4 of 6 in the same track build a large landmark (observatory, therapy garden, glass atrium). Compulsory electives (gold edge) and free electives (white edge) are visibly distinct, and everything cantilevered is carried by corbels and columns. Also new: curated colour worlds per house, two new building styles, a career tab with target profiles, gap analysis and post-Master roadmaps (incl. the psychotherapy and neuropsychology routes), and the Master's thesis as a level-4 «masterpiece»."],
     ["v7 · July 2026", "A real basement below ground level (plinths reach into the earth), bigger house with interiors matched 1:1 to the exterior shell, porch with canopy and steps, first-build sequence for new visitors, site hut with evidence for the 8 teaching elements, traffic-light feedback 🚦 on every module with CSV export."],
     ["v6 · July 2026", "Mobile overhaul (tour, contrast, larger targets), quiz with explanations and instant retry, 7 career paths, factual fix for the IPS assessment [B]."],
     ["v5 · July 2026", "Teaching-toolkit chips on module cards, stage-⓪ mailbox, minor garden bed, AI suite in the artifact edition."],

@@ -39,6 +39,26 @@ window.T = {
     stil: "Baustil:",
     schwerpunkt: "Schwerpunkt:",
     optionwahl: "Modulwahl:",
+    thema: "Themengebiet:",
+    thema_hint: "Beispiel-Themen (das reale Angebot wechselt semesterweise). Deine Wahl prägt Farbe und Architektur — ab zwei gleichen Richtungen entsteht dein BSc-Wahrzeichen.",
+    kat_pflicht: "Pflicht",
+    kat_wahl: "Wahl",
+    kat_wahlpflicht: "Wahlpflicht",
+    pal_titel: "Farbwelt",
+    pal_hint: "Kuratierte Farbwelten pro Haus — immer stimmig, jederzeit änderbar.",
+    wz_neu: "Neues Wahrzeichen gebaut:",
+    wz_klin: "Therapiegarten-Pavillon — dein Profil: Klinik & Gesundheit",
+    wz_ekn: "Kleine Sternwarte — dein Profil: Entwicklung, Kognition & Neuro",
+    wz_swo: "Garten-Atrium — dein Profil: Sozial, Wirtschaft & Organisation",
+    wz_DeNC: "DeNC-Observatorium — dominanter Schwerpunkt",
+    wz_HEA: "HEA-Therapiegarten — dominanter Schwerpunkt",
+    wz_SEOP: "SEOP-Glasatrium — dominanter Schwerpunkt",
+    richtung_titel: "Dein Wahlprofil",
+    richtung_bsc: "BSc-Richtung",
+    richtung_msc: "MSc-Schwerpunkte",
+    richtung_keine: "noch offen — wähle Themengebiete in den Wahlseminaren und im BA-Themenfeld",
+    msc_mix: "bewusst gemischtes Profil",
+    msc_dom_hint: "Ab 4 von 6 Vertiefungen im selben Schwerpunkt entsteht das grosse Wahrzeichen.",
     grund_voraus: "Zuerst bauen: ",
     grund_bestanden: "Im Serious Mode kannst du diesen Baustein erst setzen, wenn du das Modul als bestanden markiert hast (Häkchen unten).",
     grund_msc: "Das MSc-Grundstück öffnet sich, wenn das Bachelor-Dach sitzt, oder starte direkt mit dem Master (Menü → Hilfe).",
@@ -89,8 +109,15 @@ window.T = {
     ptab_profil: "Profil",
     ptab_karriere: "Karriere",
     karriere_titel: "Bewerbungsbereitschaft",
-    karriere_info: "Wie gut dein aktuelles Kompetenzprofil zu vier typischen Berufsfeldern passt, und was den Pfad als Nächstes stärkt.",
+    karriere_info: "Wie gut dein aktuelles Kompetenzprofil zu neun typischen Berufsfeldern passt — mit Soll-Profil am Master-Ende, Lückenanalyse und dem Weg nach dem Master (Fakten geprüft, Stand Juli 2026).",
     pfad_next: "Stärkt diesen Pfad:",
+    soll_titel: "Soll-Profil am Master-Ende",
+    gap_titel: "Noch aufzubauen",
+    gap_ok: "Alle Zielkompetenzen auf Zielstufe — bereit für diesen Weg.",
+    roadmap_titel: "Nach dem Master",
+    passung_titel: "Wahl-Tipp für diesen Pfad:",
+    passung_ok: "Dein Wahlprofil passt zu diesem Pfad.",
+    soll_legende: "blau = dein Profil · gestrichelt = Soll-Profil dieses Pfads",
     verlauf_titel: "Profil-Wachstum pro Semester",
     radar_titel: "Kompetenzfelder im Überblick",
     cv_titel: "Bewerbungs-Textbaustein",
@@ -188,6 +215,8 @@ window.T = {
     clog_text: "Der Rückmelde-Loop: Euer Ampel-Feedback 🚦 fliesst in jede neue Version ein, hier siehst du, was sich getan hat.",
     bh_titel: "🛠️ Bauhütte — Wie hier gebaut wird",
     bh_intro: "Dieses Haus wird nicht mit Frontalunterricht gebaut. Acht aktivierende Lehrelemente tragen die Vorlesungen und Seminare, hier steht, was sie bewirken und woher wir das wissen.",
+    gs_titel: "🧰 Geräteschuppen — der KI-Werkzeugkasten der UZH",
+    gs_intro: "Welche KI-Werkzeuge stellt die UZH bereit, was ist schon nutzbar (🟢), was in der Pilotphase (🟡), was noch nicht für Studierende verfügbar (🔴)? Und welche Regeln gelten für alle?",
     ich_titel: "Kompetenznachweis im Detail — «Ich kann …»",
     ich_intro: "Was hinter den Prozentwerten steckt: pro Kompetenz die erreichte Progressionsstufe mit ihrem Anker-Satz (Kompetenzaufbaumodell vom 02.07.2026), und darunter alle konkreten Lernziele der gebauten Module in Ich-Form.",
     ich_konkret: "Das habe ich konkret gelernt",
@@ -239,6 +268,26 @@ window.T = {
     stil: "Style:",
     schwerpunkt: "Track:",
     optionwahl: "Module choice:",
+    thema: "Topic area:",
+    thema_hint: "Example topics (the real offering changes every semester). Your choice shapes colour and architecture — two matching directions build your BSc landmark.",
+    kat_pflicht: "Compulsory",
+    kat_wahl: "Elective",
+    kat_wahlpflicht: "Compulsory elective",
+    pal_titel: "Colour world",
+    pal_hint: "Curated colour worlds per house — always coherent, changeable at any time.",
+    wz_neu: "New landmark built:",
+    wz_klin: "Therapy-garden pavilion — your profile: clinic & health",
+    wz_ekn: "Small observatory — your profile: development, cognition & neuro",
+    wz_swo: "Garden atrium — your profile: social, economic & organisational",
+    wz_DeNC: "DeNC observatory — dominant track",
+    wz_HEA: "HEA therapy garden — dominant track",
+    wz_SEOP: "SEOP glass atrium — dominant track",
+    richtung_titel: "Your elective profile",
+    richtung_bsc: "BSc direction",
+    richtung_msc: "MSc tracks",
+    richtung_keine: "still open — choose topic areas in the elective seminars and the thesis field",
+    msc_mix: "deliberately mixed profile",
+    msc_dom_hint: "4 of 6 specialisations in the same track build the large landmark.",
     grund_voraus: "Build first: ",
     grund_bestanden: "In serious mode you can only place this block after marking the module as passed (checkbox below).",
     grund_msc: "The MSc plot opens once the Bachelor roof is on, or start directly with the Master (menu → help).",
@@ -289,7 +338,14 @@ window.T = {
     ptab_profil: "Profile",
     ptab_karriere: "Career",
     karriere_titel: "Application readiness",
-    karriere_info: "How well your current competence profile fits four typical career fields, and what strengthens each path next.",
+    karriere_info: "How well your current competence profile fits nine typical career fields — with the target profile at the end of the Master's, a gap analysis and the route after the Master's (facts verified, as of July 2026).",
+    soll_titel: "Target profile at the end of the Master's",
+    gap_titel: "Still to build",
+    gap_ok: "All target competences at target level — ready for this route.",
+    roadmap_titel: "After the Master's",
+    passung_titel: "Elective tip for this path:",
+    passung_ok: "Your elective profile fits this path.",
+    soll_legende: "blue = your profile · dashed = this path's target profile",
     pfad_next: "Strengthens this path:",
     verlauf_titel: "Profile growth per semester",
     radar_titel: "Competence fields at a glance",
@@ -388,6 +444,8 @@ window.T = {
     clog_text: "The feedback loop: your traffic-light feedback 🚦 feeds into every new version, here you can see what changed.",
     bh_titel: "🛠️ Site hut — How this house is built",
     bh_intro: "This house is not built with lecturing alone. Eight activating teaching elements carry the lectures and seminars, here is what they do and how we know.",
+    gs_titel: "🧰 Tool shed — the UZH AI toolbox",
+    gs_intro: "Which AI tools does UZH provide, what is usable now (🟢), what is in the pilot phase (🟡), what is not yet available to students (🔴)? And which rules apply to all of them?",
     ich_titel: "Competence record in detail — 'I can …'",
     ich_intro: "What the percentages stand for: per competence the progression stage reached with its anchor statement (competence build-up model of 2 July 2026), followed by all concrete learning objectives of the built modules in first-person form.",
     ich_konkret: "What I have concretely learned",
@@ -410,7 +468,9 @@ window.HELP_HTML = {
     <li><b>Bauplan folgen oder frei bauen:</b> Der Bauplan links folgt dem Mustercurriculum, du darfst aber jede erlaubte Reihenfolge wählen.</li>
     <li><b>Prüfungslogik:</b> Jeder Baustein trägt sein Siegel — <b style="color:#0a7d40">[A] KI-frei</b>, <b style="color:#b35c00">[B] teilweise KI-integriert</b>, <b style="color:#a50028">[C] KI-integriert</b>.</li>
     <li><b>Quests ✦:</b> Mini-Aufgaben (5–15 Min.) zu jedem Baustein. Abgeschlossene Quests geben deinem Baustein einen Glanz, und deinem Kompetenzpass Substanz.</li>
-    <li><b>Design:</b> Baustil pro Baustein wählbar; im Master bestimmen deine Schwerpunkte (DeNC/HEA/SEOP) die Fassadenfarben.</li>
+    <li><b>Design:</b> Baustil pro Baustein und kuratierte Farbwelt pro Haus (Menü). Im Master prägen deine Schwerpunkte (DeNC/HEA/SEOP) Farbe und Architektur der Vertiefungen; im Bachelor tun das deine Themenwahlen in den Wahlseminaren und im BA-Themenfeld.</li>
+    <li><b>Wahlbereich sichtbar:</b> Wahlpflicht trägt eine goldene, freie Wahl eine weisse Eckleiste. Ab zwei gleichen BSc-Richtungen bzw. 4 von 6 Vertiefungen im selben Schwerpunkt baut sich ein Wahrzeichen neben dem Haus — jedes Wahlprofil ergibt ein anderes Haus.</li>
+    <li><b>Statik:</b> Auskragende Bausteine (Erker, Turmkonsolen) werden sichtbar getragen — Konsolen und Stützen erscheinen, solange das tragende Geschoss fehlt.</li>
     <li><b>Serious Mode:</b> Nur bestandene Module setzen (Selbstdeklaration per Häkchen). Dein Haus = dein echter Studienstand.</li>
     <li><b>Teilen & Campus:</b> Haus als Link teilen; Häuser von Kolleg:innen als Nachbarhäuser speichern. Keine Ranglisten, bewusst.</li>
     <li><b>Direkt-MSc:</b> BSc anderswo abgeschlossen? <label class="sw" style="display:inline-flex"><input type="checkbox" id="ckDirektMsc"> <span>Master-Grundstück sofort öffnen</span></label></li>
@@ -423,7 +483,9 @@ window.HELP_HTML = {
     <li><b>Follow the blueprint or build freely:</b> the blueprint follows the model curriculum, any permitted order works.</li>
     <li><b>Assessment logic:</b> every block carries its seal — <b style="color:#0a7d40">[A] AI-free</b>, <b style="color:#b35c00">[B] partially AI-integrated</b>, <b style="color:#a50028">[C] AI-integrated</b>.</li>
     <li><b>Quests ✦:</b> 5–15 minute mini-tasks per block. Completed quests make your block shine, and give your passport substance.</li>
-    <li><b>Design:</b> pick a style per block; in the Master your tracks (DeNC/HEA/SEOP) colour the façade.</li>
+    <li><b>Design:</b> pick a style per block and a curated colour world per house (menu). In the Master's your tracks (DeNC/HEA/SEOP) shape colour and architecture of the specialisations; in the Bachelor's your topic choices in the elective seminars and the thesis field do.</li>
+    <li><b>Electives made visible:</b> compulsory electives carry a gold edge, free electives a white one. Two matching BSc directions, or 4 of 6 specialisations in one track, build a landmark next to the house — every elective profile yields a different house.</li>
+    <li><b>Structural logic:</b> cantilevered blocks (bay windows, tower brackets) are visibly carried — corbels and columns appear while the supporting storey is missing.</li>
     <li><b>Serious mode:</b> place only passed modules (self-declared tick). Your house = your real progress.</li>
     <li><b>Share & campus:</b> share your house as a link; save colleagues' houses as neighbours. No leaderboards, on purpose.</li>
     <li><b>Direct MSc:</b> BSc done elsewhere? <label class="sw" style="display:inline-flex"><input type="checkbox" id="ckDirektMsc"> <span>open the Master plot right away</span></label></li>
