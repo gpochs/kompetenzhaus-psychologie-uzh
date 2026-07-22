@@ -135,6 +135,48 @@ window.STRUKTUR = {
     ]
   },
 
+  /* ---------- Bachelorarbeit neu (Rückmeldung 09.07.2026): empirisch-methodisch, AIAS 4+5 ----------
+     Drei Arbeitsformen, je Gebiet drei vorgegebene Beispiel-Fragestellungen (Angebot wechselt real
+     semesterweise; pfade = Karrierepfade, zu denen die Wahl besonders passt), plus wählbares
+     AIAS-5-Artefakt. Gewichtung: 70% Arbeit, 30% zehnminütige KI-freie mündliche Prüfung. */
+  baFormen: {
+    daten:  { icon: "📊", name: { de: "Analyse eines bereitgestellten Datensatzes", en: "Analysis of a provided dataset" } },
+    repro:  { icon: "🔁", name: { de: "Reproduzierbarkeits-/Robustheitscheck", en: "Reproducibility/robustness check" } },
+    review: { icon: "🗂️", name: { de: "Strukturierter Review mit codierten Befunden", en: "Structured review with coded findings" } }
+  },
+  baFragen: {
+    BAk: [
+      { id: "BAk1", form: "daten",  pfade: ["psycho", "klinik"],
+        name: { de: "Hängt Schlafqualität mit depressiven Symptomen zusammen? Analyse eines bereitgestellten Längsschnitt-Datensatzes", en: "Is sleep quality linked to depressive symptoms? Analysis of a provided longitudinal dataset" } },
+      { id: "BAk2", form: "repro",  pfade: ["klinik", "phd"],
+        name: { de: "Reproduzierbarkeitscheck: Lässt sich der Zusammenhang von Social-Media-Nutzung und Wohlbefinden mit offenen Daten replizieren?", en: "Reproducibility check: does the social-media-use/well-being link replicate with open data?" } },
+      { id: "BAk3", form: "review", pfade: ["klinik", "data"],
+        name: { de: "Strukturierter Review: Wirksamkeit digitaler Gesundheitsinterventionen (Apps) bei Stress — codierte Befunde", en: "Structured review: effectiveness of digital health interventions (apps) for stress — coded findings" } }
+    ],
+    BAe: [
+      { id: "BAe1", form: "daten",  pfade: ["neuro", "phd"],
+        name: { de: "Altersunterschiede im Arbeitsgedächtnis: Auswertung eines bereitgestellten Reaktionszeit-Datensatzes", en: "Age differences in working memory: analysis of a provided reaction-time dataset" } },
+      { id: "BAe2", form: "repro",  pfade: ["phd", "neuro"],
+        name: { de: "Robustheitscheck eines publizierten Gedächtniseffekts (z.B. Testungseffekt) mit alternativen Auswertungsentscheidungen", en: "Robustness check of a published memory effect (e.g. testing effect) under alternative analytic decisions" } },
+      { id: "BAe3", form: "review", pfade: ["schule", "phd"],
+        name: { de: "Strukturierter Review: Was zeigen Längsschnittstudien zu Bildschirmzeit in der frühen Kindheit?", en: "Structured review: what do longitudinal studies show on screen time in early childhood?" } }
+    ],
+    BAs: [
+      { id: "BAs1", form: "daten",  pfade: ["wirtschaft"],
+        name: { de: "Homeoffice und Arbeitszufriedenheit: Analyse eines bereitgestellten Befragungs-Datensatzes", en: "Working from home and job satisfaction: analysis of a provided survey dataset" } },
+      { id: "BAs2", form: "repro",  pfade: ["wirtschaft", "data"],
+        name: { de: "Reproduzierbarkeitscheck: Nudging-Effekte auf umweltfreundliches Verhalten in offenen Datensätzen", en: "Reproducibility check: nudging effects on pro-environmental behaviour in open datasets" } },
+      { id: "BAs3", form: "review", pfade: ["data", "wirtschaft"],
+        name: { de: "Strukturierter Review: Algorithmus-Aversion und Vertrauen in KI-Empfehlungen — codierte Befunde", en: "Structured review: algorithm aversion and trust in AI recommendations — coded findings" } }
+    ]
+  },
+  baArtefakte: [
+    { id: "agent", icon: "🤖", name: { de: "Agentischer Rechercheworkflow (dokumentiert)", en: "Agentic research workflow (documented)" },
+      kurz: { de: "Fokusfrage → Recherche → Evidenzmatrix → Faktencheck, mit nachvollziehbaren Ein-/Ausschlüssen", en: "Focus question → search → evidence matrix → fact check, with traceable in-/exclusions" } },
+    { id: "app", icon: "📱", name: { de: "Vibe-coded App (interaktive Auswertung)", en: "Vibe-coded app (interactive analysis)" },
+      kurz: { de: "Mit KI iterativ entwickelte kleine Anwendung, die die eigene Auswertung interaktiv visualisiert", en: "A small AI-co-developed application that interactively visualises your analysis" } }
+  ],
+
   /* ---------- Baustil-Varianten (Design-Anpassung pro Baustein) ---------- */
   stile: [
     { id: "klassisch", name: { de: "Klassisch", en: "Classic" } },
@@ -375,7 +417,7 @@ window.STRUKTUR = {
     { id: "richtfest3",  haus: "bsc", slots: ["103", "300", "301", "302", "401", "402", "403"], name: { de: "Richtfest: Obergeschoss steht!", en: "Topping-out: upper floor up!" },
       text: { de: "Statistik 2, AO- und Klinik-Räume komplett, das Haus wartet auf sein Dach.", en: "Statistics 2, W&O and clinical rooms complete, the house awaits its roof." } },
     { id: "bsc_fertig",  haus: "bsc", slots: ["BA"], name: { de: "Schlüsselübergabe: Bachelor-Haus fertig!", en: "Key handover: Bachelor house complete!" },
-      text: { de: "Die Bachelorarbeit setzt das Dach, deine «Gesellenprüfung» mit AI Use Plan, Disclosure und Verifikation. Das MSc-Grundstück ist jetzt frei.", en: "The Bachelor's thesis tops the house, your journeyman's piece with AI use plan, disclosure and verification. The MSc plot is now open." } },
+      text: { de: "Die Bachelorarbeit setzt das Dach — dein «Gesellenstück»: empirisch-methodisch, KI-integriert (AIAS 4+5, mit Prozessanhang und eigenem Arbeitsartefakt) und in zehn Minuten KI-frei mündlich verteidigt. Das MSc-Grundstück ist jetzt frei.", en: "The Bachelor thesis tops the house — your journeyman's piece: empirical-methodological, AI-integrated (AIAS 4+5, with process appendix and your own work artefact) and defended AI-free in a ten-minute oral. The MSc plot is now open." } },
     { id: "msc_sockel",  haus: "msc", slots: ["500", "501", "502"], name: { de: "Richtfest: Master-Sockel steht!", en: "Topping-out: Master base laid!" },
       text: { de: "Der Einstiegs-Dreierblock ist der Schlüsselstein, ohne ihn bleibt der ganze Abschlussturm gesperrt.", en: "The entry block is the keystone, without it the completion tower stays locked." } },
     { id: "msc_profil",  haus: "msc", slots: ["s04", "s05", "s06", "s07", "s08", "s09"], name: { de: "Richtfest: Profil komplett!", en: "Topping-out: profile complete!" },

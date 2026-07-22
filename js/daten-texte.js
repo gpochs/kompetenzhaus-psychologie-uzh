@@ -1,4 +1,4 @@
-/* Zukunftsmodul-Texte (de/en). Generiert 2026-07; v7.6-Politur; v8 (21.07.2026): Masterarbeit als «Meisterstück» Stufe 4 — AIAS/Two-Lane-Teilleistungen, AI Use Plan prospektiv+retrospektiv, OSF-Präregistrierung, agentische KI, explorative Verteidigung (Recherche: 90_Recherche/web_masterarbeit-stufe4.md). */
+/* Zukunftsmodul-Texte (de/en). v8 (21.07.2026): Masterarbeit als «Meisterstück»; v9 (22.07.2026): Bachelorarbeit neu nach Rückmeldung Ochsner 09.07.2026 — empirisch-methodisch, AIAS 4+5, Prozessanhang, 10-Min-Mündlichprüfung [A], Gewichtung 70/30; MA explizit eine Stufe darüber (eigene Fragestellung, Agenten-Audit, Robustheitsanalyse, Live-Demo). */
 window.MODUL_TEXTE =
 {
  "06SM200-001": {
@@ -2131,47 +2131,55 @@ window.MODUL_TEXTE =
    "en": "Independent scholarly literature review following psychological standards, with an accompanying workshop; assessed on understanding, argumentative coherence, literature selection, formal criteria, correct citation and independent work; graded written thesis."
   },
   "zukunft": {
-   "de": "Die Bachelorarbeit ist die «Gesellenprüfung» des Bachelors und bündelt Fa6, Fa4, Fa2, Fa7 und Fa10 (Stufe 2) mit einem professionell deklarierten KI-Workflow (Perkins et al., 2025). Studierende erstellen zu Beginn einen AI Use Plan, der pro Arbeitsschritt festlegt, was [A] KI-frei, was [B] assistiert bearbeitet wird; KI5 Verantworten + Fu3 und KI6 Evaluieren + Fu2 sichern Disclosure und Verifikation, KI1 Anwenden und KI3 Zusammenarbeiten strukturieren KI- und Peer-Feedback (Bass et al., 2025; Miao et al., 2024). Nach der Secure/Open-Logik wird die offene, KI-integrierte Arbeit nicht abgewertet, sondern durch ein gesichertes Verteidigungs-/Transferelement ergänzt, in dem zentrale Entscheidungen KI-frei erklärt werden (ETH/UZH, 2025). Deskilling-Schutz und Newskilling sind so austariert: Eigenständige Argumentation und Integrität bleiben nachweispflichtig, während der verantwortungsvolle, dokumentierte KI-Einsatz als Zukunftskompetenz eingeübt wird.",
-   "en": "The Bachelor's thesis is the Bachelor's «journeyman's piece» and bundles Fa6, Fa4, Fa2, Fa7 and Fa10 (level 2) with a professionally declared AI workflow (Perkins et al., 2025). At the outset, students draft an AI Use Plan that specifies, per work step, what is handled [A] AI-free and what [B] assisted; KI5 Taking responsibility + Fu3 and KI6 Evaluating + Fu2 secure disclosure and verification, while KI1 Applying and KI3 Collaborating structure AI and peer feedback (Bass et al., 2025; Miao et al., 2024). Following the secure/open logic, the open, AI-integrated thesis is not devalued but complemented by a secured defence/transfer element in which central decisions are explained AI-free (ETH/UZH, 2025). Deskilling protection and newskilling are thus balanced: independent argumentation and integrity remain subject to proof, while responsible, documented AI use is practised as a future skill."
+   "de": "Die Bachelorarbeit wird von der Literaturarbeit zum empirisch-methodischen, KI-integrierten Capstone — das «Gesellenstück» in neuer Form: Studierende wählen ein Themenfeld und eine vorgegebene Beispiel-Fragestellung in einer von drei Arbeitsformen — Analyse eines bereitgestellten Datensatzes, Reproduzierbarkeits-/Robustheitscheck eines publizierten Befunds oder methodisch strukturierter Review mit codierten Befunden. Anspruchsvolle Aufgaben, die auch mit erlaubtem KI-Einsatz authentisches Engagement und methodisches Urteil sichtbar machen, sind der Kern der neuen Assessment-Diskussion (Kovanović et al., 2025); die Wahl der Fragestellung verbindet die Arbeit zugleich mit dem anvisierten Berufsziel. Der Forschungs- und Schreibprozess ist bewusst KI-integriert nach AIAS 4: KI darf umfassend, aber dokumentiert und fachlich verantwortet eingesetzt werden — von Suchstrategien über Analyse-Unterstützung bis zur Peer-Review-Simulation (Perkins et al., 2025). Dazu kommt ein AIAS-5-Anteil, das explorative Arbeitsartefakt eigener Wahl: ein dokumentierter agentischer Rechercheworkflow (Fokusfrage → Recherche → Evidenzmatrix → Faktencheck) oder eine vibe-coded App, die die eigene Auswertung interaktiv visualisiert. Bewertet wird nicht das Tool, sondern ob Zweck, Datenbasis, methodische Logik, Grenzen und eigene Verantwortung erklärt werden können — Newskilling statt Automatisierung (Weßels & Maibaum, 2026; Randazzo et al., 2025). Ein bewertbarer Prozessanhang (2–3 Seiten: Entscheidungslogik, KI-Nutzung, Verifikation, Reflexion) ersetzt die Kurzreflexion, denn unstrukturierte KI-Nutzung kann Lernen schwächen und eine Illusion des Verstehens erzeugen (Bastani et al., 2025; Lodge & Loble, 2026). Als Validitätsanker dient eine zehnminütige KI-freie mündliche Prüfung («Neue Mündlichkeit»): Entscheidungen, Befunde und KI-Grenzen ohne Werkzeug vertreten — Validität statt blosser Betrugsabwehr (Dawson et al., 2024; Corbin et al., 2025). Gewichtung 70/30: Die Arbeit bleibt der authentische, zukunftsorientierte Capstone, das Gespräch sichert die Eigenleistung.",
+   "en": "The Bachelor thesis turns from a literature review into an empirical-methodological, AI-integrated capstone — the «journeyman's piece» in a new form: students choose a thesis field and a predefined example research question in one of three work formats — analysis of a provided dataset, a reproducibility/robustness check of a published finding, or a methodically structured review with coded findings. Demanding tasks that make authentic engagement and methodological judgement visible even with permitted AI use are at the core of the current assessment debate (Kovanović et al., 2025); the choice of question also links the thesis to the intended career goal. The research and writing process is deliberately AI-integrated at AIAS 4: AI may be used extensively but documented and professionally accounted for — from search strategies to analysis support and peer-review simulation (Perkins et al., 2025). Added to this is an AIAS 5 component, the exploratory work artefact of one's own choice: a documented agentic research workflow (focus question → search → evidence matrix → fact check) or a vibe-coded app that interactively visualises one's own analysis. What is graded is not the tool but whether purpose, data basis, methodological logic, limits and personal responsibility can be explained — newskilling instead of automation (Weßels & Maibaum, 2026; Randazzo et al., 2025). An assessable process appendix (2–3 pages: decision logic, AI use, verification, reflection) replaces the short reflection, because unstructured AI use can weaken learning and create an illusion of understanding (Bastani et al., 2025; Lodge & Loble, 2026). A ten-minute AI-free oral examination serves as the validity anchor («new orality»): defending decisions, findings and AI limits without any tool — validity rather than mere cheating control (Dawson et al., 2024; Corbin et al., 2025). Weighting 70/30: the thesis remains the authentic, future-oriented capstone; the conversation secures the individual contribution."
   },
   "lernziele": [
    {
-    "de": "Die Studierenden erstellen einen AI Use Plan, der jeden Arbeitsschritt als [A] KI-frei oder [B] assistiert kennzeichnet.",
-    "en": "Students draft an AI use plan marking each work step as [A] AI-free or [B] assisted.",
+    "de": "Die Studierenden wählen Themenfeld und Fragestellung, führen die empirisch-methodische Arbeit (Datensatz-Analyse, Reproduzierbarkeitscheck oder strukturierter Review) eigenständig durch und interpretieren die Befunde.",
+    "en": "Students choose a thesis field and research question, independently conduct the empirical-methodological work (dataset analysis, reproducibility check or structured review) and interpret the findings.",
     "b": [
-     "K",
-     "S"
+     "F"
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihren KI-Einsatz über Disclosure Form und Prozesslog und verifizieren jede KI-gestützte Aussage.",
-    "en": "Students document their AI use via disclosure form and process log and verify every AI-supported claim.",
+    "de": "Die Studierenden gestalten den AIAS-4-Prozess: Sie setzen KI dokumentiert für Recherche, Analyse-Unterstützung und Überarbeitung ein und verantworten jeden Schritt fachlich.",
+    "en": "Students shape the AIAS 4 process: they use AI in a documented way for search, analysis support and revision, and take professional responsibility for every step.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden verteidigen zentrale inhaltliche und methodische Entscheidungen ihrer Arbeit KI-frei.",
-    "en": "Students defend the central substantive and methodological decisions of their thesis AI-free.",
+    "de": "Die Studierenden entwickeln ein AIAS-5-Artefakt — einen dokumentierten agentischen Rechercheworkflow oder eine vibe-coded App — und erklären Zweck, Datenbasis, Grenzen und Fehlerquellen.",
+    "en": "Students develop an AIAS 5 artefact — a documented agentic research workflow or a vibe-coded app — and explain its purpose, data basis, limits and error sources.",
     "b": [
-     "F",
+     "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden verfassen eine formal korrekte, eigenständig argumentierte wissenschaftliche Arbeit.",
-    "en": "Students write a formally correct, independently argued scholarly thesis.",
+    "de": "Die Studierenden dokumentieren im Prozessanhang Entscheidungslogik, KI-Nutzung, Verifikation und Reflexion in bewertbarer Form.",
+    "en": "Students document decision logic, AI use, verification and reflection in an assessable process appendix.",
     "b": [
-     "F"
+     "F",
+     "K"
+    ]
+   },
+   {
+    "de": "Die Studierenden vertreten Arbeit, methodische Entscheidungen und KI-Nutzung in einer zehnminütigen KI-freien mündlichen Prüfung.",
+    "en": "Students defend their thesis, methodological decisions and AI use in a ten-minute AI-free oral examination.",
+    "b": [
+     "F",
+     "S"
     ]
    }
   ],
   "ki": {
-   "de": "Kategorie [A]+[B] nach Secure/Open-Logik, offene, deklarierte KI-Nutzung mit Disclosure und Verifikation [B], ergänzt um KI-freie Verteidigungs-/Erklärpunkte [A]. Aktivierende Elemente: Prompt-&-Disclosure-Übung und AI-Critique (KI- und Peer-Feedback vs. Eigenurteil). Verpflichtender AI Use Plan; kein KI-generierter Text ohne Deklaration und Verantwortung durch die:den Verfasser:in.",
-   "en": "Category [A]+[B] following the secure/open logic, open, declared AI use with disclosure and verification [B], complemented by AI-free defence/explanation points [A]. Activating elements: prompt-and-disclosure exercise and AI critique (AI and peer feedback vs. one's own judgement). A mandatory AI Use Plan applies; no AI-generated text without declaration and responsibility taken by the author."
+   "de": "Prüfungslogik [B]/[C] nach der AI Assessment Scale: Der Hauptprozess läuft KI-integriert auf AIAS 4 (umfassende, dokumentierte Nutzung mit Disclosure Form und bewertbarem Prozessanhang), der Artefakt-Anteil auf AIAS 5 (exploratives Gestalten — agentischer Rechercheworkflow oder vibe-coded App); die zehnminütige mündliche Prüfung ist strikt [A] KI-frei (Perkins et al., 2025). Kriterien der mündlichen Prüfung: fachliches Verständnis, methodisches Urteil, Transferfähigkeit, Prozess- und Verantwortungsreflexion — standardisiertes Kriterienraster, wenige wiederkehrende Fragetypen, Prüfungstandems, knappe Protokollvorlage. Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung und AI-Critique. Deskilling-Schutz durch Validitätsanker statt KI-Detektion (Dawson et al., 2024; Corbin et al., 2025); Gewichtung 70% Arbeit / 30% mündliche Prüfung.",
+   "en": "Assessment logic [B]/[C] following the AI Assessment Scale: the main process runs AI-integrated at AIAS 4 (extensive, documented use with disclosure form and assessable process appendix), the artefact component at AIAS 5 (exploratory creation — agentic research workflow or vibe-coded app); the ten-minute oral examination is strictly [A] AI-free (Perkins et al., 2025). Oral-exam criteria: subject understanding, methodological judgement, transfer, process and responsibility reflection — a standardised rubric, few recurring question types, examiner tandems, a lean protocol template. Activating elements from the toolkit: prompt-&-disclosure exercise and AI critique. Deskilling protection through a validity anchor instead of AI detection (Dawson et al., 2024; Corbin et al., 2025); weighting 70% thesis / 30% oral examination."
   },
-  "kat": "A+B",
+  "kat": "B/C",
   "komp": {
    "fa": [
     "Fa2",
@@ -2200,18 +2208,13 @@ window.MODUL_TEXTE =
   ],
   "quest": {
    "titel": {
-    "de": "AI Use Plan in zehn Minuten",
-    "en": "AI Use Plan in Ten Minutes"
+    "de": "Wähle dein Gesellenstück",
+    "en": "Choose your journeyman's piece"
    },
    "text": {
-    "de": "Zerlege deine BA-Fragestellung in fünf Arbeitsschritte (z. B. Recherche, Literatur-Mapping, Argumentation, Schreiben, Zitieren). Markiere für jeden Schritt [A] KI-frei oder [B] assistiert und notiere pro [B]-Schritt genau einen Verifikationsschritt, mit dem du die KI-Ausgabe fachlich prüfst.",
-    "en": "Break your thesis question into five work steps (e.g. search, literature mapping, argumentation, writing, citation). Mark each step [A] AI-free or [B] assisted, and for every [B] step note exactly one verification step you will use to check the AI output professionally."
-   },
-   "komp": [
-    "Fa6",
-    "Fa4",
-    "Fa7"
-   ]
+    "de": "Wähle Themenfeld, Beispiel-Fragestellung (mit Arbeitsform) und dein AIAS-5-Artefakt in der Bachelorarbeits-Karte. Begründe in drei Sätzen, wie diese Wahl zu deinem anvisierten Berufsziel passt (Karriere-Tab hilft). Lass dann eine KI zwei Schwächen deines Plans nennen — übernimm eine begründet und verwirf die andere begründet.",
+    "en": "Choose a thesis field, an example research question (with work format) and your AIAS 5 artefact in the Bachelor-thesis card. In three sentences, justify how this choice fits your intended career goal (the career tab helps). Then ask an AI for two weaknesses of your plan — adopt one with reasons and reject the other with reasons."
+   }
   },
   "quellen": [
    "Bass et al. (2025)",
@@ -3212,8 +3215,8 @@ window.MODUL_TEXTE =
    "en": "The master's thesis comprises conducting and documenting an empirical or methodological investigation of a scientifically relevant question using currently recognised research and analysis methods. The deliverable is a written thesis in the form of a scientific research report."
   },
   "zukunft": {
-   "de": "Die Masterarbeit wird zum «Meisterstück» des Studiums — dem Gegenstück zur «Gesellenprüfung» der Bachelorarbeit, eine Stufe höher: Sie zerfällt in sechs Teilleistungen mit je eigener Prüfungslogik — Exposé mit AI Use Plan [B], OSF-Präregistrierung [A]/[B], Datenerhebung mit Prozesslog [B], Analyse (auf Wunsch mit agentischer KI) [B]/[C], schriftliche Arbeit mit zweistufiger Disclosure [B] und benotete Verteidigung [A] (Perkins et al., 2024; TEQSA, 2025). Der AI Use Plan hat zwei Teile: prospektiv als Vereinbarung mit der Betreuung, die vor Arbeitsbeginn pro Phase das KI-Level festlegt, und retrospektiv als laufendes Nutzungsverzeichnis mit Tool, Version, Zweck und Überarbeitung (ETH Zürich, o. D.; University of Cambridge, o. D.). Die Präregistrierung fixiert Fragestellung, Hypothesen und Analyseplan, bevor KI ins Spiel kommt — der stärkste strukturelle Eigenleistungsnachweis (Hosseini et al., 2025). Weil agentische Systeme Literatur-Screening und Datenextraktion inzwischen auf oder über Expertenniveau erledigen (Cao et al., 2025), verschiebt sich die bewertete Eigenleistung zu Problemdefinition, Steuerung, Kritik, Verifikation und Verantwortungsübernahme (KI2 Gestalten, KI6 Evaluieren, KI5 Verantworten, Stufe 4). Die Kernphasen Fragestellung, Argumentationsaufbau und Interpretation bleiben bewusst KI-arm — genau dort entsteht Stufe-4-Kompetenz, und genau dort drohen kognitive Schulden (Lee et al., 2025; Kosmyna et al., 2025). Fachlich bleibt die Arbeit das Kernstück von Forschungsdesign, Datenanalyse und wissenschaftlichem Schreiben (Fa2, Fa3, Fa6; DGPs, 2014); KI-generierter Code bleibt ausgeschlossen — jede Zeile R bleibt erklärbar.",
-   "en": "The Master's thesis becomes the «masterpiece» of the degree — the counterpart to the Bachelor thesis «journeyman's piece», one level up: it is decomposed into six part-deliverables, each with its own assessment logic — proposal with AI use plan [B], OSF preregistration [A]/[B], data collection with process log [B], analysis (optionally with agentic AI) [B]/[C], written thesis with two-tier disclosure [B], and a graded defence [A] (Perkins et al., 2024; TEQSA, 2025). The AI use plan has two parts: prospectively, an agreement with the supervisor fixing the AI level per phase before work begins; retrospectively, a running usage register with tool, version, purpose and revisions (ETH Zurich, n.d.; University of Cambridge, n.d.). Preregistration fixes the question, hypotheses and analysis plan before AI enters the picture — the strongest structural proof of own contribution (Hosseini et al., 2025). Because agentic systems now handle literature screening and data extraction at or above expert level (Cao et al., 2025), the assessed contribution shifts to problem definition, steering, critique, verification and taking responsibility (KI2 Creating, KI6 Evaluating, KI5 Taking responsibility, level 4). The core phases — research question, argumentation and interpretation — deliberately remain low-AI: that is where level-4 competence is built, and where cognitive debt looms (Lee et al., 2025; Kosmyna et al., 2025). Substantively the thesis remains the centrepiece of research design, data analysis and scientific writing (Fa2, Fa3, Fa6; DGPs, 2014); AI-generated code stays excluded — every line of R remains explainable."
+   "de": "Die Masterarbeit wird zum «Meisterstück» des Studiums — dem Gegenstück zur «Gesellenprüfung» der Bachelorarbeit, eine Stufe höher: Sie zerfällt in sechs Teilleistungen mit je eigener Prüfungslogik — Exposé mit AI Use Plan [B], OSF-Präregistrierung [A]/[B], Datenerhebung mit Prozesslog [B], Analyse (auf Wunsch mit agentischer KI) [B]/[C], schriftliche Arbeit mit zweistufiger Disclosure [B] und benotete Verteidigung [A] (Perkins et al., 2024; TEQSA, 2025). Die Stufung zur neuen Bachelorarbeit ist explizit: Dort wählen Studierende eine vorgegebene Fragestellung, arbeiten mit bereitgestellten oder offenen Daten und nutzen einen dokumentierten agentischen Workflow — im Meisterstück entwickeln sie die Fragestellung selbst, erschliessen eigene oder komplexe Daten, konfigurieren und begrenzen ihre agentische Forschungspipeline eigenständig und legen ein benotetes Agenten-Audit-Protokoll vor (Konfiguration, Testfälle, Fehlerfälle, Grenzen). Neu gehören eine Robustheitsanalyse — alternative Auswertungsentscheidungen offenlegen und ihren Einfluss berichten — und eine Live-Demonstration des eigenen KI-Workflows in der Verteidigung dazu: erklären, während es läuft («Neue Mündlichkeit» auf Stufe 4). Der AI Use Plan hat zwei Teile: prospektiv als Vereinbarung mit der Betreuung, die vor Arbeitsbeginn pro Phase das KI-Level festlegt, und retrospektiv als laufendes Nutzungsverzeichnis mit Tool, Version, Zweck und Überarbeitung (ETH Zürich, o. D.; University of Cambridge, o. D.). Die Präregistrierung fixiert Fragestellung, Hypothesen und Analyseplan, bevor KI ins Spiel kommt — der stärkste strukturelle Eigenleistungsnachweis (Hosseini et al., 2025). Weil agentische Systeme Literatur-Screening und Datenextraktion inzwischen auf oder über Expertenniveau erledigen (Cao et al., 2025), verschiebt sich die bewertete Eigenleistung zu Problemdefinition, Steuerung, Kritik, Verifikation und Verantwortungsübernahme (KI2 Gestalten, KI6 Evaluieren, KI5 Verantworten, Stufe 4). Die Kernphasen Fragestellung, Argumentationsaufbau und Interpretation bleiben bewusst KI-arm — genau dort entsteht Stufe-4-Kompetenz, und genau dort drohen kognitive Schulden (Lee et al., 2025; Kosmyna et al., 2025). Fachlich bleibt die Arbeit das Kernstück von Forschungsdesign, Datenanalyse und wissenschaftlichem Schreiben (Fa2, Fa3, Fa6; DGPs, 2014); KI-generierter Code bleibt ausgeschlossen — jede Zeile R bleibt erklärbar.",
+   "en": "The Master's thesis becomes the «masterpiece» of the degree — the counterpart to the Bachelor thesis «journeyman's piece», one level up: it is decomposed into six part-deliverables, each with its own assessment logic — proposal with AI use plan [B], OSF preregistration [A]/[B], data collection with process log [B], analysis (optionally with agentic AI) [B]/[C], written thesis with two-tier disclosure [B], and a graded defence [A] (Perkins et al., 2024; TEQSA, 2025). The step up from the new Bachelor thesis is explicit: there, students choose a predefined question, work with provided or open data and use a documented agentic workflow — in the masterpiece they develop the question themselves, source their own or complex data, configure and bound their agentic research pipeline independently and submit a graded agent-audit protocol (configuration, test cases, failure cases, limits). New additions are a robustness analysis — disclosing alternative analytic decisions and reporting their impact — and a live demonstration of one's own AI workflow in the defence: explaining while it runs («new orality» at level 4). The AI use plan has two parts: prospectively, an agreement with the supervisor fixing the AI level per phase before work begins; retrospectively, a running usage register with tool, version, purpose and revisions (ETH Zurich, n.d.; University of Cambridge, n.d.). Preregistration fixes the question, hypotheses and analysis plan before AI enters the picture — the strongest structural proof of own contribution (Hosseini et al., 2025). Because agentic systems now handle literature screening and data extraction at or above expert level (Cao et al., 2025), the assessed contribution shifts to problem definition, steering, critique, verification and taking responsibility (KI2 Creating, KI6 Evaluating, KI5 Taking responsibility, level 4). The core phases — research question, argumentation and interpretation — deliberately remain low-AI: that is where level-4 competence is built, and where cognitive debt looms (Lee et al., 2025; Kosmyna et al., 2025). Substantively the thesis remains the centrepiece of research design, data analysis and scientific writing (Fa2, Fa3, Fa6; DGPs, 2014); AI-generated code stays excluded — every line of R remains explainable."
   },
   "lernziele": [
    {
@@ -3249,18 +3252,25 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden verteidigen Design-Entscheide, Befunde und KI-Anteile ihrer Arbeit in einem explorativen, KI-freien Prüfungsgespräch und übernehmen die volle Verantwortung für alle Inhalte.",
-    "en": "Students defend design decisions, findings and the AI share of their work in an exploratory, AI-free oral examination and take full responsibility for all content.",
+    "de": "Die Studierenden verteidigen Design-Entscheide, Befunde und KI-Anteile ihrer Arbeit im explorativen Prüfungsgespräch — KI-freier Kern plus Live-Demonstration des eigenen Workflows — und übernehmen die volle Verantwortung für alle Inhalte.",
+    "en": "Students defend design decisions, findings and the AI share of their work in an exploratory examination — an AI-free core plus a live demonstration of their own workflow — and take full responsibility for all content.",
     "b": [
      "F",
      "K",
      "S"
     ]
+   },
+   {
+    "de": "Die Studierenden prüfen die Robustheit ihrer Befunde, indem sie alternative Auswertungsentscheidungen dokumentieren und deren Einfluss auf die Ergebnisse berichten.",
+    "en": "Students test the robustness of their findings by documenting alternative analytic decisions and reporting their impact on the results.",
+    "b": [
+     "F"
+    ]
    }
   ],
   "ki": {
-   "de": "Prüfungslogik pro Teilleistung statt pauschal: [A] gesichert (Präregistrierungs-Kern, Verteidigung), [B] deklariert KI-unterstützt (Exposé, Prozesslog, Text mit Disclosure), [C] KI-offen/agentisch (Literatur-Screening, Robustheitschecks) — abgeleitet aus der AI Assessment Scale und dem Two-Lane-Ansatz (Perkins et al., 2024; University of Auckland, o. D.). Im [C]-Teil wird nicht der Output bewertet, sondern Steuerung, Audit und Verifikation; ein benotetes Verifikationsprotokoll («Wie habe ich KI-Outputs geprüft?») gehört zum AI Use Plan (Lee et al., 2025). Pflichtbestandteile mit Open-Science-Doppelnutzen: OSF-Präregistrierung und offenes Daten-/Code-Repository (Hosseini et al., 2025). Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung und AI-Critique entlang des Schreibprozesses. Secure/Open: Die offene, KI-integrierte Arbeit wird durch die benotete, explorativ fragende Verteidigung gesichert — Assurance of Learning statt KI-Detektion (TEQSA, 2025; Storey, 2026).",
-   "en": "Assessment logic per part-deliverable instead of one blanket rule: [A] secured (preregistration core, defence), [B] declared AI-assisted (proposal, process log, text with disclosure), [C] AI-open/agentic (literature screening, robustness checks) — derived from the AI Assessment Scale and the two-lane approach (Perkins et al., 2024; University of Auckland, n.d.). In the [C] part it is not the output that is graded but steering, audit and verification; a graded verification protocol («How did I check AI outputs?») belongs to the AI use plan (Lee et al., 2025). Mandatory elements with an open-science double benefit: OSF preregistration and an open data/code repository (Hosseini et al., 2025). Activating elements from the toolkit: prompt-&-disclosure exercise and AI critique along the writing process. Secure/open: the open, AI-integrated thesis is secured by the graded, exploratory defence — assurance of learning instead of AI detection (TEQSA, 2025; Storey, 2026)."
+   "de": "Prüfungslogik pro Teilleistung statt pauschal: [A] gesichert (Präregistrierungs-Kern, Verteidigung), [B] deklariert KI-unterstützt (Exposé, Prozesslog, Text mit Disclosure), [C] KI-offen/agentisch (Literatur-Screening, Robustheitschecks) — abgeleitet aus der AI Assessment Scale und dem Two-Lane-Ansatz (Perkins et al., 2024; University of Auckland, o. D.). Im [C]-Teil wird nicht der Output bewertet, sondern Steuerung, Audit und Verifikation; ein benotetes Verifikationsprotokoll («Wie habe ich KI-Outputs geprüft?») gehört zum AI Use Plan (Lee et al., 2025). Pflichtbestandteile mit Open-Science-Doppelnutzen: OSF-Präregistrierung und offenes Daten-/Code-Repository (Hosseini et al., 2025). Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung und AI-Critique entlang des Schreibprozesses. Secure/Open: Die offene, KI-integrierte Arbeit wird durch die benotete, explorativ fragende Verteidigung gesichert — Assurance of Learning statt KI-Detektion (TEQSA, 2025; Storey, 2026). Die Verteidigung kombiniert den KI-freien explorativen Kern mit einer Live-Demonstration des eigenen KI-Workflows; benotet werden auch Agenten-Audit-Protokoll und Robustheitsanalyse — eine Stufe über der Bachelorarbeit.",
+   "en": "Assessment logic per part-deliverable instead of one blanket rule: [A] secured (preregistration core, defence), [B] declared AI-assisted (proposal, process log, text with disclosure), [C] AI-open/agentic (literature screening, robustness checks) — derived from the AI Assessment Scale and the two-lane approach (Perkins et al., 2024; University of Auckland, n.d.). In the [C] part it is not the output that is graded but steering, audit and verification; a graded verification protocol («How did I check AI outputs?») belongs to the AI use plan (Lee et al., 2025). Mandatory elements with an open-science double benefit: OSF preregistration and an open data/code repository (Hosseini et al., 2025). Activating elements from the toolkit: prompt-&-disclosure exercise and AI critique along the writing process. Secure/open: the open, AI-integrated thesis is secured by the graded, exploratory defence — assurance of learning instead of AI detection (TEQSA, 2025; Storey, 2026). The defence combines the AI-free exploratory core with a live demonstration of one's own AI workflow; the agent-audit protocol and the robustness analysis are graded too — one level above the Bachelor thesis."
   },
   "kat": "B/C",
   "komp": {

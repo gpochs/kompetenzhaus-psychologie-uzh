@@ -156,6 +156,17 @@ function mscProfil() {
 }
 /* Gewählte Wahlpflicht-Option (510 Economic/Consumer vs. 511 Klin. Neuropsychologie) */
 function wpWahl() { const p = S.placed[S.mode]["wp"]; return (p && p.opt) || null; }
+/* Bachelorarbeit neu: gewählte Beispiel-Fragestellung und AIAS-5-Artefakt */
+function baFrage() {
+  const p = S.placed[S.mode]["BA"];
+  if (!p || !p.thema || !p.frage) return null;
+  return ((ST.baFragen || {})[p.thema] || []).find((f) => f.id === p.frage) || null;
+}
+function baArtefakt() {
+  const p = S.placed[S.mode]["BA"];
+  if (!p || !p.artefakt) return null;
+  return (ST.baArtefakte || []).find((a) => a.id === p.artefakt) || null;
+}
 
 /* ---------- Regeln ---------- */
 function isPlaced(id, mode) { return !!S.placed[mode || S.mode][id]; }
@@ -630,6 +641,25 @@ function buildBlockMesh(slot, opts = {}) {
     g.add(main);
     const chimney = new THREE.Mesh(rb(0.55, 1.25, 0.55, 0.05), styleMat(base, stil));
     chimney.position.set(W * 0.28, H * 0.62, 0); g.add(chimney);
+    /* AIAS-5-Artefakt der neuen Bachelorarbeit: sichtbar auf dem Dach */
+    if (p.artefakt === "agent") { // Antennenmast mit Schüssel — der agentische Rechercheworkflow funkt
+      const metall = new THREE.MeshStandardMaterial({ color: 0x9aa2b5, metalness: 0.6, roughness: 0.35 });
+      const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.05, 1.35, 6), metall);
+      mast.position.set(-W * 0.26, H * 0.72 + 0.62, 0); g.add(mast);
+      const quer = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.5, 5), metall);
+      quer.rotation.z = Math.PI / 2; quer.position.set(-W * 0.26, H * 0.72 + 1.05, 0); g.add(quer);
+      const dish = new THREE.Mesh(new THREE.SphereGeometry(0.2, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.4), new THREE.MeshStandardMaterial({ color: 0xe8e4da, metalness: 0.3, roughness: 0.4, side: THREE.DoubleSide }));
+      dish.rotation.x = Math.PI * 0.62; dish.position.set(-W * 0.26, H * 0.72 + 0.78, 0.16); g.add(dish);
+    } else if (p.artefakt === "app") { // glänzendes Panel auf der Dachschräge — die vibe-coded App leuchtet
+      const slope = Math.atan2(H * 0.72, D / 2);
+      const panel = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.05, 0.7), new THREE.MeshStandardMaterial({ color: 0x14224a, roughness: 0.2, metalness: 0.45, emissive: 0x2a6cd4, emissiveIntensity: 0.18 }));
+      panel.rotation.x = -slope;
+      panel.position.set(-W * 0.24, H * 0.4, D * 0.26); g.add(panel);
+      const rahmen = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.03, 0.8), new THREE.MeshStandardMaterial({ color: 0xf2f0e9, roughness: 0.6 }));
+      rahmen.rotation.x = -slope;
+      rahmen.position.set(-W * 0.24, H * 0.38, D * 0.26); g.add(rahmen);
+      windowMats.push(panel.material);
+    }
   } else if (slot.form === "spire") {
     const cone = new THREE.Mesh(new THREE.ConeGeometry(W * CELL * 0.42, H, 4), roofMat());
     cone.rotation.y = Math.PI / 4; cone.position.y = H / 2; g.add(cone); main = cone;
@@ -1254,7 +1284,8 @@ function refreshDependents(slot) {
 function placeSlot(slot) {
   const chk = canPlace(slot);
   if (!chk.ok) { SND.err(); toast(chk.reason || t("gesperrt")); return false; }
-  const entry = { stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null, thema: THEMEN[slot.slot] ? pendingThema : null };
+  const entry = { stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null, thema: THEMEN[slot.slot] ? pendingThema : null,
+    frage: slot.slot === "BA" ? pendingFrage : null, artefakt: slot.slot === "BA" ? pendingArtefakt : null };
   S.placed[S.mode][slot.slot] = entry;
   save();
   const g = buildBlockMesh(slot);
@@ -1767,10 +1798,14 @@ function wahlprofilHTML(kompakt) {
     ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([sp, n]) => `<b style="color:${ST.schwerpunkte[sp].farbe}">${sp} ${n}</b>`).join(" · ")
       + (mp.dom ? "" : ` <span style="color:#8b94ab">(${t("msc_mix")})</span>`)
     : `<span style="color:#8b94ab">—</span>`;
+  const bf = baFrage(), ba = baArtefakt();
+  const baTxt = bf || ba
+    ? `<br>BA: ${bf ? `${((ST.baFormen || {})[bf.form] || {}).icon || ""} ${escHtml(L(bf.name))}` : ""}${ba ? ` · ${ba.icon} ${escHtml(L(ba.name))}` : ""}`
+    : "";
   return `<div style="border:1.5px solid #dbe1ef;border-radius:10px;padding:7px 10px;margin:0 4px 8px;font-size:11px;line-height:1.6">
     <b style="font-size:11.5px">🧭 ${t("richtung_titel")}</b><br>
     ${t("richtung_bsc")}: ${rTxt}<br>
-    ${t("richtung_msc")}: ${spTxt}${kompakt ? "" : `<br><span style="color:#8b94ab;font-size:10px">${t("msc_dom_hint")}</span>`}
+    ${t("richtung_msc")}: ${spTxt}${baTxt}${kompakt ? "" : `<br><span style="color:#8b94ab;font-size:10px">${t("msc_dom_hint")}</span>`}
   </div>`;
 }
 /* Wahl-Empfehlungs-Check pro Pfad: ✓/○-Chips für Richtung, Schwerpunkt, Wahlpflichtmodul */
@@ -1789,6 +1824,10 @@ function passungChips(p) {
   if (p.wahl.wp && OPTMOD[p.wahl.wp]) {
     const ok = wpWahl() === p.wahl.wp;
     chips.push({ ok, txt: L(OPTMOD[p.wahl.wp].titel), col: "#b3831d" });
+  }
+  const bf = baFrage(); // gewählte BA-Fragestellung stärkt passende Pfade sichtbar
+  if (bf && (bf.pfade || []).includes(p.id)) {
+    chips.push({ ok: true, txt: t("ba_chip"), col: "#0028a5" });
   }
   if (!chips.length) return "";
   const alle = chips.every((c) => c.ok);
@@ -1913,6 +1952,8 @@ function karriereSteckbrief() {
     ${t("richtung_bsc")}: ${br.r ? `<b style="color:${ST.richtungen[br.r].farbe}">${ST.richtungen[br.r].icon} ${L(ST.richtungen[br.r].kurz)}</b>` : t("richtung_keine")}<br>
     ${t("richtung_msc")}: ${mp.total ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([sp, n]) => `<b style="color:${ST.schwerpunkte[sp].farbe}">${sp} ${n}/6</b>`).join(" · ") + (mp.dom ? "" : ` (${t("msc_mix")})`) : "—"}
     ${wpWahl() && OPTMOD[wpWahl()] ? `<br>${t("kat_wahlpflicht")}: <b>${L(OPTMOD[wpWahl()].titel)}</b>` : ""}
+    ${baFrage() ? `<br>${t("ba_chip")}: <b>${((ST.baFormen || {})[baFrage().form] || {}).icon || ""} ${escHtml(L(baFrage().name))}</b>` : ""}
+    ${baArtefakt() ? `<br>${t("artefakt")} <b>${baArtefakt().icon} ${escHtml(L(baArtefakt().name))}</b>` : ""}
   </div>`;
   const radarBlock = top && top.p.soll
     ? `<div style="page-break-inside:avoid">${radarSVG(score, max, 230, top.p.soll).replace("max-width:230px", "max-width:300px")}
@@ -2112,7 +2153,7 @@ function evidenzBlock(id, builtRows) {
 
 /* ---------- HUD: Info-Karte ---------- */
 const card = document.getElementById("card");
-let cardTab = "zukunft", pendingStil = "klassisch", pendingSp = "DeNC", pendingOpt = null, pendingThema = null;
+let cardTab = "zukunft", pendingStil = "klassisch", pendingSp = "DeNC", pendingOpt = null, pendingThema = null, pendingFrage = null, pendingArtefakt = null;
 function openCard(id) {
   const slot = SLOTS[id]; if (!slot) return;
   selectedId = id;
@@ -2122,6 +2163,8 @@ function openCard(id) {
   pendingSp = st.sp || pendingSp;
   pendingOpt = st.opt || (slot.optionen ? slot.optionen[0] : null);
   pendingThema = st.thema || null;
+  pendingFrage = st.frage || null;
+  pendingArtefakt = st.artefakt || null;
   const { kat } = slotKomp(slot);
   document.getElementById("cardDot").style.background = "#" + colFor(slot).getHexString();
   document.getElementById("cardTitle").textContent = slotTitel(slot);
@@ -2417,8 +2460,13 @@ function renderCardActions(slot) {
       b.onclick = () => {
         if (placed) {
           S.placed[S.mode][slot.slot].thema = (S.placed[S.mode][slot.slot].thema === th.id) ? null : th.id;
+          if (slot.slot === "BA") S.placed[S.mode].BA.frage = null; // Fragestellung gehört zum Gebiet
           save(); refreshBlock(slot.slot);
-        } else { pendingThema = pendingThema === th.id ? null : th.id; if (ghostSlot) showGhost(ghostSlot); }
+        } else {
+          pendingThema = pendingThema === th.id ? null : th.id;
+          if (slot.slot === "BA") pendingFrage = null;
+          if (ghostSlot) showGhost(ghostSlot);
+        }
         renderCardActions(slot); renderPlan(); renderProfil();
       };
       d.appendChild(b);
@@ -2428,6 +2476,55 @@ function renderCardActions(slot) {
     hint.textContent = t("thema_hint");
     d.appendChild(hint);
     el.appendChild(d);
+  }
+  // Bachelorarbeit neu: vorgegebene Beispiel-Fragestellung (nach Gebietswahl) + AIAS-5-Artefakt
+  if (slot.slot === "BA" && ST.baFragen) {
+    const curThema = placed ? (S.placed[S.mode].BA.thema || null) : pendingThema;
+    if (curThema && ST.baFragen[curThema]) {
+      const d = document.createElement("div"); d.className = "schwerpick themapick";
+      d.innerHTML = `<span>${t("frage")}</span>`;
+      ST.baFragen[curThema].forEach((f) => {
+        const form = (ST.baFormen || {})[f.form] || {};
+        const b = document.createElement("button");
+        b.textContent = `${form.icon || ""} ${L(f.name)}`;
+        b.title = L(form.name || f.name);
+        const cur = placed ? (S.placed[S.mode].BA.frage || null) : pendingFrage;
+        b.classList.toggle("on", cur === f.id);
+        b.onclick = () => {
+          if (placed) { S.placed[S.mode].BA.frage = (S.placed[S.mode].BA.frage === f.id) ? null : f.id; save(); }
+          else pendingFrage = pendingFrage === f.id ? null : f.id;
+          renderCardActions(slot); renderProfil();
+        };
+        d.appendChild(b);
+      });
+      const hint = document.createElement("p");
+      hint.style.cssText = "font-size:10px;color:#8b94ab;margin:2px 4px 0";
+      hint.textContent = t("frage_hint");
+      d.appendChild(hint);
+      el.appendChild(d);
+    }
+    {
+      const d = document.createElement("div"); d.className = "schwerpick themapick";
+      d.innerHTML = `<span>${t("artefakt")}</span>`;
+      (ST.baArtefakte || []).forEach((a) => {
+        const b = document.createElement("button");
+        b.textContent = `${a.icon} ${L(a.name)}`;
+        b.title = L(a.kurz);
+        const cur = placed ? (S.placed[S.mode].BA.artefakt || null) : pendingArtefakt;
+        b.classList.toggle("on", cur === a.id);
+        b.onclick = () => {
+          if (placed) { S.placed[S.mode].BA.artefakt = (S.placed[S.mode].BA.artefakt === a.id) ? null : a.id; save(); refreshBlock("BA"); }
+          else pendingArtefakt = pendingArtefakt === a.id ? null : a.id;
+          renderCardActions(slot);
+        };
+        d.appendChild(b);
+      });
+      const hint = document.createElement("p");
+      hint.style.cssText = "font-size:10px;color:#8b94ab;margin:2px 4px 0";
+      hint.textContent = t("artefakt_hint");
+      d.appendChild(hint);
+      el.appendChild(d);
+    }
   }
   // Stil-Wahl
   {
@@ -2715,7 +2812,16 @@ document.getElementById("btnPass").onclick = () => {
     const q = S.quests[slot.slot] || {};
     const { kat } = slotKomp(slot);
     const e = p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects;
-    const thName = (() => { const th = themaFor(slot.slot); return th ? " · " + L(th.name) : ""; })();
+    const thName = (() => {
+      const th = themaFor(slot.slot);
+      let s = th ? " · " + L(th.name) : "";
+      if (slot.slot === "BA") { // neue BA: gewählte Fragestellung + AIAS-5-Artefakt im Pass ausweisen
+        const bf = baFrage(), ba = baArtefakt();
+        if (bf) s += " · " + (((ST.baFormen || {})[bf.form] || {}).icon || "") + " " + L(bf.name);
+        if (ba) s += " · " + ba.icon + " " + L(ba.name);
+      }
+      return s;
+    })();
     rows += `<tr><td>${(p && p.opt) || slot.code}</td><td>${slotTitel(slot)}${p && p.sp ? " · " + p.sp : ""}${thName}</td><td style="text-align:center">${e}</td><td style="text-align:center">[${kat}]</td><td>${q.done ? "✦ " : ""}${q.note ? (q.done ? "" : "📝 ") + escHtml(q.note) : ""}</td></tr>`;
   }
   let bars = "";
