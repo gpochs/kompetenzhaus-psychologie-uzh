@@ -1,9 +1,10 @@
 /* =====================================================================
    Das Kompetenzhaus — Lernziele in Ich-Form (fuer den Kompetenzpass)
-   Kuratierte 1.-Person-Fassung aller 168 Lernziele aus daten-texte.js;
+   Kuratierte 1.-Person-Fassung aller Lernziele aus daten-texte.js (v10: BA und MA nachgezogen);
    b-Tags: F = Fach, K = KI, S = Future Skills. Schweizer Rechtschreibung.
    ===================================================================== */
-window.ICH_LERNZIELE = {
+window.ICH_LERNZIELE =
+{
  "06SM200-001": [
   {
    "de": "Ich führe deskriptive und inferenzstatistische Berechnungen eigenständig und KI-frei durch und interpretiere die Ergebnisse korrekt.",
@@ -799,34 +800,42 @@ window.ICH_LERNZIELE = {
  ],
  "06SM200-BA": [
   {
-   "de": "Ich erstelle einen AI Use Plan, der jeden Arbeitsschritt als [A] KI-frei oder [B] assistiert kennzeichnet.",
-   "en": "I draft an AI use plan marking each work step as [A] AI-free or [B] assisted.",
+   "de": "Ich wähle Themenfeld und Fragestellung, führe die empirisch-methodische Arbeit (Datensatz-Analyse, Reproduzierbarkeitscheck oder strukturierter Review) eigenständig durch und interpretiere die Befunde.",
+   "en": "I choose a thesis field and research question, independently conduct the empirical-methodological work (dataset analysis, reproducibility check or structured review) and interpret the findings.",
    "b": [
-    "K",
-    "S"
+    "F"
    ]
   },
   {
-   "de": "Ich dokumentiere meinen KI-Einsatz über Disclosure Form und Prozesslog und verifiziere jede KI-gestützte Aussage.",
-   "en": "I document my AI use via disclosure form and process log and verify every AI-supported claim.",
+   "de": "Ich gestalte den KI-integrierten Arbeitsprozess: Ich setze KI dokumentiert für Recherche, Analyse-Unterstützung und Überarbeitung ein und verantworte jeden Schritt fachlich.",
+   "en": "I shape the AI-integrated work process: I use AI in a documented way for search, analysis support and revision, and take professional responsibility for every step.",
    "b": [
     "F",
     "K"
    ]
   },
   {
-   "de": "Ich verteidige zentrale inhaltliche und methodische Entscheidungen meiner Arbeit KI-frei.",
-   "en": "I defend the central substantive and methodological decisions of my thesis AI-free.",
+   "de": "Ich entwickle ein exploratives KI-Artefakt, einen dokumentierten agentischen Rechercheworkflow oder eine vibe-coded App, und erkläre Zweck, Datenbasis, Grenzen und Fehlerquellen.",
+   "en": "I develop an exploratory AI artefact, a documented agentic research workflow or a vibe-coded app, and explain its purpose, data basis, limits and error sources.",
    "b": [
-    "F",
+    "K",
     "S"
    ]
   },
   {
-   "de": "Ich verfasse eine formal korrekte, eigenständig argumentierte wissenschaftliche Arbeit.",
-   "en": "I write a formally correct, independently argued scholarly thesis.",
+   "de": "Ich dokumentiere im Prozessanhang Entscheidungslogik, KI-Nutzung, Verifikation und Reflexion in bewertbarer Form.",
+   "en": "I document decision logic, AI use, verification and reflection in an assessable process appendix.",
    "b": [
-    "F"
+    "F",
+    "K"
+   ]
+  },
+  {
+   "de": "Ich vertrete Arbeit, methodische Entscheidungen und KI-Nutzung in einer zehnminütigen KI-freien mündlichen Prüfung.",
+   "en": "I defend my thesis, methodological decisions and AI use in a ten-minute AI-free oral examination.",
+   "b": [
+    "F",
+    "S"
    ]
   }
  ],
@@ -1200,35 +1209,51 @@ window.ICH_LERNZIELE = {
  ],
  "06SM200-MA": [
   {
-   "de": "Ich führe eine eigenständige empirische oder methodische Untersuchung durch, dokumentiere sie als wissenschaftlichen Ergebnisbericht und verteidige meine Analyseentscheidungen.",
-   "en": "I conduct an independent empirical or methodological investigation and document it as a scientific research report.",
+   "de": "Ich führe eine eigenständige empirische oder methodische Untersuchung durch, präregistriere Fragestellung, Hypothesen und Analyseplan auf OSF und dokumentiere sie als wissenschaftlichen Ergebnisbericht mit offenem Daten- und Code-Repository.",
+   "en": "I conduct an independent empirical or methodological study, preregister the question, hypotheses and analysis plan on OSF, and document it as a scientific report with an open data and code repository.",
    "b": [
     "F",
     "S"
    ]
   },
   {
-   "de": "Ich steuere eine KI-gestützte Forschungspipeline — Literaturmonitoring, Datenmanagement, Skript-Review, Schreibfeedback, und dokumentiere jeden KI-Schritt im Prozesslog.",
-   "en": "I steer an AI-supported research pipeline, literature monitoring, data management, script review, writing feedback, with full disclosure.",
+   "de": "Ich vereinbare vor Arbeitsbeginn einen AI Use Plan, der jede Arbeitsphase als KI-frei, deklariert KI-unterstützt oder KI-offen festlegt, und führe das Nutzungsverzeichnis laufend nach.",
+   "en": "Before starting, I agree an AI use plan that sets each work phase to AI-free, declared AI-assisted or AI-open, and keep the usage register up to date throughout.",
    "b": [
     "F",
     "K"
    ]
   },
   {
-   "de": "Ich konfiguriere, begrenze und überwache einen agentischen Workflow (z. B. Literaturupdate oder Bias-Check) und beurteile dessen Outputs fachlich.",
-   "en": "I configure, constrain and monitor an agentic workflow (e.g. literature updates or bias checks).",
+   "de": "Ich konfiguriere, begrenze und überwache agentische Workflows und weise deren Fehler durch Stichproben-Nachkontrollen nach.",
+   "en": "I configure, bound and monitor agentic workflows and demonstrate their errors through spot-check re-examinations.",
    "b": [
     "F",
     "K"
    ]
   },
   {
-   "de": "Ich verifiziere KI-Outputs systematisch gegen Primärliteratur, Originaldaten und eigene Re-Analysen und korrigiere Fehler nachweisbar.",
-   "en": "I verify AI outputs systematically against primary literature, original data and my own re-analyses, and correct them.",
+   "de": "Ich verifiziere KI-Outputs systematisch gegen Primärliteratur, Originaldaten und eigene Re-Analysen und dokumentiere meine Prüfstrategie in einem benoteten Verifikationsprotokoll.",
+   "en": "I systematically verify AI outputs against primary literature, original data and my own re-analyses, documenting my checking strategy in a graded verification protocol.",
    "b": [
     "F",
     "K"
+   ]
+  },
+  {
+   "de": "Ich prüfe die Robustheit meiner Befunde, indem ich alternative Auswertungsentscheidungen dokumentiere und deren Einfluss auf die Ergebnisse berichte.",
+   "en": "I test the robustness of my findings by documenting alternative analytic decisions and reporting their impact on the results.",
+   "b": [
+    "F"
+   ]
+  },
+  {
+   "de": "Ich verteidige Design-Entscheide, Befunde und KI-Anteile meiner Arbeit im explorativen Prüfungsgespräch, KI-freier Kern plus Live-Demonstration meines Workflows, und übernehme die volle Verantwortung für alle Inhalte.",
+   "en": "I defend design decisions, findings and the AI share of my work in an exploratory examination, an AI-free core plus a live demonstration of my workflow, and take full responsibility for all content.",
+   "b": [
+    "F",
+    "K",
+    "S"
    ]
   }
  ],

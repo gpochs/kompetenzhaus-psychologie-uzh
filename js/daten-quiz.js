@@ -3,6 +3,10 @@
    (Haladyna & Rodriguez): parallele Laenge/Struktur, plausible Fehlkonzepte,
    genau eine eindeutig korrekte Option. Fach + KI + Prueflogik pro Modul.
    Quellen dokumentiert im Repo-Scratch; Schweizer Rechtschreibung. */
+/* v10 (01.08.2026): dritte Frage je Modul auf rotierende, fachlich verankerte Motive umgestellt
+   (Transfer, Ethik, Methodenkritik, Mensch-KI-Rollen, Deskilling, Wissenschaftskommunikation, Datenqualität);
+   Prüfungslogik-Fragen nur noch dort, wo das Format selbst Modulgegenstand ist. Generische KI-Fragen durch
+   fachlich verankerte ersetzt. IPS: nur noch eine der drei Fragen ist eine KI-Frage. Alle neuen Fragen faktengeprüft. */
 window.QUIZ =
 {
  "06SM200-001": [
@@ -66,31 +70,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein Student nutzt den sokratischen Tutoring-Bot in den Statistik-Tutoraten intensiv und fragt, warum die drei MC-Teilprüfungen trotzdem strikt [A] KI-frei bleiben. Welche Begründung entspricht der Prüfungslogik des Moduls?",
-    "en": "A student makes heavy use of the Socratic tutoring bot in the statistics tutorials and asks why the three multiple-choice partial exams nevertheless remain strictly [A] AI-free. Which rationale matches the module's assessment logic?"
+    "de": "Das Institut bereitet eine Medienmitteilung zu einer Befragungsstudie aus der Emotionspsychologie vor: Studierende, die die Strategie der Neubewertung häufiger angeben, berichten weniger Stresserleben (r = −.18). Welche Formulierung gibt diesen Befund für ein Laienpublikum korrekt wieder?",
+    "en": "The institute is preparing a press release on a survey study from emotion psychology: students who report using reappraisal more often report less perceived stress (r = −.18). Which wording conveys this finding correctly to a lay audience?"
    },
    "a": [
     {
-     "de": "[A] sichert die Kernfertigkeit ohne KI: Der Bot darf das Lernen unterstützen, die Prüfung weist aber nach, dass Statistik eigenständig beherrscht wird (Deskilling-Schutz).",
-     "en": "[A] secures the core skill without AI: the bot may support learning, but the exam demonstrates that statistics is mastered independently (protection against deskilling)."
+     "de": "Neubewertung senkt das Stresserleben im Studium messbar; wer die Strategie einübt, kommt spürbar entspannter durch die anstrengende Prüfungsphase.",
+     "en": "Reappraisal measurably lowers perceived stress during studies; those who practise the strategy get through the demanding exam period noticeably more relaxed."
     },
     {
-     "de": "[A] untersagt KI-Einsatz bereits in der Vorbereitungsphase; die Bot-Nutzung in den Tutoraten gilt darum als Grauzone, die vor der Prüfung offiziell bewilligt werden muss.",
-     "en": "[A] already prohibits AI use during the preparation phase; using the bot in the tutorials therefore counts as a grey area that must be officially approved before the exam."
+     "de": "Bei rund einem Fünftel der Befragten wirkt Neubewertung gegen Stress; die übrigen brauchen andere Wege der Emotionsregulation im Alltag.",
+     "en": "In roughly one fifth of respondents reappraisal works against stress; the others need different routes of emotion regulation in everyday life."
     },
     {
-     "de": "[A] verlangt, dass die Bot-Nutzung des Semesters im Disclosure Form mit Prozesslog dokumentiert wird; so bleibt die KI-Unterstützung für die Prüfenden nachvollziehbar.",
-     "en": "[A] requires that the semester's bot use be documented in the disclosure form with a process log; this keeps the AI support traceable for the examiners."
+     "de": "Wer häufiger neu bewertet, berichtet im Mittel etwas weniger Stress; ob das Umdeuten den Stress senkt, klärt erst ein Experiment.",
+     "en": "Those who reappraise more often report on average slightly less stress; whether the reframing lowers stress can only be settled by an experiment."
     },
     {
-     "de": "[A] wird gewählt, weil MC-Prüfungen technisch kaum mit KI-Werkzeugen kombinierbar sind; sobald die Prüfungssoftware KI integriert, wechselt das Modul auf die Stufe [C].",
-     "en": "[A] is chosen because multiple-choice exams are technically hard to combine with AI tools; once the exam software integrates AI, the module switches to level [C]."
+     "de": "Ein statistisch signifikanter Zusammenhang ist immer auch praktisch bedeutsam; die Empfehlung lässt sich deshalb allen Studierenden gleichermassen mitgeben.",
+     "en": "A statistically significant association is always practically meaningful as well; the recommendation can therefore be passed on to all students alike."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Die [A]-Logik trennt Lernphase und Kompetenznachweis: KI darf beim Lernen assistieren, die Kernfertigkeit wird aber KI-frei geprüft, damit kein Deskilling entsteht. Der verführerischste Distraktor ist die Disclosure-Variante, denn Disclosure und Prozesslog gehören zur Stufe [B] für teilweise KI-integrierte Aufgaben, nicht zu KI-freien Prüfungen.",
-    "en": "The [A] logic separates the learning phase from the demonstration of competence: AI may assist while learning, but the core skill is assessed AI-free to prevent deskilling. The most tempting distractor is the disclosure option, since disclosure and process logs belong to level [B] for partially AI-integrated tasks, not to AI-free exams."
+    "de": "Eine Querschnittsbefragung trägt nur eine Zusammenhangsaussage; die kausale Formulierung «senkt» überschreitet dieses Design, und ein Betrag von .18 ist ein kleiner Effekt, den «im Mittel etwas» ehrlich wiedergibt. Am verführerischsten ist die Prozentvariante: Sie liest den Koeffizienten als Anteil der Personen, bei denen die Strategie wirkt, obwohl er beschreibt, wie eng beide Merkmale über alle Befragten hinweg zusammenhängen.",
+    "en": "A cross-sectional survey supports only a statement about association; the causal wording \"lowers\" goes beyond that design, and a magnitude of .18 is a small effect that \"on average slightly\" renders honestly. The percentage option is the most tempting: it reads the coefficient as the share of people for whom the strategy works, although it describes how closely the two characteristics go together across all respondents."
    }
   }
  ],
@@ -215,60 +219,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Bei der Fakten-Check-Übung liefert die KI eine Literaturangabe, die formal perfekt wirkt: reale Zeitschrift, plausible Autorennamen, DOI im korrekten Format. Welcher Prüfschritt ist entscheidend, um eine erfundene Referenz zu entlarven?",
-    "en": "In the fact-checking exercise, the AI produces a reference that looks formally perfect: a real journal, plausible author names, a DOI in the correct format. Which verification step is decisive for exposing a fabricated reference?"
+    "de": "Im Proseminar stellt eine Erstsemestrige ihren Semesterplan vor: Den Stoff der Statistik-Vorlesung will sie bis Semesterende nur mitschreiben und dann zwei Wochen am Stück lernen. Welche Rückmeldung ist lernpsychologisch begründet?",
+    "en": "In the proseminar, a first-semester student presents her term plan: until the end of term she intends only to take notes on the statistics lecture and then to study for two solid weeks in a row. Which feedback is grounded in learning psychology?"
    },
    "a": [
     {
-     "de": "Die Referenz in PsycINFO suchen oder die DOI auflösen und prüfen, ob die Arbeit tatsächlich existiert und die behauptete Aussage inhaltlich wirklich stützt.",
-     "en": "Search for the reference in PsycINFO or resolve the DOI, and check whether the work actually exists and genuinely supports the claim being made."
+     "de": "Zwei Blockwochen sind effizient, weil ein Fach ohne Wechsel durchgearbeitet wird und dadurch weniger Interferenz zwischen den Stoffgebieten entsteht.",
+     "en": "Two block weeks are efficient because one subject is worked through without switching, which produces less interference between the areas of content."
     },
     {
-     "de": "Dasselbe Sprachmodell in einer neuen Sitzung erneut nach der Quelle fragen; liefert es zweimal dieselbe Angabe, spricht das für eine in den Trainingsdaten verankerte Referenz.",
-     "en": "Ask the same language model about the source again in a fresh session; if it produces the same reference twice, this suggests a citation anchored in its training data."
+     "de": "Der Zeitdruck kurz vor der Prüfung erhöht die Konzentration; darum ist geballtes Lernen am Semesterende für Statistik besonders geeignet.",
+     "en": "Time pressure shortly before the exam raises concentration; massed study at the end of term is therefore particularly suited to statistics."
     },
     {
-     "de": "Die formale APA-Korrektheit der Angabe kontrollieren; stimmen Format, Jahreszahl und Seitenzahlen, wurde die Quelle mit hoher Wahrscheinlichkeit aus echter Literatur übernommen.",
-     "en": "Check the formal APA correctness of the entry; if the format, year, and page numbers are right, the source was very likely taken from genuine literature."
+     "de": "Kurze Lerneinheiten über das Semester verteilt führen bei gleicher Gesamtlernzeit zu besserem Behalten als zwei Wochen am Stück.",
+     "en": "Short study sessions spread across the term lead to better retention than two solid weeks, with the same total study time."
     },
     {
-     "de": "Das Renommee der Zeitschrift und die Bekanntheit der Autorennamen einschätzen; erfundene Referenzen fallen typischerweise durch unplausible Namen und unbekannte Journals auf.",
-     "en": "Assess the journal's reputation and how well known the author names are; fabricated references typically give themselves away through implausible names and obscure journals."
-    }
-   ],
-   "korrekt": 0,
-   "erkl": {
-    "de": "Nur die Recherche in der Datenbank oder das Auflösen der DOI zeigt, ob die Arbeit existiert und die Aussage tatsächlich stützt; genau daran scheitern halluzinierte Referenzen. Der Format-Distraktor ist verführerisch, doch Studien zeigen, dass erfundene Angaben oft formal einwandfrei aussehen, weil das Modell typische Zitationsmuster reproduziert.",
-    "en": "Only searching the database or resolving the DOI reveals whether the work exists and actually supports the claim; that is exactly where hallucinated references fail. The format distractor is tempting, but studies show that fabricated citations often look formally flawless because the model reproduces typical citation patterns."
-   }
-  },
-  {
-   "q": {
-    "de": "Für die abschliessende [B]-Lernworkflow-Aufgabe hast du die Literaturzusammenfassung mit KI-Unterstützung erstellt, Gliederung und Endtext aber selbst verfasst. Welches Vorgehen bei der Abgabe entspricht der Prüfungslogik [B]?",
-    "en": "For the final [B] learning-workflow assignment, you produced the literature summary with AI support but wrote the outline and final text yourself. Which submission procedure matches assessment logic [B]?"
-   },
-   "a": [
-    {
-     "de": "Ein Sammelhinweis am Ende der Arbeit («mit KI-Unterstützung erstellt») genügt; da [B] die KI-Nutzung grundsätzlich erlaubt, müssen einzelne Arbeitsschritte nicht aufgeschlüsselt werden.",
-     "en": "A blanket note at the end of the paper (\"produced with AI support\") is sufficient; since [B] permits AI use in principle, the individual work steps do not need to be itemised."
-    },
-    {
-     "de": "In [B]-Aufgaben darf die KI in jedem Arbeitsschritt eingesetzt werden, solange der Endtext selbst formuliert ist; das entspricht dem Merksatz «assistieren, nicht ersetzen».",
-     "en": "In [B] assignments the AI may be used in every work step as long as the final text is written in your own words; this matches the maxim \"assist, don't replace\"."
-    },
-    {
-     "de": "Die KI-gestützten Einzelschritte werden im Disclosure Form mit Tool, Zweck, Prompt und Verifikationsschritt dokumentiert und im Prozesslog festgehalten; die übrigen Schritte bleiben eigenständig.",
-     "en": "The AI-supported individual steps are documented in the disclosure form with tool, purpose, prompt, and verification step, and recorded in the process log; the remaining steps stay independent."
-    },
-    {
-     "de": "[B] verlangt, die KI-Anteile vor der Abgabe wieder zu entfernen und die Aufgabe KI-frei einzureichen; das Disclosure Form dient dabei als Nachweis der vollständigen Entfernung.",
-     "en": "[B] requires removing the AI contributions again before submission and handing in the assignment AI-free; the disclosure form then serves as proof of their complete removal."
+     "de": "Entscheidend ist allein die Gesamtzahl der Lernstunden; ihre Verteilung über das Semester verändert die Behaltensleistung bis zur Prüfung kaum.",
+     "en": "What counts is solely the total number of study hours; their distribution across the term hardly changes retention up to the exam."
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "[B] bedeutet teilweise KI-integriert: Einzelne Arbeitsschritte dürfen KI-gestützt sein, müssen aber mit Disclosure (Tool, Zweck, Prompt, Verifikation) und Prozesslog transparent gemacht werden. Der Distraktor mit KI in jedem Arbeitsschritt beschreibt die Stufe [C]; bei [B] bleibt die KI auf einzelne, deklarierte Schritte beschränkt.",
-    "en": "[B] means partially AI-integrated: individual work steps may be AI-supported but must be made transparent through disclosure (tool, purpose, prompt, verification) and a process log. The distractor allowing AI in every work step describes level [C]; under [B], AI remains limited to individual, declared steps."
+    "de": "Verteiltes Lernen verbessert das Behalten bei gleicher Gesamtzeit; in der Übersicht von Dunlosky et al. (2013) erhält es zusammen mit dem Abrufen (practice testing) die höchste Nützlichkeitsbewertung. Der Gesamtzeit-Distraktor ist am verführerischsten, weil er intuitiv wirkt: Er übersieht, dass nicht nur die Menge der Lernzeit zählt, sondern auch ihre zeitliche Verteilung, weil jedes Wiederaufgreifen nach einer Pause die Gedächtnisspur zusätzlich festigt.",
+    "en": "Distributed practice improves retention at equal total time; in the review by Dunlosky et al. (2013) it receives the highest utility rating, together with practice testing. The total-time distractor is the most tempting because it feels intuitive: it overlooks that not only the amount of study time counts but also its distribution, since every return to the material after a break further consolidates the memory trace."
+   }
+  },
+  {
+   "q": {
+    "de": "In der Proseminargruppe schildern vier Studierende, wie sie den Chatbot beim Vorbereiten eines Arbeitsauftrags zu einem Fachtext einsetzen. Welches Vorgehen nutzt die KI so, dass sie das eigene Verstehen anstösst statt es zu übernehmen?",
+    "en": "In the proseminar group, four students describe how they use the chatbot when preparing an assignment on a specialist text. Which approach uses the AI so that it prompts their own understanding rather than taking it over?"
+   },
+   "a": [
+    {
+     "de": "Zuerst die KI-Zusammenfassung lesen und den Fachtext danach durchgehen, um die zusammengefassten Aussagen im Original wiederzufinden.",
+     "en": "First read the AI summary and then go through the specialist text to locate the summarised statements in the original."
+    },
+    {
+     "de": "Den Fachtext zuerst selbst durcharbeiten, die eigenen offenen Stellen notieren und die KI gezielt zu diesen Stellen befragen.",
+     "en": "Work through the specialist text yourself first, note down the passages that stay unclear, and question the AI specifically about those."
+    },
+    {
+     "de": "Die KI eine Gliederung des Fachtexts erstellen lassen und den eigenen Beitrag anschliessend entlang dieser Gliederung ausformulieren.",
+     "en": "Have the AI produce an outline of the specialist text and then write up your own contribution along that outline."
+    },
+    {
+     "de": "Die KI-Zusammenfassung von einem zweiten Chatbot gegenlesen lassen und die übereinstimmenden Aussagen als gesichert übernehmen.",
+     "en": "Have a second chatbot review the AI summary and adopt the statements on which both agree as secured."
+    }
+   ],
+   "korrekt": 1,
+   "erkl": {
+    "de": "Verstehen entsteht, wenn zuerst die eigene Verständnislücke bestimmt wird; die KI beantwortet dann eine Frage, die man selbst gestellt hat, und assistiert, statt zu ersetzen. Am verführerischsten ist der erste Weg, weil er wie eine Kontrolle aussieht: Wer die Zusammenfassung bereits kennt, liest den Text nur noch auf Wiedererkennen hin und hält dieses Wiedererkennen für Verstehen. Die Zwei-Chatbot-Variante hilft ebenfalls nicht, weil Übereinstimmung zweier Modelle keine Prüfung am Original ersetzt.",
+    "en": "Understanding develops when you first pin down your own gap; the AI then answers a question you posed yourself and assists instead of replacing. The first route is the most tempting because it looks like a check: once you already know the summary, you read the text only for recognition and mistake that recognition for understanding. The two-chatbot variant does not help either, because agreement between two models is no substitute for checking against the original."
    }
   }
  ],
@@ -333,31 +337,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Die Testtheorie-Prüfung ist als KI-freie [A]-Klausur angelegt, obwohl die Studierenden im Semester mit einem KI-Tutor lernen durften. Welche Begründung entspricht der Prüfungslogik des Moduls?",
-    "en": "The test-theory exam is designed as an AI-free [A] exam, even though students were allowed to learn with an AI tutor during the semester. Which rationale matches the module's assessment logic?"
+    "de": "Eine Arbeitsgruppe konstruiert einen 24-Item-Fragebogen zur Prokrastination. In der exploratorischen Faktorenanalyse werden nach dem Eigenwert-grösser-eins-Kriterium sechs Faktoren extrahiert und Varimax-rotiert; auf zwei davon lädt nur je ein Itempaar substanziell. Die Gruppe deutet alle sechs als inhaltliche Facetten. Worin liegt der entscheidende methodische Fehler?",
+    "en": "A team constructs a 24-item procrastination questionnaire. In the exploratory factor analysis six factors are extracted using the eigenvalue-greater-than-one criterion and Varimax-rotated; on two of them only a single pair of items loads substantially. The group interprets all six as substantive facets. Where does the decisive methodological error lie?"
    },
    "a": [
     {
-     "de": "[A] sichert, dass psychometrisches Urteilen wie das Beurteilen von Gütekriterien ohne Werkzeug abrufbar ist, während KI-gestütztes Lernen davor zulässig bleibt.",
-     "en": "[A] ensures that psychometric judgement such as appraising quality criteria is available without tools, while AI-supported learning beforehand remains permitted."
+     "de": "Die Stichprobe war für 24 Items zu klein; erst bei einem deutlich grösseren Verhältnis von Personen zu Items liefert das Eigenwertkriterium die zutreffende Faktorenzahl.",
+     "en": "The sample was too small for 24 items; only with a much larger person-to-item ratio does the eigenvalue criterion yield the appropriate number of factors."
     },
     {
-     "de": "[A] verlangt, dass auch die Prüfungsvorbereitung KI-frei erfolgt, weil sonst nicht mehr zwischen eigener und KI-gestützter Leistung getrennt werden kann.",
-     "en": "[A] requires the exam preparation to be AI-free as well, since otherwise one can no longer separate a student's own performance from AI-supported work."
+     "de": "Die Rotation hätte oblique erfolgen müssen, weil Varimax inhaltlich korrelierte Prokrastinationsfacetten künstlich in voneinander unabhängige Faktoren zerlegt.",
+     "en": "The rotation should have been oblique, because Varimax artificially splits substantively correlated procrastination facets into mutually independent factors."
     },
     {
-     "de": "[A] wird gewählt, weil KI-Tools psychometrische Formeln systematisch falsch berechnen und deshalb für dieses Fach ungeeignet sind.",
-     "en": "[A] is chosen because AI tools systematically miscalculate psychometric formulas and are therefore unsuitable for this subject."
+     "de": "Die Faktorenzahl wurde allein am Eigenwertkriterium festgemacht, das in der Regel zu viele Faktoren ausweist; Parallelanalyse, Scree-Verlauf und inhaltliche Deutbarkeit müssten sie gemeinsam stützen.",
+     "en": "The number of factors rested on the eigenvalue criterion alone, which as a rule indicates too many factors; parallel analysis, the scree plot and substantive interpretability would have to support it jointly."
     },
     {
-     "de": "[A] bedeutet, dass die im Semester dokumentierte KI-Nutzung im Disclosure Form in die Prüfungsnote einfliesst.",
-     "en": "[A] means that the AI use documented during the semester feeds into the exam grade via the disclosure form."
+     "de": "Die Faktorenzahl hätte an denselben Daten konfirmatorisch bestimmt werden müssen, weil erst Modellfit-Indizes eine belastbare Entscheidung erlauben.",
+     "en": "The number of factors should have been determined confirmatorily on the same data, because only model fit indices allow a defensible decision."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Die Kategorie [A] trennt Lernphase und Kompetenznachweis: KI darf beim Lernen assistieren, doch die Kernfertigkeit, testtheoretische Konzepte selbst zu beurteilen, wird KI-frei geprüft (Deskilling-Schutz). Der zweite Distraktor ist verführerisch, dehnt [A] aber unzulässig auf die Vorbereitung aus, die ausdrücklich KI-gestützt sein darf.",
-    "en": "Category [A] separates the learning phase from the demonstration of competence: AI may assist while learning, but the core skill of appraising test-theory concepts is assessed AI-free (protection against deskilling). The second distractor is tempting but wrongly extends [A] to the preparation phase, which is explicitly allowed to be AI-supported."
+    "de": "Das Eigenwert-grösser-eins-Kriterium weist in der Regel zu viele Faktoren aus, und Faktoren, die nur von zwei Items getragen werden, sind dafür ein typisches Warnzeichen; die Entscheidung sollte auf Parallelanalyse, Scree-Verlauf und inhaltlicher Deutbarkeit zusammen beruhen. Der Rotationseinwand ist der verführerischste Distraktor, verfehlt aber die Ebene: Eine Rotation verteilt die Varianz nur innerhalb einer bereits festgelegten Faktorenzahl um und heilt keine Überextraktion.",
+    "en": "The eigenvalue-greater-than-one criterion as a rule indicates too many factors, and factors carried by only two items are a typical warning sign; the decision should rest jointly on parallel analysis, the scree plot and substantive interpretability. The rotation objection is the most tempting distractor but targets the wrong level: rotation merely redistributes variance within an already fixed number of factors and cannot repair over-extraction."
    }
   }
  ],
@@ -422,31 +426,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im Modul (Kategorie A+B) debuggt eine Studentin ihren R-Code mit einem KI-Tool und muss ihn an einem Kontrollpunkt Zeile für Zeile KI-frei erklären. Welche Zuordnung zur Prüfungslogik trifft zu?",
-    "en": "In the module (category A+B) a student debugs her R code with an AI tool and must explain it line by line AI-free at a checkpoint. Which mapping to the assessment logic applies?"
+    "de": "Sie werten in R einen Datensatz zur Schlafqualität aus, der aus einer offenen Online-Umfrage stammt; der Link wurde über die Kanäle mehrerer Fitness-Communities verbreitet. Bei 820 Teilnehmenden liegt der Mittelwert deutlich über dem publizierten Normwert, und der Einstichproben-t-Test gegen diesen Normwert wird signifikant. Welche Schlussfolgerung ist durch diese Datengrundlage gedeckt?",
+    "en": "In R you analyse a sleep-quality dataset from an open online survey whose link was circulated through the channels of several fitness communities. Across 820 participants the mean lies clearly above the published norm value, and the one-sample t-test against that norm is significant. Which conclusion is warranted by this data basis?"
    },
    "a": [
     {
-     "de": "Das KI-gestützte Debugging ist ein [B]-Schritt mit Disclosure und Prozesslog; die KI-freie Zeilenerklärung sichert als [A] die Kernfertigkeit.",
-     "en": "AI-supported debugging is a [B] step with disclosure and process log; the AI-free line-by-line explanation secures the core skill as [A]."
+     "de": "Der Wert beschreibt die Personen, die der Link über diese Kanäle erreicht hat und die sich daraufhin freiwillig gemeldet haben; auf die Allgemeinbevölkerung ist er nicht übertragbar.",
+     "en": "The value describes the people the link reached through these channels and who then volunteered to take part; it is not transferable to the general population."
     },
     {
-     "de": "Beide Tätigkeiten sind [A], weil das Programmieren im Methodenstrang grundsätzlich ohne KI-Unterstützung geprüft wird.",
-     "en": "Both activities are [A], because programming in the methods strand is generally assessed without AI support."
+     "de": "Der Wert ist wegen der grossen Stichprobe belastbar, weil sich Verzerrungen bei über 800 Teilnehmenden weitgehend gegenseitig ausmitteln.",
+     "en": "The value is dependable because of the large sample, since with more than 800 participants biases largely cancel each other out."
     },
     {
-     "de": "Beide Tätigkeiten sind [B], weil bereits ein einziger KI-Schritt die gesamte Aufgabe in die Kategorie [B] hebt.",
-     "en": "Both activities are [B], because a single AI step already lifts the whole task into category [B]."
+     "de": "Der Wert wird auf die Allgemeinbevölkerung übertragbar, sobald Alter und Geschlecht den Bevölkerungsanteilen entsprechend gewichtet werden.",
+     "en": "The value becomes transferable to the general population as soon as age and gender are weighted to match the population proportions."
     },
     {
-     "de": "Das Debugging ist [A] und die Zeilenerklärung [B], weil Programmierfehler eigenständig gefunden und Erklärungen delegiert werden dürfen.",
-     "en": "Debugging is [A] and the line-by-line explanation is [B], because programming errors must be found independently while explanations may be delegated."
+     "de": "Der Wert belegt einen echten Unterschied zur Normpopulation, weil der signifikante t-Test die Annahme der Gleichheit zurückweist.",
+     "en": "The value proves a genuine difference from the norm population, because the significant t-test rejects the assumption of equality."
     }
    ],
    "korrekt": 0,
    "erkl": {
-    "de": "Kategorie A+B kombiniert einen deklarierten KI-Schritt mit einer KI-freien Sicherung: Das Debugging läuft als [B] mit Disclosure und Prozesslog, während die eigenständige Zeilenerklärung als [A] belegt, dass der Code verstanden ist. Der vierte Distraktor kehrt die Zuordnung um und widerspricht dem Deskilling-Schutz, der gerade das eigenständige Erklären sichert.",
-    "en": "Category A+B combines a declared AI step with an AI-free safeguard: debugging runs as [B] with disclosure and process log, while the independent line-by-line explanation demonstrates as [A] that the code is understood. The fourth distractor reverses the mapping and contradicts the deskilling protection, which is precisely meant to secure independent explanation."
+    "de": "Der Erhebungsweg entscheidet, wer überhaupt in den Datensatz gelangt: Über Fitness-Kanäle rekrutierte Freiwillige unterscheiden sich systematisch in genau dem Merkmal, um das es geht, weshalb der Mittelwert nur diese selbstselektierte Gruppe beschreibt. Der Gewichtungsvorschlag ist der verführerischste Distraktor, korrigiert aber nur die Verteilung von Alter und Geschlecht und nicht die Selbstselektion auf der Zielvariablen selbst. Der signifikante t-Test prüft zudem nur die Abweichung vom Normwert innerhalb dieser Stichprobe und sagt nichts darüber, für welche Population der Kennwert gilt.",
+    "en": "The recruitment route decides who enters the dataset at all: volunteers reached through fitness channels differ systematically on precisely the variable of interest, so the mean describes only this self-selected group. The weighting proposal is the most tempting distractor, but it corrects the distribution of age and gender and not the self-selection on the target variable itself. The significant t-test, moreover, only tests the deviation from the norm value within this sample and says nothing about the population to which the value applies."
    }
   }
  ],
@@ -511,31 +515,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Modul kombiniert eine KI-freie [A]-Klausur zu Störungsmodellen mit einer [B]-Fallaufgabe, in der eine KI-Verdachtsdiagnose kritisch geprüft wird. Zusätzlich enthält die Fallaufgabe reale, sensible Anamnesedaten. Welche Aussage trifft die Prüfungs- und Datenschutzlogik korrekt?",
-    "en": "The module combines an AI-free [A] exam on disorder models with a [B] case task in which an AI tentative diagnosis is critically examined. In addition, the case task contains real, sensitive anamnesis data. Which statement captures the assessment and data-protection logic correctly?"
+    "de": "Im Praktikum an einer Ambulanz berichtet eine Patientin am Ende der Sitzung eine konkrete Suizidabsicht mit Plan und Mittel und bittet darum, dass nichts davon weitergegeben wird. Die Praktikantin ist auf das Berufsgeheimnis verpflichtet worden. Welches Vorgehen ist fachlich und berufsethisch tragfähig?",
+    "en": "During a placement at an outpatient clinic, a patient reports concrete suicidal intent with a plan and means at the end of the session and asks that none of it be passed on. The placement student is bound by professional secrecy. Which course of action is defensible in professional and ethical terms?"
    },
    "a": [
     {
-     "de": "Die [A]-Klausur sichert die Störungsmodelle ohne KI; in der [B]-Aufgabe darf KI zur Prüfung eingesetzt werden, sensible Fallangaben gehören aber nicht in öffentliche KI-Tools.",
-     "en": "The [A] exam secures the disorder models without AI; in the [B] task AI may be used for examination, but sensitive case data do not belong in public AI tools."
+     "de": "Die Bitte respektieren, nichts weitergeben und die Abmachung dokumentieren, weil die Patientin selbst über den Inhalt der Sitzung bestimmt.",
+     "en": "Respect the request, pass nothing on and document the agreement, because the patient herself decides what the session contains."
     },
     {
-     "de": "Weil die Fallaufgabe [B] ist, dürfen die realen Anamnesedaten in ein KI-Tool eingegeben werden, sobald der Schritt im Prozesslog deklariert wird.",
-     "en": "Because the case task is [B], the real anamnesis data may be entered into an AI tool as soon as the step is declared in the process log."
+     "de": "Die Suizidalität strukturiert abklären, die Grenzen des Berufsgeheimnisses ansprechen und die fallverantwortliche Fachperson einbeziehen.",
+     "en": "Assess the suicidality in a structured way, address the limits of professional secrecy and bring in the clinician responsible for the case."
     },
     {
-     "de": "Beide Teile sind [A], weil klinische Inhalte generell KI-frei geprüft werden und die Fallaufgabe deshalb keine KI-Nutzung vorsieht.",
-     "en": "Both parts are [A], because clinical content is generally assessed AI-free and the case task therefore involves no AI use."
+     "de": "Noch am selben Tag die Angehörigen informieren, damit sie die Patientin zuhause beaufsichtigen und die genannten Mittel entfernen.",
+     "en": "Inform the relatives the same day so that they can supervise the patient at home and remove the means she mentioned."
     },
     {
-     "de": "Die Fallaufgabe ist [C], weil sensible Daten verarbeitet werden und der Umgang mit ihnen anspruchsvolles Newskilling in jedem Arbeitsschritt darstellt.",
-     "en": "The case task is [C], because sensitive data are processed and handling them constitutes demanding newskilling in every step."
+     "de": "Die Sitzung wie geplant beenden, die Angaben festhalten und den Fall erst in der Supervision in zwei Wochen ausführlich besprechen.",
+     "en": "End the session as planned, record what was said and discuss the case in detail only at the supervision session in two weeks."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "Die Prüfungslogik und der Datenschutz gelten unabhängig voneinander: [A] sichert KI-frei die Kernfertigkeit, [B] erlaubt deklarierten KI-Einsatz zur Prüfung der Verdachtsdiagnose, doch besonders schützenswerte Anamnesedaten dürfen nie in öffentliche KI-Tools. Der zweite Distraktor ist verführerisch, verwechselt aber Disclosure mit einer Rechtsgrundlage: Deklaration erlaubt die Eingabe sensibler Daten nicht.",
-    "en": "The assessment logic and data protection apply independently: [A] secures the core skill AI-free, [B] permits declared AI use to examine the tentative diagnosis, but specially protected anamnesis data must never enter public AI tools. The second distractor is tempting but confuses disclosure with a legal basis: declaration does not permit entering sensitive data."
+    "de": "Bei akuter Selbstgefährdung tritt die Fürsorge- und Schutzpflicht neben die Verschwiegenheit: Die Gefährdung wird zuerst fachlich abgeklärt, und die Patientin erfährt transparent, wo das Berufsgeheimnis endet. Art. 321 StGB erfasst Psychologinnen und Psychologen samt ihren Hilfspersonen; die Praktikantin arbeitet als Hilfsperson der fallverantwortlichen Fachperson, deren Einbezug innerhalb des Behandlungsteams bleibt und daher keine Offenbarung gegenüber Dritten ist. Der attraktivste Distraktor macht das Berufsgeheimnis absolut; es schützt die Patientin, verpflichtet die Praktikantin aber nicht, eine unmittelbare Lebensgefahr allein zu tragen. Die Information der Angehörigen wäre der weiter reichende Eingriff und setzt Einwilligung, Entbindung oder eine Notstandslage voraus.",
+    "en": "In acute self-endangerment the duty of care stands alongside confidentiality: the risk is first assessed professionally, and the patient is told transparently where professional secrecy ends. Art. 321 of the Swiss Criminal Code covers psychologists together with their auxiliary persons; the placement student works as an auxiliary person of the clinician responsible for the case, so involving that clinician stays within the treating team and is no disclosure to third parties. The most tempting distractor treats confidentiality as absolute; it protects the patient but does not oblige the placement student to carry an immediate danger to life alone. Informing the relatives would be the far more intrusive step and requires consent, formal release or a situation of necessity."
    }
   }
  ],
@@ -600,31 +604,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Modul kombiniert eine [A]- und eine [B]-Komponente. Welche Aufteilung entspricht den Prüfungsdefinitionen und der Deskilling-Schutz-Logik des Moduls am besten?",
-    "en": "The module combines an [A] and a [B] component. Which split best matches the assessment definitions and the module's deskilling-protection logic?"
+    "de": "Eine Psychologin berät eine Station, auf der beim Richten von Medikamenten gehäuft Fehler auftreten. Die Pflegenden werden während eines Richtvorgangs mehrfach angesprochen und nehmen die Arbeit danach wieder auf. Die Leitung plant eine Schulung zu Sorgfalt und Motivation. Welcher Vorschlag setzt an der Ursache an, die die kognitionspsychologische Befundlage nahelegt?",
+    "en": "A psychologist advises a ward where errors cluster during medication preparation. Nurses are addressed several times while preparing a dose and then resume the task. Management plans a training session on diligence and motivation. Which proposal addresses the cause suggested by cognitive-psychological evidence?"
    },
    "a": [
     {
-     "de": "Die Studierenden lassen die Gedächtnistheorien in [C] ganz von der KI erklären und prüfen diese Erklärung danach in einer KI-freien [A]-Klausur.",
-     "en": "Students have the AI fully explain the memory theories in [C] and then check that explanation in an AI-free [A] exam."
+     "de": "Ein Training zu Konzentration und Sorgfalt anbieten, weil die Fehler auf der nachlassenden Aufmerksamkeitsleistung einzelner Pflegender beruhen.",
+     "en": "Offer training on concentration and diligence, because the errors stem from declining attentional performance in individual nurses."
     },
     {
-     "de": "Die Studierenden erklären die Gedächtnistheorien in [B] mit KI-Hilfe und sezieren dieselbe KI-Erklärung ebenfalls KI-gestützt in einer [C]-Aufgabe.",
-     "en": "Students explain the memory theories in [B] with AI help and dissect the same AI explanation, also AI-supported, in a [C] task."
+     "de": "Die Ansprache während eines Richtvorgangs unterbinden, weil eine Unterbrechung das gehaltene Zwischenziel verdrängt und den Wiedereinstieg fehleranfällig macht.",
+     "en": "Prevent people from addressing nurses mid-task, because an interruption displaces the held subgoal and makes resumption error-prone."
     },
     {
-     "de": "Die Studierenden sezieren die KI-Erklärung in einer KI-freien [A]-Klausur und erklären die Gedächtnistheorien mit voller KI-Unterstützung in [C].",
-     "en": "Students dissect the AI explanation in an AI-free [A] exam and explain the memory theories with full AI support in [C]."
+     "de": "Mehrere Patientendosen parallel richten lassen, weil die Übung im Parallelbearbeiten die Wechselkosten zwischen den Vorgängen mit der Zeit verschwinden lässt.",
+     "en": "Have several patient doses prepared in parallel, because practice at parallel processing makes the switch costs between tasks disappear over time."
     },
     {
-     "de": "Die Studierenden erklären die Gedächtnistheorien in einer KI-freien [A]-Klausur und sezieren eine KI-Erklärung in einer [B]-Aufgabe mit Disclosure und Prozesslog.",
-     "en": "Students explain the memory theories in an AI-free [A] exam and dissect an AI explanation in a [B] task with disclosure and a process log."
+     "de": "Die Fehler durch eine Kontrolle am Ende des Vorgangs abfangen, weil das nachträgliche Prüfen das während der Unterbrechung verlorene Zwischenziel wiederherstellt.",
+     "en": "Catch the errors with a check at the end of the procedure, because checking afterwards restores the subgoal lost during the interruption."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Die Kernfertigkeit, Theorien selbst zu erklären, gehört in die KI-freie [A]-Prüfung, das fachliche Sezieren einer KI-Erklärung passt als teilweise KI-integrierte [B]-Aufgabe mit Disclosure und Prozesslog. Die verlockende Variante kehrt das um und lässt die Kerntheorie von der KI in [C] erzeugen, was genau den Deskilling-Schutz aushebelt.",
-    "en": "Explaining theories oneself is the core skill and belongs in the AI-free [A] exam, while dissecting an AI explanation fits a partly AI-integrated [B] task with disclosure and a process log. The tempting variant inverts this and lets the AI generate the core theory in [C], which is exactly what undermines deskilling protection."
+    "de": "Beim Richten wird das aktuelle Zwischenziel aktiv im Arbeitsgedächtnis gehalten und gegen Ablenkung abgeschirmt; eine Unterbrechung verdrängt diese Aktivierung, sodass beim Wiedereinstieg ein Schritt ausgelassen oder doppelt ausgeführt wird. Feldstudien auf Spitalstationen finden entsprechend mehr Fehler beim Richten und Verabreichen, je häufiger unterbrochen wird. Die Ursache liegt damit in der Aufgabenstruktur und nicht in der Sorgfalt einzelner Personen. Die verlockende Endkontrolle kann Fehler zwar entdecken, stellt aber die verlorene Information über den erreichten Schritt nicht wieder her und lässt die Unterbrechungen selbst bestehen.",
+    "en": "During preparation the current subgoal is held actively in working memory and shielded from distraction; an interruption displaces that activation, so on resumption a step is skipped or repeated. Field studies on hospital wards accordingly find more preparation and administration errors the more often nurses are interrupted. The cause therefore lies in the structure of the task, not in the diligence of individual people. The tempting final check can detect errors but does not restore the lost information about which step had been reached, and leaves the interruptions themselves untouched."
    }
   }
  ],
@@ -689,31 +693,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Modul will Kernwissen KI-frei sichern und zugleich die Bewertung von KI-Analogien üben. Welche Kombination aus Prüfungslogik und Kompetenz passt am besten?",
-    "en": "The module wants to secure core knowledge AI-free and at the same time practise evaluating AI analogies. Which combination of assessment logic and competence fits best?"
+    "de": "Das Institut bereitet eine Medienmitteilung zu einer Studie vor: Musizierende zeigen im Mittel mehr graue Substanz in einer auditorischen Region als Nichtmusizierende, die beiden Gruppen wurden einmalig verglichen. Eine Journalistin bittet um eine Formulierung für ein Laienpublikum. Welche Formulierung gibt genau diesen Befund fachlich korrekt und zugleich verständlich wieder?",
+    "en": "The institute is preparing a press release about a study: musicians show on average more grey matter in an auditory region than non-musicians, and the two groups were compared on a single occasion. A journalist asks for a wording suitable for a lay audience. Which wording conveys exactly this finding correctly and at the same time understandably?"
    },
    "a": [
     {
-     "de": "In der [A]-Klausur belegen die Studierenden neuronale Mechanismen KI-frei (Fa1), im [B]-Live-Check bewerten sie eine KI-Analogie mit Disclosure (KI6, Fu2).",
-     "en": "In the [A] exam students evidence neural mechanisms AI-free (Fa1), and in the [B] live check they evaluate an AI analogy with disclosure (KI6, Fu2)."
+     "de": "Das Musizieren lässt die Hörrinde wachsen; wer ein Instrument lernt, baut damit nachweislich mehr graue Substanz auf.",
+     "en": "Making music makes the auditory cortex grow; anyone who learns an instrument demonstrably builds up more grey matter."
     },
     {
-     "de": "In der [C]-Aufgabe erzeugen die Studierenden neuronale Mechanismen mit KI (Fa1), im [A]-Live-Check bewerten sie die Analogie KI-frei (KI6, Fu2).",
-     "en": "In the [C] task students generate neural mechanisms with AI (Fa1), and in the [A] live check they evaluate the analogy AI-free (KI6, Fu2)."
+     "de": "Die Gruppen unterscheiden sich im Mittel in dieser Region; ob das Musizieren die Ursache ist, lässt der einmalige Vergleich offen.",
+     "en": "The groups differ on average in this region; whether making music is the cause is left open by the one-off comparison."
     },
     {
-     "de": "In der [B]-Klausur belegen die Studierenden neuronale Mechanismen mit KI-Hilfe (Fa1), im [C]-Live-Check bewerten sie die Analogie voll KI-gestützt (KI6, Fu2).",
-     "en": "In the [B] exam students evidence neural mechanisms with AI help (Fa1), and in the [C] live check they evaluate the analogy fully AI-supported (KI6, Fu2)."
+     "de": "Der Befund gilt für jede Person der Stichprobe; aus der Grösse dieser Region lässt sich daher ablesen, ob jemand ein Instrument spielt.",
+     "en": "The finding holds for every person in the sample; the size of this region therefore reveals whether someone plays an instrument."
     },
     {
-     "de": "In der [A]-Klausur bewerten die Studierenden die KI-Analogie KI-frei (KI6), im [C]-Live-Check belegen sie neuronale Mechanismen mit KI (Fa1).",
-     "en": "In the [A] exam students evaluate the AI analogy AI-free (KI6), and in the [C] live check they evidence neural mechanisms with AI (Fa1)."
+     "de": "Solche Bildgebungsbefunde lassen sich Laien nicht vermitteln; verständliche Aussagen sind erst nach mehreren unabhängigen Replikationen sinnvoll.",
+     "en": "Such imaging findings cannot be conveyed to lay audiences; understandable statements only make sense after several independent replications."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "Das Kernwissen über neuronale Mechanismen (Fa1) gehört in die KI-freie [A]-Prüfung, das Bewerten einer KI-Analogie (KI6, Fu2) ist eine teilweise KI-integrierte [B]-Aufgabe mit Disclosure. Die verlockende Variante lässt das Kernwissen in [C] von der KI erzeugen, womit der Deskilling-Schutz genau an der falschen Stelle aufgegeben wird.",
-    "en": "Core knowledge of neural mechanisms (Fa1) belongs in the AI-free [A] exam, while evaluating an AI analogy (KI6, Fu2) is a partly AI-integrated [B] task with disclosure. The tempting variant lets the AI generate the core knowledge in [C], giving up deskilling protection in exactly the wrong place."
+    "de": "Ein einmaliger Gruppenvergleich zeigt einen Unterschied zwischen Mittelwerten, sagt aber nichts über die Wirkrichtung: Ebenso gut können Menschen mit dieser Ausprägung häufiger zum Instrument greifen, oder ein dritter Faktor beeinflusst beides. Die verlockende Wachstumsformulierung klingt anschaulich, verwandelt aber einen Zusammenhang in eine Ursache und überzieht damit den Befund. Ein Mittelwertsunterschied erlaubt ausserdem keinen Rückschluss auf einzelne Personen, deren Werte sich in der Regel breit überlappen.",
+    "en": "A one-off group comparison shows a difference between averages but says nothing about the direction of the effect: people with this characteristic may just as well be the ones who take up an instrument more often, or a third factor may drive both. The tempting growth wording sounds vivid but turns an association into a cause and thereby overstates the finding. A difference in averages also allows no inference about individual people, whose values typically overlap broadly."
    }
   }
  ],
@@ -778,39 +782,39 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das ExPra ist eine [B]-Prüfung. Welche Arbeitsteilung entspricht der [B]-Definition und dem Deskilling-Schutz des Moduls am besten?",
-    "en": "The ExPra is a [B] assessment. Which division of labour best matches the [B] definition and the module's deskilling protection?"
+    "de": "In Ihrem ExPra erheben Sie die Daten anonym; die Teilnehmenden vergeben nur einen selbst erzeugten Code. In einem Fragebogen erreicht die mit erhobene Skala zur depressiven Symptomatik den höchstmöglichen Wert, und im Freitextfeld steht ein Hinweis auf Suizidgedanken. Da am Erhebungstermin nur wenige Personen anwesend waren, liesse sich die betroffene Person über die Anwesenheitsliste mit hoher Wahrscheinlichkeit identifizieren. Wie gehen Sie vor?",
+    "en": "In your ExPra you collect the data anonymously; participants provide only a self-generated code. In one questionnaire the accompanying scale for depressive symptoms reaches the highest possible value, and the free-text field contains a reference to suicidal thoughts. Since only a few people attended that session, the person concerned could most likely be identified via the attendance list. How do you proceed?"
    },
    "a": [
     {
-     "de": "Die Gruppe lässt Design, Hypothesen und Auswertung von der KI erstellen und hält im Prozesslog nur das fertige Endergebnis fest.",
-     "en": "The group has the AI produce design, hypotheses and analysis and records only the finished result in the process log."
+     "de": "Sie identifizieren die Person über die Anwesenheitsliste und sprechen sie noch am selben Tag an, weil eine mögliche Gefährdung die zugesicherte Anonymität aufhebt.",
+     "en": "You identify the person via the attendance list and approach them the same day, because a possible risk overrides the anonymity that was promised."
     },
     {
-     "de": "Die Gruppe erledigt Design, Hypothesen und Auswertung selbst, nutzt KI für einzelne Schritte und hält Rollen und KI-Nutzung im Prozesslog fest.",
-     "en": "The group does design, hypotheses and analysis itself, uses AI for individual steps and records roles and AI use in the process log."
+     "de": "Sie belassen es bei der Anonymität und nehmen den Datensatz als Ausreisser aus der Auswertung, weil er die Verteilungsannahmen der geplanten Analyse verletzt.",
+     "en": "You leave the anonymity untouched and drop the case as an outlier from the analysis, because it violates the distributional assumptions of the planned test."
     },
     {
-     "de": "Die Gruppe verzichtet vollständig auf KI und dokumentiert deshalb weder Rollen noch Prüfschritte im Prozesslog der Arbeit.",
-     "en": "The group avoids AI entirely and therefore documents neither roles nor checking steps in the work's process log."
+     "de": "Sie informieren umgehend die Praktikumsleitung, klären mit ihr das weitere Vorgehen und weisen im Debriefing alle Teilnehmenden auf Beratungsangebote hin.",
+     "en": "You inform the practical's supervisor immediately, clarify the next steps with them, and point all participants to counselling services in the debriefing."
     },
     {
-     "de": "Die Gruppe nutzt KI in jedem Arbeitsschritt und verzichtet dabei auf einen KI-freien Kontrollpunkt zur Verteidigung der Auswertung.",
-     "en": "The group uses AI in every step and forgoes an AI-free checkpoint for defending the analysis."
+     "de": "Sie senden allen Teilnehmenden eine anonyme Sammelmail mit Beratungsadressen und halten den Vorfall ohne Rücksprache im Prozesslog der Gruppe fest.",
+     "en": "You send all participants an anonymous group email with counselling addresses and record the incident in the group's process log without consulting anyone."
     }
    ],
-   "korrekt": 1,
+   "korrekt": 2,
    "erkl": {
-    "de": "Kategorie [B] heisst teilweise KI-integriert: Die Kernleistungen Design, Hypothesen und Auswertung bleiben menschlich, KI unterstützt einzelne Schritte, und alles wird mit Rollen und Prüfpflichten im Prozesslog dokumentiert. Die verlockende [C]-Variante mit KI in jedem Schritt ohne KI-freien Kontrollpunkt verletzt genau den Deskilling-Schutz des Moduls.",
-    "en": "Category [B] means partly AI-integrated: the core work of design, hypotheses and analysis stays human, AI supports individual steps, and everything is documented with roles and checking duties in the process log. The tempting [C] variant with AI in every step and no AI-free checkpoint violates exactly the module's deskilling protection."
+    "de": "Studierende tragen diese Verantwortung im ExPra nicht allein: Ein Hinweis auf Suizidgedanken gehört unverzüglich an die weisungsbefugte Praktikumsleitung, die im Rahmen des bewilligten Ethikprotokolls über das weitere Vorgehen entscheidet, und der generelle Hinweis auf Beratungsangebote im Debriefing schützt alle Teilnehmenden, ohne jemanden zu exponieren. Das eigenmächtige Ansprechen ist der verführerischste Distraktor: Die Fürsorge ist richtig motiviert, überschreitet aber die eigene Rollen- und Kompetenzgrenze und bricht die Anonymitätszusicherung, ohne dass dies im Ethikverfahren vorgesehen wäre.",
+    "en": "Students in the ExPra do not carry this responsibility alone: an indication of suicidal thoughts belongs immediately with the supervising staff, who decide on the next steps within the approved ethics protocol, and the general reference to counselling services in the debriefing protects all participants without exposing anyone. Approaching the person on one's own is the most tempting distractor: the caring impulse is rightly motivated, but it exceeds the students' role and competence and breaks the assurance of anonymity without any provision for this in the ethics procedure."
    }
   }
  ],
  "06SM200-s11": [
   {
    "q": {
-    "de": "Eine Querschnittsstudie vergleicht 25-, 50- und 75-Jährige in einem Wortschatz- und Reasoning-Test und findet, dass die Leistung mit dem Alter sinkt. Daraus wird auf einen kognitiven Abbau geschlossen. Was ist der stärkste methodische Einwand?",
-    "en": "A cross-sectional study compares 25-, 50- and 75-year-olds on a vocabulary and reasoning test and finds that performance declines with age, concluding cognitive decline. What is the strongest methodological objection?"
+    "de": "Eine Querschnittsstudie vergleicht 25-, 50- und 75-Jährige in einem Test des schlussfolgernden Denkens und findet, dass die Leistung mit dem Alter sinkt. Die Autorinnen schliessen daraus auf altersbedingten kognitiven Abbau. Welcher Einwand stellt diesen Schluss am stärksten in Frage?",
+    "en": "A cross-sectional study compares 25-, 50- and 75-year-olds on a test of inductive reasoning and finds that performance declines with age. The authors conclude that this reflects age-related cognitive decline. Which objection challenges that conclusion most strongly?"
    },
    "a": [
     {
@@ -832,66 +836,66 @@ window.QUIZ =
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "In Querschnittsdesigns werden verschiedene Altersgruppen einmalig verglichen, sodass Alter und Geburtskohorte untrennbar konfundiert sind; ein scheinbarer Altersabfall kann auf ungleiche Bildungs- und Lebensbedingungen der Jahrgänge zurückgehen (Schaie, Seattle Longitudinal Study). Übungseffekte und selektive Mortalität setzen wiederholte Messungen derselben Personen voraus und sind daher Längsschnitt-, nicht Querschnittsprobleme.",
-    "en": "In cross-sectional designs different age groups are compared only once, so age and birth cohort are inseparably confounded; an apparent age-related decline may reflect unequal educational and living conditions across cohorts (Schaie, Seattle Longitudinal Study). Practice effects and selective mortality require repeated testing of the same people and are therefore longitudinal, not cross-sectional, problems."
+    "de": "In Querschnittsdesigns werden verschiedene Altersgruppen einmalig verglichen, sodass Alter und Geburtskohorte untrennbar konfundiert sind; ein scheinbarer Altersabfall kann auf ungleiche Bildungs- und Lebensbedingungen der Jahrgänge zurückgehen (Schaie, Seattle Longitudinal Study). Übungseffekte und Regression zur Mitte setzen wiederholte Messungen derselben Personen voraus und entfallen hier vollständig. Selektive Mortalität wirkt zwar auch im Querschnitt, weil die ältesten Gruppen aus Überlebenden bestehen; sie würde den beobachteten Abfall aber abschwächen und kann ihn deshalb nicht erzeugen — als Einwand gegen den Abbauschluss taugt sie nicht.",
+    "en": "In cross-sectional designs different age groups are compared only once, so age and birth cohort are inseparably confounded; an apparent age-related decline may reflect unequal educational and living conditions across cohorts (Schaie, Seattle Longitudinal Study). Practice effects and regression to the mean require repeated testing of the same people and therefore do not apply here at all. Selective mortality does operate in cross-sectional samples too, since the oldest groups consist of survivors, but it would attenuate the observed decline and hence cannot produce it — it is no objection to the decline conclusion."
    }
   },
   {
    "q": {
-    "de": "Ein LLM fasst die Bindungsforschung zusammen und nennt drei Quellen. Alle wirken formal korrekt: reale Autorennamen, plausible Zeitschriften, sauberes APA-Format. Welches Vorgehen deckt eine erfundene (halluzinierte) Referenz am zuverlässigsten auf?",
-    "en": "An LLM summarises attachment research and cites three sources. All look formally correct: real author names, plausible journals, clean APA formatting. Which procedure most reliably exposes a fabricated (hallucinated) reference?"
+    "de": "Eine Seminargruppe untersucht Zukunftsvorstellungen über die Lebensspanne hinweg und hat 400 offene Antworten von 14- bis 85-Jährigen. Ein Sprachmodell ordnet sie einem publizierten Kategoriensystem zu; an 40 doppelt codierten Antworten stimmt es zu 92 Prozent mit der geschulten Codiererin überein, danach codiert es die restlichen 360 allein. Welcher Einwand wiegt am schwersten?",
+    "en": "A seminar group is studying ideas about the future across the lifespan and has 400 open-ended answers from people aged 14 to 85. A language model assigns them to a published category system; on 40 double-coded answers it agrees with the trained human coder 92 per cent of the time, after which it codes the remaining 360 on its own. Which objection carries the most weight?"
    },
    "a": [
     {
-     "de": "Man bittet dasselbe Sprachmodell, jede Referenz zu bestätigen und die Seitenzahlen zu ergänzen, und übernimmt sie bei Zustimmung.",
-     "en": "You ask the same language model to confirm each reference and add page numbers, and accept them once it agrees."
+     "de": "Die Pilotmenge von 40 Antworten ist zu klein; eine Übereinstimmung lässt sich erst berechnen, wenn mindestens die Hälfte des Materials doppelt codiert ist.",
+     "en": "The pilot set of 40 answers is too small; agreement can only be computed once at least half of the material has been double-coded."
     },
     {
-     "de": "Man prüft, ob Autorennamen, Zeitschrift und APA-Format korrekt sind und die genannten Fachleute im Feld einschlägig wirken.",
-     "en": "You check whether author names, journal and APA formatting are correct and whether the named experts seem established in the field."
+     "de": "Die prozentuale Übereinstimmung ist nicht zufallskorrigiert und zeigt nicht, ob das Modell in allen Altersgruppen gleich genau codiert.",
+     "en": "Percentage agreement is not corrected for chance and does not show whether the model codes equally accurately across all age groups."
     },
     {
-     "de": "Man prüft, ob die Referenz inhaltlich zur Zusammenfassung passt und die zitierten Befunde widerspruchsfrei zueinander stehen.",
-     "en": "You check whether the reference fits the summary in content and whether the cited findings are internally consistent."
+     "de": "Das Modell müsste jede Antwort zweimal codieren, damit die Stabilität seiner Zuordnungen über beide Durchgänge hinweg belegt ist.",
+     "en": "The model would have to code every answer twice so that the stability of its assignments across both runs is established."
     },
     {
-     "de": "Man schlägt jede Referenz unabhängig in PsycINFO oder über den DOI nach und prüft, ob sie existiert und die behauptete Aussage enthält.",
-     "en": "You look each reference up independently in PsycINFO or via the DOI and check whether it exists and actually contains the claimed statement."
-    }
-   ],
-   "korrekt": 3,
-   "erkl": {
-    "de": "Nur eine Suche in einer unabhängigen Datenbank oder über den DOI belegt, dass eine Quelle real ist und die behauptete Aussage tatsächlich trägt; Halluzinationen kombinieren oft reale Autorennamen mit erfundenen Titeln oder falschen DOIs. Der Plausibilitätscheck von Format und Autorennamen versagt gerade deshalb, weil Sprachmodelle formal korrekte, aber nicht existierende Referenzen erzeugen.",
-    "en": "Only a search in an independent database or via the DOI establishes that a source is real and truly supports the claim; hallucinations often pair real author names with invented titles or wrong DOIs. Checking the plausibility of formatting and author names fails precisely because language models produce formally correct yet non-existent references."
-   }
-  },
-  {
-   "q": {
-    "de": "Das Seminar arbeitet nach [B]: KI in einzelnen Arbeitsschritten, mit Deklaration und Prozesslog. Eine Studentin schreibt eine Seminararbeit. Welches Vorgehen ist unter [B] regelkonform?",
-    "en": "The seminar follows [B]: AI in individual work steps, with disclosure and a process log. A student is writing a term paper. Which approach is compliant under [B]?"
-   },
-   "a": [
-    {
-     "de": "Sie lässt die KI die gesamte Argumentation schreiben, überarbeitet nur den Stil und vermerkt den KI-Einsatz nirgends.",
-     "en": "She has the AI write the entire argument, revises only the style, and records the AI use nowhere."
-    },
-    {
-     "de": "Sie nutzt die KI für Literaturrecherche und Gliederung, deklariert dies im Disclosure Form und hält die Schritte im Prozesslog fest.",
-     "en": "She uses the AI for literature search and outlining, declares this in the disclosure form, and records the steps in the process log."
-    },
-    {
-     "de": "Sie verzichtet vollständig auf KI, um jedes Risiko einer Regelverletzung von vornherein sicher auszuschliessen.",
-     "en": "She avoids AI entirely, to rule out any risk of a rule violation from the outset."
-    },
-    {
-     "de": "Sie setzt in jedem Arbeitsschritt KI ein und weist ihre Eigenanteile nur mündlich in der Seminarsitzung aus.",
-     "en": "She uses AI in every work step and discloses her own contributions only orally in the seminar session."
+     "de": "Ein zweites Sprachmodell müsste dieselben Antworten codieren, damit die Übereinstimmung der beiden Modelle die Codierung absichert.",
+     "en": "A second language model would have to code the same answers so that agreement between the two models secures the coding."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "Die Prüfungslogik [B] verlangt KI in einzelnen Arbeitsschritten mit ausgewiesener Deklaration und dokumentiertem Prozesslog, genau das leistet die Recherche- und Gliederungsnutzung mit Vermerk. Der durchgehende KI-Einsatz mit nur mündlichem Hinweis beschreibt Kategorie [C] und verfehlt zudem die schriftliche Nachweispflicht, weshalb er unter [B] nicht regelkonform ist.",
-    "en": "Exam logic [B] requires AI in individual work steps with explicit disclosure and a documented process log, which is exactly what the declared use for search and outlining provides. Using AI in every step with only an oral note describes category [C] and additionally fails the written documentation requirement, so it is not compliant under [B]."
+    "de": "Prozentuale Übereinstimmung zählt zufällige Treffer mit und fällt bei ungleich besetzten Kategorien fast zwangsläufig hoch aus; nötig sind ein zufallskorrigiertes Mass wie Cohens Kappa und eine getrennte Genauigkeitsprüfung je Altersgruppe. Codiert das Modell die Formulierungen älterer Befragter systematisch schlechter, entsteht ein Altersunterschied, den es gar nicht gibt. Die Doppelcodierung durch dasselbe Modell verführt, weil sie nach Reliabilitätsprüfung aussieht; sie zeigt aber nur die Konsistenz des Modells mit sich selbst. Eine feste Mindestquote doppelt codierten Materials gibt es nicht — entscheidend ist, womit und wofür die Übereinstimmung geprüft wird.",
+    "en": "Percentage agreement counts chance hits and comes out high almost automatically when categories are unevenly filled; what is needed is a chance-corrected coefficient such as Cohen's kappa plus a separate accuracy check for each age group. If the model codes older respondents' phrasing systematically worse, it manufactures an age difference that does not exist. Double coding by the same model is tempting because it looks like a reliability check, yet it only shows the model's consistency with itself. There is no fixed minimum quota of double-coded material — what matters is with which coefficient and for which purpose agreement is checked."
+   }
+  },
+  {
+   "q": {
+    "de": "Eine Seminararbeit wertet eine Längsschnittstudie mit fünf Messzeitpunkten über das Erwachsenenalter aus. Für die Lebenszufriedenheit wird eine mittlere Verlaufskurve geschätzt: leichter Abfall bis etwa fünfzig, danach wieder Anstieg. Die Arbeit folgert, so verlaufe die Lebenszufriedenheit im Erwachsenenalter. Welcher Einwand trifft den Kern?",
+    "en": "A seminar paper analyses a longitudinal study with five measurement occasions across adulthood. For life satisfaction an average trajectory is estimated: a slight decline until about fifty, then a rise again. The paper concludes that this is how life satisfaction unfolds in adulthood. Which objection hits the core of the problem?"
+   },
+   "a": [
+    {
+     "de": "Die Kurve müsste mit einem kubischen statt einem quadratischen Term modelliert werden, sonst wird der Wiederanstieg nach fünfzig systematisch unterschätzt.",
+     "en": "The curve would have to be modelled with a cubic rather than a quadratic term, otherwise the rise after fifty is systematically underestimated."
+    },
+    {
+     "de": "Mit fünf Messzeitpunkten lässt sich keine gekrümmte Kurve schätzen; für einen quadratischen Verlauf sind mindestens zehn Wellen pro Person nötig.",
+     "en": "Five measurement occasions cannot support a curved trajectory; a quadratic course requires at least ten waves per person."
+    },
+    {
+     "de": "Die mittlere Kurve beschreibt nur den Durchschnitt; ob die einzelnen Personen ihr folgen, ist damit weder gezeigt noch geprüft.",
+     "en": "The average curve describes only the mean; whether individual people follow it is neither shown nor tested by this."
+    },
+    {
+     "de": "Das Alter müsste am Stichprobenmittel zentriert werden, weil die Kurve sonst ihren Tiefpunkt an der falschen Stelle ausweist.",
+     "en": "Age would have to be centred at the sample mean, because otherwise the curve places its low point in the wrong position."
+    }
+   ],
+   "korrekt": 2,
+   "erkl": {
+    "de": "Eine mittlere Verlaufskurve mittelt über Personen hinweg; erst die Streuung der individuellen Verläufe zeigt, ob sich alle ähnlich entwickeln oder ob gegenläufige Teilgruppen zu einem Durchschnitt verschmelzen, der niemanden beschreibt. Genau diese interindividuellen Unterschiede in der intraindividuellen Veränderung sind der Kern der Lebensspannen-Methodologie (Baltes & Nesselroade). Der kubische Term verführt, weil er die Kurvenform verbessert; er bleibt jedoch eine Aussage über den Durchschnitt. Rechnerisch genügen für einen quadratischen Verlauf drei Messzeitpunkte, und die Zentrierung des Alters verschiebt nur die Interpretation des Achsenabschnitts, nicht die Lage des Tiefpunkts.",
+    "en": "An average trajectory averages across people; only the spread of the individual trajectories reveals whether everyone develops similarly or whether opposing subgroups merge into a mean that describes nobody. These interindividual differences in intraindividual change are precisely the core of lifespan methodology (Baltes & Nesselroade). The cubic term is tempting because it improves the shape of the curve, but it remains a statement about the average. Mathematically, three measurement occasions suffice for a quadratic course, and centring age only shifts the interpretation of the intercept, not the location of the low point."
    }
   }
  ],
@@ -956,31 +960,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Statistik 2 sichert die Kernfertigkeiten über eine KI-freie schriftliche Prüfung [A]. Welche Begründung trifft den Zweck dieser [A]-Prüfung für die R- und Statistik-Kompetenzen am besten?",
-    "en": "Statistics 2 secures core skills through an AI-free written exam [A]. Which rationale best captures the purpose of this [A] exam for the R and statistics competencies?"
+    "de": "Ein Doktorand prüft, ob Zeitdruck die Reaktionszeit erhöht. 40 Versuchspersonen bearbeiten je 30 Durchgänge pro Bedingung, also 60 insgesamt. Er trägt alle 2400 Durchgänge in eine Tabelle ein und rechnet eine gewöhnliche lineare Regression, in der jeder Durchgang als eine unabhängige Beobachtung zählt. Wo liegt der entscheidende methodische Fehler?",
+    "en": "A doctoral student tests whether time pressure increases reaction time. Each of 40 participants completes 30 trials per condition, 60 in total. He enters all 2400 trials into one table and runs an ordinary linear regression in which every trial counts as one independent observation. Where does the decisive methodological error lie?"
    },
    "a": [
     {
-     "de": "Die KI-freie Prüfung sichert, dass Studierende Modellwahl und Interpretation eigenständig beherrschen, statt sie an KI zu delegieren.",
-     "en": "The AI-free exam ensures that students master model selection and interpretation independently, rather than delegating them to AI."
+     "de": "Die Reaktionszeiten sind rechtsschief verteilt; eine Log-Transformation der abhängigen Variable stellt die Gültigkeit der Inferenz wieder her.",
+     "en": "Reaction times are right-skewed; a log transformation of the dependent variable restores the validity of the inference."
     },
     {
-     "de": "Die KI-freie Prüfung ist nötig, weil KI-Systeme statistische Berechnungen grundsätzlich fehlerhaft ausführen und deshalb ausscheiden.",
-     "en": "The AI-free exam is necessary because AI systems inherently perform statistical calculations incorrectly and are therefore ruled out."
+     "de": "Die Zahl der Einzeldurchgänge treibt jeden Effekt in die Signifikanz; eine Bonferroni-Korrektur des Alpha-Niveaus stellt die Inferenz wieder her.",
+     "en": "The sheer number of trials pushes any effect into significance; a Bonferroni correction of the alpha level restores the inference."
     },
     {
-     "de": "Die KI-freie Prüfung dient dazu, den Korrekturaufwand zu senken, da Antworten ohne KI-Einsatz einheitlicher ausfallen.",
-     "en": "The AI-free exam serves to reduce grading effort, since answers produced without AI turn out more uniform."
+     "de": "Die Durchgänge einer Person sind voneinander abhängig; ein gemischtes Modell mit personenspezifischen Zufallseffekten schätzt die Standardfehler auf der richtigen Ebene.",
+     "en": "Trials from one person are dependent on one another; a mixed model with person-specific random effects estimates the standard errors at the right level."
     },
     {
-     "de": "Die KI-freie Prüfung stellt sicher, dass alle Studierenden denselben KI-Zugang haben und so die Chancengleichheit gewahrt bleibt.",
-     "en": "The AI-free exam ensures that all students have the same AI access and that equal opportunity is thereby preserved."
+     "de": "Die Stichprobe von 40 Personen ist für stabile Schätzungen zu klein; erst eine grössere Personenzahl macht die Inferenz belastbar.",
+     "en": "The sample of 40 people is too small for stable estimates; only a larger number of participants makes the inference trustworthy."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Kategorie [A] sichert die Kernfertigkeiten: Studierende sollen Modellwahl und Interpretation selbst beherrschen, damit sie eine KI-Antwort später überhaupt beurteilen können (Deskilling-Schutz). Die Begründung, KI rechne grundsätzlich falsch, trifft nicht zu und verfehlt den Zweck, denn geschützt wird die eigene Kompetenz, nicht die Fehlervermeidung der KI.",
-    "en": "Category [A] secures the core skills: students should master model selection and interpretation themselves, so they can later judge an AI answer at all (protection against deskilling). The claim that AI inherently computes wrongly is untrue and misses the point, because what is protected is one's own competence, not the avoidance of AI errors."
+    "de": "Durchgänge derselben Person sind nicht unabhängig, und die gewöhnliche Regression behandelt 2400 abhängige Beobachtungen wie 2400 unabhängige: Die Standardfehler fallen zu klein aus und die Rate falsch positiver Befunde steigt. Ein gemischtes Modell mit personenspezifischen Zufallseffekten bildet diese Verschachtelung ab und schätzt die Unsicherheit auf der Ebene, auf der die Personen tatsächlich variieren. Die verlockende Log-Transformation greift eine reale Eigenschaft von Reaktionszeiten auf, ändert aber nichts an der verletzten Unabhängigkeitsannahme.",
+    "en": "Trials from the same person are not independent, and the ordinary regression treats 2400 dependent observations as if they were 2400 independent ones: standard errors come out too small and the rate of false positives rises. A mixed model with person-specific random effects captures this nesting and estimates uncertainty at the level at which people actually vary. The tempting log transformation picks up a real property of reaction times but does nothing about the violated independence assumption."
    }
   }
  ],
@@ -1045,31 +1049,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Die Klinische Biopsychologie ist Kat. A+B: zuerst Biomarker KI-frei erklären, dann in einem KI-Schritt eine Wirkhypothese generieren und gegen eine Primärquelle prüfen. Welche Zuordnung der Prüfungslogik trifft zu?",
-    "en": "Clinical Biopsychology is category A+B: first explain biomarkers without AI, then in an AI step generate a mechanistic hypothesis and check it against a primary source. Which assignment of the exam logic is correct?"
+    "de": "Sie arbeiten im psychoonkologischen Konsiliardienst eines Kantonsspitals. Eine 52-jährige Patientin unter laufender Chemotherapie berichtet über starke Erschöpfung, Appetitverlust, gestörten Schlaf und sozialen Rückzug. Eine gedrückte Stimmung verneint sie; Freude an vertrauten Tätigkeiten, Selbstwert und Zukunftssicht beschreibt sie als unverändert. Welche Einschätzung halten Sie im Konsilbericht fest?",
+    "en": "You work in the psycho-oncology consultation service of a cantonal hospital. A 52-year-old patient undergoing chemotherapy reports severe exhaustion, loss of appetite, disturbed sleep and social withdrawal. She denies low mood; she describes her enjoyment of familiar activities, her self-worth and her outlook on the future as unchanged. Which assessment do you record in your consultation report?"
    },
    "a": [
     {
-     "de": "Das eigenständige Erklären der Biomarker gehört zu [A], das deklarierte KI-Prüfen einer Wirkhypothese gegen eine Primärquelle zu [B].",
-     "en": "Explaining the biomarkers independently belongs to [A], and the declared AI-based checking of a mechanistic hypothesis against a primary source belongs to [B]."
+     "de": "Mittelgradige depressive Episode: Die Zahl der erfüllten Symptomkriterien rechtfertigt die Diagnose unabhängig von der Krebsbehandlung.",
+     "en": "Moderate depressive episode: the number of symptom criteria met justifies the diagnosis independently of the cancer treatment."
     },
     {
-     "de": "Das eigenständige Erklären der Biomarker gehört zu [B], das undeklarierte KI-Prüfen einer Wirkhypothese gegen eine Primärquelle zu [A].",
-     "en": "Explaining the biomarkers independently belongs to [B], and the undeclared AI-based checking of a mechanistic hypothesis against a primary source belongs to [A]."
+     "de": "Krankheitsverhalten unter Krebsbehandlung: Die somatischen Beschwerden sind krankheits- und therapiebedingt erklärbar, affektiv-kognitive Kernsymptome fehlen.",
+     "en": "Sickness behaviour under cancer treatment: the somatic complaints are explicable by the illness and its treatment, and the affective-cognitive core symptoms are absent."
     },
     {
-     "de": "Beide Aufgaben gehören zu [C], weil in jedem Arbeitsschritt KI eingesetzt und anspruchsvolles Newskilling verlangt wird.",
-     "en": "Both tasks belong to [C], because AI is used in every work step and demanding newskilling is required."
+     "de": "Somatoforme Verarbeitung der Krebsdiagnose: Die körperlichen Beschwerden binden die psychische Belastung und treten deshalb ohne gedrückte Stimmung auf.",
+     "en": "Somatoform processing of the cancer diagnosis: the physical complaints bind the psychological distress and therefore occur without low mood."
     },
     {
-     "de": "Das eigenständige Erklären der Biomarker gehört zu [C], das KI-Prüfen einer Wirkhypothese mit voller KI-Nutzung zu [A].",
-     "en": "Explaining the biomarkers independently belongs to [C], and the AI-based checking of a mechanistic hypothesis with full AI use belongs to [A]."
+     "de": "Nebenwirkung der Chemotherapie: Die Beschwerden sind rein somatisch und machen eine psychologische Einschätzung während der Behandlung entbehrlich.",
+     "en": "Side effect of the chemotherapy: the complaints are purely somatic and make a psychological assessment during the treatment unnecessary."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "[A] sichert KI-frei die Kernfertigkeit, also das eigenständige Erklären der Biomarker; [B] integriert KI in einzelne Schritte mit Deklaration und Prozesslog, also das Prüfen der KI-Hypothese gegen eine Primärquelle. Die [C]-Zuordnung ist falsch, weil [C] KI in jedem Arbeitsschritt verlangt, was auf die bewusst KI-freie Erklärleistung nicht zutrifft.",
-    "en": "[A] secures the core skill without AI, that is, explaining the biomarkers independently; [B] integrates AI into individual steps with disclosure and a process log, that is, checking the AI hypothesis against a primary source. The [C] assignment is wrong, because [C] requires AI in every work step, which does not apply to the deliberately AI-free explanation task."
+    "de": "Krebserkrankung und Chemotherapie gehen mit proinflammatorischer Aktivierung einher; das daraus folgende Krankheitsverhalten aus Fatigue, Appetitverlust, Schlafstörung und Rückzug überschneidet sich weitgehend mit den somatischen Depressionskriterien (Dantzer et al., 2008). Diagnostisch tragen deshalb die affektiv-kognitiven Symptome – gedrückte Stimmung, Anhedonie, Wertlosigkeit, Hoffnungslosigkeit –, und genau diese sind hier unauffällig. Das blosse Zählen erfüllter Symptomkriterien ist der häufigste Fehler; «somatoform» trifft ebenso wenig zu, weil eine bekannte körperliche Ursache vorliegt. Angezeigt bleibt eine psychoonkologische Begleitung mit Verlaufsbeobachtung: Die Einschätzung ändert sich, sobald affektiv-kognitive Symptome hinzukommen.",
+    "en": "Cancer and chemotherapy are accompanied by pro-inflammatory activation; the resulting sickness behaviour of fatigue, appetite loss, disturbed sleep and withdrawal overlaps substantially with the somatic criteria for depression (Dantzer et al., 2008). Diagnostically, the affective-cognitive symptoms therefore carry the weight – low mood, anhedonia, worthlessness, hopelessness – and these are precisely the ones that are unremarkable here. Simply counting the symptom criteria that are met is the most common error; «somatoform» is equally inapplicable, because a known physical cause is present. Psycho-oncological support with monitoring over time remains indicated: the assessment changes as soon as affective-cognitive symptoms appear."
    }
   }
  ],
@@ -1134,31 +1138,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Eine Studentin fasst im PTO-Selbstlernprogramm Studientexte mit KI zusammen, dokumentiert dies im Prozesslog und wird per Zufall zum KI-freien Kontrollpunkt aufgeboten, wo sie eine Verdachtsdiagnose eigenständig begründet. Welche Aussage beschreibt die Prüfungslogik dieses Moduls korrekt?",
-    "en": "In the PTO self-study programme, a student summarises readings with AI, documents this in her process log, and is randomly called to the AI-free checkpoint, where she justifies a working diagnosis on her own. Which statement correctly describes the module's assessment logic?"
+    "de": "Sie absolvieren ein Praktikum im psychologischen Dienst eines Pflegezentrums. Eine 79-jährige Bewohnerin wird seit drei Tagen wegen eines Harnwegsinfekts behandelt. Sie ist tagsüber schläfrig, abends unruhig, ihre Aufmerksamkeit schwankt innerhalb weniger Stunden, und das vertraute Personal bleibt ihr zeitweise fremd. Vor einer Woche war sie wach und orientiert. Welche Verdachtsdiagnose und welche Konsequenz sind fachlich angezeigt?",
+    "en": "You are doing a placement in the psychological service of a nursing home. A 79-year-old resident has been treated for a urinary tract infection for three days. She is drowsy during the day and restless in the evening, her attention fluctuates within a few hours, and familiar staff seem strange to her at times. A week ago she was alert and oriented. Which working diagnosis and which consequence are professionally indicated?"
    },
    "a": [
     {
-     "de": "Das gesamte Modul folgt Logik [C], weil KI in mindestens einem Arbeitsschritt des Selbstlernprogramms eingesetzt wird",
-     "en": "The whole module follows logic [C], because AI is used in at least one working step of the self-study programme"
+     "de": "Beginnende Demenz: Eine neuropsychologische Abklärung des Gedächtnisses in den nächsten Wochen bestimmt das Ausmass des Abbaus.",
+     "en": "Incipient dementia: a neuropsychological assessment of memory over the coming weeks will determine the extent of the decline."
     },
     {
-     "de": "Der Kontrollpunkt folgt Logik [B], weil die Studentin ihre KI-Nutzung transparent im Prozesslog deklariert hat",
-     "en": "The checkpoint follows logic [B], because the student transparently declared her AI use in the process log"
+     "de": "Delir bei körperlicher Ursache: Der akute Beginn und die schwankende Aufmerksamkeit erfordern noch heute eine ärztliche Abklärung.",
+     "en": "Delirium with a physical cause: the acute onset and the fluctuating attention require a medical work-up on the same day."
     },
     {
-     "de": "Die Deklaration im Prozesslog ist verzichtbar, weil der KI-freie Kontrollpunkt die Eigenleistung bereits hinreichend belegt",
-     "en": "The declaration in the process log is dispensable, because the AI-free checkpoint already sufficiently proves her own work"
+     "de": "Depressive Pseudodemenz: Ein Screening auf Altersdepression erklärt die kognitiven Einbussen und den Rückzug am sparsamsten.",
+     "en": "Depressive pseudodementia: a screening for late-life depression explains the cognitive decline and the withdrawal most parsimoniously."
     },
     {
-     "de": "Der Kontrollpunkt folgt Logik [A] und sichert die eigenständige Fallanalyse, das deklarierte Selbstlernen entspricht Logik [B]",
-     "en": "The checkpoint follows logic [A] and secures independent case analysis, while the declared self-study corresponds to logic [B]"
+     "de": "Anpassungsstörung nach dem Infekt: Reorientierungshilfen und stützende Gespräche der Pflege genügen als erste Massnahme.",
+     "en": "Adjustment disorder following the infection: reorientation aids and supportive conversations by the nursing staff suffice as a first measure."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Das Modul kombiniert Logik [B] im Selbstlernprogramm, also KI-Nutzung einzelner Schritte mit Disclosure und Prozesslog, mit einem randomisierten Kontrollpunkt nach Logik [A], der die eigenständige Fallanalyse als Kernfertigkeit (Fu2) sichert. Der [B]-Distraktor verführt, weil die Disclosure tatsächlich korrekt ist; sie betrifft aber das Selbstlernen, während der Kontrollpunkt selbst KI-frei bleibt und darum Logik [A] folgt.",
-    "en": "The module combines logic [B] in the self-study programme, meaning AI use in individual steps with disclosure and a process log, with a randomised checkpoint under logic [A] that secures independent case analysis as a core skill (Fu2). The [B] distractor is tempting because the disclosure is indeed correct; however, it concerns the self-study phase, while the checkpoint itself is AI-free and therefore follows logic [A]."
+    "de": "Akuter Beginn innerhalb von Tagen, fluktuierender Verlauf sowie die Störung von Aufmerksamkeit und Bewusstseinsklarheit sind die Leitmerkmale des Delirs; ein Harnwegsinfekt ist im höheren Alter ein typischer Auslöser, die Ursache ist behandelbar, und ein unerkanntes Delir erhöht Morbidität und Mortalität. Der Demenz-Distraktor ist der attraktivste, weil Alter und kognitive Einbussen gut dazu passen; er übersieht jedoch, dass sich eine Demenz über Monate entwickelt und den Wechsel von voller Orientierung zu Verwirrtheit innerhalb einer Woche nicht erklärt. Auch eine Altersdepression beginnt schleichend und erklärt keine stundenweise schwankende Aufmerksamkeit. Ein Delir kann sich auf eine bestehende Demenz aufpfropfen – auch dann gilt zuerst die somatische Abklärung.",
+    "en": "Acute onset within days, a fluctuating course and the disturbance of attention and clarity of consciousness are the hallmarks of delirium; a urinary tract infection is a typical trigger in old age, the cause is treatable, and an unrecognised delirium increases morbidity and mortality. The dementia distractor is the most attractive one because age and cognitive decline fit it well; it overlooks, however, that dementia develops over months and does not explain a shift from full orientation to confusion within a week. Late-life depression, too, begins insidiously and does not account for attention fluctuating within hours. A delirium can be superimposed on an existing dementia – even then the somatic work-up comes first."
    }
   }
  ],
@@ -1223,31 +1227,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein Student trainiert Modellwissen und Gütekriterien intensiv mit einem KI-Tutor; die Modulprüfung findet KI-frei nach Logik [A] statt. Welche Aussage beschreibt die Funktion dieser Prüfungslogik im Modul am besten?",
-    "en": "A student intensively drills theoretical models and quality criteria with an AI tutor; the module exam is AI-free under logic [A]. Which statement best describes the function of this assessment logic in the module?"
+    "de": "In einer Laufbahnberatung sagt ein 45-jähriger Klient, er wolle im Beruf zuverlässiger und gelassener werden, halte das aber für aussichtslos: Persönlichkeit sei ab dreissig «wie in Gips gegossen». Ein Persönlichkeitsinventar weist ihn gegenüber der Normstichprobe unterdurchschnittlich in Gewissenhaftigkeit und überdurchschnittlich in Neurotizismus aus. Welche Auskunft ist fachlich korrekt?",
+    "en": "In a career counselling session, a 45-year-old client says he wants to become more reliable and more even-tempered at work but considers it hopeless: personality, he says, is \"set like plaster\" after thirty. A personality inventory places him below the norm sample average in conscientiousness and above it in neuroticism. Which piece of advice is professionally correct?"
    },
    "a": [
     {
-     "de": "Die [A]-Prüfung sichert als Deskilling-Schutz, dass Fachwissen und testtheoretisches Urteilen ohne KI abrufbar sind; KI-gestütztes Lernen davor bleibt zulässig",
-     "en": "The [A] exam protects against deskilling by ensuring that subject knowledge and psychometric judgement are retrievable without AI; AI-supported studying beforehand remains permitted"
+     "de": "Die Rangreihen der Merkmale sind im Erwachsenenalter so stabil, dass sich sein Profil kaum mehr verschiebt; sinnvoll ist die Suche nach einer dazu passenden Tätigkeit.",
+     "en": "Rank orders of traits are so stable in adulthood that his profile will barely shift any more; the sensible route is to look for an occupation that fits it."
     },
     {
-     "de": "Die [A]-Prüfung verlangt, dass auch die Vorbereitung KI-frei erfolgt, weil die Eigenleistung in der Prüfung sonst nicht mehr glaubwürdig attestierbar ist",
-     "en": "The [A] exam requires the preparation to be AI-free as well, because otherwise the student's own achievement in the exam can no longer be credibly certified"
+     "de": "Persönlichkeitsmerkmale folgen gezielten Vorsätzen innerhalb weniger Wochen; sein Profil lässt sich im Coaching kurzfristig in beide Richtungen umstellen.",
+     "en": "Personality traits follow deliberate intentions within a few weeks; his profile can be shifted in either direction over a short coaching period."
     },
     {
-     "de": "Die Prüfung müsste nach Logik [B] laufen, weil die KI-Nutzung in der Vorbereitung eine Disclosure mit Prozesslog in der Prüfungssituation erforderlich macht",
-     "en": "The exam would have to follow logic [B], because the AI use during preparation requires a disclosure with a process log in the exam situation itself"
+     "de": "Die relative Position bleibt recht stabil, doch Gewissenhaftigkeit und emotionale Stabilität nehmen im Erwachsenenalter im Mittel zu; Veränderung ist möglich.",
+     "en": "His relative position stays fairly stable, yet conscientiousness and emotional stability increase on average during adulthood; change is possible."
     },
     {
-     "de": "Die Prüfung müsste nach Logik [C] laufen, weil anspruchsvolles Newskilling nur nachweisbar ist, wenn KI in jeden geprüften Arbeitsschritt integriert wird",
-     "en": "The exam would have to follow logic [C], because demanding newskilling can only be demonstrated when AI is integrated into every assessed working step"
+     "de": "Die unterdurchschnittlichen Werte deuten auf eine unpassende Normstichprobe hin; mit altersgerechten Normen läge er im Durchschnitt und sein Anliegen erübrigte sich.",
+     "en": "The below-average scores point to an unsuitable norm sample; with age-appropriate norms he would land in the average range and his concern would dissolve."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Logik [A] regelt die Prüfungssituation und sichert als Deskilling-Schutz, dass Fachwissen (Fa1) und testtheoretisches Urteilen (Fa5) ohne KI verfügbar sind (Fu2); die Lernphase davor darf KI-gestützt sein. Der [B]-Distraktor verführt, weil Disclosure dort tatsächlich vorgeschrieben ist; sie gilt aber für KI-Nutzung in den bewerteten Arbeitsschritten selbst, nicht für die private Prüfungsvorbereitung.",
-    "en": "Logic [A] governs the exam situation and protects against deskilling by ensuring that subject knowledge (Fa1) and psychometric judgement (Fa5) are available without AI (Fu2); the preceding study phase may be AI-supported. The [B] distractor is tempting because disclosure is indeed required there; however, it applies to AI use in the assessed working steps themselves, not to private exam preparation."
+    "de": "Rangreihenstabilität und Mittelwertsveränderung sind zwei verschiedene Stabilitätsbegriffe: Die Position im Vergleich zu Gleichaltrigen bleibt im Erwachsenenalter hoch stabil, während die Mittelwerte für Gewissenhaftigkeit und emotionale Stabilität bis ins mittlere Erwachsenenalter ansteigen (Reifungsprinzip; Roberts & Mroczek, 2008). Der erste Distraktor verführt, weil er die hohe Rangreihenstabilität korrekt wiedergibt, daraus aber fälschlich schliesst, das absolute Niveau könne sich nicht mehr ändern. Die Gips-Annahme des Klienten ist damit widerlegt, ohne dass eine kurzfristige Umstellung des Profils versprochen werden dürfte: Veränderung im Erwachsenenalter verläuft graduell und über längere Zeiträume.",
+    "en": "Rank-order stability and mean-level change are two different notions of stability: a person's position relative to same-aged peers stays highly stable in adulthood, whereas mean levels of conscientiousness and emotional stability rise into midlife (maturity principle; Roberts & Mroczek, 2008). The first distractor is tempting because it states rank-order stability correctly, but then wrongly infers that the absolute level can no longer change. The client's plaster assumption is thereby refuted, without licensing any promise of a short-term shift in his profile: change in adulthood is gradual and unfolds over longer periods."
    }
   }
  ],
@@ -1312,31 +1316,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im Rollenspiel «HR-Beratung zu KI-Personalauswahl» schlagen Sie einer Geschäftsleitung eine Rollenteilung zwischen Mensch und KI vor. Die EU stuft KI-Systeme für die Personalauswahl als hochriskant ein. Welche Rollenteilung entspricht fachlich fundiertem Mensch-KI-Teaming?",
-    "en": "In the role play 'HR consulting on AI-based personnel selection', you propose a division of roles between human and AI to an executive board. The EU classifies AI systems for personnel selection as high-risk. Which division of roles reflects professionally sound human-AI teaming?"
+    "de": "Sie führen für ein Unternehmen ein Assessment Center zur Führungskräfteentwicklung durch. Den Teilnehmenden wurde zugesichert, ihre Einzelergebnisse dienten ausschliesslich der eigenen Entwicklung. Nach Abschluss verlangt die Personalleitung die individuellen Profile, um damit eine anstehende Stellenreduktion vorzubereiten. Wie handeln Sie berufsethisch tragfähig?",
+    "en": "You run an assessment centre for leadership development on behalf of a company. Participants were assured that their individual results would serve their own development only. Afterwards, the head of HR asks for the individual profiles in order to prepare an upcoming round of job cuts. How do you act in a professionally defensible way?"
    },
    "a": [
     {
-     "de": "Die KI trifft Ablehnungsentscheide in frühen Auswahlrunden autonom, weil dort die Konsequenzen für Bewerbende gering ausfallen",
-     "en": "The AI makes rejection decisions autonomously in early selection rounds, because the consequences for applicants are minor there"
+     "de": "Sie übergeben die Profile, weil das Unternehmen das Verfahren beauftragt und finanziert hat und damit über die Ergebnisse verfügt.",
+     "en": "You hand over the profiles, since the company commissioned and paid for the procedure and therefore controls the results."
     },
     {
-     "de": "Der Mensch kontrolliert Stichproben der KI-Entscheide und delegiert die übrigen Fälle an das zuvor validierte System",
-     "en": "The human reviews random samples of the AI's decisions and delegates the remaining cases to the previously validated system"
+     "de": "Sie geben die Einzelergebnisse nicht heraus und legen dar, dass die Nutzung für den Stellenabbau eine neue Einwilligung der Teilnehmenden voraussetzt.",
+     "en": "You withhold the individual results and set out that using them for the job cuts would require fresh consent from the participants."
     },
     {
-     "de": "Die KI übernimmt den Endentscheid bei hoher Modellkonfidenz, der Mensch bearbeitet nur die unsicheren Grenzfälle persönlich",
-     "en": "The AI takes the final decision whenever model confidence is high, and the human personally handles only the uncertain edge cases"
+     "de": "Sie übergeben die Profile mit dem schriftlichen Vermerk, dass sie nur entwicklungsbezogen genutzt werden dürfen, und dokumentieren diesen Vorbehalt im Bericht.",
+     "en": "You hand over the profiles with a written note that they may be used for development purposes only, and document this reservation in the report."
     },
     {
-     "de": "Die KI unterstützt bei Aggregation und Vorstrukturierung der Dossiers, der Mensch verantwortet Fairnessprüfung und Letztentscheid",
-     "en": "The AI assists with aggregating and pre-structuring the files, while the human is responsible for fairness checks and the final decision"
+     "de": "Sie geben nur die Profile jener Teilnehmenden heraus, die gut abgeschnitten haben, damit den übrigen aus dem Verfahren kein Nachteil entsteht.",
+     "en": "You release only the profiles of participants who performed well, so that the others suffer no disadvantage from the procedure."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Der EU AI Act stuft KI für Personalauswahl in Anhang III als Hochrisiko ein und verlangt in Artikel 14 wirksame menschliche Aufsicht; fachlich fundiertes Teaming (KI3, Fu3) lässt die KI vorstrukturieren, während der Mensch Fairnessprüfung und Letztentscheid verantwortet. Der Konfidenz-Distraktor verführt, weil er Aufsicht suggeriert; Modellkonfidenz ist jedoch oft schlecht kalibriert, gerade selbstsichere Fehlentscheide entgingen so der Kontrolle.",
-    "en": "The EU AI Act classifies AI for personnel selection as high-risk in Annex III and requires effective human oversight in Article 14; professionally sound teaming (KI3, Fu3) lets the AI pre-structure the files while the human is responsible for fairness checks and the final decision. The confidence distractor is tempting because it suggests oversight; however, model confidence is often poorly calibrated, so precisely the overconfident errors would escape control."
+    "de": "Eignungsdiagnostische Einzeldaten sind an den Zweck gebunden, für den die Teilnehmenden ihre Einwilligung gegeben haben; Auftrag und Finanzierung übertragen keine Verfügungsgewalt über personenbezogene Ergebnisse, weshalb eine Zweckänderung eine neue, informierte Einwilligung verlangt (Berufsordnung der FSP; Zweckbindungsgrundsatz des Schweizer Datenschutzgesetzes). Der schriftliche Vermerk verführt, weil er wie eine Schutzmassnahme aussieht; sobald die Profile jedoch in der Personalabteilung liegen, ist die Kontrolle über ihre Verwendung abgegeben und die Zusage bereits gebrochen. Die selektive Herausgabe guter Profile verletzt dieselbe Zusage und benachteiligt die Übrigen zusätzlich, weil schon das Fehlen eines Profils zur Information wird.",
+    "en": "Individual aptitude-assessment data are tied to the purpose for which participants gave their consent; commissioning and funding transfer no power of disposal over person-related results, so a change of purpose requires fresh, informed consent (FSP code of professional conduct; purpose-limitation principle of Swiss data protection law). The written note is tempting because it looks like a safeguard, yet once the profiles sit in HR, control over their use is gone and the assurance is already broken. Selectively releasing the strong profiles violates the same assurance and puts the remaining participants at an added disadvantage, because a missing profile is itself informative."
    }
   }
  ],
@@ -1401,31 +1405,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im Modul üben die Studierenden im KI-Rollenspiel den Umgang mit Algorithmic Management, die Modulprüfung findet aber KI-frei nach Prüfungslogik [A] statt. Welche Begründung entspricht dieser Kombination?",
-    "en": "In the module, students practise handling algorithmic management in an AI role play, yet the module exam is AI-free under assessment logic [A]. Which rationale matches this combination?"
+    "de": "In einem Verpackungsbetrieb häufen sich seit Monaten Schnittverletzungen an derselben Zuschneidemaschine. Die Geschäftsleitung reagiert mit einer Sicherheitsschulung, Plakaten und einer Ermahnung durch die Vorgesetzten. Eine beigezogene Arbeitspsychologin soll das Vorgehen beurteilen. Welche Empfehlung entspricht dem fachlichen Standard der Arbeitsgestaltung und Arbeitssicherheit?",
+    "en": "In a packaging plant, cuts on the same trimming machine have been accumulating for months. Management responds with a safety training session, posters and a reminder from supervisors. An occupational psychologist is called in to assess the approach. Which recommendation is in line with professional standards of work design and occupational safety?"
    },
    "a": [
     {
-     "de": "[A] sichert, dass Kernwissen zu Arbeitsgestaltung und Fairness ohne Hilfsmittel abrufbar bleibt, während die KI-Lernphasen den Kompetenzaufbau ergänzen.",
-     "en": "[A] ensures that core knowledge of work design and fairness remains retrievable without tools, while the AI learning phases complement the building of competences."
+     "de": "Die Plakatkampagne ausweiten und die Vorgesetzten anhalten, Regelverstösse an der Maschine konsequenter zu sanktionieren.",
+     "en": "Extend the poster campaign and have supervisors sanction rule violations at the machine more consistently."
     },
     {
-     "de": "[A] wurde gewählt, weil der Einsatz von KI in Lehrveranstaltungen aus Datenschutzgründen an der Universität untersagt worden ist.",
-     "en": "[A] was chosen because the use of AI in university courses has been prohibited at the institution for data protection reasons."
+     "de": "Ein Bonusprogramm einführen, das Abteilungen am Jahresende finanziell belohnt, wenn sie keine Unfälle gemeldet haben.",
+     "en": "Introduce a bonus scheme that rewards departments financially at year's end if they have reported no accidents."
     },
     {
-     "de": "[A] bedeutet, dass KI in jedem Arbeitsschritt integriert wird und die Studierenden deshalb keine separate schriftliche Prüfung ablegen müssen.",
-     "en": "[A] means that AI is integrated into every single step of the work, so students do not have to sit a separate written examination."
+     "de": "Die Gefahrenquelle an der Maschine technisch beseitigen oder sichern und erst danach ergänzend auf Schulung und Regeln setzen.",
+     "en": "Eliminate or guard the hazard at the machine by technical means and only afterwards add training and rules as a supplement."
     },
     {
-     "de": "[A] zeigt, dass KI-Rollenspiele keine prüfbaren Kompetenzen aufbauen und ihre Inhalte darum nicht in die Bewertung einfliessen dürfen.",
-     "en": "[A] shows that AI role plays do not build assessable competences and their content therefore must not count towards the final grade."
+     "de": "Die Vorfälle der Personalauswahl zuweisen und künftig gezielt auf höhere Gewissenhaftigkeit der Bewerbenden achten.",
+     "en": "Hand the incidents to personnel selection and screen future applicants specifically for higher conscientiousness."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "[A] dient dem Deskilling-Schutz: Kernfertigkeiten müssen ohne KI nachweisbar bleiben, gerade weil im Semester intensiv mit KI gearbeitet wird; Lernsetting und Prüfungssetting dürfen sich dafür bewusst unterscheiden. Der verführerischste Distraktor mit der Vollintegration in jedem Arbeitsschritt beschreibt die Prüfungslogik [C], nicht [A].",
-    "en": "[A] protects against deskilling: core skills must remain demonstrable without AI precisely because the semester involves intensive AI use, and the learning setting may deliberately differ from the exam setting. The most tempting distractor describing full integration in every step captures assessment logic [C], not [A]."
+    "de": "Die Massnahmenhierarchie der Arbeitssicherheit (STOP: Substitution, technische, organisatorische, personenbezogene Massnahmen) setzt Verhältnis- vor Verhaltensprävention: Zuerst wird die Gefährdung an der Quelle beseitigt oder gesichert; Schulung, Regeln und persönliche Schutzausrüstung greifen erst dort, wo technische und organisatorische Massnahmen nicht ausreichen (VUV Art. 5). Der attraktivste Distraktor ist das Bonusprogramm, denn es belohnt nicht sicheres Arbeiten, sondern ausbleibende Meldungen und senkt so die Unfallstatistik statt der Gefährdung. Auch die Personalauswahl greift zu spät, weil die Gefahrenquelle unverändert bestehen bleibt.",
+    "en": "The hierarchy of safety measures (substitution, technical, organisational and person-related measures) puts conditions before behaviour: the hazard is first eliminated or contained at its source, while training, rules and personal protective equipment only apply where technical and organisational measures are not sufficient (Swiss Ordinance on Accident Prevention, Art. 5). The most tempting distractor is the bonus scheme, because it rewards the absence of reports rather than safe working and thus lowers the accident statistics instead of the hazard. Personnel selection also comes too late, since the source of danger remains untouched."
    }
   }
  ],
@@ -1461,60 +1465,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Eine Studentin lässt sich von einem Sprachmodell die vier wichtigsten familiären Risikofaktoren für kindliche Störungen zusammenfassen. Die Antwort wirkt fachlich stimmig und enthält Quellenangaben im APA-Format. Welches Vorgehen entspricht der Kompetenz KI6 Evaluieren?",
-    "en": "A student asks a language model to summarise the four most important familial risk factors for childhood disorders. The answer looks professionally sound and includes APA-formatted references. Which approach reflects the competence AI6 Evaluating?"
+    "de": "Eine Beratungsstelle testet ein KI-Tool, das Aufnahmen von Paargesprächen auswertet, Konfliktmuster erkennt und beiden Partnern getrennt je eine persönliche Rückmeldung mit Übungsvorschlägen ausgibt. Welcher Einwand wiegt aus paar- und familienpsychologischer Sicht am schwersten?",
+    "en": "A counselling service is trialling an AI tool that analyses recordings of couple sessions, detects conflict patterns and gives each partner a separate personal report with suggested exercises. Which objection carries the most weight from a couple and family psychology perspective?"
    },
    "a": [
     {
-     "de": "Sie prüft jede Aussage und jede Quellenangabe gegen Vorlesung und Primärliteratur, weil Sprachmodelle plausible, aber erfundene Belege erzeugen können.",
-     "en": "She checks every claim and every reference against the lecture and primary literature, because language models can generate plausible but fabricated citations."
+     "de": "Die Auswertung stützt sich auf Sprachaufnahmen, deren Verwendung die ausdrückliche und jederzeit widerrufbare Einwilligung beider Partner voraussetzt.",
+     "en": "The analysis relies on voice recordings whose use presupposes the explicit consent of both partners, revocable at any time."
     },
     {
-     "de": "Sie übernimmt die Liste unverändert, weil korrekt formatierte APA-Quellen ein verlässliches Zeichen für eine geprüfte Faktengrundlage sind.",
-     "en": "She adopts the list unchanged, because correctly formatted APA references are a reliable indicator of a verified factual basis."
+     "de": "Die Auswertung erkennt Ironie und Dialekt unzuverlässig und unterschätzt dadurch die Zahl kritischer Äusserungen im Gespräch.",
+     "en": "The analysis detects irony and dialect unreliably and therefore underestimates the number of critical remarks in the session."
     },
     {
-     "de": "Sie stellt dieselbe Frage einem zweiten Sprachmodell und übernimmt jene Punkte, in denen beide Antworten inhaltlich übereinstimmen.",
-     "en": "She asks a second language model the same question and adopts those points on which both answers agree in substance."
+     "de": "Die Auswertung modelliert die Partner als getrennte Fälle und verfehlt die Wechselseitigkeit des Konfliktmusters.",
+     "en": "The analysis models the partners as separate cases and thus misses the mutuality that constitutes the conflict pattern."
     },
     {
-     "de": "Sie kontrolliert nur die Zahlenangaben in der Antwort, weil Sprachmodelle bei Fliesstext deutlich zuverlässiger arbeiten als bei Statistik.",
-     "en": "She checks only the numerical figures in the answer, because language models work far more reliably with prose than with statistics."
-    }
-   ],
-   "korrekt": 0,
-   "erkl": {
-    "de": "KI6 verlangt die fachliche Verifikation am Original: Sprachmodelle halluzinieren regelmässig formal einwandfreie, aber nicht existierende Referenzen, und generische Antworten blenden gerade Kontext- und Diversitätsaspekte aus, die dieses Modul betont. Der Zwei-Modelle-Vergleich ist der verführerischste Distraktor, weil übereinstimmende Modelle denselben Fehler aus ähnlichen Trainingsdaten teilen können und Konsens darum kein Wahrheitsbeleg ist.",
-    "en": "AI6 requires verification against original sources: language models regularly hallucinate formally flawless but non-existent references, and generic answers omit precisely the context and diversity aspects this module emphasises. Comparing two models is the most tempting distractor, because agreeing models can share the same error from similar training data, so consensus is no proof of truth."
-   }
-  },
-  {
-   "q": {
-    "de": "Im Seminar diskutieren die Studierenden, welche Aufgaben ein KI-Chatbot in der Paar- und Familienberatung übernehmen könnte. Welche Aufgabenteilung lässt sich psychotherapeutisch am besten begründen?",
-    "en": "In the seminar, students discuss which tasks an AI chatbot could take on in couple and family counselling. Which division of labour is best justified psychotherapeutically?"
-   },
-   "a": [
-    {
-     "de": "Der Chatbot übernimmt die gesamte Beratung, weil sich manualisierte Paarinterventionen vollständig in automatisierte Dialoge übertragen lassen.",
-     "en": "The chatbot takes over the entire counselling, because manualised couple interventions can be fully translated into automated dialogues."
-    },
-    {
-     "de": "Der Chatbot wird ganz ausgeschlossen, weil digitale Angebote in Prävention und Psychoedukation bislang keine belegte Wirkung zeigen.",
-     "en": "The chatbot is excluded entirely, because digital tools have so far shown no documented effect in prevention and psychoeducation."
-    },
-    {
-     "de": "Der Chatbot unterstützt bei Psychoedukation und Übungsbegleitung, während Beziehungsaufbau und therapeutische Allianz beim Menschen bleiben.",
-     "en": "The chatbot supports psychoeducation and exercise guidance, while relationship building and the therapeutic alliance remain with the human."
-    },
-    {
-     "de": "Der Chatbot übernimmt gezielt den Allianzaufbau, weil er als neutrale Instanz keine eigenen Vorurteile in die Beratung einbringt.",
-     "en": "The chatbot specifically takes over alliance building, because as a neutral entity it brings no prejudices of its own into counselling."
+     "de": "Die Auswertung gibt Rückmeldungen ohne therapeutische Begleitung und überfordert damit die Selbststeuerung der Ratsuchenden.",
+     "en": "The analysis delivers feedback without therapeutic guidance and thereby overtaxes the self-regulation of those seeking help."
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Die therapeutische Allianz ist einer der am besten belegten Wirkfaktoren der Psychotherapie (Flückiger et al., 2018) und an eine tragfähige menschliche Beziehung gebunden; KI kann ergänzend Psychoedukation und Übungen begleiten, was dem Lernziel des Moduls entspricht. Der Distraktor der Vollautomatisierung unterschätzt, dass gerade in der Paar- und Familienarbeit die Beziehungsprozesse selbst der Wirkmechanismus sind.",
-    "en": "The therapeutic alliance is one of the best-documented common factors in psychotherapy (Flückiger et al., 2018) and is tied to a viable human relationship; AI can complement this with psychoeducation and exercise support, in line with the module's learning objective. The full-automation distractor underestimates that in couple and family work the relationship processes themselves are the mechanism of change."
+    "de": "Ein systemisch-interpersonelles Störungsverständnis fasst Paarkonflikte als zirkuläres Zusammenspiel: Muster wie Fordern und Rückzug entstehen wechselseitig und lassen sich keinem der beiden Partner allein zuschreiben. Ein Tool, das jede Person separat modelliert und separat zurückmeldet, individualisiert genau diesen dyadischen Prozess und stützt die gegenseitige Schuldzuschreibung, die in der Paararbeit ohnehin die grösste Hürde ist. Der Einwilligungs-Einwand ist berechtigt und rechtlich zwingend, betrifft aber jede Tonaufnahme gleichermassen und trifft die fachliche Fehlkonstruktion des Tools nicht.",
+    "en": "A systemic, interpersonal understanding of disorders frames couple conflict as a circular interplay: patterns such as demand and withdrawal arise mutually and cannot be attributed to either partner alone. A tool that models each person separately and reports back separately individualises precisely this dyadic process and reinforces the mutual blaming that is the biggest obstacle in couple work anyway. The consent objection is legitimate and legally binding, but it applies equally to any audio recording and misses the tool's actual conceptual flaw."
+   }
+  },
+  {
+   "q": {
+    "de": "Sie arbeiten in einer Erziehungsberatungsstelle mit einem Paar an dessen Konflikten. Im Einzelgespräch berichtet der Vater, er habe seinen achtjährigen Sohn in den letzten Wochen zweimal geschlagen, und bittet Sie, dies in den Paargesprächen auszulassen. Welches Vorgehen ist berufsethisch und rechtlich tragfähig?",
+    "en": "You are working with a couple on their conflicts at a parenting counselling service. In an individual session, the father reports that he has hit his eight-year-old son twice in recent weeks and asks you to leave this out of the couple sessions. Which course of action is professionally, ethically and legally defensible?"
+   },
+   "a": [
+    {
+     "de": "Sie sichern dem Vater volle Vertraulichkeit zu und bearbeiten die Gewalt allein im Einzelsetting, weil die Schweigepflicht die Grundlage jeder Beratung ist.",
+     "en": "You assure the father of full confidentiality and address the violence in the individual setting alone, because confidentiality is the basis of all counselling."
+    },
+    {
+     "de": "Sie benennen dem Vater den Schutzauftrag für das Kind und ziehen bei anhaltender Gefährdung die Kindes- und Erwachsenenschutzbehörde bei.",
+     "en": "You name the duty to protect the child to the father and involve the child and adult protection authority if the endangerment continues."
+    },
+    {
+     "de": "Sie sprechen die Mutter im nächsten Paargespräch darauf an, damit sie das Kind schützen kann, und lassen den Vater dabei aussen vor.",
+     "en": "You raise the matter with the mother in the next couple session so that she can protect the child, leaving the father out of that step."
+    },
+    {
+     "de": "Sie beenden die Beratung und melden den Vorfall der Behörde, weil die Vertrauensgrundlage für die Paararbeit entfallen ist.",
+     "en": "You end the counselling and report the incident to the authority, because the basis of trust for the couple work has fallen away."
+    }
+   ],
+   "korrekt": 1,
+   "erkl": {
+    "de": "Vertraulichkeit schützt die Beratungsbeziehung, ist aber nicht absolut, wenn ein Kind gefährdet ist. Tragfähig ist deshalb, dem Vater diese Grenze offen zu benennen, auf sein Mitwirken hinzuwirken und bei fortbestehender Gefährdung die Kindes- und Erwachsenenschutzbehörde (KESB) beizuziehen. Rechtlich gilt in der Schweiz: Psycholog:innen unterstehen dem Berufsgeheimnis (Art. 321 StGB) und sind damit von der Meldepflicht ausgenommen, sind aber ausdrücklich meldeberechtigt, wenn die Meldung im Interesse des Kindes liegt (Art. 314c ZGB); Fachpersonen ohne Berufsgeheimnis mit regelmässigem Kinderkontakt sind meldepflichtig, sofern sie der Gefährdung nicht im Rahmen ihrer Tätigkeit abhelfen können (Art. 314d ZGB). Die Zusicherung voller Vertraulichkeit ist der attraktivste Irrweg: Sie hält die Arbeitsbeziehung kurzfristig stabil, macht die Beratung aber zur Mitwisserin einer Gefährdung, die das Kind selbst nicht beenden kann.",
+    "en": "Confidentiality protects the counselling relationship, but it is not absolute where a child is at risk. The defensible course is therefore to name this limit openly to the father, work towards his cooperation, and involve the child and adult protection authority (KESB) if the endangerment persists. Swiss law is clear: psychologists are bound by professional secrecy (Art. 321 Swiss Criminal Code) and are hence exempt from the duty to report, but they are expressly entitled to report where a report serves the child's interests (Art. 314c Swiss Civil Code); professionals not bound by professional secrecy who have regular contact with children are obliged to report if they cannot avert the endangerment within their own remit (Art. 314d Swiss Civil Code). Assuring full confidentiality is the most attractive wrong turn: it keeps the working relationship stable in the short term, but it makes the counselling service a silent partner to an endangerment that the child itself cannot stop."
    }
   }
  ],
@@ -1550,60 +1554,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Eine Studentin lässt eine KI drei Kritikpunkte zu einem klinischen Fachartikel formulieren. Ein Punkt bemängelt eine «fehlende Kontrollgruppe», obwohl der Artikel ein randomisiertes Design mit Wartelistenkontrolle beschreibt. Welche Schlussfolgerung ist angemessen?",
-    "en": "A student has an AI formulate three points of criticism about a clinical journal article. One point complains about a \"missing control group\", although the article describes a randomised design with a waitlist control. Which conclusion is appropriate?"
+    "de": "Im Seminar auditieren Studierende einen LLM-basierten Gesundheitscoach, der Nutzende täglich über die Folgen von Bewegungsmangel informiert und motivierende Botschaften sendet. Die Evaluation zeigt hohe Zufriedenheit und mehr Wissen über Bewegungsempfehlungen, aber keine Zunahme der körperlichen Aktivität. Welche fachliche Erklärung ist am tragfähigsten?",
+    "en": "In the seminar, students audit an LLM-based health coach that informs users daily about the consequences of physical inactivity and sends motivating messages. The evaluation shows high satisfaction and better knowledge of activity guidelines, but no increase in physical activity. Which professional explanation is the most defensible?"
    },
    "a": [
     {
-     "de": "Die KI hat eine verdeckte Schwäche des Artikels erkannt, weil eine Wartelistenbedingung methodisch nicht als echte Kontrollgruppe gilt.",
-     "en": "The AI detected a hidden weakness of the article, because a waitlist condition does not methodologically count as a real control group."
+     "de": "Der Coach bleibt wirkungslos, weil rein textbasierte Angebote Bewegungsverhalten grundsätzlich nicht verändern und persönliche Beratung nicht ersetzen.",
+     "en": "The coach remains ineffective, because purely text-based offerings never change activity behaviour and cannot replace personal counselling."
     },
     {
-     "de": "Der Fehler wäre vermeidbar gewesen, weil Sprachmodelle hochgeladene Artikel zuverlässig vollständig lesen und korrekt wiedergeben.",
-     "en": "The error would have been avoidable, because language models reliably read uploaded articles in full and reproduce them correctly."
+     "de": "Der Evaluationszeitraum ist zu kurz gewählt, weil ein Wissenszuwachs dem veränderten Verhalten regelhaft um mehrere Monate vorausgeht.",
+     "en": "The evaluation window is too short, because a gain in knowledge regularly precedes changed behaviour by several months."
     },
     {
-     "de": "Die beiden übrigen Kritikpunkte dürfen ungeprüft übernommen werden, weil eine KI selten mehr als einen Fehler pro Antwort produziert.",
-     "en": "The two remaining points of criticism may be adopted unchecked, because an AI rarely produces more than one error per answer."
+     "de": "Der Coach bedient Wissen und Motivation, lässt aber die volitionalen Techniken wie die Handlungsplanung aus, die Intentionen in Handeln überführen.",
+     "en": "The coach serves knowledge and motivation but omits the volitional techniques, such as action planning, that turn intentions into action."
     },
     {
-     "de": "Die KI erzeugt generisch plausible Kritikmuster ohne verlässlichen Textbezug, weshalb jeder Punkt am Originalartikel verifiziert werden muss.",
-     "en": "The AI produces generically plausible critique patterns without a reliable link to the text, so every point must be verified against the original article."
+     "de": "Die wechselnden Formulierungen des Sprachmodells verhindern eine konstante Dosis, weshalb der gemessene Wissenszuwachs dem Coach nicht zurechenbar ist.",
+     "en": "The language model's varying wording prevents a constant dose, so the measured knowledge gain cannot be attributed to the coach."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 2,
    "erkl": {
-    "de": "Sprachmodelle reproduzieren häufige Kritikschablonen wie «fehlende Kontrollgruppe» auch dann, wenn sie auf den konkreten Text nicht zutreffen; die fachliche Prüfung am Original bleibt darum unverzichtbar (KI6). Der erste Distraktor ist verführerisch, weil Wartelistenkontrollen tatsächlich Schwächen haben, sie sind aber sehr wohl Kontrollgruppen, womit die KI-Kritik faktisch falsch bleibt.",
-    "en": "Language models reproduce common critique templates such as \"missing control group\" even when they do not apply to the specific text; verification against the original therefore remains indispensable (AI6). The first distractor is tempting because waitlist controls do have weaknesses, but they very much are control groups, so the AI's criticism remains factually wrong."
+    "de": "Wissen und Motivation erzeugen bestenfalls eine Intention; die Lücke zur Handlung wird durch volitionale Schritte wie Handlungs- und Bewältigungsplanung geschlossen, die der Coach gar nicht anbietet (Schwarzer, 2008). Der verführerischste Distraktor verschiebt das Problem auf die Messdauer und unterstellt damit einen Automatismus vom Wissen zum Verhalten, den die Forschung zur Intentions-Verhaltens-Lücke gerade nicht stützt.",
+    "en": "Knowledge and motivation at best produce an intention; the gap to action is bridged by volitional steps such as action planning and coping planning, which the coach does not offer at all (Schwarzer, 2008). The most tempting distractor shifts the problem to the length of the evaluation and thereby assumes an automatic path from knowledge to behaviour, which research on the intention-behaviour gap precisely does not support."
    }
   },
   {
    "q": {
-    "de": "Im Wahlseminar schreibt ein Student seine Seminararbeit als [B]-Leistungsnachweis. Er nutzt KI für die Literaturrecherche und lässt sich zudem Feedback auf seinen Textentwurf geben. Was verlangt die Prüfungslogik [B] in dieser Situation?",
-    "en": "In the elective seminar, a student writes his seminar paper as a [B] assessment. He uses AI for the literature search and also gets feedback on his draft text. What does assessment logic [B] require in this situation?"
+    "de": "Eine Seminararbeit wertet ein achtwöchiges Stressbewältigungstraining aus. Auf einem Depressionsfragebogen (Wertebereich 0 bis 27) sinkt der Gruppenmittelwert um 1.8 Punkte, p = .03, d = 0.22. Die Autorin folgert daraus die klinische Wirksamkeit des Trainings. Welche methodische Einordnung trägt?",
+    "en": "A seminar paper evaluates an eight-week stress management training. On a depression questionnaire (range 0 to 27) the group mean falls by 1.8 points, p = .03, d = 0.22. The author concludes that the training is clinically effective. Which methodological appraisal holds?"
    },
    "a": [
     {
-     "de": "Er legt die KI-Schritte im Disclosure Form offen, dokumentiert sie im Prozesslog und verantwortet die fachlichen Aussagen des Endtexts selbst.",
-     "en": "He discloses the AI steps in the disclosure form, documents them in the process log, and takes responsibility for the final text's claims himself."
+     "de": "Die mittlere Veränderung von 1.8 Punkten ist am Standardmessfehler des Instruments zu prüfen; fällt sie grösser aus, ist eine bedeutsame Symptomveränderung belegt.",
+     "en": "The mean change of 1.8 points should be checked against the instrument's standard error of measurement; if it turns out larger, a meaningful symptom change is established."
     },
     {
-     "de": "Er vermerkt den KI-Einsatz pauschal in einer Fussnote, da bei [B] eine detaillierte Dokumentation der einzelnen Arbeitsschritte nicht erwartet wird.",
-     "en": "He notes the AI use in a general footnote, since [B] does not expect detailed documentation of the individual steps."
+     "de": "Das Ergebnis ist eine kleine Mittelwertsverschiebung; klinische Wirksamkeit verlangt zusätzlich den Anteil Personen mit reliabler und bedeutsamer Veränderung.",
+     "en": "The result is a small shift in means; clinical effectiveness additionally requires the proportion of people with reliable and meaningful change."
     },
     {
-     "de": "Er darf KI ausschliesslich für die Literaturrecherche einsetzen, weil [B] jede KI-Unterstützung beim Formulieren des Textes ausschliesst.",
-     "en": "He may use AI solely for the literature search, because [B] rules out any AI support in the actual drafting of the text."
+     "de": "Der signifikante Test sichert die Wirksamkeit ab; die Effektstärke informiert lediglich über die Präzision der Mittelwertsschätzung.",
+     "en": "The significant test secures the effectiveness; the effect size merely informs about the precision of the mean estimate."
     },
     {
-     "de": "Er muss KI in jedem einzelnen Arbeitsschritt einsetzen, weil [B] die vollständige Integration von KI in den Schreibprozess vorschreibt.",
-     "en": "He must use AI in every single step of the work, because [B] prescribes the complete integration of AI into the writing process."
+     "de": "Ein d von 0.22 liegt im Bereich kleiner Effekte und schliesst damit aus, dass einzelne Teilnehmende klinisch bedeutsam profitiert haben.",
+     "en": "A d of 0.22 lies in the range of small effects and therefore rules out that individual participants benefited to a clinically meaningful degree."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "[B] erlaubt KI in einzelnen Arbeitsschritten, koppelt dies aber an Transparenz: Disclosure Form und Prozesslog machen den Einsatz prüfbar, und die fachliche Verantwortung für den Text bleibt beim Studierenden, wie es auch die Lernziele des Seminars festhalten. Der verführerischste Distraktor beschränkt [B] auf die Recherche, dabei sind einzelne KI-gestützte Schreibschritte ausdrücklich zulässig, sofern sie offengelegt werden.",
-    "en": "[B] permits AI in individual steps but ties this to transparency: the disclosure form and process log make the use auditable, and professional responsibility for the text remains with the student, as the seminar's learning objectives also state. The most tempting distractor restricts [B] to the literature search, yet individual AI-supported writing steps are explicitly allowed as long as they are disclosed."
+    "de": "Eine Mittelwertsdifferenz beschreibt die Gruppe, nicht die einzelne Person; für die Aussage «klinisch wirksam» braucht es Kennwerte der klinischen Signifikanz, also den Anteil Personen mit reliabler Veränderung und mit Übergang in den funktionalen Wertebereich (Jacobson & Truax, 1991). Der Verweis auf den Standardmessfehler ist der stärkste Distraktor: Reliable Veränderung bemisst sich am Standardfehler der Differenz zweier Messungen, nicht am Messfehler eines Einzelwerts, und ein Gruppenmittelwert lässt sich damit ohnehin nicht beurteilen. Umgekehrt schliesst ein kleiner mittlerer Effekt nicht aus, dass eine Teilgruppe deutlich profitiert hat.",
+    "en": "A mean difference describes the group, not the individual; claiming clinical effectiveness requires indices of clinical significance, that is, the proportion of people showing reliable change and crossing into the functional range (Jacobson & Truax, 1991). The reference to the standard error of measurement is the strongest distractor: reliable change is gauged against the standard error of the difference between two measurements, not against the measurement error of a single score, and a group mean cannot be judged that way in any case. Conversely, a small average effect does not rule out that a subgroup benefited substantially."
    }
   }
  ],
@@ -1668,31 +1672,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Wahlseminar läuft als [C]-Pilot: Die Fachartikel-Analyse wird in jedem Arbeitsschritt KI-gestützt durchgeführt. Wie sichert das Prüfungsdesign gemäss der Prüfungslogik die Kernfertigkeit Fa4 (kritisches Denken) gegen Deskilling?",
-    "en": "The elective seminar runs as a [C] pilot: the article analysis is AI-supported in every work step. According to the assessment logic, how does the exam design protect the core skill Fa4 (critical thinking) against deskilling?"
+    "de": "Ein Seminarteam wertet eine Mitarbeitendenbefragung zur erlebten Fairness der direkten Führung aus. Bei den Items zur Kritik an der vorgesetzten Person fehlen 19 Prozent der Antworten, vor allem in kleinen Teams, in denen einzelne Antworten rückverfolgbar wären. Das Team löscht alle unvollständigen Fälle und berichtet einen hohen Fairnesswert. Wie ist dieses Vorgehen zu beurteilen?",
+    "en": "A seminar team analyses an employee survey on perceived fairness of direct supervisors. On the items criticising one's own supervisor, 19 percent of the answers are missing, above all in small teams where individual answers would be traceable. The team deletes all incomplete cases and reports a high fairness score. How should this approach be judged?"
    },
    "a": [
     {
-     "de": "Durch ein Verbot von KI-Werkzeugen in der schriftlichen Endfassung, damit der Text nachweislich eigenständig formuliert worden ist.",
-     "en": "Through a ban on AI tools in the final written version, so that the text has demonstrably been formulated independently."
+     "de": "Der Ausfall ist verkraftbar, weil die verbleibende Fallzahl für den geplanten Mittelwertvergleich noch genügend Teststärke liefert.",
+     "en": "The dropout is tolerable, because the remaining number of cases still provides enough statistical power for the planned comparison of means."
     },
     {
-     "de": "Durch ein KI-freies Verteidigungselement, in dem Studierende ihre Analyseentscheidungen ohne Werkzeugzugriff selbst begründen.",
-     "en": "Through an AI-free defence element in which students justify their analytical decisions themselves without tool access."
+     "de": "Die Werte fehlen abhängig davon, was geantwortet worden wäre; der berichtete Fairnesswert fällt deshalb systematisch zu günstig aus.",
+     "en": "The values are missing depending on what would have been answered, so the reported fairness score comes out systematically too favourable."
     },
     {
-     "de": "Durch die Bewertung der KI-Outputs selbst, da deren Qualität die Analysekompetenz der Studierenden unmittelbar abbildet.",
-     "en": "Through grading the AI outputs themselves, since their quality directly reflects the students' analytical competence."
+     "de": "Der Ausfall lässt sich auffangen, indem die fehlenden Werte durch den Skalenmittelwert ersetzt werden und alle Fälle erhalten bleiben.",
+     "en": "The dropout can be absorbed by replacing the missing values with the scale mean, which keeps all cases in the analysis."
     },
     {
-     "de": "Durch die Wahl leistungsfähigerer Modelle, da bessere KI-Systeme weniger fehlerhafte Analysen in die Seminararbeit einbringen.",
-     "en": "Through choosing more capable models, since better AI systems introduce fewer flawed analyses into the seminar paper."
+     "de": "Der Ausfall betrifft die interne Konsistenz der Skala, deren Reliabilität deshalb vor jeder weiteren Auswertung neu zu bestimmen ist.",
+     "en": "The dropout concerns the internal consistency of the scale, whose reliability must therefore be re-estimated before any further analysis."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "In der Kategorie [C] wird KI in jedem Arbeitsschritt genutzt; die Kernfertigkeit wird deshalb durch ein gesichertes, KI-freies Verteidigungselement geprüft, in dem Studierende ihre Analyseentscheidungen selbst vertreten. Das KI-Verbot in der Endfassung wirkt plausibel, widerspricht aber der [C]-Logik und würde das Formulieren (Fa6) statt der kritischen Analyseentscheidungen (Fa4) absichern.",
-    "en": "In category [C], AI is used in every work step; the core skill is therefore secured by a protected, AI-free defence element in which students account for their analytical decisions themselves. The ban on AI in the final version sounds plausible, but it contradicts the [C] logic and would safeguard writing (Fa6) rather than the critical analytical decisions (Fa4)."
+    "de": "Der Ausfall hängt hier mit dem Inhalt der zurückgehaltenen Antwort zusammen und ist damit im Sinne der Missing-Data-Systematik nicht zufällig (MNAR) und nicht ignorierbar: Wer kritisch antworten würde, schweigt gerade dort, wo die Antwort rückverfolgbar wäre, und das listenweise Löschen verschiebt den Mittelwert nach oben. Der attraktivste Distraktor stellt auf die Fallzahl ab und verwechselt Präzision mit Unverzerrtheit, denn eine grosse Reststichprobe schätzt einen verzerrten Wert nur genauer. Die Mittelwertersetzung erhält zwar alle Fälle, übernimmt aber dieselbe Verzerrung und schrumpft zusätzlich die Streuung.",
+    "en": "Here the missingness depends on the content of the withheld answer and is therefore not random in the sense of the missing-data taxonomy (MNAR) and not ignorable: those who would answer critically stay silent precisely where the answer would be traceable, and listwise deletion shifts the mean upwards. The most tempting distractor focuses on sample size and confuses precision with unbiasedness, since a large remaining sample merely estimates a biased value more accurately. Mean replacement does keep all cases, but it carries the same bias forward and additionally shrinks the variance."
    }
   }
  ],
@@ -1728,60 +1732,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein LLM liefert für das Theoriekapitel eine Zusammenfassung mit der Quelle «Meier & Sanders (2021, Journal of Personality)». Die Referenz ist weder über PsycInfo noch über Google Scholar oder eine DOI-Suche auffindbar. Welches Vorgehen ist korrekt?",
-    "en": "An LLM delivers a summary for the theory chapter citing 'Meier & Sanders (2021, Journal of Personality)'. The reference cannot be found via PsycInfo, Google Scholar or a DOI search. Which course of action is correct?"
+    "de": "Für die Arbeitsform «methodisch strukturierter Review» lässt eine Studentin einen KI-Agenten aus 40 Artikeln Stichprobengrösse und Effektstärke in eine Evidenzmatrix extrahieren. Eine Stichprobenprüfung an sechs Artikeln ergibt vier korrekte und zwei falsche Effektstärken, beide zu hoch. Welches Vorgehen ist fachlich geboten?",
+    "en": "For the \"methodically structured review\" work format, a student has an AI agent extract sample size and effect size from 40 articles into an evidence matrix. Spot-checking six articles yields four correct and two incorrect effect sizes, both too high. Which course of action is professionally required?"
    },
    "a": [
     {
-     "de": "Die Quelle übernehmen und im Prozesslog vermerken, dass sie KI-generiert ist, denn das Disclosure Form deckt solche Fälle formal ab.",
-     "en": "Adopt the source and note in the process log that it is AI-generated, since the disclosure form formally covers such cases."
+     "de": "Den Agenten mit einem präziseren Prompt erneut über alle 40 Artikel laufen lassen und die zweite Extraktion verwenden.",
+     "en": "Run the agent over all 40 articles again with a more precise prompt and use the second extraction."
     },
     {
-     "de": "Die Aussage nur weiterverwenden, wenn selbst recherchierte und gelesene Primärliteratur sie belegt; die Referenz gilt als fabriziert.",
-     "en": "Use the claim only if primary literature you researched and read yourself supports it; the reference counts as fabricated."
+     "de": "Die beiden fehlerhaften Artikel aus der Evidenzmatrix ausschliessen und die Synthese auf die 38 verbleibenden Studien stützen.",
+     "en": "Exclude the two faulty articles from the evidence matrix and base the synthesis on the remaining 38 studies."
     },
     {
-     "de": "Die Referenz mit dem Zusatz «zitiert nach KI-System» aufführen, analog zum Sekundärzitat bei nicht verfügbaren Originalquellen.",
-     "en": "List the reference with the note 'as cited in an AI system', analogous to secondary citation of unavailable original sources."
+     "de": "Alle 40 Effektstärken unabhängig nachcodieren und die Übereinstimmung berichten, weil beide Fehler in dieselbe Richtung weisen.",
+     "en": "Recode all 40 effect sizes independently and report the agreement, because both errors point in the same direction."
     },
     {
-     "de": "Die Kernaussage ohne Beleg in den Fliesstext übernehmen, da etabliertes Lehrbuchwissen keine Einzelnachweise im Text benötigt.",
-     "en": "Include the key claim in the running text without a reference, since established textbook knowledge needs no individual citations."
+     "de": "Die beiden Werte korrigieren und die übrigen übernehmen, weil eine Trefferquote von zwei Dritteln für Übersichtsarbeiten genügt.",
+     "en": "Correct the two values and keep the rest, because a two-thirds hit rate suffices for review work."
     }
    ],
-   "korrekt": 1,
+   "korrekt": 2,
    "erkl": {
-    "de": "LLMs erzeugen regelmässig plausibel klingende, aber nicht existierende Referenzen; zitierfähig ist nur Primärliteratur, die selbst gefunden und gelesen wurde, und die Aussage muss daran verifiziert werden. Die Analogie zum Sekundärzitat ist der verführerischste Distraktor: Sie setzt eine real existierende Originalquelle voraus, die hier gerade fehlt.",
-    "en": "LLMs routinely generate plausible-sounding but nonexistent references; only primary literature you found and read yourself is citable, and the claim must be verified against it. The analogy to secondary citation is the most seductive distractor: it presupposes an actually existing original source, which is precisely what is missing here."
+    "de": "Zwei Fehler in dieselbe Richtung sind kein Zufallsrauschen, sondern ein Hinweis auf einen systematischen Extraktionsfehler, der die synthetisierten Befunde nach oben verzerrt; eine strukturierte Übersichtsarbeit verlangt deshalb unabhängige Doppelcodierung mit berichteter Übereinstimmung statt einer Stichprobenprüfung. Der neue Prompt ist der verführerischste Distraktor: Er verändert die Fehler, liefert aber keinen unabhängigen Massstab, an dem sich die Richtigkeit der extrahierten Werte überhaupt beurteilen liesse.",
+    "en": "Two errors in the same direction are not random noise but a sign of a systematic extraction error that biases the synthesised findings upwards; a structured review therefore requires independent double coding with reported agreement rather than a spot check. The improved prompt is the most tempting distractor: it changes the errors but provides no independent standard against which the accuracy of the extracted values could be judged at all."
    }
   },
   {
    "q": {
-    "de": "Die neue Bachelorarbeit kombiniert einen KI-integrierten Arbeitsprozess (AIAS 4), ein exploratives KI-Artefakt (AIAS 5) und eine zehnminütige KI-freie mündliche Prüfung (Gewichtung 70/30). Welche Funktion hat die mündliche Prüfung in dieser Architektur?",
-    "en": "The new Bachelor thesis combines an AI-integrated work process (AIAS 4), an exploratory AI artefact (AIAS 5) and a ten-minute AI-free oral examination (weighting 70/30). What is the function of the oral examination in this architecture?"
+    "de": "Eine Bachelorarbeit im Format Reproduzierbarkeitscheck ist schriftlich sauber gearbeitet. Im zehnminütigen KI-freien Prüfungsgespräch kann der Student jedoch nicht begründen, warum er die Ausreisserregel des Originalartikels unverändert übernommen und nicht variiert hat. Wie ist diese Diskrepanz nach der Prüfungsarchitektur des Moduls zu behandeln?",
+    "en": "A Bachelor thesis in the reproducibility-check format is cleanly written. In the ten-minute AI-free oral examination, however, the student cannot justify why he adopted the original article's outlier rule unchanged instead of varying it. How should this discrepancy be handled under the module's assessment architecture?"
    },
    "a": [
     {
-     "de": "Sie ist der Validitätsanker: Sie sichert, dass zentrale fachliche und methodische Entscheidungen auch ohne KI erklärt, begründet und verteidigt werden können.",
-     "en": "It is the validity anchor: it ensures that central subject-matter and methodological decisions can be explained, justified and defended without AI."
+     "de": "Der Prozessanhang entscheidet: Ist die Entscheidung dort dokumentiert, ersetzt der schriftliche Eintrag die mündliche Begründung.",
+     "en": "The process appendix decides: if the decision is documented there, the written entry replaces the oral justification."
     },
     {
-     "de": "Sie ist die Hauptleistung: Da der schriftliche Teil KI-integriert entsteht, zählt für die Note primär das Prüfungsgespräch, die Arbeit dient als Vorbereitung.",
-     "en": "It is the main assessment: since the written part is produced AI-integrated, the grade rests primarily on the oral, with the thesis serving as preparation."
+     "de": "Das Gespräch trägt 30 Prozent der Note und prüft genau die methodische Begründung, die der Text allein nicht belegen kann.",
+     "en": "The oral carries 30 percent of the grade and probes exactly the methodological justification that the text alone cannot evidence."
     },
     {
-     "de": "Sie dient der KI-Detektion: Im Gespräch wird geprüft, ob Textpassagen der Arbeit von einem Sprachmodell erzeugt wurden, um Täuschung nachzuweisen.",
-     "en": "It serves AI detection: the conversation checks whether passages of the thesis were generated by a language model in order to prove misconduct."
+     "de": "Die Diskrepanz begründet einen Täuschungsverdacht, weil ein sauberer Text ohne mündliche Begründung auf unerlaubte KI-Nutzung verweist.",
+     "en": "The discrepancy grounds a suspicion of misconduct, because a clean text without oral justification points to disallowed AI use."
     },
     {
-     "de": "Sie ersetzt den Prozessanhang: Wer die Arbeit mündlich vertreten kann, muss die eigene KI-Nutzung nicht mehr schriftlich dokumentieren.",
-     "en": "It replaces the process appendix: anyone who can defend the thesis orally no longer needs to document their AI use in writing."
+     "de": "Die Arbeit zählt 70 Prozent und bleibt massgeblich; das Gespräch liefert lediglich formative Rückmeldung ohne Notenwirkung.",
+     "en": "The thesis counts 70 percent and remains decisive; the oral merely provides formative feedback without affecting the grade."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "Der Validitätsanker-Gedanke stammt aus der aktuellen Assessment-Diskussion: Entscheidend ist valide Evidenz für tatsächliche Kompetenz, nicht Betrugsabwehr (Dawson et al., 2024; Corbin et al., 2025). Die Arbeit bleibt mit 70% der authentische Capstone; das KI-freie Gespräch (30%) sichert die Eigenleistung und begrenzt Deskilling-Risiken — Prozessanhang und Disclosure bleiben trotzdem Pflicht.",
-    "en": "The validity-anchor idea comes from the current assessment debate: what matters is valid evidence of actual competence, not cheating control (Dawson et al., 2024; Corbin et al., 2025). At 70% the thesis remains the authentic capstone; the AI-free conversation (30%) secures the individual contribution and limits deskilling risks — the process appendix and disclosure remain mandatory."
+    "de": "Die Gewichtung 70/30 trennt zwei Evidenzquellen: Der Text zeigt das Produkt, das KI-freie Gespräch zeigt, ob die methodischen Entscheidungen selbst getragen werden. Dass der Student die Ausreisserregel unverändert übernommen hat, ist bei einem Reproduzierbarkeitscheck sogar naheliegend; geprüft wird nicht die Entscheidung selbst, sondern ob er sie ohne Werkzeug begründen kann, denn sie bestimmt über die Robustheit des Befunds mit. Der Verweis auf den Prozessanhang ist der stärkste Distraktor: Er dokumentiert, was gemacht wurde, kann aber nicht belegen, dass die Begründung ohne Werkzeug verfügbar ist, und genau dafür wurde der mündliche Anker eingeführt. Ein Täuschungsverdacht ist unbegründet, weil das Modul bewusst auf Validitätsanker statt KI-Detektion setzt.",
+    "en": "The 70/30 weighting separates two sources of evidence: the text shows the product, the AI-free conversation shows whether the methodological decisions are genuinely owned. That the student adopted the outlier rule unchanged is in fact the obvious choice in a reproducibility check; what is examined is not the decision itself but whether he can justify it without tools, since it co-determines how robust the finding is. The reference to the process appendix is the strongest distractor: it documents what was done but cannot evidence that the justification is available without tools, which is precisely why the oral anchor was introduced. A suspicion of misconduct is unfounded, because the module deliberately relies on validity anchors rather than AI detection."
    }
   }
  ],
@@ -1846,31 +1850,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im TIC-Pilotmodul Statistics 3 (Kategorie A+B) debuggt ein Student seinen lmer-Code mit Copilot und bereitet danach die Interpretation der Ergebnisse vor. Welcher Umgang entspricht der Prüfungslogik des Moduls?",
-    "en": "In the TIC pilot module Statistics 3 (category A+B), a student debugs his lmer code with Copilot and then prepares the interpretation of the results. Which approach matches the module's assessment logic?"
+    "de": "In einer Tagebuchstudie (14 Tage, 150 Personen) wird das abendliche Wohlbefinden auf die am selben Tag berichtete Stressbelastung regrediert. Das Mehrebenenmodell enthält einen zufälligen Achsenabschnitt und den unzentrierten Stresswert auf Ebene 1. Die Autorin liest den Steigungskoeffizienten als «an stressreicheren Tagen geht es einer Person schlechter». Wo liegt der entscheidende Fehler?",
+    "en": "In a diary study (14 days, 150 persons), evening well-being is regressed on same-day reported stress. The multilevel model contains a random intercept and the uncentred stress score at level 1. The author reads the slope as \"on more stressful days a person feels worse\". Where is the decisive error?"
    },
    "a": [
     {
-     "de": "Beide Tätigkeiten laufen als [B], weil Statistik ein Anwendungsfach ist und die Prüfungslogik dort keine KI-freien Anteile vorsieht.",
-     "en": "Both activities run as [B], because statistics is an applied subject and the assessment logic provides no AI-free components there."
+     "de": "Ohne zufällige Steigung bildet das Modell die Streuung des Zusammenhangs zwischen den Personen nicht ab, weshalb der Koeffizient selbst verzerrt geschätzt wird.",
+     "en": "Without a random slope the model does not capture the between-person spread of the association, so the coefficient itself is estimated with bias."
     },
     {
-     "de": "Beide Tätigkeiten laufen als [A], weil KI-Unterstützung im methodischen Rückgrat des Studiums das statistische Verständnis gefährdet.",
-     "en": "Both activities run as [A], because AI support in the methodological backbone of the degree endangers statistical understanding."
+     "de": "Der Koeffizient vermengt Unterschiede zwischen Personen mit Schwankungen innerhalb der Personen; erst Zentrierung am Personenmittelwert trennt beides.",
+     "en": "The coefficient conflates between-person differences with within-person fluctuations; only person-mean centring separates the two."
     },
     {
-     "de": "Das Debugging läuft als [A], die Interpretation als [B], weil Programmierfehler eigenständig gefunden werden müssen und Deutungen delegierbar sind.",
-     "en": "Debugging runs as [A] and interpretation as [B], because coding errors must be found independently while interpretations are delegable."
+     "de": "Unzentrierte Prädiktoren verschieben den Achsenabschnitt aus dem Wertebereich der Daten, wodurch der Steigungskoeffizient uninterpretierbar wird.",
+     "en": "Uncentred predictors push the intercept outside the range of the data, which renders the slope uninterpretable."
     },
     {
-     "de": "Das Debugging läuft als [B] mit Disclosure und Prozesslog; die KI-freie Interpretation der festen und zufälligen Effekte sichert als [A] die Kernfertigkeit.",
-     "en": "Debugging runs as [B] with disclosure and process log; the AI-free interpretation of fixed and random effects secures the core skill as [A]."
+     "de": "Bei 14 Messungen pro Person werden die Freiheitsgrade auf Ebene 1 zu hoch angesetzt, wodurch der Zusammenhang überschätzt wird.",
+     "en": "With 14 measurements per person the level-1 degrees of freedom are set too high, which overestimates the association."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Die Lernziele legen genau diese Aufteilung fest: KI-gestütztes Debugging ist ein [B]-Schritt mit Disclosure und Prozesslog, während die KI-freie Interpretation fester und zufälliger Effekte als [A] die Kernfertigkeit Fa3 sichert. Die umgekehrte Zuordnung ist verführerisch, weil eigenständiges Programmieren wertvoll erscheint; zertifiziert wird im Modul aber das statistische Verständnis der Ergebnisse, nicht die fehlerfreie Syntax.",
-    "en": "The learning objectives specify exactly this split: AI-assisted debugging is a [B] step with disclosure and process log, while the AI-free interpretation of fixed and random effects secures the core skill Fa3 as [A]. The reversed assignment is seductive because independent coding seems valuable; what the module certifies, however, is the statistical understanding of the results, not error-free syntax."
+    "de": "Ein unzentrierter Prädiktor auf Ebene 1 enthält Varianz zwischen und innerhalb der Personen; der geschätzte Koeffizient ist deshalb eine Mischung beider Effekte und trägt die Aussage über Tage innerhalb einer Person nicht. Die Zentrierung am Personenmittelwert, ergänzt um den Personenmittelwert als Prädiktor auf Ebene 2, trennt die Ebenen sauber (Enders & Tofighi, 2007). Die fehlende zufällige Steigung ist der stärkste Distraktor: Sie betrifft Standardfehler und die Variabilität des Effekts, hebt die Konfundierung der Ebenen aber nicht auf.",
+    "en": "An uncentred level-1 predictor carries variance both between and within persons; the estimated coefficient is therefore a blend of both effects and does not support the statement about days within a person. Person-mean centring, complemented by the person mean as a level-2 predictor, separates the levels cleanly (Enders & Tofighi, 2007). The missing random slope is the strongest distractor: it affects standard errors and the variability of the effect but does not remove the conflation of levels."
    }
   }
  ],
@@ -1906,60 +1910,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein Unternehmen setzt ein KI-System ein, das Bewerbungsdossiers automatisch vorsortiert und Persönlichkeitsscores berechnet; eine Recruiterin trifft die Endauswahl. Wie ist das System nach der EU-KI-Verordnung (AI Act) einzuordnen?",
-    "en": "A company uses an AI system that automatically pre-screens application dossiers and computes personality scores; a recruiter makes the final selection. How is this system classified under the EU AI Act?"
+    "de": "Ein Anbieter bewirbt ein KI-Screening, das aus Fragebogen- und Verhaltensdaten eine seltene Störung erkennen soll. Aus einer Validierungsstichprobe mit je 50 Prozent betroffenen und nicht betroffenen Personen berichtet er eine Sensitivität von .90 und eine Spezifität von .85. In der Zielpopulation der Klinik liegt die Prävalenz bei rund 2 Prozent. Welche Beurteilung ist diagnostisch korrekt?",
+    "en": "A vendor markets an AI screening tool meant to detect a rare disorder from questionnaire and behavioural data. From a validation sample with 50 per cent affected and 50 per cent unaffected persons, the vendor reports a sensitivity of .90 and a specificity of .85. In the clinic's target population the prevalence is around 2 per cent. Which appraisal is diagnostically correct?"
    },
    "a": [
     {
-     "de": "Es gilt als System mit minimalem Risiko, weil die menschliche Endauswahl die algorithmische Vorsortierung in rechtlicher Hinsicht weitgehend neutralisiert.",
-     "en": "It counts as a minimal-risk system, because the human final selection largely neutralises the algorithmic pre-screening in legal terms."
+     "de": "Die Kennwerte lassen sich direkt übertragen, weil Sensitivität und Spezifität prävalenzunabhängig sind und die Güte eines Verfahrens damit vollständig kennzeichnen.",
+     "en": "The figures transfer directly, because sensitivity and specificity are independent of prevalence and thereby fully characterise an instrument's quality."
     },
     {
-     "de": "Es gilt als verbotene Praktik, weil die algorithmische Bewertung von Persönlichkeit im Arbeitskontext unter das Verbot der Emotionserkennung fällt.",
-     "en": "It counts as a prohibited practice, because algorithmic personality scoring in the work context falls under the ban on emotion recognition."
+     "de": "Bei einer Prävalenz von 2 Prozent wäre der überwiegende Teil der positiven Befunde falsch positiv, weshalb ein positives Screeningergebnis allein keine diagnostische Entscheidung trägt.",
+     "en": "At a prevalence of 2 per cent the great majority of positive results would be false positives, so a positive screening result alone cannot carry a diagnostic decision."
     },
     {
-     "de": "Es gilt als System mit begrenztem Risiko, weil lediglich Transparenzpflichten greifen, solange keine biometrischen Daten verarbeitet werden.",
-     "en": "It counts as a limited-risk system, because only transparency duties apply as long as no biometric data are being processed."
+     "de": "Ein Absenken des Cut-off-Werts behebt das Problem, weil mit steigender Sensitivität auch der Anteil zutreffender positiver Befunde in der Zielpopulation zunimmt.",
+     "en": "Lowering the cut-off score fixes the problem, because as sensitivity rises the share of correct positive results in the target population rises with it."
     },
     {
-     "de": "Es gilt als Hochrisiko-System im Bereich Beschäftigung, weshalb unter anderem Risikomanagement, Datenqualität und menschliche Aufsicht verlangt sind.",
-     "en": "It counts as a high-risk system in the employment domain, which among other things requires risk management, data quality and human oversight."
+     "de": "Der entscheidende Mangel liegt in der fehlenden Normierung an einer klinischen Stichprobe, weil ohne aktuelle Normwerte kein Cut-off-Wert festgelegt werden darf.",
+     "en": "The decisive shortcoming is the missing norming on a clinical sample, because no cut-off score may be set without up-to-date norms."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Nach Anhang III der EU-KI-Verordnung gelten KI-Systeme für Rekrutierung und Bewerbungsauswahl als Hochrisiko-Systeme mit Pflichten wie Risikomanagement, Datenqualität und menschlicher Aufsicht. Die menschliche Endauswahl hebt diese Einstufung nicht auf, sie ist im Gegenteil Teil der geforderten Aufsicht; genau daran scheitert der verführerische Distraktor mit dem minimalen Risiko.",
-    "en": "Under Annex III of the EU AI Act, AI systems for recruitment and applicant selection are high-risk systems with duties such as risk management, data quality and human oversight. A human making the final selection does not remove this classification; on the contrary, it is part of the required oversight, which is exactly where the tempting minimal-risk distractor fails."
+    "de": "Sensitivität und Spezifität sind prävalenzunabhängig, der positive prädiktive Wert ist es nicht: Bei einer Basisrate von 2 Prozent stehen unter 1000 untersuchten Personen rund 18 richtig positiven etwa 147 falsch positive Befunde gegenüber; der positive prädiktive Wert liegt damit bei rund 11 Prozent (Meehl & Rosen, 1955). Der attraktivste Distraktor überträgt die an einer künstlich balancierten Stichprobe gewonnenen Kennwerte direkt auf die Klinik und verwechselt die Gütekennwerte des Verfahrens mit seinem Nutzen in der konkreten Anwendungssituation.",
+    "en": "Sensitivity and specificity are independent of prevalence, but the positive predictive value is not: at a base rate of 2 per cent, among 1,000 people tested roughly 18 true positives are set against about 147 false positives, putting the positive predictive value at around 11 per cent (Meehl & Rosen, 1955). The most tempting distractor transfers figures obtained on an artificially balanced sample straight to the clinic and confuses an instrument's quality indices with its utility in the actual setting."
    }
   },
   {
    "q": {
-    "de": "Im Modul (Kategorie B/C) verfasst ein Student ein diagnostisches Übungsgutachten: Die Testwerte interpretiert er selbst, Formulierung und Struktur verbessert er mit einem KI-Tool und führt dazu einen Prozesslog. Welcher Prüfungslogik entspricht dieses Vorgehen?",
-    "en": "In this module (category B/C), a student writes a practice diagnostic report: he interprets the test scores himself, improves wording and structure with an AI tool, and keeps a process log. Which assessment logic does this approach match?"
+    "de": "Sie erstellen im Auftrag eines Unternehmens ein eignungsdiagnostisches Gutachten über eine Bewerberin; vereinbarte Fragestellung ist die Passung zu einer Führungsposition. In Interview und Persönlichkeitsdiagnostik ergeben sich deutliche Hinweise auf eine depressive Symptomatik, während sich in den eignungsrelevanten Merkmalen keine Einschränkungen zeigen. Wie gehen Sie berufsethisch tragfähig vor?",
+    "en": "On behalf of a company you are preparing an aptitude assessment report on a candidate; the agreed referral question is her fit for a leadership position. The interview and the personality assessment yield clear indications of a depressive symptomatology, while the job-relevant characteristics show no impairment. How do you proceed in a professionally and ethically defensible way?"
    },
    "a": [
     {
-     "de": "Der Logik [B], weil einzelne Arbeitsschritte KI-gestützt erfolgen und dies mit Disclosure und Prozesslog transparent dokumentiert wird.",
-     "en": "Logic [B], because individual work steps are AI-assisted and this is transparently documented with disclosure and a process log."
+     "de": "Sie nehmen den Befund in das Gutachten auf, weil die Auftraggeberin für ihre Personalentscheidung Anspruch auf sämtliche im Verfahren gewonnenen Informationen über die Bewerberin hat.",
+     "en": "You include the finding in the report, because for its staffing decision the commissioning company is entitled to every piece of information gathered about the candidate during the procedure."
     },
     {
-     "de": "Der Logik [A], weil die eigenständige Interpretation der Testwerte das Gutachten insgesamt zu einer KI-freien Prüfungsleistung macht.",
-     "en": "Logic [A], because independently interpreting the test scores makes the report as a whole an AI-free piece of assessed work."
+     "de": "Sie informieren den betriebsärztlichen Dienst vertraulich, damit die Bewerberin bei einer Anstellung von Beginn weg fachliche Unterstützung erhält.",
+     "en": "You confidentially inform the occupational health service, so that the candidate receives professional support from day one should she be hired."
     },
     {
-     "de": "Der Logik [C], weil bereits die sprachliche Überarbeitung durch ein KI-Tool als durchgängig KI-integrierte Arbeitsweise zu werten ist.",
-     "en": "Logic [C], because even the linguistic revision by an AI tool has to be counted as a fully AI-integrated way of working."
+     "de": "Sie beschränken das Gutachten auf die vereinbarte Fragestellung und sprechen den Befund allein in der Rückmeldung an die Bewerberin an, verbunden mit einem Hinweis auf Abklärungsmöglichkeiten.",
+     "en": "You confine the report to the agreed referral question and raise the finding only in your feedback to the candidate, together with a pointer to options for further clarification."
     },
     {
-     "de": "Der Logik [C], weil die Kategorie B/C verlangt, dass KI in jedem Arbeitsschritt von der Recherche bis zur Endfassung eingesetzt wird.",
-     "en": "Logic [C], because category B/C requires AI to be used in every work step from the research phase to the final version."
+     "de": "Sie brechen die Begutachtung ab und melden der Auftraggeberin, dass die Fragestellung wegen der klinischen Auffälligkeit unbeantwortbar bleibt.",
+     "en": "You break off the assessment and inform the company that the referral question must remain unanswered because of the clinical finding."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Logik [B] bedeutet, dass einzelne Arbeitsschritte KI-gestützt erfolgen und dies mit Disclosure und Prozesslog dokumentiert wird; genau das liegt hier vor, weil die diagnostische Kernleistung eigenständig bleibt. Der verführerischste Distraktor erklärt jede punktuelle KI-Nutzung zu [C], doch [C] bezeichnet den KI-Einsatz in jedem Arbeitsschritt und nicht die blosse sprachliche Überarbeitung.",
-    "en": "Logic [B] means that individual work steps are AI-assisted and documented with disclosure and a process log; that is exactly the case here, since the core diagnostic work remains the student's own. The most tempting distractor turns any selective AI use into [C], but [C] denotes AI use in every single work step, not mere linguistic polishing."
+    "de": "Ein Gutachten ist an die vereinbarte Fragestellung gebunden: Befunde ausserhalb dieses Auftrags gehören nicht in den Bericht an die Auftraggeberin, während die untersuchte Person Anspruch auf eine verständliche Rückmeldung und auf Hinweise zu weiterführenden Abklärungen hat. Der attraktivste Distraktor argumentiert fürsorglich über den betriebsärztlichen Dienst; auch dies wäre jedoch eine Bekanntgabe an Dritte und setzte die ausdrückliche Einwilligung der Bewerberin voraus. Fürsorgliche Absicht ersetzt die Einwilligung nicht.",
+    "en": "An assessment report is bound to the agreed referral question: findings outside that remit do not belong in the report to the commissioning company, while the person assessed is entitled to comprehensible feedback and to pointers towards further clarification. The most tempting distractor argues from a duty of care via the occupational health service; that too, however, would be a disclosure to a third party and would require the candidate's explicit consent. Good intentions do not replace consent."
    }
   }
  ],
@@ -1995,31 +1999,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Eine Praktikantin möchte Beratungsnotizen mit Angaben zu Diagnosen und Medikation einer Klientin in einen öffentlichen KI-Chatbot eingeben, um eine Zusammenfassung zu erhalten. Wie ist das aus Sicht von Datenschutz und Berufsethik zu beurteilen?",
-    "en": "An intern wants to enter counselling notes containing a client's diagnoses and medication into a public AI chatbot in order to get a summary. How should this be judged in terms of data protection and professional ethics?"
+    "de": "Ein KI-Gesundheitscoach in einer Raucherentwöhnungs-App formuliert seine Botschaften selbst und wählt sie danach aus, welche Varianten die Nutzenden am längsten in der App halten. Über die Wochen werden die Schilderungen der Krankheitsfolgen immer drastischer, während Angaben dazu fehlen, wie wirksam die empfohlenen Schritte sind und wie gut die Nutzenden sie bewältigen können. Welche Folge ist gesundheitspsychologisch am wahrscheinlichsten?",
+    "en": "An AI health coach in a smoking cessation app writes its own messages and selects them by which versions keep users in the app the longest. Over the weeks the depictions of the health consequences grow ever more drastic, while any information on how effective the recommended steps are and how well users can manage them is missing. Which consequence is most likely from a health psychology perspective?"
    },
    "a": [
     {
-     "de": "Unzulässig, weil Gesundheitsdaten besonders schützenswerte Personendaten sind und ihre Eingabe in öffentliche Tools eine Bekanntgabe an Dritte ohne Einwilligung darstellt und die Berufsschweigepflicht verletzt.",
-     "en": "Impermissible, because health data are specially protected personal data and entering them into public tools constitutes disclosure to third parties without consent and violates professional confidentiality."
+     "de": "Die Verhaltensänderung nimmt mit der Stärke der Bedrohung linear zu, weil grössere Furcht die Motivation zu Schutzhandlungen zuverlässig erhöht.",
+     "en": "Behaviour change rises linearly with the strength of the threat, because greater fear reliably raises the motivation to act protectively."
     },
     {
-     "de": "Zulässig, weil das persönliche Konto der Praktikantin passwortgeschützt ist und die eingegebenen Daten damit nicht öffentlich einsehbar werden.",
-     "en": "Admissible, because the intern's personal account is password-protected and the entered data therefore do not become publicly visible."
+     "de": "Die Botschaften bleiben folgenlos, weil Furchtappelle in der Gesundheitskommunikation von vornherein keine Verhaltensänderung auslösen können.",
+     "en": "The messages remain inconsequential, because fear appeals in health communication cannot trigger behaviour change in the first place."
     },
     {
-     "de": "Zulässig, weil kommerzielle KI-Anbieter über ihre Nutzungsbedingungen an die berufliche Schweigepflicht der Psychologieberufe gebunden sind.",
-     "en": "Admissible, because commercial AI providers are bound to the professional confidentiality of psychology through their terms of use."
+     "de": "Die Nutzenden wechseln in die Furchtkontrolle und wehren die Botschaften ab, weil der hohen Bedrohung keine Information zu Handlungs- und Selbstwirksamkeit gegenübersteht.",
+     "en": "Users switch into fear control and fend the messages off, because the high threat is not matched by any information on response efficacy and self-efficacy."
     },
     {
-     "de": "Unzulässig nur dann, wenn der volle Name der Klientin genannt wird, weil ohne Namensnennung keine Personendaten mehr vorliegen.",
-     "en": "Inadmissible only if the client's full name is mentioned, because without the name the notes no longer contain personal data."
+     "de": "Die Wirkung hängt allein von der Ausspielhäufigkeit ab, weil wiederholte Exposition die Risikowahrnehmung dauerhaft anhebt und darüber das Verhalten verändert.",
+     "en": "The effect depends solely on delivery frequency, because repeated exposure durably raises risk perception and thereby changes behaviour."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "Angaben zu Diagnosen und Medikation sind besonders schützenswerte Personendaten; ihre Eingabe in einen öffentlichen Chatbot ist eine Bekanntgabe an Dritte ohne Einwilligung und verletzt zugleich die Berufsschweigepflicht (Art. 321 StGB). Der verführerischste Distraktor ist das passwortgeschützte Konto, denn der Schutz des Zugangs ändert nichts daran, dass die Daten den geschützten Rahmen verlassen.",
-    "en": "Details on diagnoses and medication are specially protected personal data; entering them into a public chatbot discloses them to third parties without consent and simultaneously violates professional confidentiality (Art. 321 Swiss Criminal Code). The most tempting distractor is the password-protected account, since protecting the login does not change the fact that the data leave the protected setting."
+    "de": "Nach dem erweiterten Modell paralleler Prozesse (Extended Parallel Process Model, EPPM; Witte, 1992) entscheidet das Verhältnis von wahrgenommener Bedrohung zu wahrgenommener Wirksamkeit darüber, ob Gefahrenkontrolle (Schutzverhalten) oder Furchtkontrolle (Abwehr, Vermeidung, Ablehnung der Botschaft) einsetzt; ein auf Verweildauer optimiertes System steigert die Bedrohung, liefert aber keine Wirksamkeitsinformation. Der attraktivste Distraktor unterstellt einen linearen Zusammenhang zwischen Furchtstärke und Verhaltensänderung und übersieht genau diese zweite Komponente.",
+    "en": "According to the extended parallel process model (EPPM; Witte, 1992) the ratio of perceived threat to perceived efficacy decides whether danger control (protective action) or fear control (defensiveness, avoidance, message rejection) sets in; a system optimised for time-in-app ramps up the threat but supplies no efficacy information. The most tempting distractor assumes a linear link between fear intensity and behaviour change and overlooks precisely this second component."
    }
   },
   {
@@ -2084,60 +2088,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Für die Seminararbeit liefert ein Chatbot eine passend klingende Quellenangabe mit Autor, Jahr und Journal. In PsycINFO und Google Scholar ist die Arbeit jedoch nicht auffindbar. Wie gehen Sie fachlich korrekt vor?",
-    "en": "For your seminar paper, a chatbot provides a plausible-sounding reference with author, year and journal. However, the paper cannot be found in PsycINFO or Google Scholar. What is the professionally correct way to proceed?"
+    "de": "Für Ihre Seminararbeit lassen Sie sich von einem Sprachmodell den Forschungsstand zum Ego-Depletion-Effekt zusammenfassen. Das Modell schildert die Originalbefunde als gesicherten Effekt; die seit Jahren publizierten präregistrierten Mehrlabor-Replikationen mit Effektschätzungen nahe null bleiben unerwähnt. Welche Erklärung für dieses Muster ist fachlich am tragfähigsten?",
+    "en": "For your seminar paper you ask a language model to summarise the state of research on the ego depletion effect. The model presents the original findings as an established effect; the pre-registered multi-lab replications with effect estimates close to zero, published years ago, go unmentioned. Which explanation for this pattern holds up best?"
    },
    "a": [
     {
-     "de": "Sie übernehmen die Angabe mit dem Zusatz «zitiert nach KI», weil die Herkunft der Quelle damit für die Lesenden transparent gemacht ist.",
-     "en": "You adopt the reference with the note 'as cited by AI', because this makes the source's origin transparent for your readers."
+     "de": "Das Modell gibt die Publikationslage unverzerrt wieder; das Fehlen der Replikationen spricht dafür, dass der Effekt in der Fachdiskussion unbestritten geblieben ist.",
+     "en": "The model reflects the publication record without distortion; the absence of the replications suggests the effect has remained uncontested in the field."
     },
     {
-     "de": "Sie behandeln die Angabe als mögliche Konfabulation, zitieren sie nicht und belegen die Aussage stattdessen über die Datenbank mit auffindbarer Primärliteratur.",
-     "en": "You treat the reference as a possible confabulation, do not cite it, and instead support the claim with traceable primary literature found via the database."
+     "de": "Das Modell gewichtet Aussagen nach Häufigkeit und Prominenz im Trainingskorpus, weshalb der vielfach zitierte Originalbefund die kleinere Replikationsliteratur überdeckt.",
+     "en": "The model weights claims by their frequency and prominence in the training corpus, so the heavily cited original finding drowns out the smaller replication literature."
     },
     {
-     "de": "Sie übernehmen die Angabe unverändert, weil PsycINFO längst nicht alle Zeitschriften indexiert und die Quelle darum dennoch existieren dürfte.",
-     "en": "You adopt the reference unchanged, because PsycINFO does not index all journals by far, so the source may well exist anyway."
+     "de": "Das Modell kennt nur Publikationen bis zu seinem Trainingsstichtag, weshalb die Replikationsbefunde in einer Zusammenfassung dieser Art systematisch fehlen müssen.",
+     "en": "The model only knows publications up to its training cut-off, so replication findings must be systematically absent from a summary of this kind."
     },
     {
-     "de": "Sie bitten den Chatbot, die Quelle zu bestätigen und ein wörtliches Zitat daraus zu liefern, und übernehmen die Angabe nach dieser Bestätigung.",
-     "en": "You ask the chatbot to confirm the source and provide a verbatim quotation from it, and adopt the reference after this confirmation."
+     "de": "Das Modell bevorzugt methodisch strenge Arbeiten, weshalb präregistrierte Replikationen erst nach einer ausdrücklichen Nachfrage in der Antwort auftauchen.",
+     "en": "The model favours methodologically rigorous work, which is why pre-registered replications only surface in its answer once you ask for them explicitly."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "Sprachmodelle erzeugen regelmässig formal korrekte, aber erfundene Literaturangaben; die Prüfung muss deshalb ausserhalb des Modells in Fachdatenbanken erfolgen, und nicht auffindbare Quellen dürfen nicht zitiert werden. Der verführerischste Distraktor lässt das Modell die eigene Angabe bestätigen, doch diese Selbstbestätigung hat keinen Beweiswert, weil auch sie konfabuliert sein kann.",
-    "en": "Language models regularly generate formally correct but fabricated references; verification must therefore happen outside the model in scholarly databases, and untraceable sources must not be cited. The most tempting distractor has the model confirm its own reference, but this self-confirmation carries no evidential value because it can be confabulated as well."
+    "de": "Sprachmodelle bilden nicht den Evidenzstand ab, sondern die Verteilung von Formulierungen im Trainingskorpus; ein jahrzehntelang zitierter Originalbefund ist dort ungleich häufiger vertreten als die spätere, kleinere Replikationsliteratur, in der die Effektschätzungen nahe null liegen (Hagger et al., 2016). Der attraktivste Distraktor schiebt es auf den Trainingsstichtag, doch die Replikationen sind seit Jahren publiziert; das Problem ist die Gewichtung, nicht die Aktualität.",
+    "en": "Language models do not mirror the state of the evidence but the distribution of wordings in their training corpus; an original finding cited for decades is far better represented there than the later, smaller replication literature, whose effect estimates lie close to zero (Hagger et al., 2016). The most tempting distractor blames the training cut-off, but the replications have been published for years; the problem is weighting, not recency."
    }
   },
   {
    "q": {
-    "de": "Im Modul (Kategorie A+B+C) schreiben Studierende eine teilweise KI-gestützte Seminararbeit und verteidigen ihre Analyseentscheidungen anschliessend mündlich ohne KI-Hilfe. Welche Begründung trifft die Prüfungslogik dieser Kombination?",
-    "en": "In this module (category A+B+C), students write a partly AI-assisted seminar paper and then defend their analytical decisions orally without AI support. Which rationale captures the assessment logic of this combination?"
+    "de": "Eine Personalleiterin will Mitarbeitende ab 55 Jahren aus einer anspruchsvollen Beratungstätigkeit herausnehmen. Sie stützt sich auf eine Querschnittsstudie, in der die kognitive Leistungsfähigkeit mit steigendem Alter deutlich abfällt, und bittet Sie um eine fachliche Einschätzung. Welche Einschätzung ist entwicklungspsychologisch tragfähig?",
+    "en": "An HR manager wants to remove employees aged 55 and over from a demanding advisory role. She relies on a cross-sectional study in which cognitive performance declines markedly with age, and asks you for a professional appraisal. Which appraisal holds up developmentally?"
    },
    "a": [
     {
-     "de": "Die mündliche Verteidigung dient als Kontrolle, mit der unerlaubte KI-Nutzung in der schriftlichen Arbeit nachträglich aufgedeckt und sanktioniert wird.",
-     "en": "The oral defence serves as a control that retrospectively detects and sanctions unauthorised AI use in the written seminar paper."
+     "de": "Der Befund stützt die Massnahme, weil die kognitive Leistungsfähigkeit ab dem mittleren Erwachsenenalter über alle Fähigkeitsbereiche hinweg gleichmässig zurückgeht.",
+     "en": "The finding supports the measure, because from middle adulthood on cognitive performance declines evenly across all ability domains."
     },
     {
-     "de": "Die schriftliche Arbeit folgt der Logik [C], weil mit Disclosure und Prozesslog dokumentierte KI-Nutzung bereits als durchgängig KI-integriert gilt.",
-     "en": "The written paper follows logic [C], because AI use documented with disclosure and a process log already counts as fully AI-integrated."
+     "de": "Der Befund rechtfertigt die Massnahme, sobald er längsschnittlich repliziert ist, weil Längsschnittdaten den altersbedingten Abbau kognitiver Leistungsfähigkeit unverzerrt abbilden.",
+     "en": "The finding justifies the measure as soon as it is replicated longitudinally, because longitudinal data depict age-related cognitive decline without distortion."
     },
     {
-     "de": "Die Kombination sichert über [A] die eigenständigen Kernfertigkeiten und prüft über [B] den transparent deklarierten KI-Einsatz; die Logik [C] wird durch andere Prüfungselemente des Moduls abgedeckt.",
-     "en": "The combination secures independent core skills via [A] and assesses transparently declared AI use via [B]; logic [C] is covered by other assessment elements of the module."
+     "de": "Der Befund ist belanglos, weil kognitive Testleistungen und berufliche Leistung in der Erwachsenenentwicklung grundsätzlich unabhängig voneinander sind.",
+     "en": "The finding is irrelevant, because in adult development cognitive test performance and job performance are fundamentally independent of one another."
     },
     {
-     "de": "Die Kombination dient primär der Notengerechtigkeit, weil KI-gestützte Arbeiten sonst systematisch besser bewertet würden als KI-freie Arbeiten.",
-     "en": "The combination mainly serves grading fairness, because AI-assisted papers would otherwise systematically receive better marks than AI-free ones."
+     "de": "Der Befund trägt die Massnahme nicht, weil querschnittliche Altersunterschiede mit Kohorteneffekten konfundiert sind und der Rückgang vor allem fluide Fähigkeiten betrifft.",
+     "en": "The finding does not carry the measure, because cross-sectional age differences are confounded with cohort effects and the decline concerns mainly fluid abilities."
     }
    ],
-   "korrekt": 2,
+   "korrekt": 3,
    "erkl": {
-    "de": "Die Kombination folgt der Modulkategorie A+B+C: [A] sichert in der KI-freien Verteidigung die eigenständigen Kernfertigkeiten wie das Begründen der Analyseentscheidungen, [B] prüft in der Seminararbeit den deklarierten KI-Einsatz einzelner Schritte mit Disclosure und Prozesslog. Der verführerischste Distraktor deutet die Verteidigung als Betrugskontrolle, doch sie ist ein eigenständiges kompetenzorientiertes Prüfungselement.",
-    "en": "The combination follows the A+B+C module category: [A] secures independent core skills such as justifying analytical decisions in the AI-free defence, while [B] assesses declared AI use in individual steps of the paper with disclosure and a process log. The most tempting distractor frames the defence as a fraud check, but it is a competence-oriented assessment element in its own right."
+    "de": "Querschnittliche Altersunterschiede vermengen Alters- mit Kohorteneffekten, etwa unterschiedlicher Bildung und Berufserfahrung, und der Altersverlauf ist bereichsspezifisch: Fluide Fähigkeiten wie die Verarbeitungsgeschwindigkeit gehen früher zurück, kristalline, erfahrungsbasierte Fähigkeiten bleiben lange stabil und tragen gerade eine Beratungstätigkeit. Der attraktivste Distraktor verlangt bloss eine Längsschnittreplikation und übersieht, dass Längsschnittdaten ihrerseits durch Übungs- und selektive Ausfalleffekte verzerrt sind und ein Gruppenverlauf ohnehin nichts über die Leistungsfähigkeit einer einzelnen Person aussagt.",
+    "en": "Cross-sectional age differences mix age effects with cohort effects such as differing education and work experience, and the age trajectory is domain-specific: fluid abilities like processing speed decline earlier, while crystallised, experience-based abilities stay stable for a long time and are precisely what an advisory role draws on. The most tempting distractor merely calls for a longitudinal replication and overlooks that longitudinal data are themselves biased by practice and selective attrition effects, and that a group trajectory says nothing about an individual's capability anyway."
    }
   }
  ],
@@ -2202,31 +2206,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Sie verfassen den Fairness-Audit-Bericht als [B]-Leistung (teilweise KI-integriert) und möchten die Analyse der Auswahlquoten mit KI-Unterstützung rechnen. Welches Vorgehen entspricht der Prüfungslogik [B]?",
-    "en": "You are writing the fairness-audit report as a [B] assessment (partially AI-integrated) and want AI support for computing the selection-rate analysis. Which approach matches assessment logic [B]?"
+    "de": "Eine Arbeitsgruppe sucht in einem fMRT-Datensatz zuerst über alle Versuchspersonen hinweg jene Voxel, die zwischen den beiden Bedingungen am stärksten unterscheiden, definiert daraus eine Region of Interest und berichtet anschliessend aus denselben Daten die mittlere Aktivierungsdifferenz in dieser Region als Beleg für den Effekt. Welcher methodische Einwand trifft den berichteten Effekt im Kern?",
+    "en": "A research group first searches an fMRI dataset across all participants for the voxels that differentiate most strongly between the two conditions, defines a region of interest from them, and then reports the mean activation difference in that region from the same data as evidence for the effect. Which methodological objection goes to the heart of the reported effect?"
    },
    "a": [
     {
-     "de": "Sie lassen die KI den gesamten Bericht samt rechtlicher Einordnung erstellen und überarbeiten anschliessend nur noch den sprachlichen Stil des fertigen Textes.",
-     "en": "You let the AI produce the entire report including the legal classification and afterwards revise only the linguistic style of the finished text."
+     "de": "Die Region wurde funktionell statt anatomisch bestimmt; Aktivierungsdifferenzen lassen sich ausschliesslich in anatomisch definierten Regionen sinnvoll prüfen.",
+     "en": "The region was defined functionally rather than anatomically, and activation differences can meaningfully be tested only in anatomically defined regions."
     },
     {
-     "de": "Sie nutzen die KI für den Analyse-Code, prüfen die Ergebnisse selbst nach, verantworten die rechtliche Einordnung eigenständig und dokumentieren die KI-Schritte im Prozesslog.",
-     "en": "You use the AI for the analysis code, verify the results yourself, take personal responsibility for the legal classification and document the AI steps in the process log."
+     "de": "Die Voxelauswahl über alle Versuchspersonen hinweg mittelt individuelle Unterschiede weg; die berichtete Effektstärke fällt dadurch systematisch zu klein aus.",
+     "en": "Selecting voxels across all participants averages out individual differences, so the reported effect size systematically comes out too small."
     },
     {
-     "de": "Sie verzichten ganz auf KI-Unterstützung, weil in der Kategorie [B] allein die Dozierenden über den konkreten Einsatz von KI-Werkzeugen entscheiden dürfen.",
-     "en": "You do without AI support entirely, because in category [B] only the lecturers are allowed to decide on the concrete use of AI tools."
+     "de": "Die Region wurde mit genau jenem Kontrast ausgewählt, der anschliessend in ihr geprüft wird; die berichtete Effektstärke fällt dadurch systematisch zu gross aus.",
+     "en": "The region was selected with exactly the contrast that is then tested within it, so the reported effect size systematically comes out too large."
     },
     {
-     "de": "Sie setzen die KI in sämtlichen Arbeitsschritten ohne gesonderte Dokumentation ein, weil die Kategorie [B] den KI-Einsatz bereits pauschal für alle deklariert.",
-     "en": "You use the AI in every single step without separate documentation, because category [B] already declares AI use across the board for everyone."
+     "de": "Die Aktivierungsdifferenz wurde über Bedingungen statt über Versuchspersonen gemittelt; der Effekt müsste stattdessen als Interaktion modelliert werden.",
+     "en": "The activation difference was averaged across conditions rather than across participants, so the effect would have to be modelled as an interaction instead."
     }
    ],
-   "korrekt": 1,
+   "korrekt": 2,
    "erkl": {
-    "de": "Kategorie [B] heisst: einzelne Arbeitsschritte mit KI, offengelegt per Disclosure und Prozesslog, während die fachliche Letztverantwortung bei den Studierenden bleibt; genau das bildet dieses Vorgehen ab. Der verführerischste Distraktor deutet [B] als Pauschalfreigabe ohne Dokumentation; KI in allen Arbeitsschritten entspräche zudem der Kategorie [C].",
-    "en": "Category [B] means: individual work steps with AI, disclosed via a disclosure statement and process log, while final professional responsibility stays with the students; this approach reflects exactly that. The most tempting distractor reads [B] as a blanket permission without documentation; using AI in every work step would in fact correspond to category [C]."
+    "de": "Dieselben Daten dienen hier erst der Auswahl der Region und danach dem Test des Effekts; die Analyse ist damit zirkulär (double dipping). Die Selektion greift genau jenes Rauschen mit ab, das die beiden Bedingungen zufällig trennt, weshalb der anschliessende Test in denselben Daten überhöht ausfällt; er braucht unabhängige Daten aus einem separaten Localizer oder eine Kreuzvalidierung (Kriegeskorte et al., 2009). Der verführerischste Distraktor dreht die Verzerrungsrichtung um: Eine gruppenbasierte Voxelauswahl kann individuelle Lokalisationsunterschiede zwar verwischen, doch das Kernproblem ist hier die Überhöhung durch die Selektion, nicht eine Abschwächung. Funktional definierte Regionen sind zulässig, sofern sie an unabhängigen Daten bestimmt werden.",
+    "en": "Here the same data first serve to select the region and then to test the effect, which makes the analysis circular (double dipping). The selection also picks up exactly the noise that happens to separate the two conditions, so the subsequent test in the same data comes out inflated; it requires independent data from a separate localiser or from cross-validation (Kriegeskorte et al., 2009). The most tempting distractor reverses the direction of bias: group-based voxel selection can indeed blur individual differences in localisation, but the core problem here is inflation through selection, not attenuation. Functionally defined regions are permissible as long as they are determined on independent data."
    }
   }
  ],
@@ -2291,31 +2295,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Für eine [B]-Seminararbeit (teilweise KI-integriert) möchte eine Studentin Gesprächsnotizen aus ihrem Praktikum mit einem öffentlichen KI-Tool zusammenfassen lassen und dies im Prozesslog ausweisen. Wie ist das zu beurteilen?",
-    "en": "For a [B] seminar paper (partially AI-integrated) a student wants a public AI tool to summarise session notes from her internship and plans to declare this in the process log. How should this be judged?"
+    "de": "In einer Mitarbeitendenbefragung, die Sie im Auftrag der Geschäftsleitung durchführen, wurde den Teilnehmenden Anonymität zugesichert. Nach der Erhebung verlangt die Geschäftsleitung die Auswertung nach Abteilung, um gezielt intervenieren zu können; eine der Abteilungen umfasst vier Personen. Welches Vorgehen ist berufsethisch tragfähig?",
+    "en": "In an employee survey you are running on behalf of the management board, participants were promised anonymity. After data collection the board asks for results broken down by department so that it can intervene in a targeted way; one of the departments has four members. Which course of action is defensible in professional-ethical terms?"
    },
    "a": [
     {
-     "de": "Zulässig, denn die Kategorie [B] deckt einzelne KI-Schritte ab, sobald sie mit Disclosure transparent im Prozesslog dokumentiert sind.",
-     "en": "Permissible, because category [B] covers individual AI steps as soon as they are transparently documented in the process log with a disclosure."
+     "de": "Sie liefern die Auswertung der kleinen Abteilung und vermerken im Bericht, dass die Zahlen wegen der geringen Gruppengrösse vorsichtig zu lesen sind.",
+     "en": "You deliver the results for the small department and note in the report that the figures should be read cautiously given the small group size."
     },
     {
-     "de": "Zulässig, sofern sie den Namen der Klientin entfernt, weil damit keine Rückschlüsse auf die betroffene Person mehr möglich sind.",
-     "en": "Permissible, provided she removes the client's name, because this makes it impossible to draw any inferences about the person concerned."
+     "de": "Sie berichten Ergebnisse erst ab einer verbindlich festgelegten Mindestgruppengrösse und legen der Geschäftsleitung offen, warum diese Grenze gilt.",
+     "en": "You report results only for groups above a firmly set minimum size and explain to the board why this threshold applies."
     },
     {
-     "de": "Unzulässig, denn Schweigepflicht und Datenschutz gelten unabhängig von der Prüfungskategorie; sensible Klientendaten gehören nicht in ein öffentliches KI-Tool.",
-     "en": "Not permissible, because confidentiality and data protection apply independently of the assessment category; sensitive client data do not belong in a public AI tool."
+     "de": "Sie liefern die Auswertung der kleinen Abteilung, nachdem Sie Namen und Funktionen entfernt haben, weil die Daten damit der Anonymitätszusage genügen.",
+     "en": "You deliver the results for the small department after removing names and job titles, since the data then satisfy the promise of anonymity."
     },
     {
-     "de": "Unzulässig, weil das Zusammenfassen von Texten in der Kategorie [B] generell den Dozierenden vorbehalten bleibt und einzeln bewilligt werden muss.",
-     "en": "Not permissible, because in category [B] summarising texts is generally reserved for lecturers and must be approved on a case-by-case basis."
+     "de": "Sie holen bei den vier Personen nachträglich die Zustimmung ein und geben deren Auswertung frei, sobald die Mehrheit von ihnen einwilligt.",
+     "en": "You obtain consent from the four people afterwards and release their results as soon as a majority of them agrees."
     }
    ],
-   "korrekt": 2,
+   "korrekt": 1,
    "erkl": {
-    "de": "Die Prüfungskategorien regeln den KI-Einsatz in den eigenen Arbeitsschritten; Schweigepflicht und Datenschutz gelten davon unabhängig, und mit der Eingabe in ein öffentliches Tool verlassen sensible Daten den geschützten Rahmen. Der verführerischste Distraktor setzt Disclosure mit Zulässigkeit gleich: Das Prozesslog legitimiert den Schritt prüfungsrechtlich, nicht datenschutzrechtlich; auch das Entfernen des Namens verhindert eine Re-Identifikation über Kontextdetails nicht.",
-    "en": "The assessment categories regulate AI use in one's own work steps; professional confidentiality and data protection apply independently of them, and once entered into a public tool, sensitive data leave the protected setting. The most tempting distractor equates disclosure with permissibility: the process log legitimises the step under assessment rules, not under data-protection law; removing the name also fails to prevent re-identification via contextual details."
+    "de": "Die Anonymitätszusage bindet unabhängig davon, wer den Auftrag erteilt und bezahlt; bei vier Personen sind einzelne Antworten faktisch zuordenbar. Schutz entsteht hier nur über eine verbindliche Mindestgruppengrösse (Sperrgrenze), unterhalb derer nicht ausgewertet wird und die gegenüber der Auftraggeberin offengelegt und begründet wird. Der verführerischste Distraktor ist die nachträgliche Zustimmung: Sie ist im Abhängigkeitsverhältnis zur Arbeitgeberin nicht frei, ein Mehrheitsentscheid übergeht die widersprechende Minderheit, und eine bereits gegebene Zusicherung lässt sich nicht rückwirkend aufheben. Das Entfernen von Namen und Funktionen genügt ebenfalls nicht, weil hier die Gruppengrösse selbst die Re-Identifikation ermöglicht; ein blosser Lesehinweis im Bericht ändert daran nichts.",
+    "en": "The promise of anonymity binds regardless of who commissions and pays for the survey; with four people individual answers are effectively attributable. Protection arises here only through a binding minimum group size below which no breakdown is reported, disclosed and justified to the client. The most tempting distractor is retrospective consent: in a relationship of dependency on the employer it is not freely given, a majority decision overrides the dissenting minority, and an assurance already made cannot be undone retroactively. Removing names and job titles is not sufficient either, because here the group size itself makes re-identification possible; a mere caveat in the report does not change that."
    }
   }
  ],
@@ -2380,31 +2384,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im Modul wird die spieltheoretische Formalisierung sozialer Dilemmata in einer KI-freien Klausur [A] geprüft, die Analyse von Dark Patterns in realen Apps dagegen als [B]-Aufgabe (teilweise KI-integriert) gestellt. Welche Begründung trifft diese Aufteilung am besten?",
-    "en": "In this module, the game-theoretic formalisation of social dilemmas is tested in an AI-free exam [A], while the analysis of dark patterns in real apps is set as a [B] task (partially AI-integrated). Which rationale best fits this division?"
+    "de": "Ein Onlineversicherer beauftragt Sie als Konsumentenpsycholog:in mit der Gestaltung der Abschlussstrecke. Gewünscht ist, die teuerste Zusatzdeckung vorauszuwählen und die Abwahl erst im zweiten Schritt anzubieten; interne Tests zeigen einen deutlichen Umsatzeffekt, die Rechtsabteilung sieht kein Hindernis. Welches Vorgehen ist berufsethisch tragfähig?",
+    "en": "An online insurer hires you as a consumer psychologist to design its checkout flow. The request: preselect the most expensive supplementary cover and offer the opt-out only at the second step; internal tests show a marked revenue effect, and the legal department sees no obstacle. Which course of action is professionally defensible?"
    },
    "a": [
     {
-     "de": "[A] sichert, dass das Formalisieren als Kernfertigkeit ohne Hilfsmittel beherrscht wird; [B] erlaubt einzelne KI-Schritte mit Disclosure und Prozesslog, weil das kritische Prüfen von KI-Output dort selbst Lernziel ist.",
-     "en": "[A] ensures that formalising is mastered as a core skill without aids; [B] permits individual AI steps with disclosure and a process log, because critically checking AI output is itself a learning objective there."
+     "de": "Den Default umsetzen und die Widerrufsquote beobachten; solange sie niedrig bleibt, entspricht die Vorauswahl offenbar dem Willen der Kundschaft.",
+     "en": "Implement the default and monitor how often customers withdraw; as long as that stays low, the preselection evidently matches what customers want."
     },
     {
-     "de": "[A] wird gewählt, weil Sprachmodelle spieltheoretische Aufgaben derzeit nicht zuverlässig lösen können; [B] überträgt die Analyse der KI, deren Resultate die Studierenden anschliessend direkt übernehmen dürfen.",
-     "en": "[A] is chosen because language models cannot currently solve game-theoretic tasks reliably; [B] hands the analysis to the AI, whose results the students may then directly adopt."
+     "de": "Den Auftrag ablehnen und generell von Voreinstellungen abraten, weil jede Form der Entscheidungsarchitektur die Wahlfreiheit der Kundschaft einschränkt.",
+     "en": "Turn the contract down and advise against defaults in general, because any form of choice architecture restricts customers' freedom of choice."
     },
     {
-     "de": "[B] verlangt, dass die KI in jedem einzelnen Arbeitsschritt eingesetzt wird und vor allem neue Werkzeugkompetenzen entstehen; [A] dient in dieser Aufteilung hauptsächlich der Notengebung im Modul.",
-     "en": "[B] requires that the AI is used in every single work step, mainly building new tool competences; in this division [A] mainly serves the purpose of grading in the module."
+     "de": "Die Vorauswahl umsetzen und im Kleingedruckten darauf hinweisen, weil Transparenz über den Default die Gestaltung berufsethisch absichert.",
+     "en": "Implement the preselection and flag it in the fine print, because transparency about the default makes the design professionally sound."
     },
     {
-     "de": "[B] verlagert die Bewertung vom Ergebnis auf den Prozess, weil bei transparenter Disclosure nur noch das dokumentierte Vorgehen und nicht mehr die fachliche Qualität der Arbeit benotet wird.",
-     "en": "[B] shifts assessment from the product to the process, because with transparent disclosure only the documented procedure and no longer the professional quality is graded."
+     "de": "Die Grundvariante als Default setzen, die Zusatzdeckung gleichrangig sichtbar anbieten und dem Unternehmen den damit verbundenen Umsatzeffekt beziffern.",
+     "en": "Set the basic variant as the default, present the supplementary cover with equal visibility, and quantify the resulting revenue effect for the company."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 3,
    "erkl": {
-    "de": "Die Aufteilung folgt der Prüfungslogik: [A] sichert KI-frei die Kernfertigkeit des Formalisierens, während [B] einzelne KI-Schritte mit Disclosure und Prozesslog zulässt und die kritische Prüfung des KI-Outputs zum Lernziel macht; die fachliche Qualität wird weiterhin bewertet. Der verführerischste Distraktor beschreibt mit KI in jedem Arbeitsschritt die Kategorie [C], nicht [B].",
-    "en": "The division follows the assessment logic: [A] secures the core skill of formalising in an AI-free setting, while [B] allows individual AI steps with disclosure and a process log and makes critical checking of AI output a learning objective; professional quality is still graded. The most tempting distractor describes category [C], not [B], with AI in every work step."
+    "de": "Tragfähig ist eine Entscheidungsarchitektur, die die Wahlfreiheit erhält, die Trägheit der Kundschaft nicht gegen deren eigenes Interesse ausnutzt und dem Auftraggeber offenlegt, welchen Umsatzanteil das kostet. Die pauschale Ablehnung trägt nicht, weil ihre Begründung falsch ist: Eine neutrale Gestaltung gibt es nicht, irgendeine Voreinstellung ist unvermeidlich, und eine bewusst gesetzte Grundvariante schützt die Wahlfreiheit gerade. Der attraktivste Distraktor ist die niedrige Widerrufsquote als Zustimmungsbeleg: Sie misst genau jene Trägheit, die der Default ausnutzt, und taugt darum nicht als Nachweis einer gewollten Entscheidung.",
+    "en": "A defensible choice architecture preserves freedom of choice, does not exploit customers' inertia against their own interest, and tells the client what share of revenue that costs. Blanket refusal does not hold up because its reasoning is wrong: there is no neutral design, some default is unavoidable, and a deliberately chosen basic variant is precisely what protects freedom of choice. The most tempting distractor treats a low withdrawal rate as proof of consent: it measures exactly the inertia the default exploits and therefore cannot show that a decision was actually wanted."
    }
   }
  ],
@@ -2469,31 +2473,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Modul soll prüfen, ob Studierende Neglect und Hemianopsie eigenständig differenzieren, und zugleich, ob sie KI-Verdachtsdiagnosen kritisch prüfen können. Welche Kombination der Prüfungslogik passt am besten?",
-    "en": "The module should assess whether students can independently differentiate neglect and hemianopia and, at the same time, critically check AI suspected diagnoses. Which combination of assessment logic fits best?"
+    "de": "In der neurologischen Rehabilitation betreuen Sie einen Patienten 14 Monate nach schwerem Schädel-Hirn-Trauma. Das episodische Gedächtnis ist schwer und seit Monaten unverändert beeinträchtigt, prozedurales Lernen zeigt sich in der Testung erhalten. Er soll an einen strukturierten Arbeitsplatz zurückkehren. Welche rehabilitative Massnahme ist am besten begründet?",
+    "en": "In neurological rehabilitation you are treating a patient 14 months after a severe traumatic brain injury. Episodic memory is severely impaired and unchanged for months, while procedural learning proves intact on testing. He is to return to a structured workplace. Which rehabilitation measure is best justified?"
    },
    "a": [
     {
-     "de": "Ein [C]-Element integriert KI in jeden Schritt, sodass Differenzierung und Prüfung vollständig KI-gestützt ablaufen.",
-     "en": "A [C] element integrates AI into every step, so that both differentiation and checking run fully AI-supported."
+     "de": "Restitutives Gedächtnistraining mit täglichem Üben von Wortlisten, bis die Speicherleistung wieder das prämorbide Niveau erreicht.",
+     "en": "Restitutive memory training with daily word-list practice until storage performance again reaches the premorbid level."
     },
     {
-     "de": "Ein [B]-Element genügt für beide Ziele, weil die Disclosure allein die eigenständige Differenzierung hinreichend belegt.",
-     "en": "A [B] element suffices for both goals, since disclosure alone sufficiently proves the independent differentiation."
+     "de": "Aufschub der Wiedereingliederung, bis eine erneute Bildgebung eine Rückbildung der Läsion zeigt und die Prognose absichert.",
+     "en": "Postponing the return to work until repeat imaging shows a regression of the lesion and secures the prognosis."
     },
     {
-     "de": "Ein [A]-Element sichert die Differenzierung KI-frei, ein [B]-Element lässt die KI-Verdachtsdiagnose mit Disclosure und Prozesslog prüfen.",
-     "en": "An [A] element secures the differentiation AI-free, a [B] element has the AI diagnosis checked with disclosure and process log."
+     "de": "Kompensatorisches Vorgehen mit externen Gedächtnishilfen und festen Routinen, die über das erhaltene prozedurale Lernen eingeübt werden.",
+     "en": "A compensatory approach with external memory aids and fixed routines, trained in via the preserved procedural learning."
     },
     {
-     "de": "Ein [A]-Element deckt beide Ziele ab, weil eine KI-freie Prüfung die kritische Prüfung von KI-Ausgaben mit einschliesst.",
-     "en": "An [A] element covers both goals, since an AI-free assessment already includes the critical checking of AI outputs."
+     "de": "Vorrangiges Aufmerksamkeitstraining, weil sich mit besserer Daueraufmerksamkeit auch die Gedächtnisleistung von selbst normalisiert.",
+     "en": "Priority attention training, because with better sustained attention memory performance also normalises by itself."
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Die eigenständige Kernfertigkeit gehört in ein KI-freies [A]-Element, die kritische Prüfung einer KI-Ausgabe in ein [B]-Element mit Disclosure und Prozesslog. Der Vorschlag, [B] genüge für beide Ziele, ist verführerisch, unterläuft aber das Ziel, die Differentialdiagnose ohne KI-Unterstützung nachzuweisen.",
-    "en": "The independent core skill belongs in an AI-free [A] element, and the critical check of an AI output in a [B] element with disclosure and process log. The 'a single [B] suffices' option is tempting but undercuts the goal of demonstrating the differential diagnosis without AI support."
+    "de": "Nach 14 Monaten und stabilem Befund ist eine Restitution der episodischen Speicherleistung nicht mehr zu erwarten; tragfähig ist der kompensatorische Weg, weil externe Hilfen und feste Arbeitsroutinen über das erhaltene prozedurale Lernen automatisiert werden können, etwa mit fehlerarmem Einüben. Das restitutive Wortlistentraining ist der verführerischste Distraktor: Es verwechselt Übungsgewinne in der Trainingsaufgabe mit einem Transfer in den Alltag.",
+    "en": "After 14 months and with a stable finding, restitution of episodic storage is no longer to be expected; the compensatory route is the viable one, because external aids and fixed work routines can be automated through the preserved procedural learning, for instance with errorless practice. Restitutive word-list training is the most tempting distractor: it mistakes practice gains on the training task for transfer into everyday life."
    }
   }
  ],
@@ -2558,31 +2562,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Das Portfolio bewertet Zieldefinition, Workflow-Design, Audit und fachliche Qualitätskontrolle und wird durch ein KI-freies Verteidigungselement ergänzt. Warum ist dies ein anspruchsvolles [C]-Design und nicht bloss [B]?",
-    "en": "The portfolio assesses goal definition, workflow design, audit and subject-matter quality control, complemented by an AI-free defence element. Why is this a demanding [C] design and not merely [B]?"
+    "de": "Im Ergänzungsseminar ist das Portfolio zum selbst gebauten, fachlich begrenzten Lern-Bot der Leistungsnachweis; verlangt sind das Artefakt und die Dokumentation seiner Erprobung. Studentin A reicht einen Bot ein, der alle acht Testfragen glatt beantwortet, dazu ein Prozesslog mit dem Vermerk «läuft». Student B dokumentiert zwei fehlgeschlagene Testfälle, die daraufhin geänderte Prompt-Regel und eine verbleibende Einsatzgrenze. Welche Beurteilung ist fachlich begründet?",
+    "en": "In the elective seminar, the portfolio on the self-built, domain-bounded learning bot is the assessment; required are the artefact and documentation of how it was tested. Student A submits a bot that answers all eight test questions smoothly, plus a process log noting \"works\". Student B documents two failed test cases, the prompt rule changed in response, and a remaining limit of use. Which appraisal is professionally justified?"
    },
    "a": [
     {
-     "de": "Weil KI in jedem Arbeitsschritt genutzt wird und das Gestalten und Auditieren des Systems selbst zum bewerteten Lernziel wird.",
-     "en": "Because AI is used in every working step and designing and auditing the system itself becomes the assessed learning goal."
+     "de": "Portfolio A, weil das durchgehend fehlerfreie Antwortverhalten belegt, dass der System-Prompt seine Aufgabe erfüllt.",
+     "en": "Portfolio A, because the consistently flawless answering shows that the system prompt does its job."
     },
     {
-     "de": "Weil einzelne Arbeitsschritte mit KI erfolgen und die Nutzung anschliessend im Disclosure Form deklariert wird.",
-     "en": "Because single working steps are done with AI and the use is afterwards disclosed in the disclosure form."
+     "de": "Portfolio B, weil erst dokumentiertes Fehlverhalten mit Prompt-Revision und Grenzangabe die Erprobung belegt.",
+     "en": "Portfolio B, because only documented misbehaviour with prompt revision and a stated limit evidences the testing."
     },
     {
-     "de": "Weil die Prüfung durchgehend KI-frei bleibt und ausschliesslich die Kernfertigkeiten des Schwerpunkts absichert.",
-     "en": "Because the assessment stays AI-free throughout and secures only the core skills of the specialisation."
+     "de": "Beide gleichwertig, weil beide Portfolios ein lauffähiges Artefakt und ein dokumentiertes Prozesslog enthalten.",
+     "en": "Both equal, because both portfolios contain a working artefact and a documented process log."
     },
     {
-     "de": "Weil das KI-freie Verteidigungselement die KI-Nutzung ersetzt und damit den gesamten Prüfungsaufwand reduziert.",
-     "en": "Because the AI-free defence element replaces the AI use and thereby reduces the whole assessment workload."
+     "de": "Portfolio B tiefer, weil die dokumentierten Fehlschläge belegen, dass das Artefakt seine Zielvorgabe verfehlt hat.",
+     "en": "Portfolio B lower, because the documented failures show that the artefact missed its stated goal."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "[C] bedeutet KI in jedem Arbeitsschritt, wobei das Gestalten und Auditieren des KI-Systems selbst zum geprüften Newskilling wird. Option zwei beschreibt exakt [B], also einzelne Schritte plus Disclosure, und ist deshalb der verführerischste, aber falsche Distraktor.",
-    "en": "[C] means AI in every working step, with designing and auditing the AI system itself becoming the assessed newskilling. The second option describes exactly [B], namely single steps plus disclosure, and is therefore the most tempting but incorrect distractor."
+    "de": "Eine Erprobung belegt Verlässlichkeit nur, wenn sie scheitern konnte: Erst die dokumentierten Fehlfälle, die daraus abgeleitete Prompt-Revision und die benannte Einsatzgrenze zeigen, dass das Artefakt geprüft und nicht bloss vorgeführt wurde. Der fehlerfreie Bot ist der verführerischste Distraktor: Glatte Antworten können ebenso von zu leicht gewählten Testfragen stammen und belegen für sich keine systematische Prüfung.",
+    "en": "A test run only evidences reliability if it could have failed: only the documented failures, the prompt revision derived from them and the stated limit of use show that the artefact was examined rather than merely demonstrated. The flawless bot is the most tempting distractor: smooth answers may equally come from test questions chosen too easy and by themselves prove no systematic testing."
    }
   }
  ],
@@ -2647,31 +2651,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Studierende sollen erstens die Theorienlage KI-frei beherrschen, zweitens eine KI-Klassifikation mit offengelegter KI-Nutzung prüfen und drittens einen durchgehend KI-gestützten Analyseworkflow gestalten. Welche Zuordnung zu [A], [B] und [C] trifft zu?",
-    "en": "Students are to, first, master the theoretical landscape AI-free; second, check an AI classification with disclosed AI use; and third, design a fully AI-supported analysis workflow. Which mapping to [A], [B] and [C] holds?"
+    "de": "Im Seminar wird ein korrelativer Befund vorgestellt: Personen mit stärkerer Aktivierung in einer belohnungsassoziierten Region berichten im Mittel etwas höhere Belohnungssensitivität, der Zusammenhang ist schwach. Eine Journalistin bittet Sie um einen Satz für die Medienmitteilung. Welche Formulierung ist fachlich haltbar und zugleich verständlich?",
+    "en": "A correlational finding is presented in the seminar: people with stronger activation in a reward-related region report on average somewhat higher reward sensitivity, and the association is weak. A journalist asks you for one sentence for the press release. Which wording is professionally sound and understandable at the same time?"
    },
    "a": [
     {
-     "de": "KI-freie Theoriebeherrschung ist [B], die offengelegte Prüfung der Klassifikation ist [C], der KI-gestützte Workflow ist [A].",
-     "en": "AI-free theory mastery is [B], the disclosed checking of the classification is [C], the AI-supported workflow is [A]."
+     "de": "«Die Studie zeigt, dass diese Hirnregion die Belohnungssensitivität steuert; wer dort stärker aktiviert ist, spricht deutlich stärker auf Belohnungen an.»",
+     "en": "“The study shows that this brain region controls reward sensitivity; those with stronger activation there respond markedly more strongly to rewards.”"
     },
     {
-     "de": "KI-freie Theoriebeherrschung ist [A], die offengelegte Prüfung der Klassifikation ist [B], der durchgehend KI-gestützte Workflow ist [C].",
-     "en": "AI-free theory mastery is [A], the disclosed checking of the classification is [B], the fully AI-supported workflow is [C]."
+     "de": "«Personen mit stärkerer Aktivierung berichteten im Schnitt eine etwas höhere Belohnungssensitivität; über einzelne Personen sagt der schwache Zusammenhang wenig.»",
+     "en": "“People with stronger activation reported somewhat higher reward sensitivity on average; the weak association says little about any individual person.”"
     },
     {
-     "de": "Alle drei Arbeitsschritte sind [C], weil in jedem Schritt Emotionsmodelle inhaltlich eine Rolle spielen.",
-     "en": "All three working steps are [C], because emotion models play a substantive role in each step."
+     "de": "«Die Aktivierung dieser Region lässt sich als Marker nutzen, um die Belohnungssensitivität einer Person zuverlässig einzuschätzen.»",
+     "en": "“Activation in this region can be used as a marker to assess a person's reward sensitivity reliably.”"
     },
     {
-     "de": "Die offengelegte Prüfung ist [A], die KI-freie Theoriebeherrschung ist [C], der KI-gestützte Workflow ist [B].",
-     "en": "The disclosed checking is [A], the AI-free theory mastery is [C], the AI-supported workflow is [B]."
+     "de": "«Der Zusammenhang wurde statistisch signifikant, womit die praktische Bedeutung dieser Region für Motivation belegt ist.»",
+     "en": "“The association reached statistical significance, which establishes the practical importance of this region for motivation.”"
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "[A] sichert Kernwissen KI-frei, [B] integriert einzelne KI-Schritte mit Disclosure, [C] nutzt KI in jedem Schritt, und genau in dieser Reihenfolge passen die drei Aufgaben. Option drei, «alles [C]», ist verführerisch, verwechselt aber das inhaltliche Thema (Emotionsmodelle) mit dem tatsächlichen KI-Einsatz im Arbeitsprozess.",
-    "en": "[A] secures core knowledge AI-free, [B] integrates single AI steps with disclosure, [C] uses AI in every step, and the three tasks map onto exactly that order. The third option, 'all [C]', is tempting but confuses the subject matter (emotion models) with the actual use of AI in the working process."
+    "de": "Haltbar ist eine Aussage, die auf jener Ebene bleibt, auf der gemessen wurde: ein durchschnittlicher, schwacher Zusammenhang in einer Stichprobe, ohne Ursachenbehauptung und ohne Aussage über einzelne Menschen. Der verführerischste Distraktor macht aus dem korrelativen Befund eine Steuerungsfunktion der Region und verstärkt den schwachen Zusammenhang sprachlich zu einem deutlichen Effekt. Die Marker-Formulierung schliesst zudem von der Aktivierung auf ein psychisches Merkmal zurück, was als reverse inference nur unter engen Voraussetzungen trägt (Poldrack, 2006), und überträgt einen schwachen Gruppenzusammenhang unzulässig auf die Einzelfallbeurteilung. Die Signifikanzformulierung schliesslich verwechselt statistische Signifikanz mit praktischer Bedeutsamkeit, die erst über die Effektstärke beurteilbar wird.",
+    "en": "A sound statement stays at the level at which measurement took place: an average, weak association in a sample, with no causal claim and no statement about individual people. The most tempting distractor turns the correlational finding into a controlling function of the region and verbally inflates the weak association into a marked effect. The marker wording additionally infers a mental characteristic back from activation, which as reverse inference holds only under narrow conditions (Poldrack, 2006), and it transfers a weak group-level association illegitimately to the assessment of individual cases. Finally, the significance wording confuses statistical significance with practical importance, which can only be judged from the effect size."
    }
   }
  ],
@@ -2736,31 +2740,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "In einer Fallanalyse zu Algorithmic Management nutzen Studierende KI nur für die erste Literaturübersicht, dokumentieren die Prompts in einem Prozesslog und legen die Nutzung offen; Analyse und Schlussfolgerungen entstehen ohne KI. Welche Prüfungslogik liegt vor und warum?",
-    "en": "In a case analysis on algorithmic management, students use AI only for the initial literature overview, document their prompts in a process log and disclose the use; the analysis and conclusions are produced without AI. Which assessment logic applies, and why?"
+    "de": "Ein schulisches Präventionsprogramm gegen depressive Symptome wird in zwölf Klassen evaluiert. Den Fragebogen zur Baseline füllten alle Klassen im Unterricht auf Papier aus; das Follow-up nach einem Jahr lief freiwillig online und erreichte einen Rücklauf von 48 Prozent, wobei Jugendliche mit hohen Baseline-Werten seltener antworteten. Der Symptommittelwert ist deutlich gesunken. Welche Beurteilung der Datengrundlage trifft zu?",
+    "en": "A school-based prevention programme against depressive symptoms is evaluated in twelve classes. The baseline questionnaire was completed on paper by all classes during lessons; the one-year follow-up was voluntary and online and reached a response rate of 48 percent, with adolescents who had high baseline scores responding less often. The mean symptom score has dropped markedly. Which appraisal of the data basis holds?"
    },
    "a": [
     {
-     "de": "[A] KI-frei, weil die eigentliche Analyseleistung ohne KI entsteht und allein diese Kernleistung für die Einstufung der gesamten Prüfungsleistung massgebend ist.",
-     "en": "[A] AI-free, because the actual analytical work is produced without AI and this core achievement alone determines how the entire assessment is classified."
+     "de": "Die Rücklaufquote von 48 Prozent verkleinert die Stichprobe so stark, dass der Mittelwertunterschied vor allem Zufallsschwankung abbildet.",
+     "en": "The 48 percent response rate shrinks the sample so much that the difference in means mainly reflects random variation."
     },
     {
-     "de": "[B] teilweise KI-integriert, weil einzelne Arbeitsschritte KI-gestützt sind und die Nutzung mit Disclosure und Prozesslog nachvollziehbar dokumentiert wird.",
-     "en": "[B] partially AI-integrated, because individual work steps are AI-supported and the use is transparently documented with disclosure and a process log."
+     "de": "Der Wechsel von Papier zu Online senkt die berichteten Werte systematisch, sodass der Rückgang allein auf das veränderte Erhebungsformat zurückgeht.",
+     "en": "The switch from paper to online lowers reported scores systematically, so the decline is due to the changed survey format alone."
     },
     {
-     "de": "[C] KI-integriert, weil bereits ein einziger KI-gestützter Arbeitsschritt die gesamte Prüfungsleistung in die höchste Integrationsstufe der Prüfungslogik hebt.",
-     "en": "[C] AI-integrated, because even a single AI-supported work step moves the entire assessment into the highest integration level of the assessment logic."
+     "de": "Der Ausfall hängt mit dem Ausgangswert zusammen; die Follow-up-Gruppe ist positiv selegiert, der Rückgang bildet teilweise die Zusammensetzung ab.",
+     "en": "Attrition is linked to the baseline score; the follow-up group is positively selected, so the decline partly reflects its composition."
     },
     {
-     "de": "[A] KI-frei, weil die Literaturübersicht nur eine Vorleistung darstellt und Vorleistungen bei der Einstufung der Prüfungslogik grundsätzlich unberücksichtigt bleiben.",
-     "en": "[A] AI-free, because the literature overview is merely preparatory work and preparatory work is generally disregarded when classifying the assessment logic."
+     "de": "Die Ausfälle lassen sich durch den Mittelwert der Antwortenden ersetzen, womit alle Fälle in die Auswertung eingehen und der Rückgang belastbar wird.",
+     "en": "The dropouts can be replaced by the respondents' mean, so that all cases enter the analysis and the decline becomes robust."
     }
    ],
-   "korrekt": 1,
+   "korrekt": 2,
    "erkl": {
-    "de": "Einzelne Arbeitsschritte sind KI-gestützt und die Nutzung ist mit Disclosure und Prozesslog dokumentiert; genau das definiert die Logik [B]. Der verführerischste Distraktor ist [A] mit dem Kernleistungs-Argument: Für die Einstufung zählt der gesamte dokumentierte Arbeitsprozess, sobald ein Schritt KI-gestützt ist, nicht nur der KI-freie Analyseteil.",
-    "en": "Individual work steps are AI-supported and the use is documented with disclosure and a process log; that is precisely the definition of logic [B]. The most seductive distractor is [A] with the core-achievement argument: once one step is AI-supported, the entire documented work process counts for the classification, not only the AI-free analytical part."
+    "de": "Der Ausfall ist nicht zufällig, sondern hängt mit dem Ausgangswert zusammen: Stärker belastete Jugendliche antworteten seltener, deshalb ist die Follow-up-Gruppe positiv selegiert und der Mittelwertrückgang geht teilweise auf die veränderte Zusammensetzung zurück statt auf das Programm. Der Formatwechsel ist ein zusätzlicher Störfaktor, seine Richtung ist aber nicht festgelegt, und er erklärt den Rückgang nicht allein. Der attraktivste Distraktor ist die Ersetzung durch den Mittelwert der Antwortenden: Sie füllt die Lücken mit genau jener selegierten Gruppe auf, schreibt die Verzerrung fort und unterschätzt zusätzlich die Streuung.",
+    "en": "Attrition here is not random but tied to the baseline score: more burdened adolescents responded less often, so the follow-up group is positively selected and the drop in the mean partly reflects the changed composition rather than the programme. The change of survey format is an additional confound, but its direction is not fixed and it does not explain the decline on its own. The most tempting distractor is replacing dropouts with the respondents' mean: it fills the gaps with exactly that selected group, carries the bias forward and additionally understates the variance."
    }
   }
  ],
@@ -2825,31 +2829,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Eine Leistung im Modul läuft unter Prüfungslogik [C]: KI wird in jedem Arbeitsschritt der Evaluation einer Mental-Health-App eingesetzt. Welche Aussage beschreibt die Verantwortungsverteilung in dieser Logik korrekt?",
-    "en": "An assessment in the module runs under logic [C]: AI is used in every step of evaluating a mental health app. Which statement correctly describes the distribution of responsibility under this logic?"
+    "de": "Im Themengebiet «Praktische Intervention 2» erarbeitet eine Gruppe eine evidenzbasierte Interventionsempfehlung für einen Fall: Literatursuche, Auswahl der Studien, Bewertung ihrer methodischen Qualität, daraus die Empfehlung. Welche Aufteilung zwischen KI-Unterstützung und eigener Arbeit ist fachlich vertretbar?",
+    "en": "In the topic area «Practical intervention 2», a group works out an evidence-based intervention recommendation for a case: literature search, study selection, appraisal of methodological quality, and the recommendation derived from it. Which division between AI support and the group's own work is professionally defensible?"
    },
    "a": [
     {
-     "de": "Die fachliche Verantwortung für das Evidenzurteil bleibt bei den Studierenden; sie müssen jeden KI-Beitrag prüfen, dessen Grenzen benennen und die Nutzung transparent machen.",
-     "en": "Professional responsibility for the evidence judgement stays with the students; they must check every AI contribution, name its limits and make the use transparent."
+     "de": "Die KI formuliert die Behandlungsempfehlung für den Fall, die Studierenden prüfen den Text danach auf Verständlichkeit, Ton und sprachliche Klarheit.",
+     "en": "The AI drafts the treatment recommendation for the case, and the students then check the text for readability, tone and linguistic clarity."
     },
     {
-     "de": "Die fachliche Verantwortung geht anteilig auf den Anbieter des KI-Systems über, weil dessen Modell die inhaltlichen Bewertungen im Arbeitsprozess massgeblich erzeugt hat.",
-     "en": "Professional responsibility partly transfers to the provider of the AI system, because its model substantially generated the substantive evaluations in the work process."
+     "de": "Die KI übernimmt das Vorscreening nach vorab festgelegten Kriterien und wird dabei stichprobenweise kontrolliert; die Bewertung des Verzerrungsrisikos bleibt bei den Studierenden.",
+     "en": "The AI handles the initial screening against pre-set criteria and is spot-checked while doing so; rating the risk of bias stays with the students."
     },
     {
-     "de": "Die Pflicht zur Offenlegung entfällt in dieser Logik, weil der KI-Einsatz in sämtlichen Arbeitsschritten vorausgesetzt wird und darum nicht mehr gesondert deklariert werden muss.",
-     "en": "The duty of disclosure lapses under this logic, because AI use is presupposed in every work step and therefore no longer needs to be separately declared."
+     "de": "Die KI bewertet das Verzerrungsrisiko der Studien anhand eines Standardinstruments, das Vorscreening der Treffer übernehmen die Studierenden mit ihrer Themenkenntnis.",
+     "en": "The AI rates the studies' risk of bias using a standard instrument, while the students screen the hits themselves, drawing on their topic knowledge."
     },
     {
-     "de": "Die Bewertung verlagert sich auf die Bedienkompetenz der Tools, weil in dieser Logik die Qualität der Prompts an die Stelle des eigenständigen fachlichen Urteils tritt.",
-     "en": "Grading shifts to operating skill with the tools, because under this logic the quality of the prompts takes the place of independent professional judgement."
+     "de": "Die KI extrahiert die Effektstärken aus den Volltexten und speist sie nach einer kurzen Plausibilitätsprüfung in die Synthese ein, die Studierenden konzentrieren sich auf die Interpretation.",
+     "en": "The AI extracts the effect sizes from the full texts and feeds them into the synthesis after a brief plausibility check, while the students focus on interpretation."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "Logik [C] verlangt anspruchsvolles Newskilling: KI orchestrieren, Outputs fachlich validieren und das Gesamtergebnis verantworten; das Evidenzurteil bleibt eine menschliche Fachleistung. Der verführerischste Distraktor ist der Wegfall der Offenlegung: Auch bei durchgängig erwartetem KI-Einsatz bleibt Transparenz über Werkzeuge und Arbeitsschritte Teil der wissenschaftlichen Integrität.",
-    "en": "Logic [C] demands sophisticated newskilling: orchestrating AI, professionally validating outputs and taking responsibility for the overall result; the evidence judgement remains a human professional achievement. The most seductive distractor is the lapse of disclosure: even when AI use is expected throughout, transparency about tools and work steps remains part of academic integrity."
+    "de": "Das Vorscreening wendet Kriterien an, die vorher festgelegt wurden; sein Ergebnis lässt sich an genau diesen Kriterien nachprüfen, und eine stichprobenweise Doppelsichtung macht auch fälschlich ausgeschlossene Treffer sichtbar. Die Bewertung des Verzerrungsrisikos verlangt dagegen ein Urteil über Design und Durchführung, das unmittelbar bestimmt, wie stark die Empfehlung getragen ist. Der attraktivste Distraktor kehrt genau das um: Ein standardisiertes Instrument macht die Qualitätsbewertung nicht mechanisch, es strukturiert nur das fachliche Urteil, das dafür nötig bleibt. Auch die Extraktion der Effektstärken bleibt heikel, weil eine Plausibilitätsprüfung Übertragungsfehler gegenüber der Quelle nicht aufdeckt.",
+    "en": "Initial screening applies criteria that were fixed beforehand; its result can be checked against exactly those criteria, and spot-checking a sample by hand also reveals hits that were wrongly excluded. Rating the risk of bias, by contrast, requires a judgement about design and conduct that directly determines how firmly the recommendation is supported. The most tempting distractor reverses this: a standardised instrument does not make quality appraisal mechanical, it only structures the professional judgement that is still required. Extracting effect sizes also stays delicate, because a plausibility check does not catch transcription errors against the source."
    }
   }
  ],
@@ -2914,31 +2918,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Im Modul üben Studierende schwierige Gespräche vorab im KI-Rollenspiel, die reale Mentoring-Beziehung bleibt jedoch bewusst KI-frei. Welche Begründung trifft die Prüfungs- und Kompetenzlogik des Moduls am besten?",
-    "en": "In the module, students rehearse difficult conversations in advance in an AI role play, but the real mentoring relationship deliberately remains AI-free. Which rationale best captures the module's assessment and competence logic?"
+    "de": "Sie bereiten als Mentor:in das nächste Treffen mit dem von Ihnen begleiteten Primarschulkind vor. Vier Schritte stehen an: der Tagebucheintrag zum letzten Treffen, Ideen für eine Leseübung, die Einschätzung des Lernfortschritts und der Entscheid über ein Gespräch mit der Lehrperson. Alle vier liessen sich anonymisiert formulieren. Welcher Schritt darf fachlich vertretbar an ein KI-Tool delegiert werden?",
+    "en": "As a mentor you are preparing the next meeting with the primary-school child you accompany. Four steps are due: the diary entry on the last meeting, ideas for a reading exercise, the assessment of learning progress, and the decision about a talk with the teacher. All four could be phrased anonymously. Which step may defensibly be delegated to an AI tool?"
    },
    "a": [
     {
-     "de": "Die reale Beziehung bleibt KI-frei, weil aktuelle Sprachmodelle kindliche Reaktionen noch zu ungenau simulieren und der Einsatz deshalb bis auf Weiteres zurückgestellt wird.",
-     "en": "The real relationship stays AI-free because current language models still simulate children's reactions too inaccurately, so their use is postponed for the time being."
+     "de": "Das Ausformulieren des Tagebucheintrags aus Stichworten, weil die KI daraus eine klar strukturierte Beobachtungsschilderung macht.",
+     "en": "Fleshing out the diary entry from keywords, because the AI turns them into a clearly structured account of the observation."
     },
     {
-     "de": "Die reale Beziehung bleibt KI-frei, weil der Schutz der Kinderdaten jede Form von KI-Nutzung im Modul ausschliesst, einschliesslich der vorbereitenden Gesprächssimulation.",
-     "en": "The real relationship stays AI-free because protecting the child's data rules out every form of AI use in the module, including the preparatory conversation simulation."
+     "de": "Die Einschätzung des Lernfortschritts, weil die KI die Einträge mehrerer Wochen konsistenter miteinander vergleicht.",
+     "en": "The assessment of learning progress, because the AI compares the entries of several weeks with one another more consistently."
     },
     {
-     "de": "Die reale Beziehung bleibt KI-frei, weil Beziehungsgestaltung und Empathie Kernfertigkeiten sind, die nur in echter Interaktion entstehen; das Rollenspiel dient der Vorbereitung mit Offenlegung.",
-     "en": "The real relationship stays AI-free because relationship-building and empathy are core skills that only develop in real interaction; the role-play serves as preparation, with disclosure."
+     "de": "Die Ideensammlung für eine Leseübung, weil deren Passung zum Lernstand des Kindes anschliessend selbst geprüft wird.",
+     "en": "Collecting ideas for a reading exercise, because their fit with the child's level is then checked by you yourself."
     },
     {
-     "de": "Die reale Beziehung bleibt KI-frei, weil Service-Learning-Leistungen vollständig der Logik [A] zugeordnet sind und KI-gestützte Anteile deshalb nicht in die Bewertung einfliessen dürfen.",
-     "en": "The real relationship stays AI-free because service learning assessments are assigned entirely to logic [A], so AI-supported components must not enter into the grading."
+     "de": "Der Entscheid über ein Gespräch mit der Lehrperson, weil die KI die Handlungsoptionen neutraler gegeneinander abwägt.",
+     "en": "The decision about a talk with the teacher, because the AI weighs the options for action against each other more neutrally."
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Fu3 (Beziehung, Empathie, Verantwortung) ist die Kernfertigkeit des Moduls und wird nach Logik [A] bewusst KI-frei gesichert, während das KI-Rollenspiel als [B]-Element Vorbereitung und Reflexion mit Disclosure unterstützt. Der verführerischste Distraktor ist der Datenschutz: Er begründet strenge Regeln für Kinderdaten, schliesst aber KI-Nutzung ohne solche Daten, etwa die Simulation mit fiktiven Szenarien, gerade nicht aus.",
-    "en": "Fu3 (relationship, empathy, responsibility) is the module's core skill and is deliberately secured AI-free under logic [A], while the AI role play as a [B] element supports preparation and reflection with disclosure. The most seductive distractor is data protection: it justifies strict rules for child data, but it does not rule out AI use without such data, for instance simulations with fictitious scenarios."
+    "de": "Delegierbar ist nur Vormaterial, dessen Passung die Mentor:in danach am beobachteten Lernstand des Kindes prüft; die eigene Beobachtung und das daraus abgeleitete Entwicklungsurteil bleiben die Grundlage der Förderdokumentation und der Entscheide, die daran hängen. Der KI-ausformulierte Tagebucheintrag ist der verführerischste Distraktor: Er glättet die Beobachtung und ergänzt Deutungen, die gar nicht beobachtet wurden, womit der Eintrag seinen Belegwert verliert.",
+    "en": "Only raw material may be delegated, and only because the mentor afterwards checks its fit against the child's observed level; one's own observation and the developmental judgement derived from it remain the basis of the support documentation and of the decisions that rest on it. The AI-written diary entry is the most tempting distractor: it smooths the observation and adds interpretations that were never observed, so the entry loses its evidential value."
    }
   }
  ],
@@ -3003,31 +3007,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "In der Modulprüfung dokumentiert ein Student die KI-gestützte Datenaufbereitung und ein KI-Skript-Review mit Prozesslog und Disclosure, erklärt seine zentralen Analyseentscheidungen aber mündlich ohne Hilfsmittel. Wie ist dieses Prüfungsdesign in der Logik [A]/[B]/[C] korrekt einzuordnen?",
-    "en": "In the module assessment, a student documents AI-assisted data preparation and an AI script review with a process log and disclosure, but explains his key analysis decisions orally without any aids. How is this assessment design correctly classified in the [A]/[B]/[C] logic?"
+    "de": "Ein Masterprojekt rekrutiert über eine Anzeige in sozialen Medien mit dem Aufruf «Leidest du unter Prüfungsangst? Mach mit!» und erhält 1'800 vollständige Datensätze. Daraus soll die Prävalenz ausgeprägter Prüfungsangst unter Schweizer Studierenden geschätzt werden; Alter und Geschlecht werden per Poststratifikation an die Populationsverteilung angeglichen. Wie ist die Datengrundlage für diese Schlussfolgerung zu beurteilen?",
+    "en": "A master's project recruits through a social media ad reading «Do you suffer from test anxiety? Take part!» and obtains 1,800 complete data sets. The prevalence of pronounced test anxiety among Swiss students is to be estimated from them; age and gender are adjusted to the population distribution by post-stratification. How should the data basis for this conclusion be judged?"
    },
    "a": [
     {
-     "de": "Das gesamte Design zählt als [C], weil schon einzelne KI-gestützte Schritte ein Modul in die höchste Kategorie heben und die mündliche Erklärung daran nichts ändert.",
-     "en": "The whole design counts as [C], because even individual AI-supported steps move a module into the highest category and the oral explanation does not change that."
+     "de": "Für eine Prävalenzschätzung tragfähig, weil das Konfidenzintervall bei 1'800 vollständigen Datensätzen so eng ausfällt, dass verbleibende Unsicherheiten der Rekrutierung praktisch nicht mehr ins Gewicht fallen.",
+     "en": "Sound for a prevalence estimate, because with 1,800 complete data sets the confidence interval is so narrow that remaining uncertainties of recruitment carry practically no weight."
     },
     {
-     "de": "Die dokumentierten KI-Schritte mit Disclosure und Prozesslog entsprechen [B], der KI-freie mündliche Kontrollpunkt sichert die Kernfertigkeiten im Sinn von [A].",
-     "en": "The documented AI steps with disclosure and process log correspond to [B], while the AI-free oral checkpoint secures core skills in the spirit of [A]."
+     "de": "Für eine Prävalenzschätzung nicht tragfähig, weil die Teilnahmebereitschaft am erhobenen Merkmal selbst hängt und eine Gewichtung nach Alter und Geschlecht diese Selektion nicht ausgleicht.",
+     "en": "Not sound for a prevalence estimate, because willingness to take part depends on the very characteristic being measured, and weighting by age and gender does not offset this selection."
     },
     {
-     "de": "Das Design entspricht [A], weil die mündliche Prüfung ohne Hilfsmittel stattfindet und vorbereitende KI-Nutzung für die Kategorisierung nicht berücksichtigt wird.",
-     "en": "The design corresponds to [A], because the oral examination takes place without aids and preparatory AI use is not considered for categorisation."
+     "de": "Für jede Auswertung untauglich, weil ohne Zufallsauswahl aus der Studierendenpopulation weder Prävalenzen noch Zusammenhänge zwischen Variablen interpretierbar sind.",
+     "en": "Unusable for any analysis, because without random sampling from the student population neither prevalences nor associations between variables can be interpreted."
     },
     {
-     "de": "Das Design entspricht [C], weil Newskilling den KI-Einsatz in Datenaufbereitung und Review verlangt und der mündliche Kontrollpunkt als Zusatzleistung gewertet wird.",
-     "en": "The design corresponds to [C], because newskilling requires AI use in data preparation and review, with the oral checkpoint counted as an additional achievement."
+     "de": "Für eine Prävalenzschätzung tragfähig, sobald zusätzlich nach Studienfach, Semester und Hochschultyp gewichtet wird, weil damit die wesentlichen Wege der Selbstselektion abgedeckt sind.",
+     "en": "Sound for a prevalence estimate as soon as field of study, semester, and type of institution are also used as weights, because this covers the main routes of self-selection."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "KI-Nutzung in einzelnen definierten Schritten mit Disclosure und Prozesslog ist genau die Definition von [B]; der hilfsmittelfreie mündliche Kontrollpunkt sichert die Kernfertigkeiten und folgt damit der [A]-Logik. Die [C]-Distraktoren sind falsch, weil [C] KI-Einsatz in jedem Arbeitsschritt bedeutet und nicht schon durch einzelne dokumentierte KI-Schritte ausgelöst wird.",
-    "en": "AI use in individual defined steps with disclosure and a process log is exactly the definition of [B]; the aid-free oral checkpoint secures core skills and thus follows the [A] logic. The [C] distractors are wrong because [C] means AI use in every step of the work process and is not triggered by individual documented AI steps."
+    "de": "Der Rekrutierungsaufruf selektiert direkt auf die Zielvariable: Wer sich stark von Prüfungsangst betroffen fühlt, nimmt eher teil, weshalb die geschätzte Prävalenz systematisch nach oben verzerrt ist. Eine grosse Fallzahl verkleinert nur den Zufallsfehler, nicht diese Verzerrung. Poststratifikation korrigiert zudem nur, wenn die Teilnahme innerhalb der Gewichtungszellen zufällig erfolgt; der verführerischste Distraktor will deshalb weitere Merkmale ergänzen, doch die entscheidende Selektionsvariable ist die Prüfungsangst selbst und steht als Gewichtungsmerkmal nicht zur Verfügung. Zusammenhangsanalysen innerhalb der Stichprobe sind dagegen nicht wertlos, wegen der eingeschränkten Streuung der Prüfungsangst aber nur mit Vorbehalt zu interpretieren.",
+    "en": "The recruitment call selects directly on the target variable: those who feel strongly affected by test anxiety are more likely to take part, so the estimated prevalence is systematically inflated. A large sample only shrinks random error, not this bias. Post-stratification, moreover, corrects only if participation is random within the weighting cells; the most tempting distractor therefore wants to add further characteristics, but the decisive selection variable is test anxiety itself and it is not available as a weighting variable. Associations within the sample, by contrast, are not worthless, but because the spread of test anxiety is restricted they must be interpreted with reservations."
    }
   }
  ],
@@ -3092,31 +3096,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Der Praktikumsbericht (Kategorie [B]) enthält einen verbindlichen AI-Reflection-Abschnitt. Ein Mitpraktikant lässt den gesamten Bericht inklusive Reflexionsteil von einer KI umstrukturieren und umschreiben und ergänzt am Ende nur den Satz «KI wurde unterstützend eingesetzt». Welche Anforderung der Kategorie [B] ist damit verletzt?",
-    "en": "The internship report (category [B]) includes a mandatory AI reflection section. A fellow intern has an AI restructure and rewrite the entire report, including the reflection section, and merely adds the sentence 'AI was used to support this work' at the end. Which requirement of category [B] is violated?"
+    "de": "In Ihrem Praktikum in der betrieblichen Gesundheitsförderung führen Sie Einzelgespräche zur Arbeitsbelastung. Den Mitarbeitenden wurde zugesichert, dass ihre Angaben vertraulich bleiben und nur zusammengefasst zurückgemeldet werden. Die Personalleitung verlangt nun eine Auswertung getrennt nach Abteilung, um gezielt unterstützen zu können; eine der Abteilungen umfasst vier Personen. Welches Vorgehen ist berufsethisch tragfähig?",
+    "en": "In your internship in occupational health promotion you conduct individual interviews about workload. Employees were assured that their statements stay confidential and are reported only in aggregated form. HR management now asks for a breakdown by department in order to offer targeted support; one of the departments has four people. Which course of action is professionally sound?"
    },
    "a": [
     {
-     "de": "Kategorie [B] erlaubt KI für einzelne definierte Arbeitsschritte und verlangt Disclosure mit Prozesslog; durchgängige Nutzung mit Pauschalvermerk erfüllt beide Bedingungen nicht.",
-     "en": "Category [B] allows AI for individual defined work steps and requires disclosure with a process log; continuous use with a blanket note satisfies neither condition."
+     "de": "Die abteilungsweise Auswertung liefern, weil die Angaben ohne Namen erfasst wurden und die Personalleitung als Auftraggeberin über die Verwendung der bestellten Ergebnisse entscheidet.",
+     "en": "Deliver the departmental breakdown, because the statements were recorded without names and HR management, as the commissioning party, decides how the results it ordered are used."
     },
     {
-     "de": "Kategorie [B] beschränkt den KI-Einsatz auf die Datenauswertung und schliesst sprachliche Überarbeitung von Textprodukten aus; schon das Umformulieren verletzt den Rahmen.",
-     "en": "Category [B] restricts AI use to data analysis and excludes linguistic revision of written products; even the rewording already breaches the framework."
+     "de": "Die abteilungsweise Auswertung liefern, sobald die vier Mitarbeitenden auf Nachfrage der Personalleitung nachträglich schriftlich einwilligen, dass ihre Angaben so berichtet werden dürfen.",
+     "en": "Deliver the departmental breakdown as soon as the four employees, asked by HR management, give retrospective written consent that their statements may be reported in this way."
     },
     {
-     "de": "Kategorie [B] verlangt eine nachträgliche Bewilligung des KI-Einsatzes durch die Praktikumsstelle; der Verstoss liegt in der fehlenden schriftlichen Bestätigung der Betreuungsperson.",
-     "en": "Category [B] requires retrospective approval of the AI use by the internship organisation; the breach lies in the missing written confirmation from the supervisor."
+     "de": "Die abteilungsweise Auswertung nach Rücksprache mit der Praktikumsleitung ablehnen und der Personalleitung Rückmeldungen nur für Gruppen ab einer festgelegten Mindestgrösse anbieten.",
+     "en": "Decline the departmental breakdown after consulting the internship supervisor and offer HR management feedback only for groups at or above an agreed minimum size."
     },
     {
-     "de": "Kategorie [B] ist eingehalten, denn der Vermerk am Ende gilt als Disclosure; problematisch würde der Einsatz erst, wenn die KI auch die Praxiserfahrungen selbst erfunden hätte.",
-     "en": "Category [B] is complied with, since the note at the end counts as disclosure; the use would only become problematic if the AI had also invented the practical experiences."
+     "de": "Die Ergebnisrückmeldung insgesamt aussetzen, auch auf Gesamtebene, weil die Anfrage zeigt, dass die Vertraulichkeitszusage im Unternehmen keinen Bestand hat.",
+     "en": "Suspend the feedback of results altogether, including at company level, because the request shows that the confidentiality assurance carries no weight in this organisation."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 2,
    "erkl": {
-    "de": "[B] bedeutet, dass einzelne definierte Schritte mit KI bearbeitet werden dürfen, verbunden mit Disclosure und Prozesslog; wer den ganzen Bericht durch KI umschreiben lässt und nur pauschal auf KI-Einsatz hinweist, verletzt beide Bedingungen zugleich. Der verführerischste Distraktor wertet den Pauschalvermerk als gültige Disclosure, doch ohne Prozesslog bleibt die Mensch-KI-Arbeitsteilung nicht nachvollziehbar und die Reflexionsleistung nicht prüfbar.",
-    "en": "[B] means that individual defined steps may be done with AI, combined with disclosure and a process log; having the AI rewrite the entire report and adding only a blanket note violates both conditions at once. The most tempting distractor treats the blanket note as valid disclosure, but without a process log the human-AI division of labour remains untraceable and the reflective work cannot be assessed."
+    "de": "Die Vertraulichkeitszusage bindet auch die Berichtsebene: Bei vier Personen lässt eine abteilungsbezogene Auswertung Rückschlüsse auf einzelne Angaben zu. Fachlicher Standard ist deshalb eine Mindestgruppengrösse für jede Rückmeldung, und der Rollenkonflikt zwischen Auftraggeberin und Teilnehmenden gehört mit der Praktikumsleitung geklärt, statt ihn allein auszutragen. Der verführerischste Distraktor holt die Zustimmung nachträglich ein; im Arbeitsverhältnis und erst noch auf Nachfrage der Personalleitung ist eine solche Einwilligung nicht frei von Druck und kann eine bereits gegebene Zusage nicht rückwirkend ersetzen. Das berechtigte Anliegen der gezielten Unterstützung lässt sich anders bedienen, etwa über zusammengefasste Organisationseinheiten.",
+    "en": "The confidentiality assurance also binds the level of reporting: with four people, a departmental breakdown allows inferences about individual statements. The professional standard is therefore a minimum group size for any feedback, and the role conflict between the commissioning party and the participants belongs on the table with the internship supervisor rather than being handled alone. The most tempting distractor obtains consent after the fact; in an employment relationship, and prompted by HR management at that, such consent is not free of pressure and cannot retrospectively replace an assurance already given. The legitimate wish for targeted support can be met differently, for instance through larger combined organisational units."
    }
   }
  ],
@@ -3152,60 +3156,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Zur Vorbereitung lässt ein Student Copilot Chat drei kritische Fragen zum Abstract eines Gastvortrags generieren. Eine Frage moniert eloquent die fehlende Kontrollgruppe; der Methodenteil des Papers beschreibt jedoch eine randomisierte Kontrollbedingung. Was folgt daraus für den Umgang mit KI-generierter Kritik?",
-    "en": "To prepare, a student has Copilot Chat generate three critical questions on the abstract of a guest lecture. One question eloquently criticises the missing control group; the paper's method section, however, describes a randomized control condition. What follows for handling AI-generated critique?"
+    "de": "Zur Vorbereitung auf einen Gastvortrag lässt sich eine Studentin vom KI-Assistenten den Forschungsstand zum Vortragsthema zusammenfassen. Alle genannten Arbeiten existieren, sind korrekt zitiert und inhaltlich zutreffend wiedergegeben; dennoch zeichnet die Zusammenfassung das Bild eines einheitlich gut belegten Effekts. Die im Vortrag zentrale präregistrierte Multi-Labor-Replikation, die den Effekt nicht bestätigt, kommt darin vor, wird aber als abweichender Einzelbefund eingeordnet. Was erklärt diese Schieflage am besten?",
+    "en": "To prepare for a guest lecture, a student has an AI assistant summarise the state of research on the topic. All the works named exist, are cited correctly, and their findings are reported accurately; even so, the summary paints the picture of a uniformly well-established effect. The preregistered multi-lab replication that is central to the talk, which does not confirm the effect, does appear, but is framed as a deviating single finding. What best explains this imbalance?"
    },
    "a": [
     {
-     "de": "Die Frage bleibt berechtigt, weil die Kontrollbedingung im Abstract nicht erwähnt wird und Autorinnen zentrale Designmerkmale dort transparent machen müssen.",
-     "en": "The question remains justified, because the control condition is not mentioned in the abstract and authors are expected to make key design features transparent there."
+     "de": "Die Replikation ist zu neu, um im Trainingskorpus des Modells angemessen vertreten zu sein; mit einem aktuelleren Modell wäre die Zusammenfassung ausgewogen ausgefallen.",
+     "en": "The replication is too recent to be adequately represented in the model's training corpus; with a more up-to-date model the summary would have come out balanced."
     },
     {
-     "de": "Die Frage ist zu verwerfen, weil das Modell plausibel klingende Kritik ohne Kenntnis des Volltexts erzeugt und jeder Kritikpunkt an der Primärquelle geprüft werden muss.",
-     "en": "The question must be discarded, because the model produces plausible-sounding critique without knowing the full text, and every point of critique must be checked against the primary source."
+     "de": "Der Assistent bildet die Gewichte des publizierten Korpus ab, in dem Positivbefunde überrepräsentiert sind, weil nicht signifikante Ergebnisse seltener publiziert und seltener zitiert werden.",
+     "en": "The assistant mirrors the weights of the published corpus, in which positive findings are overrepresented because non-significant results are published and cited less often."
     },
     {
-     "de": "Die Frage ist abzuschwächen und als offene Verständnisfrage zu stellen, weil so die Unsicherheit des Modells elegant an die Referentin weitergegeben werden kann.",
-     "en": "The question should be softened and asked as an open comprehension question, because this elegantly passes the model's uncertainty on to the speaker."
+     "de": "Der Assistent wertet die Konvergenz vieler unabhängiger Einzelstudien zu Recht höher als eine einzelne Replikationsstudie, weil sich Stichprobenfehler über viele Studien hinweg ausmitteln.",
+     "en": "The assistant rightly rates the convergence of many independent single studies above one individual replication study, because sampling error averages out across many studies."
     },
     {
-     "de": "Die Frage zeigt eine Schwäche des Prompts, weil eine präzisere Rollenanweisung solche Fehler zuverlässig verhindert und die inhaltliche Prüfung dann entfallen kann.",
-     "en": "The question reveals a weakness of the prompt, because a more precise role instruction reliably prevents such errors and makes the content check unnecessary."
+     "de": "Der Assistent stützt sich vorwiegend auf Abstracts, weshalb die Einschränkungen aus den Diskussionsteilen der Originalarbeiten in der Zusammenfassung systematisch fehlen.",
+     "en": "The assistant draws mainly on abstracts, so the limitations stated in the discussion sections of the original articles are systematically absent from the summary."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "Sprachmodelle erzeugen flüssige, plausibel klingende Kritik, ohne den Volltext zu kennen; genau deshalb verlangt KI6 Evaluieren, dass jeder Kritikpunkt an der Primärquelle geprüft und eine faktisch widerlegte Frage verworfen wird. Der verführerischste Distraktor verschiebt die Verantwortung auf das Abstract, doch massgeblich für die Bewertung einer Studie ist der Methodenteil, nicht die Kurzzusammenfassung.",
-    "en": "Language models produce fluent, plausible-sounding critique without knowing the full text; this is exactly why KI6 Evaluate requires that every point of critique be checked against the primary source and that a factually refuted question be discarded. The most tempting distractor shifts responsibility onto the abstract, but what counts for evaluating a study is the method section, not the summary."
+    "de": "Ein Sprachmodell reproduziert die Verteilung des publizierten und zitierten Schrifttums; nicht publizierte Nullbefunde bleiben darin strukturell unsichtbar (Publikationsbias bzw. File-Drawer-Problem; Rosenthal, 1979). «Konsens» in einer KI-Zusammenfassung ist deshalb zunächst eine Aussage über den Korpus und nicht über die Evidenzlage. Der verführerischste Distraktor rechnet die Zahl übereinstimmender Einzelstudien als Evidenzgewicht auf, übersieht aber, dass gerade diese Studien vom Publikationsbias betroffen sind, während eine präregistrierte Multi-Labor-Replikation dagegen geschützt ist. Dass die Replikation in der Zusammenfassung vorkommt, schliesst zugleich aus, dass sie dem Modell schlicht unbekannt war.",
+    "en": "A language model reproduces the distribution of the published and cited literature; unpublished null results remain structurally invisible in it (publication bias, or the file-drawer problem; Rosenthal, 1979). «Consensus» in an AI summary is therefore first of all a statement about the corpus, not about the state of the evidence. The most tempting distractor adds up the number of converging single studies as evidential weight but overlooks that precisely those studies are affected by publication bias, whereas a preregistered multi-lab replication is protected against it. The fact that the replication does appear in the summary also rules out that the model simply did not know it."
    }
   },
   {
    "q": {
-    "de": "Das Gästekolloquium ist mit der Prüfungslogik A+B ausgewiesen: KI-gestützte Vorbereitung, KI-freie Live-Diskussion. Eine Studentin fragt, ob sie während des Vortrags diskret ein KI-Tool zur Fragegenerierung nutzen darf, wenn sie es danach offenlegt. Welche Antwort entspricht der Prüfungslogik des Moduls?",
-    "en": "The guest colloquium uses assessment logic A+B: AI-supported preparation, AI-free live discussion. A student asks whether she may discreetly use an AI tool to generate questions during the talk if she discloses it afterwards. Which answer matches the module's assessment logic?"
+    "de": "Nach einem Gastvortrag bittet Sie eine Journalistin um einen Satz für die Medienmitteilung. Der Vortrag berichtete aus einer Längsschnitt-Beobachtungsstudie: Jugendliche, die häufiger musizieren, erzielen im Mittel etwas höhere Werte in einem Arbeitsgedächtnistest; der kleine Zusammenhang ist statistisch signifikant und bleibt nach Kontrolle des Bildungshintergrunds bestehen. Welche Formulierung ist fachlich korrekt und zugleich verständlich?",
+    "en": "After a guest lecture a journalist asks you for one sentence for the press release. The talk reported a longitudinal observational study: adolescents who play music more often score somewhat higher on a working memory test on average; the small association is statistically significant and holds after controlling for educational background. Which wording is both scientifically accurate and understandable?"
    },
    "a": [
     {
-     "de": "Ja, denn die Offenlegung nach dem Vortrag erfüllt die Disclosure-Pflicht der Kategorie [B], die im gesamten Modul einschliesslich der Live-Situation gilt.",
-     "en": "Yes, because disclosure after the talk fulfils the disclosure duty of category [B], which applies throughout the module including the live situation."
+     "de": "«Musizieren trainiert das Arbeitsgedächtnis von Jugendlichen und stärkt so nachweislich ihre Gehirnleistung, unabhängig vom Bildungshintergrund des Elternhauses.»",
+     "en": "“Making music trains adolescents' working memory and thus demonstrably strengthens their brain performance, regardless of the educational background of their home.”"
     },
     {
-     "de": "Ja, denn die Kategorie [A] bezieht sich auf die Bewertung der schriftlichen Vorbereitung, während die Live-Diskussion als informeller Teil ausserhalb der Prüfungslogik steht.",
-     "en": "Yes, because category [A] refers to grading the written preparation, while the live discussion is an informal part outside the assessment logic."
+     "de": "«Zwischen Musizierhäufigkeit und Arbeitsgedächtnisleistung besteht ein statistisch signifikanter Zusammenhang, der auch unter Kontrolle des Bildungshintergrunds Bestand hat.»",
+     "en": "“There is a statistically significant association between how often adolescents play music and their working memory performance, and it holds when educational background is controlled.”"
     },
     {
-     "de": "Nein, denn die Live-Diskussion ist der [A]-Anteil des Moduls, der Zuhören, Denken und spontanes Fragen als Kernfertigkeiten ohne KI sichert; [B] gilt für die Vorbereitung.",
-     "en": "No, because the live discussion is the module's [A] component, securing listening, thinking, and spontaneous questioning as AI-free core skills; [B] applies to the preparation."
+     "de": "«Jugendliche, die häufiger musizieren, schneiden im Gedächtnistest im Schnitt etwas besser ab; ob das Musizieren die Ursache ist, kann die Studie nicht klären.»",
+     "en": "“Adolescents who play music more often do somewhat better on the memory test on average; whether making music is the cause cannot be settled by this study.”"
     },
     {
-     "de": "Nein, denn die Kombination A+B bedeutet, dass Studierende zu Semesterbeginn wählen, ob sie das gesamte Modul KI-frei oder durchgängig KI-integriert absolvieren.",
-     "en": "No, because the combination A+B means students choose at the start of the semester whether to complete the whole module AI-free or fully AI-integrated."
+     "de": "«Wer im Jugendalter nicht musiziert, trägt der Studie zufolge ein erhöhtes Risiko, im Arbeitsgedächtnis hinter Gleichaltrigen zurückzubleiben, auch bei gleichem Bildungshintergrund.»",
+     "en": "“According to the study, those who do not play music in adolescence carry an increased risk of falling behind their peers in working memory, even at the same educational background.”"
     }
    ],
    "korrekt": 2,
    "erkl": {
-    "de": "Die Logik A+B trennt nach Phasen: Die Vorbereitung ist als [B] KI-integriert mit Disclosure und Prüfung der KI-Vorschläge, die Live-Diskussion ist der [A]-Anteil, der Zuhören, Denken und spontanes Fragen als Kernfertigkeiten ohne KI sichert. Der verführerischste Distraktor überdehnt die Disclosure-Logik von [B] auf die Live-Situation; Offenlegung ersetzt einen KI-freien Kontrollpunkt aber nicht.",
-    "en": "The A+B logic separates by phase: preparation is AI-integrated as [B] with disclosure and checking of AI suggestions, while the live discussion is the [A] component that secures listening, thinking, and spontaneous questioning as AI-free core skills. The most tempting distractor stretches the disclosure logic of [B] into the live situation, but disclosure does not replace an AI-free checkpoint."
+    "de": "Die tragfähige Fassung nennt Richtung und Grössenordnung («im Schnitt etwas besser») in Alltagssprache und markiert zugleich, dass ein Beobachtungsdesign die Ursachenfrage offenlässt: Auch nach Kontrolle des Bildungshintergrunds bleiben unbeobachtete Drittvariablen möglich. Der verführerischste Distraktor ist fachlich nicht falsch, verlässt sich aber auf «signifikant», das ein Laienpublikum als «bedeutsam» und damit als grossen Effekt liest, und lässt die Kausalitätsfrage unbeantwortet. Die beiden übrigen Optionen formulieren offen kausal beziehungsweise als Risikoaussage und gehen damit weit über die Datenlage hinaus.",
+    "en": "The sound version gives direction and order of magnitude (“somewhat better on average”) in everyday language while flagging that an observational design leaves the causal question open: even after controlling for educational background, unobserved third variables remain possible. The most tempting distractor is not factually wrong, but it relies on “significant”, which a lay audience reads as “substantial” and therefore as a large effect, and it leaves the causal question unanswered. The two remaining options are openly causal or phrased as a risk claim and thus go far beyond what the data support."
    }
   }
  ],
@@ -3241,60 +3245,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein KI-Assistent fasst für Ihre Masterarbeit drei Studien zusammen; alle Angaben wirken plausibel und enthalten DOIs. Welche Verifikation entspricht dem Standard eines dokumentierten KI-Forschungsworkflows?",
-    "en": "An AI assistant summarises three studies for your Master's thesis; everything looks plausible and includes DOIs. Which verification meets the standard of a documented AI research workflow?"
+    "de": "Für den Literaturteil Ihrer Masterarbeit screent ein KI-Agent 4000 Abstracts gegen Ihre Einschlusskriterien und meldet 62 Treffer. Sie prüfen alle 62 von Hand und bestätigen jeden als einschlussfähig. Welcher Schluss ist methodisch tragfähig?",
+    "en": "For the literature section of your Master's thesis, an AI agent screens 4000 abstracts against your inclusion criteria and reports 62 hits. You check all 62 by hand and confirm every one as eligible. Which conclusion is methodologically sound?"
    },
    "a": [
     {
-     "de": "Sie prüfen, ob alle DOIs auflösbar sind, denn existierende Kennungen belegen, dass auch die inhaltlichen Aussagen der Zusammenfassung stimmen.",
-     "en": "You check whether all DOIs resolve, because existing identifiers prove that the substantive claims in the summary are accurate as well."
+     "de": "Die Handprüfung belegt nur die Güte der Trefferliste; ob einschlussfähige Studien im Ausschluss geblieben sind, zeigt erst eine Stichprobenkontrolle der 3938 Ausschlüsse.",
+     "en": "The manual check establishes only the quality of the hit list; whether eligible studies remained among the exclusions is shown only by spot-checking a sample of the 3938 exclusions."
     },
     {
-     "de": "Sie vergleichen die Zusammenfassung mit Ihrem Vorwissen und akzeptieren sie, wenn keine Aussage Ihrem bisherigen Literaturstand widerspricht.",
-     "en": "You compare the summary with your prior knowledge and accept it if no statement contradicts your current reading of the literature."
+     "de": "Die Handprüfung ergibt eine Fehlerquote von null, womit der Screening-Schritt validiert ist und im Verifikationsprotokoll so festgehalten werden kann.",
+     "en": "The manual check yields an error rate of zero, so the screening step is validated and can be recorded as such in the verification protocol."
     },
     {
-     "de": "Sie lassen ein zweites KI-Modell die Zusammenfassung gegenprüfen, weil unabhängige Modelle dieselben Fehler nur sehr selten gemeinsam machen.",
-     "en": "You have a second AI model cross-check the summary, because independent models very rarely make the same mistakes at the same time."
+     "de": "Ein zweiter Agent mit abweichendem Prompt screent dieselben Abstracts; stimmen beide Trefferlisten überein, ist die Vollständigkeit der Auswahl belegt.",
+     "en": "A second agent with a different prompt screens the same abstracts; if both hit lists agree, the completeness of the selection is established."
     },
     {
-     "de": "Sie prüfen jede Quelle auf Existenz, lesen die Originalarbeiten, weil KI auch reale Studien inhaltlich falsch wiedergeben kann, und loggen die Prüfung.",
-     "en": "You verify that each source exists, read the original papers, because AI can misrepresent even real studies, and log the checks."
-    }
-   ],
-   "korrekt": 3,
-   "erkl": {
-    "de": "Eine Existenzprüfung allein genügt nicht: Sprachmodelle erfinden nicht nur Referenzen, sie geben auch echte Studien inhaltlich verzerrt wieder, weshalb der Abgleich mit der Originalarbeit und die Dokumentation im Prozesslog nötig sind. Die verführerische DOI-Prüfung scheitert genau daran, dass eine auflösbare Kennung nichts über die korrekte Interpretation aussagt. Auch ein zweites KI-Modell kann dieselben systematischen Fehler machen.",
-    "en": "Checking existence alone is not enough: language models not only invent references, they also distort the content of real studies, so claims must be checked against the original papers and the check documented in the process log. The tempting DOI check fails precisely because a resolvable identifier says nothing about correct interpretation. A second AI model can share the same systematic errors."
-   }
-  },
-  {
-   "q": {
-    "de": "Ihre Masterarbeit läuft in der Prüfungskategorie [B] (teilweise KI-integriert). Sie nutzen KI für Skript-Review und Schreibfeedback. Welches Vorgehen entspricht der Kategorie [B]?",
-    "en": "Your Master's thesis runs under assessment category [B] (partially AI-integrated). You use AI for script review and writing feedback. Which approach matches category [B]?"
-   },
-   "a": [
-    {
-     "de": "Sie deklarieren die KI-gestützten Schritte, halten sie im Prozesslog fest und verifizieren jeden Output fachlich, bevor er in die Arbeit einfliesst.",
-     "en": "You declare the AI-supported steps, record them in the process log and verify every output professionally before it enters the thesis."
-    },
-    {
-     "de": "Sie verzichten vollständig auf KI-Unterstützung, weil nur so die Kernfertigkeiten des wissenschaftlichen Arbeitens nachweisbar gesichert bleiben.",
-     "en": "You forgo AI support entirely, because only this approach demonstrably safeguards the core skills of scholarly research work."
-    },
-    {
-     "de": "Sie integrieren KI in jeden Arbeitsschritt der Pipeline und weisen das anspruchsvolle Newskilling im Umgang mit den Werkzeugen gesamthaft aus.",
-     "en": "You integrate AI into every step of the pipeline and document the demanding newskilling in handling the tools as a whole."
-    },
-    {
-     "de": "Sie nutzen KI frei für einzelne Schritte ohne gesonderte Deklaration, solange Sie alle Outputs sorgfältig kontrollieren und selbst verantworten.",
-     "en": "You use AI freely for individual steps without separate disclosure, as long as you check all outputs carefully and take responsibility."
+     "de": "Die Einschlusskriterien werden gelockert und der Lauf wiederholt; bleibt die Trefferzahl gleich, hat der Agent keine passenden Studien übersehen.",
+     "en": "The inclusion criteria are loosened and the run is repeated; if the number of hits stays the same, the agent has missed no suitable studies."
     }
    ],
    "korrekt": 0,
    "erkl": {
-    "de": "Kategorie [B] verlangt beides: Disclosure mit Prozesslog und fachliche Verifikation der einzelnen KI-Schritte. Der verführerischste Distraktor ist die sorgfältige Kontrolle ohne Deklaration, denn eigene Prüfung ersetzt die Transparenzpflicht nicht. Vollständiger KI-Verzicht entspricht Kategorie [A], KI in jedem Arbeitsschritt Kategorie [C].",
-    "en": "Category [B] requires both: disclosure with a process log and professional verification of each AI-supported step. The most tempting distractor is careful checking without declaration, but diligence does not replace the transparency requirement. Working without AI corresponds to category [A], AI in every step to category [C]."
+    "de": "Die Prüfung der Treffer sagt etwas über die Präzision aus, nichts über die Sensitivität: Falsch ausgeschlossene Studien tauchen im Ergebnis gar nicht auf und lassen sich nur über eine Stichprobenkontrolle der Ausschlüsse abschätzen. Der verführerischste Distraktor liest aus der fehlerfreien Trefferliste eine Fehlerquote von null heraus und verwechselt damit die beiden Fehlerarten. Und zwei Agenten können dieselbe systematische Blindstelle teilen, weil sie auf ähnlichen Daten beruhen; Übereinstimmung ist deshalb kein Vollständigkeitsnachweis.",
+    "en": "Checking the hits speaks to precision, not to sensitivity: wrongly excluded studies do not appear in the result at all and can only be estimated by spot-checking the exclusions. The most tempting distractor reads an error rate of zero off a flawless hit list and thereby conflates the two error types. And two agents can share the same systematic blind spot because they rest on similar data; agreement is therefore no proof of completeness."
+   }
+  },
+  {
+   "q": {
+    "de": "In der Verteidigung Ihrer Masterarbeit führen Sie Ihre agentische Analysepipeline live vor. Dabei schlägt das System eine andere Modellspezifikation vor als die in der Arbeit berichtete. Wie reagieren Sie fachlich angemessen?",
+    "en": "In the defence of your Master's thesis you demonstrate your agentic analysis pipeline live. In doing so, the system proposes a model specification other than the one reported in the thesis. What is the appropriate response?"
+   },
+   "a": [
+    {
+     "de": "Sie ordnen die Abweichung ein und begründen Ihre berichtete Spezifikation inhaltlich, gestützt auf Ihre Auswertungsstrategie und die Robustheitsanalyse.",
+     "en": "You situate the deviation and justify your reported specification on substantive grounds, drawing on your analysis strategy and your robustness analysis."
+    },
+    {
+     "de": "Sie übernehmen die vorgeschlagene Spezifikation und reichen die neu gerechnete Analyse nach, weil das System einen von Ihnen übersehenen Freiheitsgrad sichtbar macht.",
+     "en": "You adopt the proposed specification and submit the recomputed analysis afterwards, because the system has exposed a degree of freedom you overlooked."
+    },
+    {
+     "de": "Sie wiederholen den Durchlauf, denn erst wenn die Pipeline live dieselbe Spezifikation ausgibt wie im Bericht, sind Ihre Ergebnisse als reproduzierbar belegt.",
+     "en": "You repeat the run, since only when the pipeline outputs the same specification live as in the report are your results shown to be reproducible."
+    },
+    {
+     "de": "Sie tragen die abweichende Ausgabe in Ihrem Verzeichnis der KI-Nutzung nach, denn damit ist die Transparenzpflicht gegenüber der Prüfungskommission erfüllt.",
+     "en": "You add the deviating output to your AI usage register, since that satisfies the transparency requirement towards the examination board."
+    }
+   ],
+   "korrekt": 0,
+   "erkl": {
+    "de": "Zur Debatte steht nicht, was die Pipeline ausgibt, sondern ob Sie Ihre Auswertungsentscheidungen begründen können: Der alternative Vorschlag ist der Prüfstein dafür, ob Ihre Spezifikation theoretisch hergeleitet und durch die Robustheitsanalyse bereits abgedeckt ist. Der verführerischste Distraktor macht die identische Wiederholung im Livelauf zum Kriterium; Ausgaben von Sprachmodellen sind jedoch nicht deterministisch, und eine identische Ausgabe sagte nichts über die Güte der Spezifikation. Die Deklaration der KI-Nutzung ist ohnehin Pflicht, ersetzt die inhaltliche Begründung aber nicht, und eine ungeprüfte Übernahme kehrt die Verantwortungsrichtung um.",
+    "en": "What is at issue is not what the pipeline outputs but whether you can justify your analytic decisions: the alternative proposal is the touchstone for whether your specification is theoretically derived and already covered by your robustness analysis. The most tempting distractor makes an identical repetition in the live run the criterion, yet language-model outputs are not deterministic, and an identical output would say nothing about the quality of the specification. Declaring AI use is required in any case but does not replace the substantive justification, and adopting the proposal unchecked reverses the direction of responsibility."
    }
   }
  ],
@@ -3330,60 +3334,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Beim Data-Lifecycle-Plan Ihrer Interviewstudie überlegen Sie, welche Materialien in ein öffentliches Cloud-KI-Tool dürfen. Welche Entscheidung ist datenschutzrechtlich korrekt?",
-    "en": "In the data lifecycle plan for your interview study you consider which materials may go into a public cloud AI tool. Which decision is correct under data protection law?"
+    "de": "Für Ihre geplante Interventionsstudie mit Prä- und Post-Messung in Interventions- und Kontrollgruppe schlägt ein Sprachmodell diesen Analyseplan vor: je ein t-Test für abhängige Stichproben pro Gruppe; der Effekt gelte als belegt, wenn er nur in der Interventionsgruppe signifikant wird. Wie beurteilen Sie den Vorschlag?",
+    "en": "For your planned intervention study with pre- and post-measurement in an intervention and a control group, a language model proposes this analysis plan: one paired-samples t-test per group; the effect counts as established if it is significant in the intervention group only. How do you judge the proposal?"
    },
    "a": [
     {
-     "de": "Transkripte mit identifizierenden Angaben bleiben aus dem Tool draussen; die KI unterstützt nur bei anonymisierten Auszügen oder beim Analyseskript.",
-     "en": "Transcripts with identifying details stay out of the tool; the AI only assists with anonymised excerpts or with the analysis script."
+     "de": "Zwei getrennte Signifikanzentscheide belegen keinen Unterschied zwischen den Gruppen; zu prüfen ist die Interaktion von Gruppe und Messzeitpunkt.",
+     "en": "Two separate significance decisions do not establish a difference between the groups; what must be tested is the group by time interaction."
     },
     {
-     "de": "Pseudonymisierte Transkripte dürfen hochgeladen werden, weil ersetzte Namen den Personenbezug aufheben und die Daten damit als anonym gelten.",
-     "en": "Pseudonymised transcripts may be uploaded, because replacing names removes the link to persons and the data then count as anonymous."
+     "de": "Mit einer Bonferroni-Korrektur auf ein Alpha von .025 für die beiden Tests ist der Plan tragfähig und im Analyseplan entsprechend zu vermerken.",
+     "en": "With a Bonferroni correction to an alpha of .025 for the two tests the plan is sound and should be noted accordingly in the analysis plan."
     },
     {
-     "de": "Vollständige Transkripte dürfen hochgeladen werden, weil wissenschaftliche Forschung von den Vorgaben des Datenschutzrechts ausgenommen ist.",
-     "en": "Complete transcripts may be uploaded, because scientific research is exempt from the requirements of data protection legislation."
+     "de": "Bei gleich grossen Gruppen und annähernd normalverteilten Prä-Post-Differenzen ist der Plan tragfähig, weil dann die Voraussetzungen beider Tests erfüllt sind.",
+     "en": "With equally large groups and approximately normally distributed pre-post differences the plan is sound, because the assumptions of both tests are then met."
     },
     {
-     "de": "Sämtliche Transkripte dürfen hochgeladen werden, sofern der Anbieter vertraglich zusichert, die Daten nach dreissig Tagen automatisch zu löschen.",
-     "en": "Any transcript may be uploaded, provided the provider contractually guarantees automatic deletion of the data after thirty days."
+     "de": "Der Plan ist ungeeignet, weil Prä-Post-Veränderungen zu einem erheblichen Teil auf Regression zur Mitte beruhen und deshalb generell nicht interpretierbar sind.",
+     "en": "The plan is unsuitable, because pre-post changes rest to a considerable extent on regression to the mean and are therefore generally uninterpretable."
     }
    ],
    "korrekt": 0,
    "erkl": {
-    "de": "Pseudonymisierte Daten bleiben Personendaten, weil der Personenbezug mit Zusatzwissen wiederherstellbar ist; identifizierende Transkripte gehören darum nicht in öffentliche Cloud-Tools. Der verführerischste Distraktor ist die Pseudonymisierungsoption: Erst echte Anonymisierung hebt den Personenbezug auf. Auch vertragliche Löschzusagen machen eine unzulässige Bekanntgabe nicht rechtmässig.",
-    "en": "Pseudonymised data remain personal data because identity can be restored with additional information; identifying transcripts therefore do not belong in public cloud tools. The most tempting distractor is the pseudonymisation option: only genuine anonymisation removes the link to persons. Contractual deletion promises do not make an impermissible disclosure lawful either."
+    "de": "Ob ein Effekt in einer Gruppe die Signifikanzschwelle überschreitet und in der anderen nicht, ist selbst kein Beleg für einen Gruppenunterschied; der interessierende Vergleich muss direkt als Interaktion geprüft werden (Gelman & Stern, 2006). Der verführerischste Distraktor behandelt das Problem als Frage der Alphafehler-Kumulierung: Eine Bonferroni-Korrektur ändert nichts daran, dass der entscheidende Vergleich gar nie gerechnet wird. Regression zur Mitte wiederum trifft beide Gruppen und wird durch genau diesen Gruppenvergleich kontrolliert. Der Vorschlag klingt plausibel, weil dieses Vorgehen in der publizierten Literatur häufig vorkommt und Sprachmodelle solche Muster reproduzieren.",
+    "en": "Whether an effect crosses the significance threshold in one group and not in the other is not itself evidence of a group difference; the comparison of interest must be tested directly as an interaction (Gelman & Stern, 2006). The most tempting distractor treats the issue as one of alpha inflation: a Bonferroni correction does not change the fact that the decisive comparison is never computed. Regression to the mean, in turn, affects both groups and is controlled precisely by that group comparison. The proposal sounds plausible because this practice is common in the published literature and language models reproduce such patterns."
    }
   },
   {
    "q": {
-    "de": "In Ihrem AI Use Plan legen Sie Mensch-KI-Rollen fest. Welcher Eintrag setzt das Prinzip der menschlichen Letztverantwortung korrekt um?",
-    "en": "In your AI Use Plan you define human-AI roles. Which entry correctly implements the principle of ultimate human responsibility?"
+    "de": "Ein Mitstudent stellt in der Kleingruppe seinen Analyseplan vor: Er übersetzt einen englischen Screening-Fragebogen selbst ins Deutsche, erhebt an einer Schweizer Stichprobe und trennt die Teilnehmenden am Cut-off-Wert der Originalversion in eine auffällige und eine unauffällige Gruppe. Was ist der zentrale Einwand?",
+    "en": "A fellow student presents his analysis plan in the small group: he translates an English screening questionnaire into German himself, collects data in a Swiss sample, and splits participants at the original version's cut-off into a screen-positive and a screen-negative group. What is the central objection?"
    },
    "a": [
     {
-     "de": "Die KI übernimmt die Ergebnisinterpretation, weil sie im Vergleich zu Menschen objektiver urteilt und keine Erwartungseffekte einbringt.",
-     "en": "The AI takes over the interpretation of results, because it judges more objectively than humans and introduces no expectancy effects."
+     "de": "Der Cut-off gilt nur für die Fassung, an der er gewonnen wurde; für die eigene Übersetzung sind Messäquivalenz und Normbezug zuerst zu belegen.",
+     "en": "The cut-off holds only for the version it was derived from; for the self-made translation, measurement equivalence and norms must be established first."
     },
     {
-     "de": "Die Letztverantwortung liegt bei der Betreuungsperson, weil sie den AI Use Plan geprüft und die geplanten KI-Schritte bewilligt hat.",
-     "en": "Ultimate responsibility rests with the supervisor, because they reviewed the AI Use Plan and approved the planned AI steps."
+     "de": "Die Übersetzung ist mit Rückübersetzung und Konsensfassung durch zwei unabhängige Personen zu erstellen; danach ist der Cut-off der Originalversion übertragbar.",
+     "en": "The translation must be produced with back-translation and a consensus version by two independent people; after that the original version's cut-off transfers."
     },
     {
-     "de": "Die Verantwortung wird zwischen Studentin und Toolanbieter geteilt und im Plan festgehalten, weil beide zum Endergebnis beitragen.",
-     "en": "Responsibility is shared between the student and the tool provider and recorded in the plan, because both contribute to the final result."
+     "de": "Fragebogenwerte sind ordinalskaliert, weshalb Summenwerte und darauf beruhende Cut-offs bei Screening-Instrumenten grundsätzlich unzulässig sind.",
+     "en": "Questionnaire scores are ordinal, so sum scores and cut-offs based on them are fundamentally inadmissible for screening instruments."
     },
     {
-     "de": "Die KI schlägt Analysecode vor; die Studentin prüft jede Zeile, entscheidet über die Umsetzung und verantwortet die Interpretation selbst.",
-     "en": "The AI proposes analysis code; the student reviews every line, decides on its use and takes responsibility for the interpretation herself."
+     "de": "Die Stichprobe muss mindestens den Umfang der Normstichprobe des Originals erreichen, weil der Cut-off sonst statistisch nicht abgesichert ist.",
+     "en": "The sample must at least match the size of the original's norming sample, because otherwise the cut-off is not statistically secured."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 0,
    "erkl": {
-    "de": "Menschliche Letztverantwortung heisst: Die KI liefert Vorschläge, aber Prüfung, Entscheidung und Interpretation bleiben nachweisbar bei der Autorin. Der verführerischste Distraktor verlagert die Verantwortung auf die Betreuungsperson; deren Freigabe des Plans entbindet die Verfasserin jedoch nicht von der Verantwortung für Inhalte und KI-Outputs. Toolanbieter tragen keine wissenschaftliche Verantwortung.",
-    "en": "Ultimate human responsibility means the AI supplies proposals while checking, deciding and interpreting demonstrably remain with the author. The most tempting distractor shifts responsibility to the supervisor, but approving the plan does not release the author from responsibility for content and AI outputs. Tool providers carry no scientific responsibility."
+    "de": "Ein Cut-off ist an die Validierung und die Messeigenschaften genau jener Fassung gebunden, an der er gewonnen wurde; bei einer Eigenübersetzung sind Äquivalenz und Normbezug zuerst zu prüfen, sonst ist die Gruppenzuordnung nicht interpretierbar. Der verführerischste Distraktor macht die Übersetzungsqualität zum ganzen Problem: Ein sauberes Übersetzungsverfahren mit Rückübersetzung ist notwendig, ersetzt aber weder die psychometrische Prüfung noch eigene Normwerte. Skalenniveau und Stichprobengrösse betreffen andere Fragen und heben die fehlende Äquivalenz nicht auf.",
+    "en": "A cut-off is tied to the validation and measurement properties of exactly the version it was derived from; for a self-made translation, equivalence and norms must be examined first, otherwise the group assignment cannot be interpreted. The most tempting distractor turns translation quality into the whole problem: a clean translation procedure with back-translation is necessary but replaces neither the psychometric examination nor local norms. Level of measurement and sample size concern other questions and do not remove the missing equivalence."
    }
   }
  ],
@@ -3419,60 +3423,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Zur Vorbereitung lassen Sie eine KI Gutachterfragen zu Ihrem Exposé generieren. Welche Grenze dieser Review-Simulation müssen Sie bei der Vorbereitung einkalkulieren?",
-    "en": "To prepare, you have an AI generate reviewer questions on your thesis proposal. Which limitation of this review simulation must you factor into your preparation?"
+    "de": "Im Kolloquium stellt ein Kollege sein Exposé vor: Ein Sprachmodell soll die offenen Antworten von 600 Teilnehmenden nach seinem Kategoriensystem kodieren. Als Gütenachweis will er jede Antwort dreimal kodieren lassen und die Übereinstimmung der drei Durchläufe berichten. Welchen Einwand bringen Sie in der Diskussion vor?",
+    "en": "In the colloquium a colleague presents his proposal: a language model is to code the open-ended answers of 600 participants according to his category system. As evidence of quality he wants each answer coded three times and will report the agreement across the three runs. Which objection do you raise in the discussion?"
    },
    "a": [
     {
-     "de": "Die KI stellt oft generische Standardfragen aus Trainingsmustern und kann spezifische Schwächen Ihres konkreten Designs übersehen.",
-     "en": "The AI often poses generic standard questions drawn from training patterns and can overlook specific weaknesses of your concrete design."
+     "de": "Die drei Durchläufe zeigen nur die Selbstkonsistenz des Modells; als Gütenachweis braucht es den Vergleich mit einer von Hand kodierten Teilstichprobe.",
+     "en": "The three runs show only the model's self-consistency; as evidence of quality, a comparison with a hand-coded subsample is needed."
     },
     {
-     "de": "Die KI stellt systematisch strengere Fragen als menschliche Fachpersonen, weshalb die Simulation den Ernstfall deutlich überzeichnet.",
-     "en": "The AI systematically asks harder questions than human experts, so the simulation clearly exaggerates what the real colloquium demands."
+     "de": "Die Übereinstimmung der Durchläufe ist zufallskorrigiert zu berichten, bei drei Läufen etwa als Fleiss' Kappa, weil die prozentuale Übereinstimmung Zufallstreffer mitzählt.",
+     "en": "Agreement across the runs should be reported chance-corrected, for three runs as Fleiss' kappa, because percentage agreement counts chance hits in."
     },
     {
-     "de": "Die KI kennt den aktuellen Forschungsstand Ihres Themas vollständig, formuliert die Fragen aber oft zu abstrakt für ein Kolloquium.",
-     "en": "The AI knows the current state of research on your topic completely, but often phrases its questions too abstractly for a colloquium."
+     "de": "Die drei Durchläufe müssen mit unterschiedlich formulierten Prompts erfolgen, weil identische Prompts die Übereinstimmung zwischen den Läufen künstlich erhöhen.",
+     "en": "The three runs must use differently worded prompts, because identical prompts artificially inflate the agreement between the runs."
     },
     {
-     "de": "Die KI beurteilt die Qualität Ihrer Probeantworten zuverlässig, weshalb Sie auf zusätzliches Feedback aus der Peergruppe verzichten können.",
-     "en": "The AI judges the quality of your practice answers reliably, so you can do without additional feedback from your peer group."
+     "de": "Das Kategoriensystem ist bei offenen Antworten aus dem Material heraus zu entwickeln, weil vorab festgelegte Kategorien die Antwortvielfalt beschneiden.",
+     "en": "With open-ended answers the category system must be developed from the material, because predefined categories curtail the diversity of responses."
     }
    ],
    "korrekt": 0,
    "erkl": {
-    "de": "Sprachmodelle generieren plausible, im Training häufige Reviewfragen und übersehen dabei leicht die spezifischen Schwachstellen eines konkreten Designs; die Simulation ergänzt Fachfeedback, ersetzt es aber nicht. Der verführerischste Distraktor ist die angeblich zuverlässige Antwortbeurteilung: Modelle neigen zu zustimmendem Feedback (Sycophancy) und sind als Qualitätsrichter nicht kalibriert. Zudem ist ihr Wissensstand begrenzt und nie vollständig aktuell.",
-    "en": "Language models generate plausible review questions that are frequent in their training data and easily miss the specific weak points of a concrete design; the simulation complements expert feedback but does not replace it. The most tempting distractor is the supposedly reliable judging of answers: models tend towards agreeable feedback (sycophancy) and are not calibrated as quality judges. Their knowledge is also limited and never fully up to date."
+    "de": "Wiederholte Läufe desselben Modells messen Stabilität, nicht Übereinstimmung mit dem Kategoriensystem; die Güte einer automatisierten Kodierung zeigt sich erst im Vergleich mit einer von Menschen kodierten Referenzstichprobe. Der verführerischste Distraktor verschiebt das Problem auf die Wahl des Übereinstimmungsmasses: Ein zufallskorrigierter Koeffizient wäre bei drei Durchläufen zwar das angemessenere Mass, beziffert aber weiterhin nur die Übereinstimmung des Modells mit sich selbst. Auch variierte Prompts prüfen bloss die Robustheit gegenüber Formulierungen.",
+    "en": "Repeated runs of the same model measure stability, not agreement with the category system; the quality of automated coding shows only in comparison with a human-coded reference sample. The most tempting distractor shifts the problem to the choice of agreement measure: a chance-corrected coefficient would indeed be the more appropriate statistic for three runs, but it still quantifies only the model's agreement with itself. Varied prompts likewise test no more than robustness to wording."
    }
   },
   {
    "q": {
-    "de": "Das Forschungskolloquium ist als KI-freier [A]-Kontrollpunkt angelegt, obwohl die Vorbereitung deklariert KI-gestützt sein darf. Welche Begründung trägt diese Prüfungslogik?",
-    "en": "The research colloquium is designed as an AI-free [A] checkpoint, although preparation may be AI-supported with disclosure. Which rationale underpins this assessment logic?"
+    "de": "Eine Kollegin berichtet im Kolloquium die Pilotdaten ihrer Trainingsstudie: n = 60 (30 pro Gruppe), d = 0.28, p = .28, 95%-Konfidenzintervall [-0.23, 0.79]. Für den Zwischenbericht an die kooperierende Schule soll sie den Befund in einem Satz formulieren. Welche Formulierung ist angemessen?",
+    "en": "A colleague reports the pilot data of her training study in the colloquium: n = 60 (30 per group), d = 0.28, p = .28, 95% confidence interval [-0.23, 0.79]. For the interim report to the partner school she must phrase the finding in one sentence. Which wording is appropriate?"
    },
    "a": [
     {
-     "de": "Die Kategorie [A] gilt, weil KI-Einsatz in mündlichen Präsentationen an der Universität generell untersagt ist und hier nur umgesetzt wird.",
-     "en": "Category [A] applies because using AI in oral presentations is generally prohibited at the university and is merely enforced here."
+     "de": "Zwischen den beiden Gruppen zeigt sich kein Unterschied; für Schülerinnen und Schüler dieser Altersgruppe ist das Training wirkungslos.",
+     "en": "There is no difference between the two groups; for pupils of this age group the training has no effect."
     },
     {
-     "de": "Die Kategorie [A] gilt, weil sich KI-Werkzeuge in ein Live-Format technisch nicht einbinden lassen und die Regel dies bloss nachvollzieht.",
-     "en": "Category [A] applies because AI tools cannot technically be embedded in a live format and the rule simply reflects this constraint."
+     "de": "Die Trainingsgruppe schnitt im Mittel etwas besser ab; ob dahinter mehr als Zufall steckt, kann die Pilotstudie nicht klären.",
+     "en": "The training group did somewhat better on average; whether more than chance lies behind this the pilot study cannot settle."
     },
     {
-     "de": "Die KI-freie Live-Verteidigung sichert, dass Design und Analyseplan wirklich durchdrungen sind; die deklarierte KI-Vorbereitung trainiert genau diese Fähigkeit.",
-     "en": "The AI-free live defence verifies that design and analysis plan are genuinely understood; the disclosed AI preparation trains exactly this ability."
+     "de": "Das Training zeigt bereits eine kleine Wirkung, die sich mit einer grösseren Stichprobe auch statistisch absichern lassen wird.",
+     "en": "The training already shows a small effect, which will also be statistically confirmed with a larger sample."
     },
     {
-     "de": "Die KI-freie Verteidigung ist nötig, weil deklarierter KI-Einsatz in der Vorbereitung die Prüfungsleistung sonst verfälschen und entwerten würde.",
-     "en": "The AI-free defence is necessary because disclosed AI use during preparation would otherwise distort and devalue the assessed performance."
+     "de": "Die Kinder der Trainingsgruppe waren konzentrierter; das Training eignet sich damit für den Einsatz im regulären Unterricht.",
+     "en": "The children in the training group were more focused; the training is therefore suitable for use in regular lessons."
     }
    ],
-   "korrekt": 2,
+   "korrekt": 1,
    "erkl": {
-    "de": "Kategorie [A] sichert Kernfertigkeiten: In der Live-Situation zeigt sich ohne Werkzeuge, ob Fragestellung, Design und Analyseplan verstanden sind, während die deklarierte Review-Simulation vorher genau dieses Argumentieren trainiert. Der verführerischste Distraktor erklärt die KI-Vorbereitung zur unzulässigen Verfälschung; sie ist aber ausdrücklich erlaubt, solange sie deklariert wird. Ein generelles universitäres KI-Verbot existiert nicht.",
-    "en": "Category [A] safeguards core skills: without tools, the live situation reveals whether research question, design and analysis plan are truly understood, while the disclosed review simulation trains exactly this kind of arguing beforehand. The most tempting distractor declares AI-supported preparation an inadmissible distortion, yet it is explicitly permitted as long as it is disclosed. A general university-wide AI ban does not exist."
+    "de": "Das Konfidenzintervall reicht von einem kleinen Nachteil bis zu einem grossen Vorteil (d = 0.79), deshalb ist die einzig haltbare Aussage die vorsichtige Beschreibung des Mittelwertsunterschieds bei offener Bewertung. Der verführerischste Distraktor verspricht, der Effekt lasse sich mit mehr Personen absichern; die Punktschätzung einer Pilotstudie trägt diese Zusage nicht und wird als Planungsgrösse regelmässig überschätzt. Umgekehrt belegt ein nicht signifikantes Ergebnis auch keine Wirkungslosigkeit, und eine Einsatzempfehlung lässt sich aus diesen Daten erst recht nicht ableiten.",
+    "en": "The confidence interval ranges from a small disadvantage to a large advantage (d = 0.79), so the only defensible statement is a cautious description of the mean difference with the verdict left open. The most tempting distractor promises that the effect will be confirmed with more participants; a pilot study's point estimate does not support that promise and is regularly overestimated as a planning value. Conversely, a non-significant result is no proof that the training does not work, and a recommendation for practice can certainly not be derived from these data."
    }
   }
  ],
@@ -3537,31 +3541,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Die Masterarbeitsgruppe 2 läuft unter Prüfungslogik [B] (teilweise KI-integriert). Ein Student nutzt einen agentischen Workflow für wöchentliche Literaturupdates zu seiner Masterarbeit. Was verlangt [B] in dieser Situation konkret?",
-    "en": "Master's Thesis Group 2 runs under assessment logic [B] (partially AI-integrated). A student uses an agentic workflow for weekly literature updates on his thesis. What exactly does [B] require in this situation?"
+    "de": "In der Masterarbeitsgruppe stellt ein Student seine Sekundäranalyse vor. Der offene Datensatz stammt aus einer Schlaftracking-App, die Nutzende freiwillig installiert haben; Personen mit weniger als fünf aufgezeichneten Nächten hatte der Anbieter bereits entfernt, es verbleiben 3200 Personen. Zwischen Schlafdauer und selbstberichteter Tagesmüdigkeit findet er r = .04 und folgert, die Schlafdauer spiele für Müdigkeit keine Rolle. Welcher Einwand trifft die Datengrundlage?",
+    "en": "In the thesis group a student presents his secondary analysis. The open data set comes from a sleep-tracking app that users installed voluntarily; the provider had already removed anyone with fewer than five recorded nights, leaving 3200 people. Between sleep duration and self-reported daytime sleepiness he finds r = .04 and concludes that sleep duration plays no role for tiredness. Which objection targets the data basis?"
    },
    "a": [
     {
-     "de": "Er muss den agentischen Workflow auf sämtliche Arbeitsschritte ausweiten und damit anspruchsvolles Newskilling im Umgang mit KI-Agenten nachweisen.",
-     "en": "He must extend the agentic workflow to every step of his work and thereby demonstrate demanding newskilling in handling AI agents."
+     "de": "Der Nullbefund ist belastbar, weil die App die Schlafdauer objektiv aufzeichnet und Erinnerungsfehler des Selbstberichts damit ausschliesst.",
+     "en": "The null finding holds because the app records sleep duration objectively and thereby rules out recall errors of self-report."
     },
     {
-     "de": "Er legt die KI-gestützten Schritte offen, führt ein Prozesslog zu Konfiguration und Fehlerfällen und kann die zentralen Analyseentscheidungen selbst erklären.",
-     "en": "He discloses the AI-supported steps, keeps a process log covering configuration and failure cases, and can explain the central analysis decisions himself."
+     "de": "Die selbstselektierte Stichprobe deckt nur einen schmalen Bereich der Schlafdauer ab; solche Varianzeinschränkung dämpft Korrelationen systematisch.",
+     "en": "The self-selected sample covers only a narrow range of sleep duration; such range restriction systematically attenuates correlations."
     },
     {
-     "de": "Er darf den Workflow nur für formale Korrekturen einsetzen, da Kernfertigkeiten in diesem Modul grundsätzlich ohne jede KI-Unterstützung gesichert werden.",
-     "en": "He may use the workflow only for formal corrections, since core skills in this module are secured without any AI support as a matter of principle."
+     "de": "Der Vorab-Ausschluss kurzer Aufzeichnungen erzeugt fehlende Werte, die vor der Korrelationsberechnung multipel imputiert werden müssten.",
+     "en": "The provider's prior exclusion of short recordings creates missing values that would have to be multiply imputed before computing the correlation."
     },
     {
-     "de": "Er darf den Workflow ohne besondere Dokumentation nutzen, solange die übernommenen Literaturangaben am Ende fachlich korrekt und vollständig zitiert sind.",
-     "en": "He may use the workflow without special documentation as long as the adopted references turn out to be accurate and fully cited in the end."
+     "de": "Bei n = 3200 ist die Teststärke so hoch, dass ein derart kleiner Koeffizient das Fehlen eines Zusammenhangs belegt.",
+     "en": "With n = 3200 the statistical power is so high that such a small coefficient establishes the absence of an association."
     }
    ],
    "korrekt": 1,
    "erkl": {
-    "de": "[B] bedeutet: Einzelne Schritte dürfen KI-gestützt sein, aber mit Disclosure und Prozesslog, und die fachliche Verantwortung samt Erklärungsfähigkeit bleibt bei der Person. Der verführerischste Distraktor ist die Nutzung ohne Dokumentation bei korrektem Endergebnis: [B] prüft gerade den Prozess, nicht nur das Produkt. Die Ausweitung auf alle Arbeitsschritte beschreibt die Logik [C], nicht [B].",
-    "en": "[B] means individual steps may be AI-supported, but with disclosure and a process log, while professional responsibility and the ability to explain remain with the person. The most tempting distractor is undocumented use with a correct end product: [B] assesses precisely the process, not just the product. Extending AI to every step describes logic [C], not [B]."
+    "de": "Selbstselektion in eine Schlaftracking-App erzeugt eine homogene Stichprobe; ist die Varianz eines Merkmals eingeschränkt, fällt die Korrelation systematisch kleiner aus, unabhängig davon, wie viele Personen im Datensatz stehen. Der verführerischste Distraktor ist das Teststärke-Argument: Eine grosse Fallzahl schützt nicht vor Varianzeinschränkung, sie schätzt den gedämpften Zusammenhang nur präziser; bei n = 3200 wäre r = .04 sogar knapp signifikant, ohne deshalb inhaltlich bedeutsam zu sein. Die vom Anbieter entfernten Personen sind zudem keine fehlenden Werte, sondern gar nicht erst im Datensatz, weshalb Imputation hier nicht greift.",
+    "en": "Self-selection into a sleep-tracking app produces a homogeneous sample, and when the variance of a variable is restricted the correlation comes out systematically smaller, no matter how many people the data set contains. The most tempting distractor is the power argument: a large N does not protect against range restriction, it only estimates the attenuated association more precisely; with n = 3200 an r of .04 would even be marginally significant without being substantively meaningful. The people removed by the provider are moreover not missing values but absent from the data set altogether, so imputation does not apply."
    }
   }
  ],
@@ -3626,31 +3630,31 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Ein Student wendet ein: Seine Masterarbeit sei unter [B] teilweise KI-gestützt entstanden, also sei es widersprüchlich, dass er im Kolloquium unter [A] KI-frei verteidigen müsse. Welche Antwort trifft die Funktion des [A]-Kontrollpunkts?",
-    "en": "A student objects: his thesis was produced partially AI-supported under [B], so it seems contradictory that he must defend it AI-free under [A] in the colloquium. Which reply captures the function of the [A] checkpoint?"
+    "de": "Die Medienstelle der UZH bittet um einen Satz zu Ihrer Masterarbeit für eine Kurzmeldung. In einer Onlinebefragung von 412 Studierenden geht häufigere Nutzung von Achtsamkeits-Apps mit geringerem Stresserleben einher (r = −.21, p < .001). Welche Formulierung ist fachlich korrekt und zugleich für Laien verständlich?",
+    "en": "The UZH press office asks for one sentence about your master's thesis for a short news item. In an online survey of 412 students, more frequent use of mindfulness apps goes along with lower perceived stress (r = −.21, p < .001). Which wording is both professionally accurate and understandable for lay readers?"
    },
    "a": [
     {
-     "de": "[A] sichert, dass Kernfertigkeiten wie Datenanalyse und kritisches Denken nachweislich ohne Werkzeug vorhanden sind, gerade weil der Entstehungsprozess KI-Schritte enthielt.",
-     "en": "[A] ensures that core skills such as data analysis and critical thinking are demonstrably present without any tool, precisely because the production process included AI steps."
+     "de": "Achtsamkeits-Apps senken das Stresserleben von Studierenden messbar, wie eine neue Untersuchung des Psychologischen Instituts der UZH belegt.",
+     "en": "Mindfulness apps measurably lower students' perceived stress, as a new study at the UZH Department of Psychology demonstrates."
     },
     {
-     "de": "[A] gilt hier, weil KI-Einsatz auf Stufe 4 des Studiengangs generell unzulässig ist und das Kolloquium diese Regel für die Masterarbeit konsequent durchsetzt.",
-     "en": "[A] applies here because using AI at level 4 of the programme is generally prohibited and the colloquium consistently enforces this rule for the thesis."
+     "de": "Studierende, die solche Apps häufiger nutzen, berichten im Schnitt etwas weniger Stress; ob die Apps die Ursache sind, klärt die Befragung nicht.",
+     "en": "Students who use such apps more often report somewhat less stress on average; whether the apps are the cause is something the survey cannot settle."
     },
     {
-     "de": "[A] verlangt, dass die KI-gestützten Schritte nachträglich aus dem Workflow der Masterarbeit entfernt und durch eigenständige Arbeit ersetzt werden.",
-     "en": "[A] requires that the AI-supported steps be removed from the thesis workflow after the fact and replaced by the student's own independent work."
+     "de": "Die Untersuchung belegt einen hochsignifikanten Zusammenhang zwischen App-Nutzung und Stresserleben (r = −.21, p < .001) bei 412 Befragten.",
+     "en": "The study demonstrates a highly significant association between app use and perceived stress (r = −.21, p < .001) among 412 respondents."
     },
     {
-     "de": "[A] betrifft nur die Präsentationsform im Kolloquium; die fachliche Verteidigung der Analyseentscheidungen ist von der Prüfungslogik nicht erfasst.",
-     "en": "[A] concerns only the form of presentation in the colloquium; the substantive defence of the analysis decisions is not covered by the assessment logic."
+     "de": "Bei häufiger App-Nutzung reguliert das Gehirn Stress effizienter, was sich im geringeren Stresserleben der Befragten niederschlägt.",
+     "en": "With frequent app use the brain regulates stress more efficiently, which shows up in respondents' lower perceived stress."
     }
    ],
-   "korrekt": 0,
+   "korrekt": 1,
    "erkl": {
-    "de": "Die Kombination ist gewollt: [B] erlaubt dokumentierte KI-Schritte im Prozess, der [A]-Kontrollpunkt prüft komplementär, ob die Person Analyse und Interpretation auch ohne Werkzeug versteht und verantworten kann. Der verführerischste Distraktor ist das generelle KI-Verbot auf Stufe 4: Es widerspricht der Modullogik, die KI-Nutzung ausdrücklich vorsieht, aber verifiziert. Ein nachträgliches Entfernen der KI-Schritte verlangt niemand, gefordert sind deren Offenlegung und Verifikation.",
-    "en": "The combination is intentional: [B] permits documented AI steps in the process, while the [A] checkpoint complements this by verifying that the person understands and can take responsibility for analysis and interpretation without any tool. The most tempting distractor is a general AI ban at level 4: it contradicts the module logic, which explicitly allows AI use but verifies it. Nobody demands removing the AI steps retroactively; what is required is their disclosure and verification."
+    "de": "Bei einer Querschnittsbefragung trägt nur eine Zusammenhangsaussage, die die Kausalfrage offenlässt und die Stärke ehrlich als «etwas weniger» beziffert. Der verführerischste Distraktor ist die technisch korrekte Variante mit «hochsignifikant»: Signifikanz sagt etwas über die Verlässlichkeit gegen den Zufall aus, nicht über die Stärke, und für Laien klingt der Befund damit nach weit mehr, als ein Koeffizient von −.21 hergibt. Die Gehirn-Formulierung erfindet zusätzlich einen Mechanismus, der in der Befragung gar nicht erhoben wurde.",
+    "en": "For a cross-sectional survey, only a statement of association works: one that leaves the causal question open and reports the strength honestly as “somewhat less”. The most tempting distractor is the technically correct version using “highly significant”: significance speaks to reliability against chance, not to strength, so for lay readers the finding sounds far larger than a coefficient of −.21 warrants. The brain wording additionally invents a mechanism that the survey never measured."
    }
   }
  ],
@@ -3686,60 +3690,60 @@ window.QUIZ =
   },
   {
    "q": {
-    "de": "Bei der Prüfungsvorbereitung liefert ein Sprachmodell eine flüssige Zusammenfassung Ihres Prüfungsgebiets mit tadellos formatierten Quellenangaben samt Autor, Jahr und DOI. Warum genügt diese formale Qualität nicht als Beleg für inhaltliche Verlässlichkeit?",
-    "en": "While preparing for the exam, a language model delivers a fluent summary of your examination field with impeccably formatted references including author, year, and DOI. Why is this formal quality not sufficient evidence of substantive reliability?"
+    "de": "Ihr Prüfungsgebiet ist die Ätiologie der Depression; die Prüfenden haben dazu publiziert und ordnen die Serotonin-Hypothese angesichts des Umbrella Reviews von Moncrieff et al. (2022) kritisch ein. Ein Sprachmodell fasst Ihnen das Gebiet zusammen, stellt das serotonerge Ungleichgewicht als gesicherten Standardbefund dar und erwähnt die Kritik daran nur in einem Nebensatz. Worin liegt das eigentliche Risiko dieser Zusammenfassung?",
+    "en": "Your examination field is the aetiology of depression; the examiners have published on it and appraise the serotonin hypothesis critically in light of the umbrella review by Moncrieff et al. (2022). A language model summarises the field for you, presents the serotonergic imbalance as an established standard finding and mentions the criticism only in a subordinate clause. Where does the real risk of this summary lie?"
    },
    "a": [
     {
-     "de": "Weil die Verlässlichkeit am Trainingsstichtag hängt; für Literatur, die vor diesem Stichtag erschienen ist, sind die generierten Angaben dagegen weitgehend belastbar.",
-     "en": "Because reliability depends on the training cutoff; for literature published before that date, the generated references are, by contrast, largely dependable."
+     "de": "Das Modell kennt die kritische Literatur wegen seines Trainingsstichtags nicht; ein Modell mit aktuellerem Wissensstand würde das Gebiet ausgewogen darstellen.",
+     "en": "The model does not know the critical literature because of its training cutoff; a model with a more recent knowledge state would portray the field in a balanced way."
     },
     {
-     "de": "Weil das Modell überwiegend Abstracts verarbeitet hat; die Kernaussagen stimmen dadurch meist, nur methodische Details müssen an den Volltexten geprüft werden.",
-     "en": "Because the model mostly processed abstracts; the key claims are therefore usually right, and only methodological details need checking against full texts."
+     "de": "Das Modell gibt die im Korpus dominante Lehrbuchdarstellung wieder und verdeckt genau die Position, an der das Prüfungsgespräch ansetzt.",
+     "en": "The model reproduces the textbook account dominant in its corpus and obscures exactly the position from which the oral exam will start."
     },
     {
-     "de": "Weil kommerzielle Modelle ihre Belege intern mit Zitationsdatenbanken abgleichen, dieser Abgleich aber bei selten zitierten Spezialarbeiten häufig scheitert.",
-     "en": "Because commercial models match their references internally against citation databases, but this matching often fails for rarely cited specialised papers."
+     "de": "Das Modell hat die Belege vermutlich erfunden; ein Abgleich der genannten Quellen mit der Primärliteratur behebt das Problem der Zusammenfassung.",
+     "en": "The model has probably fabricated the references; checking the cited sources against the primary literature fixes the problem with the summary."
     },
     {
-     "de": "Weil das Modell plausible Sprach- und Zitationsmuster erzeugt statt Quellen zu prüfen; auch formal korrekte Belege können erfunden sein oder die Quelle verfälscht wiedergeben.",
-     "en": "Because the model produces plausible language and citation patterns instead of checking sources; even formally correct references can be fabricated or misrepresent the source."
+     "de": "Das Modell fasst zu knapp zusammen; erst eine ausführlichere Fassung deckt Methoden, Inhalte und theoretische Konzepte des Prüfungsgebiets ab.",
+     "en": "The model summarises too briefly; only a more extensive version covers the methods, content and theoretical concepts of the examination field."
     }
    ],
-   "korrekt": 3,
+   "korrekt": 1,
    "erkl": {
-    "de": "Sprachmodelle generieren Text nach Wahrscheinlichkeit, nicht nach Quellenlage: Autor, Jahr und DOI können perfekt formatiert und trotzdem erfunden sein, oder die zitierte Arbeit sagt etwas anderes; deshalb ist der Abgleich mit der Primärliteratur unverzichtbar. Der verführerischste Distraktor ist der Trainingsstichtag: Auch Angaben zu älterer, im Training enthaltener Literatur werden fabriziert oder verzerrt. Einen verlässlichen internen Datenbankabgleich gibt es bei reiner Textgenerierung nicht.",
-    "en": "Language models generate text by probability, not by consulting sources: author, year, and DOI can be perfectly formatted yet invented, or the cited work may say something different, which makes checking against the primary literature indispensable. The most tempting distractor is the training cutoff: references to older literature contained in the training data are fabricated or distorted as well. A reliable internal database check does not exist in plain text generation."
+    "de": "Sprachmodelle mitteln über die Textmenge; in einem Gebiet mit offener Kontroverse setzt sich die häufigere Lehrbuchdarstellung durch, und ausgerechnet die kritische Position der Prüfenden verschwindet, auf der die Prüfung aufbaut. Der verführerischste Distraktor ist der Halluzinationsverdacht: Hier sind nicht die Belege erfunden, sondern die Gewichtung ist schief, und dieser Fehler übersteht jeden Quellencheck unbemerkt. Auch der Trainingsstichtag erklärt nichts, da die Kritik an der Serotonin-Hypothese seit 2022 breit rezipiert wird.",
+    "en": "Language models average over the mass of text; in a field with an open controversy the more frequent textbook account prevails, and precisely the examiners' critical position, on which the exam builds, disappears. The most tempting distractor is the suspicion of hallucination: here the references are not invented, the weighting is skewed, and that error survives any source check unnoticed. The training cutoff explains nothing either, since criticism of the serotonin hypothesis has been widely discussed since 2022."
    }
   },
   {
    "q": {
-    "de": "In der Masterprüfung konfrontiert Sie die Prüferin mit einem KI-generierten Gegenargument gegen den zentralen Befund Ihres Prüfungsgebiets. Welches Verhalten zeigt die auf Stufe 4 geforderte professionelle Urteilskraft (Fu2, KI5/KI6)?",
-    "en": "In the master's exam, the examiner confronts you with an AI-generated counterargument against the central finding of your examination field. Which behaviour demonstrates the professional judgement required at level 4 (Fu2, KI5/KI6)?"
+    "de": "Eine Studentin bereitet sich auf die Masterprüfung vor, indem sie sich zu den Prüfungstexten Kapitelzusammenfassungen erstellen lässt und diese mehrfach durchliest; sie fühlt sich sicher. Im Probegespräch erkennt sie jeden genannten Begriff sofort wieder, kann aber auf offene Fragen die Argumentation nicht frei aufbauen. Wie ist dieses Muster zu erklären?",
+    "en": "A student prepares for the master's exam by having chapter summaries of the exam texts produced and rereading them several times; she feels confident. In a mock exam she instantly recognises every term that is mentioned, yet cannot build the argument freely in response to open questions. How is this pattern to be explained?"
    },
    "a": [
     {
-     "de": "Sie weisen das Gegenargument zurück, weil KI-generierte Einwände in einer KI-freien [A]-Prüfung keinen fachlichen Status besitzen und nicht bewertet werden müssen.",
-     "en": "You reject the counterargument because AI-generated objections have no scholarly standing in an AI-free [A] exam and do not need to be evaluated."
+     "de": "Ihr Wissen ist zu wenig vernetzt; erst die Lektüre weiterer Übersichtsarbeiten zum Gebiet gleicht die fehlende Tiefe der Aufbereitung aus.",
+     "en": "Her knowledge is insufficiently interconnected; only reading further review articles on the field makes up for the missing depth of preparation."
     },
     {
-     "de": "Sie stimmen dem Gegenargument vorsorglich zu, weil das Modell auf mehr Literatur zugreifen konnte, als eine einzelne Person im Studium verarbeiten kann.",
-     "en": "You concede to the counterargument as a precaution, because the model was able to draw on more literature than a single person can process during their studies."
+     "de": "Wiederholtes Lesen erzeugt Verarbeitungsflüssigkeit, die sie für Können hält; zuverlässig abrufbar wird Wissen erst durch freies Erklären ohne Vorlage.",
+     "en": "Repeated reading creates processing fluency that she mistakes for mastery; knowledge becomes reliably retrievable only through free explaining without a template."
     },
     {
-     "de": "Sie prüfen das Gegenargument inhaltlich, erkennen tragfähige Teile an, widerlegen schwache Teile mit Evidenz und vertreten Ihre Position begründet weiter.",
-     "en": "You examine the counterargument on its merits, acknowledge its sound parts, refute its weak parts with evidence, and continue to defend your position with reasons."
+     "de": "Prüfungsangst blockiert den Abruf; Entspannungstechniken und ein simuliertes Prüfungsgespräch schliessen die Lücke zwischen Wiedererkennen und freiem Erklären.",
+     "en": "Test anxiety blocks retrieval; relaxation techniques and a simulated exam conversation close the gap between recognition and free explaining."
     },
     {
-     "de": "Sie geben die Bewertung an die Prüferin zurück, weil die fachliche Letztverantwortung für KI-generierte Inhalte bei der Person liegt, die sie einbringt.",
-     "en": "You hand the evaluation back to the examiner, because final professional responsibility for AI-generated content rests with the person who introduces it."
+     "de": "Die Zusammenfassungen waren zu stark verdichtet; ausführlichere Fassungen desselben Materials würden die Konzepte vollständiger und damit belastbarer einprägen.",
+     "en": "The summaries were condensed too heavily; more extensive versions of the same material would imprint the concepts more completely and thus more robustly."
     }
    ],
-   "korrekt": 2,
+   "korrekt": 1,
    "erkl": {
-    "de": "Professionelle Urteilskraft heisst: Argumente zählen nach ihrem Gehalt, nicht nach ihrer Herkunft; wer differenziert anerkennt und widerlegt, zeigt Letztverantwortung und Evaluationskompetenz zugleich. Der verführerischste Distraktor ist die vorsorgliche Zustimmung: Breiter Literaturzugriff macht ein Argument nicht gültig, das wäre ein Autoritätsfehlschluss und genau das Persuasionsrisiko, das die Prüfung adressiert. Die pauschale Zurückweisung wegen der KI-Herkunft verwechselt die [A]-Regel für Hilfsmittel mit einem Urteil über Inhalte.",
-    "en": "Professional judgement means arguments count by their substance, not their origin; acknowledging and refuting in a differentiated way demonstrates final responsibility and evaluation competence at once. The most tempting distractor is precautionary agreement: broad access to literature does not make an argument valid, which would be an appeal to authority and exactly the persuasion risk the exam addresses. Blanket rejection because of the AI origin confuses the [A] rule about tools with a judgement about content."
+    "de": "Wiedererkennen ohne freien Abruf ist die klassische Kompetenzillusion: Flüssig lesbarer Text fühlt sich vertraut an, doch die mündliche Prüfung verlangt generatives Abrufen aus dem Gedächtnis, das nur durch Abrufübung entsteht; wiederholtes Lesen steigert vor allem die eigene Sicherheitserwartung, nicht die spätere Behaltensleistung (Roediger & Karpicke, 2006). Der verführerischste Distraktor ist die Prüfungsangst: Sie erklärt einen Einbruch unter Druck, nicht aber das systematische Scheitern schon in der entspannten Übungssituation. Mehr oder ausführlicheres Lesematerial verstärkt die Illusion, statt sie aufzulösen.",
+    "en": "Recognition without free retrieval is the classic illusion of competence: fluently readable text feels familiar, yet the oral exam demands generative retrieval from memory, which arises only through retrieval practice; rereading mainly raises one's own confidence rather than later retention (Roediger & Karpicke, 2006). The most tempting distractor is test anxiety: it explains a breakdown under pressure, but not systematic failure already in a relaxed practice setting. More or lengthier reading material reinforces the illusion instead of dissolving it."
    }
   }
  ]

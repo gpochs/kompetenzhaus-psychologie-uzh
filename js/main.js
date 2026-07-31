@@ -78,6 +78,7 @@ if (storageOK) { try { const raw = localStorage.getItem(STORE); if (raw) S = Obj
 let saveTimer = null;
 function save() {
   if (!storageOK) return;
+  if (visitor.active) return; // Besuchsmodus zeigt fremde Häuser: nie über den eigenen Stand schreiben
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }, 300);
 }
@@ -86,6 +87,11 @@ function save() {
 const t = (k) => (window.T[S.lang] && window.T[S.lang][k]) || window.T.de[k] || k;
 const L = (obj) => (obj && (obj[S.lang] || obj.de)) || "";
 function applyI18n() {
+  // ARIA-Labels waren hart deutsch verdrahtet: Screenreader lasen sie auch im EN-Modus deutsch vor
+  document.querySelectorAll("[data-aria]").forEach((el) => {
+    const v = t(el.getAttribute("data-aria"));
+    if (v) el.setAttribute("aria-label", v);
+  });
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const k = el.getAttribute("data-i18n"); const v = t(k);
     if (v) el.innerHTML = v.startsWith("⬇") || v.startsWith("⤒") || v.startsWith("🗑") || v.startsWith("❓") || v.startsWith("🔒") || v.startsWith("ℹ️") ? v : el.tagName === "LI" ? v : v;
@@ -106,11 +112,74 @@ function slotText(slot) {
   const code = (p && p.opt) || pend || slot.code;
   return TEXTE[code] || null;
 }
+/* Wahl-Profilierung: Schwerpunkt, Themengebiet und BA-Arbeitsform bringen zusätzliche
+   Kompetenzen ein. Ohne das wären Vertiefungen und Wahlseminare Klone und die Wahl bliebe
+   im Kompetenzprofil und in der Karriere-Passung wirkungslos. */
+const WAHL_KOMP = {
+  sp: { // MSc-Vertiefungen
+    DeNC: { fa: ["Fa2"], ki: ["KI4"] },
+    HEA:  { fa: ["Fa5", "Fa8"], ki: [] },
+    SEOP: { fa: ["Fa8", "Fa9"], ki: ["KI3"] }
+  },
+  r: { // BSc-Richtung aus der Themenwahl
+    klin: { fa: ["Fa5", "Fa8"], ki: [] },
+    ekn:  { fa: ["Fa2"], ki: ["KI4"] },
+    swo:  { fa: ["Fa9"], ki: ["KI3"] }
+  },
+  form: { // Arbeitsform der neuen Bachelorarbeit
+    daten:  { fa: ["Fa3"], ki: [] },
+    repro:  { fa: ["Fa3", "Fa4"], ki: [] },
+    review: { fa: ["Fa4"], ki: ["KI6"] }
+  }
+};
 function slotKomp(slot) {
   const tx = slotText(slot);
-  if (tx && tx.komp) return { komp: tx.komp, haupt: tx.haupt || [], kat: tx.kat || (FALLBACK[slot.slot] || {}).kat || "B" };
-  const f = FALLBACK[slot.slot] || { fa: [], ki: [], fu: [], haupt: [], kat: "B" };
-  return { komp: { fa: f.fa, ki: f.ki, fu: f.fu }, haupt: f.haupt, kat: f.kat };
+  const basis = (tx && tx.komp)
+    ? { komp: tx.komp, haupt: tx.haupt || [], kat: tx.kat || (FALLBACK[slot.slot] || {}).kat || "B" }
+    : (() => { const f = FALLBACK[slot.slot] || { fa: [], ki: [], fu: [], haupt: [], kat: "B" };
+               return { komp: { fa: f.fa, ki: f.ki, fu: f.fu }, haupt: f.haupt, kat: f.kat }; })();
+  const p = S.placed[S.mode][slot.slot];
+  const extras = [];
+  if (p) {
+    if (slot.schwerpunktwahl && p.sp && WAHL_KOMP.sp[p.sp]) extras.push(WAHL_KOMP.sp[p.sp]);
+    if (p.thema) {
+      const th = (THEMEN[slot.slot] || []).find((t) => t.id === p.thema);
+      if (th && WAHL_KOMP.r[th.r]) extras.push(WAHL_KOMP.r[th.r]);
+    }
+    if (slot.slot === "BA" && p.frage) {
+      const fr = ((ST.baFragen || {})[p.thema] || []).find((f) => f.id === p.frage);
+      if (fr && WAHL_KOMP.form[fr.form]) extras.push(WAHL_KOMP.form[fr.form]);
+    }
+  }
+  if (!extras.length) return basis;
+  const fa = [...basis.komp.fa], ki = [...basis.komp.ki];
+  const haupt = [...(basis.haupt || [])];
+  for (const e of extras) {
+    // Wahl-Kompetenzen zählen als Hauptkompetenzen: die Entscheidung soll das Profil prägen
+    (e.fa || []).forEach((x) => { if (!fa.includes(x)) fa.push(x); if (!haupt.includes(x)) haupt.push(x); });
+    (e.ki || []).forEach((x) => { if (!ki.includes(x)) ki.push(x); if (!haupt.includes(x)) haupt.push(x); });
+  }
+  return { komp: { fa, ki, fu: basis.komp.fu }, haupt, kat: basis.kat };
+}
+/* Für den Nenner: das maximal erreichbare Kompetenzvolumen eines Slots, unabhängig
+   von der getroffenen Wahl — sonst normalisiert sich jede Wahl selbst auf 100 %. */
+function slotKompMax(slot) {
+  const tx = TEXTE[slot.code] || null;
+  const basis = (tx && tx.komp)
+    ? { fa: tx.komp.fa || [], ki: tx.komp.ki || [], fu: tx.komp.fu || [], haupt: tx.haupt || [] }
+    : (() => { const f = FALLBACK[slot.slot] || { fa: [], ki: [], fu: [], haupt: [] }; return { fa: f.fa, ki: f.ki, fu: f.fu, haupt: f.haupt }; })();
+  const fa = [...basis.fa], ki = [...basis.ki];
+  const haupt = [...(basis.haupt || [])];
+  // Wahl-Kompetenzen zählen im Ist wie im Nenner als Hauptkompetenzen, sonst überschreitet der Anteil 100 %
+  const add = (e, alsHaupt) => {
+    (e.fa || []).forEach((x) => { if (!fa.includes(x)) fa.push(x); if (alsHaupt && !haupt.includes(x)) haupt.push(x); });
+    (e.ki || []).forEach((x) => { if (!ki.includes(x)) ki.push(x); if (alsHaupt && !haupt.includes(x)) haupt.push(x); });
+  };
+  if (slot.schwerpunktwahl) Object.values(WAHL_KOMP.sp).forEach((e) => add(e, true));
+  if (THEMEN[slot.slot]) Object.values(WAHL_KOMP.r).forEach((e) => add(e, true));
+  if (slot.slot === "BA") Object.values(WAHL_KOMP.form).forEach((e) => add(e, true));
+  if (slot.optionen) slot.optionen.forEach((c) => { const t2 = TEXTE[c]; if (t2 && t2.komp) add({ fa: t2.komp.fa, ki: t2.komp.ki }, false); });
+  return { komp: { fa, ki, fu: basis.fu }, haupt };
 }
 function slotTitel(slot) {
   const p = S.placed[S.mode][slot.slot];
@@ -1259,9 +1328,25 @@ function avatarGoTo(x, z, celebrate = false) {
 }
 
 /* ---------- Platzieren ---------- */
+/* GPU-Speicher freigeben: ohne dispose() hinterlässt jeder Stil-/Farbwechsel komplette
+   Geometrie- und Materialsätze — in langen Workshop-Sessions der Hauptgrund für Ruckeln. */
+function disposeGroup(g) {
+  if (!g) return;
+  g.traverse((o) => {
+    if (o.geometry && o.geometry.dispose) o.geometry.dispose();
+    const m = o.material;
+    if (!m) return;
+    (Array.isArray(m) ? m : [m]).forEach((mm) => {
+      if (mm.map && mm.map.dispose) mm.map.dispose();
+      if (mm.dispose) mm.dispose();
+      const i = windowMats.indexOf(mm);
+      if (i >= 0) windowMats.splice(i, 1); // sonst wächst die Liste, die pro Frame durchlaufen wird
+    });
+  });
+}
 function rebuildAll() {
   windowMats.length = 0; // verwaiste Fenstermaterialien nicht endlos ansammeln
-  Object.keys(blockMeshes).forEach((id) => { blockGroup.remove(blockMeshes[id]); delete blockMeshes[id]; });
+  Object.keys(blockMeshes).forEach((id) => { blockGroup.remove(blockMeshes[id]); disposeGroup(blockMeshes[id]); delete blockMeshes[id]; });
   Object.keys(S.placed[S.mode]).forEach((id) => {
     const slot = SLOTS[id]; if (!slot) return;
     const g = buildBlockMesh(slot);
@@ -1284,7 +1369,8 @@ function refreshDependents(slot) {
 function placeSlot(slot) {
   const chk = canPlace(slot);
   if (!chk.ok) { SND.err(); toast(chk.reason || t("gesperrt")); return false; }
-  const entry = { stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null, thema: THEMEN[slot.slot] ? pendingThema : null,
+  const vorher = feldAnteile();
+  const entry ={ stil: pendingStil, sp: slot.schwerpunktwahl ? pendingSp : null, opt: slot.optionen ? pendingOpt : null, thema: THEMEN[slot.slot] ? pendingThema : null,
     frage: slot.slot === "BA" ? pendingFrage : null, artefakt: slot.slot === "BA" ? pendingArtefakt : null };
   S.placed[S.mode][slot.slot] = entry;
   save();
@@ -1328,6 +1414,7 @@ function placeSlot(slot) {
   clearGhost();
   const { komp } = slotKomp(slot);
   renderPlan(); renderProfil([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])]);
+  showDelta(vorher);
   if (S.onboarded) openCard(slot.slot);
   else { // Erstbau: erst bauen, erklären später
     document.getElementById("coach").classList.remove("open");
@@ -1343,7 +1430,11 @@ function removeSlot(id) {
   if (dependents.length) { toast(t("grund_voraus") + dependents.map((d) => L(d.titel).split(",")[0]).slice(0, 2).join(" · ")); SND.err(); return; }
   delete S.placed[S.mode][id]; save();
   const g = blockMeshes[id];
-  if (g) { blockGroup.remove(g); delete blockMeshes[id]; }
+  if (g) {
+    burstDust(g.position.x, g.position.y + 0.2, g.position.z); // Abbruch braucht sichtbares Feedback
+    SND.err();
+    blockGroup.remove(g); disposeGroup(g); delete blockMeshes[id];
+  }
   refreshDependents(SLOTS[id]);
   rebuildWahrzeichen();
   renderPlan(); renderProfil(); closeCard();
@@ -1421,6 +1512,7 @@ function setGlow(id, on) {
   });
 }
 canvas.addEventListener("pointermove", (e) => {
+  if (downAt) return; // beim Orbitieren nicht den ganzen Szenengraph rastern
   const id = pick(e);
   if (id !== hoverId) { setGlow(hoverId, false); setGlow(id, true); }
   hoverId = id;
@@ -1595,6 +1687,8 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && ghostSlot && !typing) placeSlot(ghostSlot);
   if (e.key === "Escape") {
     if (interior) { leaveRoom(); return; }
+    const ms = document.getElementById("milestone"); // Richtfest-Overlay ist keine .modal-Klasse
+    if (ms.classList.contains("open")) { document.getElementById("msClose").click(); return; }
     document.getElementById("tutor").classList.remove("open");
     clearGhost(); closeCard();
     document.querySelectorAll(".modal.open").forEach((m) => m.classList.remove("open"));
@@ -1657,8 +1751,10 @@ function renderPlan() {
       frag.appendChild(sb);
     }
   }
+  const planScroll = planList.scrollTop; // Re-Render darf nicht ans Listenende zurückspringen
   planList.innerHTML = "";
   planList.appendChild(frag);
+  planList.scrollTop = planScroll;
   document.getElementById("planHint").textContent = S.mode === "serious" ? "☑ = " + t("bestanden") : "";
   document.getElementById("planLegende").textContent = t("legende");
   // Mobiler CTA-Chip: nächster empfohlener Baustein
@@ -1680,6 +1776,10 @@ function selectSlot(id) {
   if (interior) leaveRoom(); // sonst bliebe der Boden ausgeblendet, während man anderswo weiterbaut
   selectedId = id;
   const slot = SLOTS[id];
+  if (window.innerWidth <= 1080) { // mobil verdeckt ein offenes Panel sonst die Modul-Karte
+    document.getElementById("panelL").classList.remove("open");
+    document.getElementById("panelR").classList.remove("open");
+  }
   SND.pick();
   if (!isPlaced(id) && !visitor.active) showGhost(slot); else clearGhost();
   openCard(id);
@@ -1692,17 +1792,23 @@ function selectSlot(id) {
 }
 
 /* ---------- HUD: Kompetenzprofil ---------- */
+/* ECTS-Deckel: ohne ihn bestimmen vier Grossmodule (001/002 à 18, MA 30, Praktikum 16)
+   fast das ganze Profil, und einzelne Kompetenzen stehen nach dem ersten Semester bei 30 %. */
+const ectsGewicht = (e) => Math.min(e, 8);
 function profilWerte() {
   const score = {}, max = {};
   ST.kompetenzen.forEach((k) => { score[k.id] = 0; max[k.id] = 0; });
   for (const slot of ST.slots) {
-    const { komp, haupt } = slotKomp(slot);
-    const all = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
-    for (const id of all) {
-      if (!(id in max)) continue;
-      const w = (haupt || []).includes(id) ? 2 : 1;
-      max[id] += w * slot.ects;
-      if (isPlaced(slot.slot)) score[id] += w * slot.ects;
+    const gebaut = isPlaced(slot.slot);
+    const ist = slotKomp(slot);                 // zählt die getroffene Wahl
+    const ref = slotKompMax(slot);              // Nenner: alles, was hier erreichbar wäre
+    const w = (h, id) => ((h || []).includes(id) ? 2 : 1) * ectsGewicht(slot.ects);
+    for (const id of [...(ref.komp.fa || []), ...(ref.komp.ki || []), ...(ref.komp.fu || [])]) {
+      if (id in max) max[id] += w(ref.haupt, id);
+    }
+    if (!gebaut) continue;
+    for (const id of [...(ist.komp.fa || []), ...(ist.komp.ki || []), ...(ist.komp.fu || [])]) {
+      if (id in max) score[id] += w(ist.haupt, id);
     }
   }
   // Vorstufe ⓪: kleiner Startbonus (Endowed Progress) pro Selbstcheck-Häkchen
@@ -1836,6 +1942,26 @@ function passungChips(p) {
     ${chips.map((c) => `<span style="border:1px solid ${c.col};color:${c.ok ? "#fff" : c.col};background:${c.ok ? c.col : "transparent"};border-radius:999px;padding:1px 7px">${c.ok ? "✓ " : ""}${escHtml(c.txt)}</span>`).join("")}
   </div>` + (p.wahl.hinweis && !alle ? `<p style="font-size:10px;color:#8b94ab;margin:2px 0 0">${L(p.wahl.hinweis)}</p>` : "");
 }
+/* Profil-Passung als Ähnlichkeit statt Fortschritt.
+   Der bisherige Balken («gewichteter Anteil») misst faktisch, wie weit das Studium
+   fortgeschritten ist: er steigt für alle Pfade gleichzeitig und steht bei Vollausbau
+   überall auf 100 %. Diese Kennzahl vergleicht stattdessen die FORM des eigenen Profils
+   mit der Form des Anforderungsprofils (Kosinusähnlichkeit) — sie ist fortschrittsinvariant
+   und trennt Wege, statt Studienstände zu spiegeln. */
+function pfadPassung(p, pct) {
+  const ids = Object.keys(p.w);
+  let dot = 0, na = 0, nb = 0;
+  for (const id of ids) {
+    const a = pct[id] || 0, b = p.w[id] || 0;
+    dot += a * b; na += a * a; nb += b * b;
+  }
+  // Gegen die Achsen ausserhalb des Pfadprofils normieren: was stark ist, aber nicht gefordert, zählt nicht mit
+  let restA = 0;
+  for (const k of ST.kompetenzen) if (!ids.includes(k.id)) restA += (pct[k.id] || 0) ** 2;
+  na += restA;
+  if (!na || !nb) return 0;
+  return Math.round((dot / (Math.sqrt(na) * Math.sqrt(nb))) * 100);
+}
 /* Lückenanalyse: Zielstufen des Pfads vs. erreichte Stufen.
    Zielstufen werden auf das im Curriculum Erreichbare geklemmt — eine Lücke,
    die kein Baustein schliessen kann, wäre irreführend (Rest ist Weiterbildung). */
@@ -1866,9 +1992,16 @@ function renderKarriere() {
   const el = document.getElementById("profilList");
   let html = `<p style="font-size:11px;color:#5b6478;margin:2px 6px 6px;line-height:1.45">${t("karriere_info")}</p>`;
   html += wahlprofilHTML(false);
-  for (const p of (window.KARRIERE.pfade || [])) {
+  const pass = {}; (window.KARRIERE.pfade || []).forEach((p) => (pass[p.id] = pfadPassung(p, pct)));
+  const passWerte = Object.values(pass);
+  const passMax = Math.max(1, ...passWerte);
+  // Nach Passung sortiert: die Reihenfolge ist die eigentliche Aussage, nicht der Absolutwert
+  const sortiert = [...(window.KARRIERE.pfade || [])].sort((a, b) => pass[b.id] - pass[a.id]);
+  for (const p of sortiert) {
     const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
     const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
+    const fit = pass[p.id];
+    const top = fit >= passMax - 1 && passWerte.filter((v) => v >= passMax - 1).length <= 3;
     // Nächste Bausteine für diesen Pfad
     const cand = ST.slots.filter((s) => !isPlaced(s.slot)).map((s) => {
       const { komp, haupt } = slotKomp(s);
@@ -1883,10 +2016,11 @@ function renderKarriere() {
         : `<p style="font-size:10.5px;color:var(--ok);margin:4px 0">✓ ${t("gap_ok")}</p>`}</details>` : "";
     const rmHtml = p.roadmap && p.roadmap.length ? `<details style="margin:3px 0 0"><summary style="cursor:pointer;font:700 10.5px var(--font);color:#5b6478">🚀 ${t("roadmap_titel")}</summary>
       <ol style="font-size:10.5px;line-height:1.5;padding-left:16px;margin:4px 0">${p.roadmap.map((r) => `<li style="margin:3px 0"><b>${L(r.t)}</b> — ${L(r.d)}</li>`).join("")}</ol></details>` : "";
-    html += `<div class="pfad">
-      <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct">${ready}%</span></div>
+    html += `<div class="pfad${top ? " toppfad" : ""}">
+      <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct" title="${t("fit_hint")}">${fit}%</span></div>
       <div class="phint">${L(p.hint)}</div>
-      <div class="track"><div class="fill" style="width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></div></div>
+      <div class="track" title="${t("fit_hint")}"><div class="fill" style="width:${fit}%;background:linear-gradient(90deg,#0e8f7e,#0028a5)"></div></div>
+      <div class="pmeta">${t("fit_label")}: <b>${fit}%</b> · ${t("fortschritt_label")}: ${ready}%</div>
       ${passungChips(p)}
       ${gapHtml}
       ${rmHtml}
@@ -1909,6 +2043,7 @@ function karriereSteckbrief() {
   const pfade = (window.KARRIERE.pfade || []).map((p) => {
     const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
     const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
+    const fit = pfadPassung(p, pct);
     const traeger = Object.entries(p.w).map(([id, w]) => ({ id, v: w * (pct[id] || 0) }))
       .sort((a, b) => b.v - a.v).slice(0, 3).filter((x) => x.v > 0);
     const cand = ST.slots.filter((s) => !isPlaced(s.slot)).map((s) => {
@@ -1917,11 +2052,11 @@ function karriereSteckbrief() {
       const v = ids.reduce((a, id) => a + (p.w[id] || 0) * ((haupt || []).includes(id) ? 2 : 1), 0);
       return { s, v };
     }).filter((x) => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 3);
-    return { p, ready, traeger, cand };
-  }).sort((a, b) => b.ready - a.ready);
+    return { p, ready, fit, traeger, cand };
+  }).sort((a, b) => b.fit - a.fit || b.ready - a.ready);
   const br = bscRichtung(), mp = mscProfil();
   let rows = "";
-  for (const { p, ready, traeger, cand } of pfade) {
+  for (const { p, ready, fit, traeger, cand } of pfade) {
     const gaps = gapList(p);
     const gapTxt = p.ziel
       ? (gaps.length
@@ -1936,8 +2071,9 @@ function karriereSteckbrief() {
     rows += `<div style="border:1.5px solid #dbe1ef;border-radius:12px;padding:10px 14px;margin:8px 0;page-break-inside:avoid">
       <div style="display:flex;align-items:center;gap:8px"><span style="font-size:17px">${p.icon}</span>
         <b style="font-size:13px;flex:1">${L(p.name)}</b>
-        <b style="color:#0028a5;font-variant-numeric:tabular-nums">${ready}%</b></div>
-      <div style="height:8px;border-radius:4px;background:#e8ebf4;overflow:hidden;margin:5px 0"><span style="display:block;height:100%;width:${ready}%;background:linear-gradient(90deg,#3f6cc8,#0028a5)"></span></div>
+        <b style="color:#0e8f7e;font-variant-numeric:tabular-nums">${fit}%</b></div>
+      <div style="height:8px;border-radius:4px;background:#e8ebf4;overflow:hidden;margin:5px 0"><span style="display:block;height:100%;width:${fit}%;background:linear-gradient(90deg,#0e8f7e,#0028a5)"></span></div>
+      <p style="font-size:10px;color:#5b6478;margin:0 0 4px">${t("fit_label")}: <b>${fit}%</b> · ${t("fortschritt_label")}: ${ready}%</p>
       <p style="font-size:10.5px;color:#5b6478;margin:2px 0 5px">${L(p.hint)}</p>
       ${traeger.length ? `<p style="font-size:10.5px;margin:2px 0"><b>${t("steck_traeger")}</b> ${traeger.map((x) => { const k = KOMP[x.id]; return `${x.id} ${L(k.name)} (${Math.round((pct[x.id] || 0) * 100)}%)`; }).join(" · ")}</p>` : ""}
       ${wahlTxt}
@@ -2027,18 +2163,36 @@ function renderProfil(changed = []) {
         <div class="track"><div class="fill" style="background:${f.farbe};width:${pct}%"></div></div></button>`;
     }
   }
+  const profScroll = el.scrollTop;
   el.innerHTML = html;
+  el.scrollTop = profScroll; // nach jedem Bauklick nicht an den Listenanfang zurückspringen
   el.querySelectorAll(".kbar").forEach((b) => (b.onclick = () => { profilView = b.dataset.k; SND.pick(); renderProfil(); }));
 }
 document.getElementById("ptabProfil").onclick = () => { profilTab = "profil"; profilView = null; renderProfil(); };
 document.getElementById("ptabKarriere").onclick = () => { profilTab = "karriere"; profilView = null; SND.pick(); renderProfil(); };
 
+/* Erreichte Stufe mit Volumenschwelle: das blosse Platzieren eines 2-ECTS-Kolloquiums
+   hob eine Kompetenz bisher auf Stufe 4 und liess den Kompetenzpass CV-Sätze ausgeben,
+   die das Studium nicht deckt. Eine Stufe zählt erst ab 40 % des dort verfügbaren Volumens. */
+const STUFEN_SCHWELLE = 0.4;
 function kompStufe(id) {
-  let s = 0;
-  for (const slot of ST.slots) {
-    if (!isPlaced(slot.slot)) continue;
+  const hat = (slot) => {
     const { komp } = slotKomp(slot);
-    if ([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].includes(id)) s = Math.max(s, slot.stufe);
+    return [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].includes(id);
+  };
+  const hatRef = (slot) => {
+    const { komp } = slotKompMax(slot);
+    return [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].includes(id);
+  };
+  let s = 0;
+  for (let n = 1; n <= 4; n++) {
+    let ganz = 0, gebaut = 0;
+    for (const slot of ST.slots) {
+      if (slot.stufe !== n) continue;
+      if (hatRef(slot)) ganz += ectsGewicht(slot.ects);
+      if (isPlaced(slot.slot) && hat(slot)) gebaut += ectsGewicht(slot.ects);
+    }
+    if (ganz > 0 && gebaut / ganz >= STUFEN_SCHWELLE) s = n;
   }
   return s;
 }
@@ -2386,6 +2540,7 @@ function renderQuestTab(slot, el, tx, none) {
         const g = blockMeshes[slot.slot];
         if (g) burstConfetti(g.position.x, g.position.y + 2.5, g.position.z, 60, 3);
         if (isPlaced(slot.slot)) refreshBlock(slot.slot); // Wimpel und ggf. Meister-Upgrade anbringen
+        else if (canPlace(slot).ok) toast("🔓 " + t("quiz_freigeschaltet")); // im Serious Mode ist das Quiz das Gate
         rebuildGarden();
         renderPlan(); renderCardBody(slot); renderCardActions(slot);
       }, 900);
@@ -2557,6 +2712,25 @@ function renderCardActions(slot) {
     r.textContent = t("empf_hinweis") + empf.map((m) => L(SLOTS[m].titel).split(",")[0]).join(" · ");
     el.appendChild(r);
   }
+  // Serious Mode: beide Bedingungen gleichzeitig zeigen statt nacheinander aufdecken
+  if (S.mode === "serious" && !placed) {
+    const q = quizFor(slot);
+    const d = document.createElement("div"); d.className = "gatelist";
+    const zeile = (ok, txt, klick) => {
+      const s = document.createElement(klick ? "button" : "span");
+      s.className = "gaterow" + (ok ? " ok" : "");
+      s.innerHTML = `<span class="gbox">${ok ? "✔" : "○"}</span><span>${txt}</span>`;
+      if (klick) s.onclick = klick;
+      d.appendChild(s);
+    };
+    zeile(!!S.bestanden[slot.slot], t("gate_bestanden"), null);
+    if (q) zeile(quizOk(slot), t("gate_quiz"), () => {
+      cardTab = "quest";
+      document.querySelectorAll("#cardTabs button").forEach((x) => x.classList.toggle("on", x.dataset.tab === "quest"));
+      renderCardBody(slot);
+    });
+    el.appendChild(d);
+  }
   // Hauptaktion
   if (!placed) {
     const chk = canPlace(slot);
@@ -2605,7 +2779,7 @@ function renderCardActions(slot) {
 function refreshBlock(id) {
   const slot = SLOTS[id];
   const old = blockMeshes[id];
-  if (old) blockGroup.remove(old);
+  if (old) { blockGroup.remove(old); disposeGroup(old); }
   const g = buildBlockMesh(slot);
   decorateBlock(g, slot);
   blockGroup.add(g); blockMeshes[id] = g;
@@ -3391,6 +3565,44 @@ function olatExport() {
   download("kompetenzhaus-portfolio.md", md, "text/markdown");
 }
 
+/* ---------- Delta-Karte: Kompetenzzuwachs nach einer Aktion ----------
+   Die .bump-Animation im Profil-Panel bleibt unsichtbar, wenn das Panel zu ist (mobil der Normalfall)
+   oder die Kompetenz ausserhalb des Sichtfelds liegt. Diese Karte zeigt den Zuwachs unabhängig davon. */
+let deltaTimer = null;
+function showDelta(vorher) {
+  if (visitor.active) return;
+  const { score, max } = profilWerte();
+  const felder = [
+    { id: "fa", name: "Fach", nameEn: "Domain" },
+    { id: "ki", name: "KI", nameEn: "AI" },
+    { id: "fu", name: "Future", nameEn: "Future" }
+  ];
+  const zeilen = [];
+  for (const f of felder) {
+    const ids = ST.kompetenzen.filter((k) => k.feld === f.id).map((k) => k.id);
+    const jetzt = ids.reduce((n, i) => n + score[i], 0) / Math.max(1, ids.reduce((n, i) => n + max[i], 0));
+    const alt = vorher[f.id] || 0;
+    const d = Math.round((jetzt - alt) * 1000) / 10;
+    if (d >= 0.1) zeilen.push({ txt: (S.lang === "de" ? f.name : f.nameEn), d, farbe: ST.felder[f.id].farbe });
+  }
+  if (!zeilen.length) return;
+  const el = document.getElementById("deltaCard");
+  el.innerHTML = `<b>${t("delta_titel")}</b>` + zeilen.map((z) =>
+    `<span class="drow"><span class="ddot" style="background:${z.farbe}"></span>${escHtml(z.txt)} <b style="color:${z.farbe}">+${z.d.toFixed(1)}%</b></span>`).join("");
+  el.classList.add("show");
+  clearTimeout(deltaTimer);
+  deltaTimer = setTimeout(() => el.classList.remove("show"), 3400);
+}
+function feldAnteile() {
+  const { score, max } = profilWerte();
+  const out = {};
+  for (const f of ["fa", "ki", "fu"]) {
+    const ids = ST.kompetenzen.filter((k) => k.feld === f).map((k) => k.id);
+    out[f] = ids.reduce((n, i) => n + score[i], 0) / Math.max(1, ids.reduce((n, i) => n + max[i], 0));
+  }
+  return out;
+}
+
 /* ---------- Toast ---------- */
 let toastTimer = null;
 function toast(msg) {
@@ -3461,6 +3673,10 @@ document.getElementById("btnTour").onclick = () => {
   closeCard();
   startTour(true);
 };
+/* Die 3D-Wissensorte auch im Menü spiegeln: per Klick in die Szene sind sie kaum auffindbar
+   und für Tastaturnutzende gar nicht erreichbar. */
+document.getElementById("btnBauhuetteM").onclick = () => { document.getElementById("modalMenu").classList.remove("open"); openBauhuette(); };
+document.getElementById("btnGeraeteM").onclick = () => { document.getElementById("modalMenu").classList.remove("open"); openGeraete(); };
 document.getElementById("btnChangelog").onclick = () => {
   const list = CHANGELOG[S.lang] || CHANGELOG.de;
   document.getElementById("clogList").innerHTML = list.map(([v, tx]) => `<div class="bhrow"><b>${v}</b><p>${tx}</p></div>`).join("");
@@ -3605,4 +3821,4 @@ wireM("btnFotoM", document.getElementById("btnFoto"));
 window.__game = { get state() { return S; }, checkMilestones, save, step, enterRoom, leaveRoom, openBauhuette, avatarClamp, get avatarPos() { return { x: avatar.position.x, z: avatar.position.z }; }, get interior() { return interior ? { id: interior.id, opacity: interior.saved[0] ? interior.saved[0].mat.opacity : null } : null; }, get tweens() { return tweens.map((t) => ({ t: t.t, dur: t.dur })); }, get frame() { return elapsed; }, placeByChip: (id) => { const s = SLOTS[id]; if (s) { selectSlot(id); return placeSlot(s); } return false; } };
 animate();
 /* Fallback: läuft weiter, wenn der Tab gedrosselt ist (rAF pausiert) */
-setInterval(() => { if (performance.now() - lastTick > 400) step(); }, 250);
+setInterval(() => { if (!document.hidden && performance.now() - lastTick > 400) step(); }, 250);
