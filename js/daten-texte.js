@@ -178,85 +178,86 @@ window.MODUL_TEXTE =
    "en": "Advanced psychology students teach foundational skills for studying and career entry in seminar groups of around 30; the IPS also builds a social network and introduces interactive teaching formats. Assessment: completion of assignments (50%) and active participation (50%); passed only at 100%."
   },
   "zukunft": {
-   "de": "Ab HS26 trägt das IPS die vier KI-Grundpfeiler: P1 «Wie ‹denkt› ein LLM?» (KI4), P2 Spielregeln & Disclosure (KI5), P3 Fakten-Check-Übung (KI6) und P4 Erste Nutzung mit Haltung (KI1 + Fu2), getragen vom bewährten Peer-Teaching (ETH/UZH, 2025). Fachlich bleibt es das Stufe-1-Modul für Fa10, Fa6 und Fa7; der Merksatz «assistieren, nicht ersetzen, deklarieren, verifizieren» wird hier zur gelebten Routine (Ehlers et al., 2024). Die abschliessende [B]-Lernworkflow-Aufgabe ist ausdrücklich als anspruchsvollstes Format gerahmt — Newskilling von der ersten Woche an, ohne Deskilling-Risiko. So wird das kleinste Modul des Propädeutikums zum Fundamentgeber des gesamten gestuften KI-Kompetenzaufbaus.",
-   "en": "From HS26 the IPS carries the four AI foundations: P1 'How does an LLM ‹think›?' (KI4), P2 rules & disclosure (KI5), P3 fact-check exercise (KI6) and P4 first use with the right attitude (KI1 + Fu2), delivered through proven peer teaching (ETH/UZH, 2025). Professionally it remains the level-1 module for Fa10, Fa6 and Fa7; the guiding rule 'assist, don't replace, declare, verify' becomes lived routine here (Ehlers et al., 2024). The concluding [C] learning-workflow task is explicitly framed as the most demanding format, newskilling from week one, without deskilling risk. The smallest module of the propaedeutic programme thus lays the foundation for the entire staged build-up of AI competencies."
+   "de": "Das IPS bleibt, was der Modulkatalog beschreibt: der von fortgeschrittenen Studierenden getragene Einstieg ins Studium, in dem Grundkompetenzen für Studium und Berufseinstieg gelegt werden, interaktive Unterrichtsformen erlebbar sind und ein soziales Netzwerk entsteht. Den Kern bilden weiterhin wissenschaftliches Arbeiten (Recherche, Lesen, Zitieren, Fa6), Selbstorganisation und Studienplanung (Fa10), lernpsychologisch fundierte Lernstrategien — verteiltes Lernen und Abrufübung statt Wiederlesen — sowie wissenschaftliche Integrität (Fa7) und das Peer-Netzwerk (Fu3). Neu kommt ab HS26 ein vierter Baustein dazu, der die anderen nicht verdrängt, sondern ergänzt: eine erste, bewusst schmale KI-Grundhaltung. In vier kurzen Grundpfeilern lernen Studierende, wie ein Sprachmodell zu seinen Antworten kommt (KI4), welche Spielregeln und Deklarationspflichten im Studium gelten (KI5), wie man eine erfundene Referenz entlarvt (KI6) und wann KI das eigene Verstehen anstösst statt es zu ersetzen (KI1 + Fu2). Der Merksatz «assistieren, nicht ersetzen, deklarieren, verifizieren» wird hier zur Routine, die spätere Module voraussetzen dürfen (Bass et al., 2025; Ehlers et al., 2024). So bleibt das kleinste Modul des Propädeutikums vor allem ein Studieneinstiegs-Modul und wird zugleich zum Ort, an dem der gestufte KI-Kompetenzaufbau ansetzt.",
+   "en": "The IPS remains what the module catalogue describes: the peer-taught entry into the degree, where foundational competences for studying and for entering the profession are laid, interactive teaching formats are experienced and a social network forms. Its core is still academic work (searching, reading, citing, Fa6), self-organisation and study planning (Fa10), learning strategies grounded in research — distributed practice and retrieval practice rather than rereading — as well as academic integrity (Fa7) and the peer network (Fu3). From autumn 2026 a fourth element is added that does not displace the others but complements them: a first, deliberately narrow AI foundation. In four short pillars students learn how a language model arrives at its answers (KI4), which rules and disclosure duties apply in their studies (KI5), how to expose a fabricated reference (KI6), and when AI prompts their own understanding rather than replacing it (KI1 + Fu2). The maxim «assist, don't replace, declare, verify» becomes the routine that later modules may take for granted (Bass et al., 2025; Ehlers et al., 2024). The smallest module of the propaedeutic year thus remains above all a study-entry module while becoming the place where the staged build-up of AI competence begins."
   },
   "lernziele": [
    {
-    "de": "Die Studierenden entscheiden Fallkarten zu erlaubter und unerlaubter KI-Nutzung und füllen ein Disclosure Form korrekt aus.",
-    "en": "Students decide case cards on permitted and non-permitted AI use and fill in a Disclosure Form correctly.",
+    "de": "Die Studierenden recherchieren wissenschaftliche Literatur systematisch, lesen Fachtexte strukturiert und zitieren korrekt statt zu paraphrasieren.",
+    "en": "Students search the scientific literature systematically, read specialist texts in a structured way and cite correctly instead of loosely paraphrasing.",
     "b": [
-     "K"
+     "F"
     ]
    },
    {
-    "de": "Die Studierenden prüfen eine KI-Antwort mit erfundenen Referenzen gegen Lehrbuch und Datenbank und dokumentieren die gefundenen Fehler.",
-    "en": "Students check an AI answer with fabricated references against textbook and database and document the errors found.",
+    "de": "Die Studierenden planen ihr Semester mit verteiltem Lernen und Abrufübung statt mit Wiederlesen und begründen ihre Wahl lernpsychologisch.",
+    "en": "Students plan their term using distributed practice and retrieval practice instead of rereading, and justify that choice with learning research.",
     "b": [
      "F",
-     "K"
-    ]
-   },
-   {
-    "de": "Die Studierenden klären in Kleingruppen Mensch-KI-Rollen, wer promptet, wer prüft, wer verantwortet die finale Antwort, und planen ihre Arbeitsaufträge selbstgesteuert mit oder bewusst ohne KI.",
-    "en": "Students clarify human–AI roles in small groups, who prompts, who verifies, who is accountable for the final answer, and plan their assignments self-directedly with or deliberately without AI.",
-    "b": [
-     "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden recherchieren und lesen wissenschaftliche Texte, planen ihre Arbeitsaufträge eigenständig und bauen ein Peer-Netzwerk auf.",
-    "en": "Students search for and read scientific texts, plan their assignments independently and build a peer network.",
+    "de": "Die Studierenden arbeiten in der Seminargruppe aktiv mit, erproben interaktive Unterrichtsformen und bauen ein Peer-Netzwerk für das Studium auf.",
+    "en": "Students contribute actively in the seminar group, try out interactive teaching formats and build a peer network for their studies.",
+    "b": [
+     "S"
+    ]
+   },
+   {
+    "de": "Die Studierenden erklären in Grundzügen, wie ein Sprachmodell zu seinen Antworten kommt, und prüfen eine KI-Antwort mit erfundenen Referenzen gegen Lehrbuch und Datenbank.",
+    "en": "Students explain in outline how a language model arrives at its answers and check an AI answer containing fabricated references against textbook and database.",
     "b": [
      "F",
+     "K"
+    ]
+   },
+   {
+    "de": "Die Studierenden wenden die Spielregeln für KI im Studium an, deklarieren ihre Nutzung nachvollziehbar und entscheiden bewusst, wann sie ohne KI arbeiten.",
+    "en": "Students apply the ground rules for AI in their studies, declare their use transparently and consciously decide when to work without AI.",
+    "b": [
+     "K",
      "S"
     ]
    }
   ],
   "ki": {
-   "de": "Prüfungslogik [B] teilweise KI-integriert als Standard: kleine deklarierte KI-Aufgaben mit Disclosure Form und Reflexion innerhalb der bestehenden Arbeitsaufträge. Eine [B]-Lernworkflow-Aufgabe bildet das anspruchsvollste Format: Die KI erstellt Verständnisfragen und Feedback, die Studierenden verifizieren gegen Lehrbuch und Datenbank und reflektieren, ob die KI ihr Verstehen unterstützt oder ersetzt hat. Elemente: Prompt-&-Disclosure-Übung und Two-Stage-Quiz, alles über UZH-Infrastruktur (OLAT, Copilot Chat, KlickerUZH), keine Pflicht-Tools mit externem Login oder Kosten.",
-   "en": "Assessment logic [B] partially AI-integrated as the standard: small declared AI tasks with Disclosure Form and reflection within the existing assignments. One [C] learning-workflow task forms the most demanding assignment: AI generates comprehension questions and feedback, students verify against textbook/database and reflect on whether the AI supported or replaced their understanding. Elements: prompt-and-disclosure exercise and two-stage quiz, all on UZH infrastructure (OLAT, Copilot Chat, KlickerUZH), no mandatory tools with external login or costs."
+   "de": "Prüfungslogik [A]+[B]: Die Arbeitsaufträge zu wissenschaftlichem Arbeiten, Lernplanung und Recherche werden eigenständig erbracht [A]; die KI-Grundpfeiler laufen als deklarierte [B]-Übungen mit Disclosure Form. Aktivierende Elemente aus dem 8er-Baukasten: Prompt-&-Disclosure-Übung, Live-Check («Stimmt das, was die KI sagt?») und AI-Critique — jeweils kurz gehalten, damit der Studieneinstieg im Zentrum bleibt. Das Peer-Teaching-Format selbst ist der wichtigste Wirkfaktor: Fortgeschrittene modellieren, wie man im Studium arbeitet, plant und zusammenarbeitet.",
+   "en": "Assessment logic [A]+[B]: the assignments on academic work, study planning and literature search are produced independently [A]; the AI pillars run as declared [B] exercises with a disclosure form. Activating elements from the toolkit: prompt-&-disclosure exercise, live check («is the AI right?») and AI critique — each kept short so that the study entry stays central. The peer-teaching format itself is the strongest active ingredient: advanced students model how to work, plan and collaborate in a degree programme."
   },
   "kat": "B",
   "komp": {
    "fa": [
     "Fa6",
     "Fa7",
-    "Fa10"
+    "Fa10",
+    "Fa4"
    ],
    "ki": [
     "KI1",
-    "KI3",
     "KI4",
     "KI5",
     "KI6"
    ],
    "fu": [
-    "Fu1",
     "Fu2",
     "Fu3"
    ]
   },
   "haupt": [
    "Fa10",
-   "KI4",
-   "KI5"
+   "Fa6",
+   "Fu3"
   ],
   "quest": {
    "titel": {
-    "de": "Dein erstes Disclosure Form",
-    "en": "Your First Disclosure Form"
+    "de": "Dein Semesterplan, der trägt",
+    "en": "A term plan that holds"
    },
    "text": {
-    "de": "Entscheide drei Fallkarten: Ist die beschriebene KI-Nutzung erlaubt, deklarationspflichtig oder unzulässig? Fülle anschliessend für einen erlaubten Fall ein Disclosure Form aus: Tool, Zweck, Prompt und Verifikationsschritt. Prüfe dein Formular gegen den Merksatz «assistieren, nicht ersetzen, deklarieren, verifizieren».",
-    "en": "Decide three case cards: is the described AI use permitted, subject to declaration, or not allowed? Then fill in a Disclosure Form for one permitted case: tool, purpose, prompt and verification step. Check your form against the guiding rule 'assist, don't replace, declare, verify'."
-   },
-   "komp": [
-    "KI5",
-    "Fu3",
-    "Fa7"
-   ]
+    "de": "Plane eine Woche deines Semesters konkret: Trage feste Lernblöcke für zwei Fächer ein, verteilt über die Woche statt gebündelt, und plane für jeden Block eine Abrufübung (Karteikarten, Selbsttest, jemandem erklären) statt blossem Wiederlesen. Notiere zum Schluss in einem Satz, wo du im Studium bewusst ohne KI arbeiten willst und warum.",
+    "en": "Plan one week of your term concretely: schedule fixed study blocks for two subjects, spread across the week rather than bundled, and plan a retrieval exercise for each block (flashcards, self-test, explaining it to someone) instead of mere rereading. Finally, note in one sentence where in your studies you deliberately want to work without AI, and why."
+   }
   },
   "quellen": [
    "Ehlers et al. (2024)",

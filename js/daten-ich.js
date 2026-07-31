@@ -70,33 +70,40 @@ window.ICH_LERNZIELE =
  ],
  "06SM200-003": [
   {
-   "de": "Ich entscheide Fallkarten zu erlaubter und unerlaubter KI-Nutzung und fülle ein Disclosure Form korrekt aus.",
-   "en": "I decide case cards on permitted and non-permitted AI use and fill in a Disclosure Form correctly.",
+   "de": "Ich recherchiere wissenschaftliche Literatur systematisch, lese Fachtexte strukturiert und zitiere korrekt.",
+   "en": "I search the scientific literature systematically, read specialist texts in a structured way and cite correctly.",
    "b": [
-    "K"
+    "F"
    ]
   },
   {
-   "de": "Ich prüfe eine KI-Antwort mit erfundenen Referenzen gegen Lehrbuch und Datenbank und dokumentiere die gefundenen Fehler.",
-   "en": "I check an AI answer with fabricated references against textbook and database and document the errors found.",
+   "de": "Ich plane mein Semester mit verteiltem Lernen und Abrufübung statt mit Wiederlesen.",
+   "en": "I plan my term using distributed practice and retrieval practice instead of rereading.",
    "b": [
     "F",
-    "K"
-   ]
-  },
-  {
-   "de": "Ich kläre in Kleingruppen Mensch-KI-Rollen, wer promptet, wer prüft, wer verantwortet die finale Antwort, und plane meine Arbeitsaufträge selbstgesteuert mit oder bewusst ohne KI.",
-   "en": "I clarify human–AI roles in small groups, who prompts, who verifies, who is accountable for the final answer, and plan my assignments self-directedly with or deliberately without AI.",
-   "b": [
-    "K",
     "S"
    ]
   },
   {
-   "de": "Ich recherchiere und lese wissenschaftliche Texte, plane meine Arbeitsaufträge eigenständig und baue ein Peer-Netzwerk auf.",
-   "en": "I search for and read scientific texts, plan my assignments independently and build a peer network.",
+   "de": "Ich arbeite in der Seminargruppe aktiv mit und baue ein Peer-Netzwerk für mein Studium auf.",
+   "en": "I contribute actively in the seminar group and build a peer network for my studies.",
+   "b": [
+    "S"
+   ]
+  },
+  {
+   "de": "Ich erkläre in Grundzügen, wie ein Sprachmodell zu seinen Antworten kommt, und entlarve erfundene Referenzen.",
+   "en": "I explain in outline how a language model arrives at its answers and expose fabricated references.",
    "b": [
     "F",
+    "K"
+   ]
+  },
+  {
+   "de": "Ich wende die Spielregeln für KI im Studium an, deklariere meine Nutzung und entscheide bewusst, wann ich ohne KI arbeite.",
+   "en": "I apply the ground rules for AI in my studies, declare my use and consciously decide when to work without AI.",
+   "b": [
+    "K",
     "S"
    ]
   }
