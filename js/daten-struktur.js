@@ -146,27 +146,27 @@ window.STRUKTUR = {
   },
   baFragen: {
     BAk: [
-      { id: "BAk1", form: "daten",  pfade: ["psycho", "klinik"],
+      { id: "BAk1", form: "daten",  pfade: ["psycho", "klinik", "gesundheit"],
         name: { de: "Hängt Schlafqualität mit depressiven Symptomen zusammen? Analyse eines bereitgestellten Längsschnitt-Datensatzes", en: "Is sleep quality linked to depressive symptoms? Analysis of a provided longitudinal dataset" } },
-      { id: "BAk2", form: "repro",  pfade: ["klinik", "phd"],
+      { id: "BAk2", form: "repro",  pfade: ["klinik", "phd", "gesundheit"],
         name: { de: "Reproduzierbarkeitscheck: Lässt sich der Zusammenhang von Social-Media-Nutzung und Wohlbefinden mit offenen Daten replizieren?", en: "Reproducibility check: does the social-media-use/well-being link replicate with open data?" } },
-      { id: "BAk3", form: "review", pfade: ["klinik", "data"],
+      { id: "BAk3", form: "review", pfade: ["gesundheit", "klinik", "ux"],
         name: { de: "Strukturierter Review: Wirksamkeit digitaler Gesundheitsinterventionen (Apps) bei Stress — codierte Befunde", en: "Structured review: effectiveness of digital health interventions (apps) for stress — coded findings" } }
     ],
     BAe: [
       { id: "BAe1", form: "daten",  pfade: ["neuro", "phd"],
         name: { de: "Altersunterschiede im Arbeitsgedächtnis: Auswertung eines bereitgestellten Reaktionszeit-Datensatzes", en: "Age differences in working memory: analysis of a provided reaction-time dataset" } },
-      { id: "BAe2", form: "repro",  pfade: ["phd", "neuro"],
+      { id: "BAe2", form: "repro",  pfade: ["phd", "neuro", "ux"],
         name: { de: "Robustheitscheck eines publizierten Gedächtniseffekts (z.B. Testungseffekt) mit alternativen Auswertungsentscheidungen", en: "Robustness check of a published memory effect (e.g. testing effect) under alternative analytic decisions" } },
-      { id: "BAe3", form: "review", pfade: ["schule", "phd"],
+      { id: "BAe3", form: "review", pfade: ["schule", "phd", "gesundheit"],
         name: { de: "Strukturierter Review: Was zeigen Längsschnittstudien zu Bildschirmzeit in der frühen Kindheit?", en: "Structured review: what do longitudinal studies show on screen time in early childhood?" } }
     ],
     BAs: [
-      { id: "BAs1", form: "daten",  pfade: ["wirtschaft"],
+      { id: "BAs1", form: "daten",  pfade: ["wirtschaft", "laufbahn"],
         name: { de: "Homeoffice und Arbeitszufriedenheit: Analyse eines bereitgestellten Befragungs-Datensatzes", en: "Working from home and job satisfaction: analysis of a provided survey dataset" } },
-      { id: "BAs2", form: "repro",  pfade: ["wirtschaft", "data"],
+      { id: "BAs2", form: "repro",  pfade: ["wirtschaft", "konsum"],
         name: { de: "Reproduzierbarkeitscheck: Nudging-Effekte auf umweltfreundliches Verhalten in offenen Datensätzen", en: "Reproducibility check: nudging effects on pro-environmental behaviour in open datasets" } },
-      { id: "BAs3", form: "review", pfade: ["data", "wirtschaft"],
+      { id: "BAs3", form: "review", pfade: ["konsum", "ux", "wirtschaft"],
         name: { de: "Strukturierter Review: Algorithmus-Aversion und Vertrauen in KI-Empfehlungen — codierte Befunde", en: "Structured review: algorithm aversion and trust in AI recommendations — coded findings" } }
     ]
   },

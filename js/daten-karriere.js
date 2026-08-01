@@ -1,180 +1,15 @@
-/* Karrierepfade v8 (21.07.2026): 9 Pfade mit Gewichtung (w), Zielstufen (ziel), Soll-Radar (soll,
-   6 Achsen wie RADAR_ACHSEN), Wahl-Empfehlung (wahl: r=BSc-Richtung, sp=MSc-Schwerpunkt, wp=Wahlpflichtmodul)
-   und «Nach dem Master»-Roadmaps. Fakten adversarial verifiziert — Quelle: 90_Recherche/web_karrierewege-nach-msc.md.
-   cv (Bewerbungs-Textbausteine pro Kompetenz × Stufe) unverändert aus v3. */
+/* Karrierepfade v10.1 (01.08.2026): 12 Wege aus den Fachbereichen des Studiums, je mit realistischem Stellenprofil.
+   NEU gegenüber v10: Feld `stelle` an jedem Pfad — Einstiegs-Stellenbezeichnung, Pensum, Arbeitgebertypen,
+   4 Kernaufgaben und 4 Anforderungen aus realen Schweizer Ausschreibungen, Einstiegslohn mit Belegqualität
+   (lohnQ hoch/mittel/tief) und der Zeitpunkt, ab dem die Stelle erreichbar ist.
+   Nur EIN Pfad ist akademisch (phd); die übrigen elf sind Praxisberufe aus den Fachbereichen.
+   Wo kein berufsspezifischer Schweizer Lohn publiziert ist (gesundheit, gutachten, UX-Research),
+   sagt der Text das ausdrücklich, statt zu schätzen.
+   Quellen: 90_Recherche/web_stellenprofile-ch-2026.md (Stand 01.08.2026), web_karrierepfade-aus-fachbereichen.md,
+   web_karrierewege-nach-msc.md. */
 window.KARRIERE =
 {
  "pfade": [
-  {
-   "id": "phd",
-   "icon": "🔬",
-   "name": {
-    "de": "PhD & Forschung",
-    "en": "PhD & research"
-   },
-   "hint": {
-    "de": "Promotion, wissenschaftliche Mitarbeit, akademische Laufbahn",
-    "en": "Doctorate, research positions, academic career"
-   },
-   "w": {
-    "Fa1": 1,
-    "Fa2": 3,
-    "Fa3": 3,
-    "Fa4": 2,
-    "Fa6": 2,
-    "Fa7": 2,
-    "Fa10": 1,
-    "KI1": 2,
-    "KI2": 2,
-    "KI4": 1,
-    "KI6": 2,
-    "Fu1": 1,
-    "Fu2": 1
-   },
-   "ziel": {
-    "Fa2": 4,
-    "Fa3": 4,
-    "Fa4": 4,
-    "Fa6": 4,
-    "Fa7": 3,
-    "KI2": 3,
-    "KI6": 4,
-    "Fu2": 3
-   },
-   "soll": [
-    0.7,
-    0.95,
-    0.9,
-    0.8,
-    0.9,
-    0.7
-   ],
-   "wahl": {
-    "r": null,
-    "sp": null,
-    "wp": null,
-    "hinweis": {
-     "de": "Methoden- und Statistikstärke und eine starke Masterarbeit zählen mehr als der Schwerpunkt — wähle Vertiefungen im Feld deiner geplanten Promotion.",
-     "en": "Methodological and statistical strength plus a strong thesis count more than the track — pick specialisations in the field of your intended doctorate."
-    }
-   },
-   "roadmap": [
-    {
-     "t": {
-      "de": "Doktorat (3–5 Jahre)",
-      "en": "Doctorate (3–5 years)"
-     },
-     "d": {
-      "de": "Anstellung meist über SNF-Projektförderung (Gesuch stellt die betreuende Forschungsperson, Anstellung max. 4 Jahre) oder Universitätsmittel — das Instrument Doc.CH wurde eingestellt.",
-      "en": "Usually employed via SNSF project funding (the supervisor applies; employment max. 4 years) or university funds — the Doc.CH scheme has been discontinued."
-     }
-    },
-    {
-     "t": {
-      "de": "Postdoc mit Mobilität",
-      "en": "Postdoc with mobility"
-     },
-     "d": {
-      "de": "Postdoc.Mobility (letzte Eingabe 2027) und Ambizione (letzte Eingabe 2026) werden 2028 durch ein neues SNF-Postdoc-Instrument ersetzt; danach SNSF Starting Grants.",
-      "en": "Postdoc.Mobility (last call 2027) and Ambizione (last call 2026) are replaced by a new SNSF postdoc scheme in 2028; then SNSF Starting Grants."
-     }
-    },
-    {
-     "t": {
-      "de": "Eigenes Projekt & Profil",
-      "en": "Own project & profile"
-     },
-     "d": {
-      "de": "Publikationen, Drittmittel und Lehre bauen das akademische Profil zur Etablierung auf.",
-      "en": "Publications, third-party funding and teaching build the academic profile towards establishment."
-     }
-    }
-   ]
-  },
-  {
-   "id": "klinik",
-   "icon": "🩺",
-   "name": {
-    "de": "Klinische Praxis & Gesundheit",
-    "en": "Clinical practice & health"
-   },
-   "hint": {
-    "de": "Fachtitel Klinische Psychologie/Gesundheitspsychologie, Klinik, Beratung, Prävention",
-    "en": "Specialist titles in clinical/health psychology, clinics, counselling, prevention"
-   },
-   "w": {
-    "Fa1": 2,
-    "Fa5": 3,
-    "Fa7": 2,
-    "Fa8": 3,
-    "Fa9": 2,
-    "Fa6": 1,
-    "KI3": 1,
-    "KI5": 2,
-    "KI6": 1,
-    "Fu2": 1,
-    "Fu3": 2
-   },
-   "ziel": {
-    "Fa1": 3,
-    "Fa5": 4,
-    "Fa7": 4,
-    "Fa8": 4,
-    "Fa9": 3,
-    "KI5": 4,
-    "KI6": 3,
-    "Fu3": 3
-   },
-   "soll": [
-    0.9,
-    0.8,
-    0.85,
-    0.6,
-    0.85,
-    0.75
-   ],
-   "wahl": {
-    "r": "klin",
-    "sp": "HEA",
-    "wp": null,
-    "hinweis": {
-     "de": "Psychopathologie- und Diagnostik-Module gehören ins Profil; die klinische BSc-Richtung und HEA-Vertiefungen sind die sicherste Route.",
-     "en": "Psychopathology and assessment modules belong in the profile; the clinical BSc direction and HEA specialisations are the safest route."
-    }
-   },
-   "roadmap": [
-    {
-     "t": {
-      "de": "Einstieg in die Versorgung",
-      "en": "Entry into care settings"
-     },
-     "d": {
-      "de": "Klinisch-psychologische Anstellung in Klinik, Psychiatrie oder psychosozialer Versorgung, parallel zur berufsbegleitenden Weiterbildung.",
-      "en": "Clinical-psychology position in a clinic, psychiatry or psychosocial services, alongside part-time further training."
-     }
-    },
-    {
-     "t": {
-      "de": "Fachtitel Klinische Psychologie (SVKP/FSP)",
-      "en": "Specialist title in clinical psychology (SVKP/FSP)"
-     },
-     "d": {
-      "de": "5 Jahre Weiterbildung (Vollzeitäquivalent; Anstellungen unter 50 % zählen nicht): 4 Jahre klinische Praxis mit mind. 1 Jahr Psychiatrie plus 1025 Weiterbildungsstunden (Diagnostik, Beratung, Psychotherapie, Selbsterfahrung, Supervision).",
-      "en": "5 years of training (full-time equivalent; posts below 50% do not count): 4 years of clinical practice incl. at least 1 year in psychiatry plus 1,025 training hours (assessment, counselling, psychotherapy, self-experience, supervision)."
-     }
-    },
-    {
-     "t": {
-      "de": "Alternativer eidgenössischer Weg",
-      "en": "Alternative federal route"
-     },
-     "d": {
-      "de": "Daneben existiert der eidgenössische Weiterbildungstitel «klinische Psychologie» (Art. 8 PsyG) — einer von fünf staatlich geregelten Titeln.",
-      "en": "There is also the federal advanced title in clinical psychology (Art. 8 PsyA) — one of five state-regulated titles."
-     }
-    }
-   ]
-  },
   {
    "id": "psycho",
    "icon": "🛋️",
@@ -279,7 +114,385 @@ window.KARRIERE =
       "en": "For basic insurance: 3 years of practice (full-time equivalent) incl. 12 months at an SIWF training site A/B/C (the 'third clinical year'); then your own practice under the prescription model (max. 15 sessions per prescription, cost approval after 30)."
      }
     }
-   ]
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Psycholog:in / PG-Psycholog:in (in Weiterbildung)",
+     "en": "Psychologist / postgraduate psychologist (in training)"
+    },
+    "pensum": {
+     "de": "80–100 % — die Weiterbildungsstätten verlangen für die Anrechnung der Praxisjahre ein hohes Pensum",
+     "en": "80–100 % — training institutions require a high workload for the practice years to count"
+    },
+    "wo": {
+     "de": "Psychiatrische und universitäre Kliniken, Ambulatorien, psychosomatische und Rehabilitationskliniken, grosse Praxisverbünde (UPK Basel, PUK Zürich, PDAG, ipw Winterthur, UPZ Bern)",
+     "en": "Psychiatric and university clinics, outpatient units, psychosomatic and rehabilitation clinics, large group practices (UPK Basel, PUK Zurich, PDAG, ipw Winterthur, UPZ Bern)"
+    },
+    "aufgaben": [
+     {
+      "de": "Fallführende psychotherapeutische Behandlungen im Einzel- und Gruppensetting",
+      "en": "Case-responsible psychotherapeutic treatment in individual and group settings"
+     },
+     {
+      "de": "Psychiatrisch-psychotherapeutische Abklärungsgespräche und Diagnosestellung nach Guidelines",
+      "en": "Psychiatric-psychotherapeutic assessment interviews and diagnosis according to guidelines"
+     },
+     {
+      "de": "Ambulante Behandlung unter ärztlicher Supervision",
+      "en": "Outpatient treatment under medical supervision"
+     },
+     {
+      "de": "Dokumentation, Fachberichte, Mitarbeit im multiprofessionellen Team",
+      "en": "Documentation, specialist reports, work in a multi-professional team"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie mit klinischem Schwerpunkt inkl. Psychopathologie",
+      "en": "MSc in psychology with a clinical focus including psychopathology"
+     },
+     {
+      "de": "Begonnene oder geplante eidgenössisch anerkannte Psychotherapieweiterbildung an einem akkreditierten Institut",
+      "en": "Federally recognised psychotherapy training started or planned at an accredited institute"
+     },
+     {
+      "de": "Deutsch mindestens auf Niveau C1",
+      "en": "German at least at level C1"
+     },
+     {
+      "de": "Klinische Berufserfahrung — einzelne Stellen verlangen bis zu vier Jahre nach Studienabschluss",
+      "en": "Clinical experience — some positions require up to four years after graduation"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 80'000–95'000 pro Jahr bei 100 % in der Weiterbildungsphase; nach dem eidgenössischen Titel CHF 100'000–120'000",
+     "en": "CHF 80,000–95,000 per year at 100 % during training; CHF 100,000–120,000 after the federal title"
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Psychologe», n = 764; Lohnbuch Schweiz 2025",
+     "en": "jobs.ch salary calculator “psychologist”, n = 764; Lohnbuch Schweiz 2025"
+    },
+    "wann": {
+     "de": "Einstieg direkt nach dem MSc. Der eidgenössische Titel folgt nach 4–6 Jahren berufsbegleitender Weiterbildung, die man selbst bezahlt (CHF 25'000–48'750).",
+     "en": "Entry directly after the MSc. The federal title follows after 4–6 years of part-time training, paid for privately (CHF 25,000–48,750)."
+    }
+   }
+  },
+  {
+   "id": "klinik",
+   "icon": "🩺",
+   "name": {
+    "de": "Klinische Psychologie",
+    "en": "Clinical psychology"
+   },
+   "hint": {
+    "de": "Fachtitel Klinische Psychologie/Gesundheitspsychologie, Klinik, Beratung, Prävention",
+    "en": "Specialist titles in clinical/health psychology, clinics, counselling, prevention"
+   },
+   "w": {
+    "Fa1": 2,
+    "Fa5": 3,
+    "Fa7": 2,
+    "Fa8": 3,
+    "Fa9": 2,
+    "Fa6": 1,
+    "KI3": 1,
+    "KI5": 2,
+    "KI6": 1,
+    "Fu2": 1,
+    "Fu3": 2
+   },
+   "ziel": {
+    "Fa1": 3,
+    "Fa5": 4,
+    "Fa7": 4,
+    "Fa8": 4,
+    "Fa9": 3,
+    "KI5": 4,
+    "KI6": 3,
+    "Fu3": 3
+   },
+   "soll": [
+    0.9,
+    0.8,
+    0.85,
+    0.6,
+    0.85,
+    0.75
+   ],
+   "wahl": {
+    "r": "klin",
+    "sp": "HEA",
+    "wp": null,
+    "hinweis": {
+     "de": "Psychopathologie- und Diagnostik-Module gehören ins Profil; die klinische BSc-Richtung und HEA-Vertiefungen sind die sicherste Route.",
+     "en": "Psychopathology and assessment modules belong in the profile; the clinical BSc direction and HEA specialisations are the safest route."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Einstieg in die Versorgung",
+      "en": "Entry into care settings"
+     },
+     "d": {
+      "de": "Klinisch-psychologische Anstellung in Klinik, Psychiatrie oder psychosozialer Versorgung, parallel zur berufsbegleitenden Weiterbildung.",
+      "en": "Clinical-psychology position in a clinic, psychiatry or psychosocial services, alongside part-time further training."
+     }
+    },
+    {
+     "t": {
+      "de": "Fachtitel Klinische Psychologie (SVKP/FSP)",
+      "en": "Specialist title in clinical psychology (SVKP/FSP)"
+     },
+     "d": {
+      "de": "5 Jahre Weiterbildung (Vollzeitäquivalent; Anstellungen unter 50 % zählen nicht): 4 Jahre klinische Praxis mit mind. 1 Jahr Psychiatrie plus 1025 Weiterbildungsstunden (Diagnostik, Beratung, Psychotherapie, Selbsterfahrung, Supervision).",
+      "en": "5 years of training (full-time equivalent; posts below 50% do not count): 4 years of clinical practice incl. at least 1 year in psychiatry plus 1,025 training hours (assessment, counselling, psychotherapy, self-experience, supervision)."
+     }
+    },
+    {
+     "t": {
+      "de": "Alternativer eidgenössischer Weg",
+      "en": "Alternative federal route"
+     },
+     "d": {
+      "de": "Daneben existiert der eidgenössische Weiterbildungstitel «klinische Psychologie» (Art. 8 PsyG) — einer von fünf staatlich geregelten Titeln.",
+      "en": "There is also the federal advanced title in clinical psychology (Art. 8 PsyA) — one of five state-regulated titles."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Psycholog:in / Assistenzpsycholog:in",
+     "en": "Psychologist / assistant psychologist"
+    },
+    "pensum": {
+     "de": "60–100 % — in Kliniken meist 80–100 %, in Beratungsstellen häufig 60–80 %",
+     "en": "60–100 % — usually 80–100 % in clinics, often 60–80 % in counselling services"
+    },
+    "wo": {
+     "de": "Psychiatrische, psychosomatische und Rehabilitationskliniken, Suchtfachstellen, kantonale Fachstellen, Opferberatung, Wohn- und Sozialinstitutionen (Kliniken Valens, Oberwaid, Psychiatrie Baselland, Arud Zürich)",
+     "en": "Psychiatric, psychosomatic and rehabilitation clinics, addiction services, cantonal specialist units, victim support, residential and social institutions (Kliniken Valens, Oberwaid, Psychiatrie Baselland, Arud Zurich)"
+    },
+    "aufgaben": [
+     {
+      "de": "Klinische und testpsychologische Diagnostik, selbständige Durchführung psychodiagnostischer Verfahren",
+      "en": "Clinical and psychometric assessment, independently administering diagnostic instruments"
+     },
+     {
+      "de": "Beratung von Patient:innen und Angehörigen, Fallführung im interprofessionellen Team",
+      "en": "Counselling patients and relatives, case management in an interprofessional team"
+     },
+     {
+      "de": "Berichterstattung, Dokumentation, Verfassen von Fachberichten",
+      "en": "Reporting, documentation, writing specialist reports"
+     },
+     {
+      "de": "In Suchtfachstellen: Beratung, Fallbegleitung, Vernetzung mit Behörden",
+      "en": "In addiction services: counselling, case support, liaison with authorities"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie (Universität oder Fachhochschule)",
+      "en": "MSc in psychology (university or university of applied sciences)"
+     },
+     {
+      "de": "Klinische Erfahrung und breites diagnostisches Wissen",
+      "en": "Clinical experience and broad diagnostic knowledge"
+     },
+     {
+      "de": "Sehr gute Deutschkenntnisse (in der Regel C1 oder Muttersprache)",
+      "en": "Very good German (usually C1 or native)"
+     },
+     {
+      "de": "Hohe Sozialkompetenz, Kommunikationsfähigkeit, Belastbarkeit",
+      "en": "Strong social skills, communication ability, resilience"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 78'000–92'000 pro Jahr bei 100 % — typischerweise die tiefer bezahlte Variante gegenüber der Psychotherapie-Schiene",
+     "en": "CHF 78,000–92,000 per year at 100 % — typically the lower-paid variant compared with the psychotherapy track"
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Psychologe», n = 764; Kanton Zürich Lohnklasse 19 für Stellen mit Therapietätigkeit",
+     "en": "jobs.ch salary calculator “psychologist”, n = 764; Canton of Zurich salary class 19 for posts with therapeutic duties"
+    },
+    "wann": {
+     "de": "Direkt nach dem MSc — neben der Promotion das einzige Feld mit breitem Zugang ohne postgraduale Weiterbildung.",
+     "en": "Directly after the MSc — alongside the doctorate the only field with broad access without postgraduate training."
+    }
+   }
+  },
+  {
+   "id": "gesundheit",
+   "icon": "🌱",
+   "name": {
+    "de": "Gesundheitsförderung & Prävention",
+    "en": "Health promotion & prevention"
+   },
+   "hint": {
+    "de": "Gesundheitspsychologie: Prävention, betriebliche Gesundheit, Public Health — einer der fünf eidgenössischen Titel",
+    "en": "Health psychology: prevention, workplace health, public health — one of the five federal titles"
+   },
+   "w": {
+    "Fa1": 2,
+    "Fa2": 2,
+    "Fa4": 2,
+    "Fa6": 2,
+    "Fa8": 3,
+    "Fa9": 3,
+    "Fa7": 2,
+    "KI1": 1,
+    "KI5": 2,
+    "KI6": 2,
+    "Fu1": 2,
+    "Fu3": 2
+   },
+   "ziel": {
+    "Fa1": 3,
+    "Fa2": 3,
+    "Fa6": 3,
+    "Fa8": 3,
+    "Fa9": 3,
+    "Fa7": 3,
+    "KI6": 3,
+    "Fu3": 3
+   },
+   "soll": [
+    0.9,
+    0.7,
+    0.85,
+    0.55,
+    0.7,
+    0.85
+   ],
+   "wahl": {
+    "r": "klin",
+    "sp": "HEA",
+    "wp": null,
+    "hinweis": {
+     "de": "Gesundheitspsychologie ist MSc-Pflichtmodul; HEA-Vertiefungen zu Prävention, Diagnostik und Intervention sowie eine gesundheitsbezogene Themenwahl schärfen das Profil.",
+     "en": "Health psychology is a compulsory MSc module; HEA specialisations in prevention, assessment and intervention plus a health-related topic choice sharpen the profile."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Einstieg ohne Titelpflicht möglich",
+      "en": "Entry possible without a protected title"
+     },
+     "d": {
+      "de": "Betriebliche Gesundheitsförderung, Präventionsprogramme von Kantonen und NGO, Suchtprävention, Gesundheitskommunikation — hier zählen Projekt- und Evaluationskompetenz.",
+      "en": "Workplace health promotion, prevention programmes of cantons and NGOs, addiction prevention, health communication — project and evaluation skills count here."
+     }
+    },
+    {
+     "t": {
+      "de": "MAS Gesundheitspsychologie (UZH + Universität Bern)",
+      "en": "MAS in Health Psychology (UZH + University of Bern)"
+     },
+     "d": {
+      "de": "Vier Semester berufsbegleitend, 60 ECTS, mit E-Learning, praktischer Arbeit, Supervision und Abschlussarbeit; er umfasst drei von vier CAS der beiden Universitäten und führt nach der geplanten Akkreditierung zum eidgenössischen Fachtitel.",
+      "en": "Four semesters part-time, 60 ECTS, with e-learning, practical work, supervision and a thesis; it includes three of the four CAS run by the two universities and leads to the federal specialist title once accreditation is in place."
+     }
+    },
+    {
+     "t": {
+      "de": "Alternative: modulare SGGPsy-Weiterbildung",
+      "en": "Alternative: modular SGGPsy training"
+     },
+     "d": {
+      "de": "Der Fachtitel Gesundheitspsychologie FSP ist auch über die modulare Weiterbildung der Schweizerischen Gesellschaft für Gesundheitspsychologie erreichbar.",
+      "en": "The FSP title in health psychology can also be obtained through the modular training of the Swiss Society of Health Psychology."
+     }
+    },
+    {
+     "t": {
+      "de": "Angrenzendes Wachstumsfeld: E-Mental-Health",
+      "en": "Adjacent growth field: e-mental health"
+     },
+     "d": {
+      "de": "Digitale Gesundheitsinterventionen wachsen (etwa das Centre for Digital Health Interventions von UZH, ETH und Universität St. Gallen). Achtung: klinisch-therapeutische Rollen setzen den eidgenössischen Psychotherapie-Titel voraus, offen sind Forschungs-, Studien- und Produktrollen.",
+      "en": "Digital health interventions are growing (for example the Centre for Digital Health Interventions of UZH, ETH and the University of St. Gallen). Note: clinical-therapeutic roles require the federal psychotherapy title; research, study and product roles are open."
+     }
+    },
+    {
+     "t": {
+      "de": "⚠️ Akkreditierung noch offen",
+      "en": "⚠️ Accreditation still pending"
+     },
+     "d": {
+      "de": "Die Universität Bern hält zum Abrufzeitpunkt fest, dass ihr MAS Gesundheitspsychologie erst «nach geplanter Akkreditierung» zum eidgenössischen Fachtitel führt. Der Titel ist damit derzeit nur eingeschränkt erreichbar — vor der Anmeldung den aktuellen Stand prüfen.",
+      "en": "At the time of retrieval the University of Bern states that its MAS in health psychology leads to the federal specialist title only “after the planned accreditation”. The title is therefore currently only conditionally attainable — check the current status before applying."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Fachmitarbeiter:in Prävention / Projektleiter:in Gesundheitsförderung",
+     "en": "Prevention officer / health promotion project manager"
+    },
+    "pensum": {
+     "de": "50–80 % ist hier der Normalfall, nicht 100 % — häufig befristet und projektfinanziert",
+     "en": "50–80 % is the norm here, not 100 % — often fixed-term and project-funded"
+    },
+    "wo": {
+     "de": "Kantonale Fachstellen für Prävention und Gesundheitsförderung, regionale Suchtpräventionsstellen, NPO und Stiftungen, Krankenversicherer, Gesundheitsdirektionen, Hochschulinstitute",
+     "en": "Cantonal prevention and health promotion units, regional addiction prevention services, NPOs and foundations, health insurers, health directorates, university institutes"
+    },
+    "aufgaben": [
+     {
+      "de": "Beratung von Schulen und Gemeinden, Betreuung eines Gemeindeportfolios",
+      "en": "Advising schools and municipalities, managing a portfolio of municipalities"
+     },
+     {
+      "de": "Entwicklung und Begleitung von Präventionsprogrammen",
+      "en": "Developing and supporting prevention programmes"
+     },
+     {
+      "de": "Planung, Umsetzung und Evaluation von Massnahmen zur Gesundheitsförderung",
+      "en": "Planning, implementing and evaluating health promotion measures"
+     },
+     {
+      "de": "Öffentlichkeitsarbeit, Veranstaltungen, Netzwerkkoordination",
+      "en": "Public relations, events, network coordination"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Hochschulabschluss im psychologischen, pädagogischen, sozialen oder gesundheitswissenschaftlichen Bereich",
+      "en": "University degree in psychology, education, social work or health sciences"
+     },
+     {
+      "de": "Weiterbildungen in Prävention und Gesundheitsförderung",
+      "en": "Continuing education in prevention and health promotion"
+     },
+     {
+      "de": "Kommunikations- und Moderationsfähigkeiten, Selbstständigkeit",
+      "en": "Communication and facilitation skills, ability to work independently"
+     },
+     {
+      "de": "Flexibilität bei Arbeitszeiten — Abend- und Wochenendeinsätze gehören dazu",
+      "en": "Flexible working hours — evening and weekend commitments are part of the role"
+     }
+    ],
+    "lohn": {
+     "de": "Kein berufsspezifischer Wert publiziert. Aus den kantonalen Lohnklassen abgeleitet CHF 85'000–100'000 bei 100 % — wegen der üblichen Pensen von 60–80 % liegt der effektive Jahreslohn oft bei CHF 55'000–75'000.",
+     "en": "No occupation-specific figure published. Derived from cantonal salary classes: CHF 85,000–100,000 at 100 % — with the usual 60–80 % workloads the effective annual salary is often CHF 55,000–75,000."
+    },
+    "lohnQ": "tief",
+    "lohnBeleg": {
+     "de": "Kanton Zürich Lohnklassen 17/18; kein Lohnrechner-Eintrag für Gesundheitspsychologie, keine der abgerufenen Ausschreibungen nennt einen Lohn",
+     "en": "Canton of Zurich salary classes 17/18; no salary-calculator entry for health psychology, none of the job ads retrieved states a salary"
+    },
+    "wann": {
+     "de": "Einstieg direkt nach dem MSc möglich, meist über Projektstellen und in Konkurrenz zu Public Health. Achtung: Der MAS Gesundheitspsychologie der Universität Bern führt erst «nach geplanter Akkreditierung» zum eidgenössischen Fachtitel — die Akkreditierung ist noch nicht abgeschlossen. Der Titel ist damit derzeit nur eingeschränkt erreichbar.",
+     "en": "Entry possible directly after the MSc, mostly via project posts and in competition with public health graduates. Note: the University of Bern's MAS in health psychology leads to the federal title only “after the planned accreditation” — accreditation is not yet complete, so the title is currently only conditionally attainable."
+    }
+   }
   },
   {
    "id": "neuro",
@@ -373,181 +586,77 @@ window.KARRIERE =
       "en": "Physician-prescribed neuropsychological assessment has been covered by basic insurance since 1 July 2017 (Art. 50b KVV) — with the federal or FSP title."
      }
     }
-   ]
-  },
-  {
-   "id": "wirtschaft",
-   "icon": "🏢",
-   "name": {
-    "de": "Wirtschaft, HR & Beratung",
-    "en": "Business, HR & consulting"
-   },
-   "hint": {
-    "de": "Personalauswahl und -entwicklung, Organisationsberatung, Marketing",
-    "en": "Personnel selection and development, organisational consulting, marketing"
-   },
-   "w": {
-    "Fa5": 2,
-    "Fa6": 2,
-    "Fa8": 2,
-    "Fa9": 1,
-    "Fa10": 2,
-    "KI1": 2,
-    "KI3": 2,
-    "KI5": 1,
-    "KI6": 1,
-    "Fu1": 2,
-    "Fu3": 2
-   },
-   "ziel": {
-    "Fa5": 3,
-    "Fa6": 3,
-    "Fa8": 3,
-    "Fa10": 3,
-    "KI1": 3,
-    "KI3": 3,
-    "Fu1": 3,
-    "Fu3": 3
-   },
-   "soll": [
-    0.75,
-    0.7,
-    0.8,
-    0.85,
-    0.7,
-    0.9
    ],
-   "wahl": {
-    "r": "swo",
-    "sp": "SEOP",
-    "wp": "06SM200-510",
-    "hinweis": {
-     "de": "SWO-Themenwahl, SEOP-Vertiefungen und Economic & Consumer Psychology schärfen das Wirtschaftsprofil; Diagnostik/Assessment nicht vernachlässigen.",
-     "en": "SWO topic choices, SEOP specialisations and Economic & Consumer Psychology sharpen the business profile; don't neglect assessment."
-    }
-   },
-   "roadmap": [
-    {
-     "t": {
-      "de": "Direkteinstieg möglich",
-      "en": "Direct entry possible"
-     },
-     "d": {
-      "de": "HR, Recruiting, Personal- und Organisationsentwicklung oder Beratung — unreguliertes Feld ohne Titelpflicht; die Konkurrenz ist hoch, Praktika und Praxisprojekte zählen.",
-      "en": "HR, recruiting, personnel and organisational development or consulting — an unregulated field with no title requirement; competition is high, internships and applied projects count."
-     }
+   "stelle": {
+    "titel": {
+     "de": "Neuropsycholog:in in EAN-Ausbildung",
+     "en": "Neuropsychologist in federal (EAN) training"
     },
-    {
-     "t": {
-      "de": "Optional: Fachtitel Laufbahn- und Personalpsychologie FSP",
-      "en": "Optional: FSP specialist title in career & personnel psychology"
-     },
-     "d": {
-      "de": "Über FSP-anerkannte DAS/MAS-Programme (z. B. CC&HRM der Universitäten Bern und Freiburg); seit 2026 zusätzlich dokumentierte Supervision/Intervision. FSP-Fachtitel dauern generell 2–6 Jahre.",
-      "en": "Via FSP-recognised DAS/MAS programmes (e.g. CC&HRM at the Universities of Bern and Fribourg); since 2026 documented supervision/intervision is also required. FSP titles generally take 2–6 years."
-     }
+    "pensum": {
+     "de": "60–100 % — in der Weiterbildungsphase häufig 60 %",
+     "en": "60–100 % — often 60 % during the training phase"
     },
-    {
-     "t": {
-      "de": "CAS/MAS als Ausbaustufen",
-      "en": "CAS/MAS as further stages"
-     },
-     "d": {
-      "de": "Breiter Markt (u. a. FHNW, ZHAW IAP) für Leadership-, HR- und arbeitspsychologische Spezialisierungen.",
-      "en": "A broad market (incl. FHNW, ZHAW IAP) for leadership, HR and work-psychology specialisations."
-     }
-    }
-   ]
-  },
-  {
-   "id": "data",
-   "icon": "📊",
-   "name": {
-    "de": "Data, Tech & UX",
-    "en": "Data, tech & UX"
-   },
-   "hint": {
-    "de": "Data Science, People Analytics, UX Research, KI-Entwicklung",
-    "en": "Data science, people analytics, UX research, AI development"
-   },
-   "w": {
-    "Fa2": 2,
-    "Fa3": 3,
-    "Fa4": 2,
-    "Fa9": 1,
-    "KI1": 2,
-    "KI2": 3,
-    "KI4": 2,
-    "KI6": 2,
-    "Fu1": 2,
-    "Fu2": 1
-   },
-   "ziel": {
-    "Fa2": 3,
-    "Fa3": 4,
-    "Fa4": 3,
-    "KI1": 3,
-    "KI2": 4,
-    "KI4": 3,
-    "KI6": 3,
-    "Fu1": 3
-   },
-   "soll": [
-    0.6,
-    0.95,
-    0.7,
-    0.95,
-    0.85,
-    0.8
-   ],
-   "wahl": {
-    "r": null,
-    "sp": null,
-    "wp": null,
-    "hinweis": {
-     "de": "Kein vorgeschriebener Weg: Fortgeschrittene Methoden, Statistik und kognitionspsychologisches Grundwissen sind nützlich (nicht vorgeschrieben); DeNC oder SEOP passen je nach Ausrichtung.",
-     "en": "No prescribed route: advanced methods, statistics and cognitive-psychology foundations are useful (not required); DeNC or SEOP fit depending on your direction."
-    }
-   },
-   "roadmap": [
-    {
-     "t": {
-      "de": "Portfolio statt Titel",
-      "en": "Portfolio over titles"
-     },
-     "d": {
-      "de": "Unreguliertes Feld — Methoden-/Statistikprofil, eigene Projekte und Praxiserfahrung zählen; die Jobsuche kann 6–12 Monate dauern.",
-      "en": "An unregulated field — your methods/statistics profile, own projects and practical experience count; the job search can take 6–12 months."
-     }
+    "wo": {
+     "de": "Akutspitäler (Neurologie, Memory Clinics), Rehabilitationskliniken, psychiatrische Kliniken, forensische Dienste, neuropsychologische Praxen (KS Winterthur, KS Graubünden, Spital Thurgau, Clienia, PUK Zürich)",
+     "en": "Acute hospitals (neurology, memory clinics), rehabilitation clinics, psychiatric clinics, forensic services, neuropsychological practices (KS Winterthur, KS Graubünden, Spital Thurgau, Clienia, PUK Zurich)"
     },
-    {
-     "t": {
-      "de": "Typische Einstiegsfelder",
-      "en": "Typical entry fields"
+    "aufgaben": [
+     {
+      "de": "Indikationsstellung und Klärung des Abklärungsauftrags",
+      "en": "Establishing indications and clarifying the assessment request"
      },
-     "d": {
-      "de": "UX-Research, Marktforschung, People-/HR-Analytics, Case Management bei Versicherungen, Gesundheits-Apps und Start-ups.",
-      "en": "UX research, market research, people/HR analytics, insurance case management, health apps and start-ups."
+     {
+      "de": "Planung und Durchführung neuropsychologischer Testungen",
+      "en": "Planning and conducting neuropsychological testing"
+     },
+     {
+      "de": "Befunde erstellen, Empfehlungen formulieren, Abschlussgespräche führen",
+      "en": "Writing findings, formulating recommendations, conducting feedback sessions"
+     },
+     {
+      "de": "Neuropsychologische Begleitung ausgewählter Patient:innen",
+      "en": "Neuropsychological support for selected patients"
      }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie plus Aufnahme in die EAN-Weiterbildung — für fertige Stellen der Fachtitel selbst",
+      "en": "MSc in psychology plus admission to EAN training — for qualified posts the specialist title itself"
+     },
+     {
+      "de": "Berufserfahrung mit der jeweiligen Zielgruppe (Kinder und Jugendliche bzw. Erwachsene)",
+      "en": "Experience with the relevant target group (children and adolescents or adults)"
+     },
+     {
+      "de": "Freude an interdisziplinärer Zusammenarbeit im Team",
+      "en": "Enjoyment of interdisciplinary teamwork"
+     },
+     {
+      "de": "Fliessend Deutsch",
+      "en": "Fluent German"
+     }
+    ],
+    "lohn": {
+     "de": "In der Weiterbildungsphase analog Psycholog:in CHF 80'000–92'000 bei 100 %, bei 60 % Pensum entsprechend CHF 48'000–55'000. Nach Titelerwerb im Mittel CHF 100'600.",
+     "en": "During training comparable to a psychologist, CHF 80,000–92,000 at 100 %, i.e. CHF 48,000–55,000 at a 60 % workload. After the title, a mean of CHF 100,600."
     },
-    {
-     "t": {
-      "de": "Gezielte Weiterbildung & Netzwerk",
-      "en": "Targeted training & network"
-     },
-     "d": {
-      "de": "Praxisorientierte CAS/DAS, Netzwerkaufbau (u. a. LinkedIn) und Initiativbewerbungen beschleunigen den Einstieg.",
-      "en": "Practice-oriented CAS/DAS, networking (incl. LinkedIn) and speculative applications speed up entry."
-     }
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Neuropsychologe», n = 42 — kleine Fallzahl, mit Vorsicht zu lesen",
+     "en": "jobs.ch salary calculator “neuropsychologist”, n = 42 — small sample, read with caution"
+    },
+    "wann": {
+     "de": "Weiterbildungsstelle direkt nach dem MSc. Der eidgenössisch anerkannte Neuropsychologietitel (EAN, UZH) dauert fünf Jahre berufsbegleitend — Vollqualifikation also frühestens fünf Jahre nach dem Master. Der frühere FSP-Fachtitel war nur bis Ende 2025 erwerbbar.",
+     "en": "Training post directly after the MSc. The federally recognised neuropsychology title (EAN, UZH) takes five years part-time — full qualification therefore at the earliest five years after the Master's. The former FSP title was only obtainable until the end of 2025."
     }
-   ]
+   }
   },
   {
    "id": "schule",
    "icon": "🏫",
    "name": {
-    "de": "Schulpsychologie & Bildung",
-    "en": "School psychology & education"
+    "de": "Kinder-, Jugend- & Schulpsychologie",
+    "en": "Child, adolescent & school psychology"
    },
    "hint": {
     "de": "Schulpsychologische Dienste, Beratung von Kindern, Eltern und Lehrpersonen",
@@ -632,14 +741,226 @@ window.KARRIERE =
       "en": "Employment requirements of school psychology services differ by canton."
      }
     }
-   ]
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Schulpsycholog:in (nach dem Assistenzjahr)",
+     "en": "School psychologist (after the assistantship year)"
+    },
+    "pensum": {
+     "de": "50–100 % — schulpsychologische Dienste schreiben auffällig oft Teilpensen aus",
+     "en": "50–100 % — school psychology services strikingly often advertise part-time posts"
+    },
+    "wo": {
+     "de": "Kommunale und regionale Schulpsychologische Dienste, kantonale Dienste, Kinder- und Jugendpsychiatrische Dienste, Erziehungsberatungen (Stadt Winterthur, KJPD St. Gallen, SPD Kanton Aargau, PUK Zürich)",
+     "en": "Municipal and regional school psychology services, cantonal services, child and adolescent psychiatric services, educational counselling (City of Winterthur, KJPD St. Gallen, SPD Canton Aargau, PUK Zurich)"
+    },
+    "aufgaben": [
+     {
+      "de": "Schulpsychologische Abklärungen und Beratung von Kindern, Eltern, Lehrpersonen und Schulleitungen",
+      "en": "School psychological assessments and counselling of children, parents, teachers and school management"
+     },
+     {
+      "de": "Sonderschulabklärungen nach standardisiertem Verfahren",
+      "en": "Special-education assessments using a standardised procedure"
+     },
+     {
+      "de": "Planung und Begleitung sonderpädagogischer und therapeutischer Massnahmen",
+      "en": "Planning and monitoring special-education and therapeutic measures"
+     },
+     {
+      "de": "Vernetzung mit Fachstellen, Mitwirkung in Schulentwicklungsprozessen",
+      "en": "Liaison with specialist services, contributing to school development processes"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie (Universität oder Fachhochschule)",
+      "en": "MSc in psychology (university or university of applied sciences)"
+     },
+     {
+      "de": "Berufserfahrung als Schulpsycholog:in oder abgeschlossenes Assistenzjahr — der typische Schweizer Einstiegspfad",
+      "en": "Experience as a school psychologist or a completed assistantship year — the typical Swiss entry route"
+     },
+     {
+      "de": "Systemische und lösungsorientierte Arbeitsweise",
+      "en": "Systemic and solution-focused approach"
+     },
+     {
+      "de": "Kommunikative, belastbare Persönlichkeit mit Interesse an interdisziplinärer Zusammenarbeit",
+      "en": "Communicative, resilient personality interested in interdisciplinary collaboration"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 105'000–120'000 pro Jahr bei 100 % — eines der am besten bezahlten Felder im öffentlichen Dienst, aber mit hohem Teilzeitanteil",
+     "en": "CHF 105,000–120,000 per year at 100 % — one of the best-paid public-sector fields, but with a high share of part-time posts"
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Schulpsychologe», n = 48; kantonal Lohnklasse 19–20 plausibel",
+     "en": "jobs.ch salary calculator “school psychologist”, n = 48; cantonal salary class 19–20 plausible"
+    },
+    "wann": {
+     "de": "Assistenzjahr direkt nach dem MSc, danach Festanstellung. Der eidgenössische Titel Kinder- und Jugendpsychologie (MAS Universität Basel, 60 ECTS, rund CHF 19'600) folgt nach zwei bis vier Jahren — Zulassung nur mit einer Anstellung von mindestens 40 % im Feld.",
+     "en": "Assistantship year directly after the MSc, then a permanent post. The federal title in child and adolescent psychology (MAS University of Basel, 60 ECTS, around CHF 19,600) follows after two to four years — admission requires employment of at least 40 % in the field."
+    }
+   }
+  },
+  {
+   "id": "phd",
+   "icon": "🔬",
+   "name": {
+    "de": "PhD & Forschung",
+    "en": "PhD & research"
+   },
+   "hint": {
+    "de": "Promotion, wissenschaftliche Mitarbeit, akademische Laufbahn",
+    "en": "Doctorate, research positions, academic career"
+   },
+   "w": {
+    "Fa1": 1,
+    "Fa2": 3,
+    "Fa3": 3,
+    "Fa4": 2,
+    "Fa6": 2,
+    "Fa7": 2,
+    "Fa10": 1,
+    "KI1": 2,
+    "KI2": 2,
+    "KI4": 1,
+    "KI6": 2,
+    "Fu1": 1,
+    "Fu2": 1
+   },
+   "ziel": {
+    "Fa2": 4,
+    "Fa3": 4,
+    "Fa4": 4,
+    "Fa6": 4,
+    "Fa7": 3,
+    "KI2": 3,
+    "KI6": 4,
+    "Fu2": 3
+   },
+   "soll": [
+    0.7,
+    0.95,
+    0.9,
+    0.8,
+    0.9,
+    0.7
+   ],
+   "wahl": {
+    "r": null,
+    "sp": null,
+    "wp": null,
+    "hinweis": {
+     "de": "Methoden- und Statistikstärke und eine starke Masterarbeit zählen mehr als der Schwerpunkt — wähle Vertiefungen im Feld deiner geplanten Promotion.",
+     "en": "Methodological and statistical strength plus a strong thesis count more than the track — pick specialisations in the field of your intended doctorate."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Doktorat (3–5 Jahre)",
+      "en": "Doctorate (3–5 years)"
+     },
+     "d": {
+      "de": "Anstellung meist über SNF-Projektförderung (Gesuch stellt die betreuende Forschungsperson, Anstellung max. 4 Jahre) oder Universitätsmittel — das Instrument Doc.CH wurde eingestellt.",
+      "en": "Usually employed via SNSF project funding (the supervisor applies; employment max. 4 years) or university funds — the Doc.CH scheme has been discontinued."
+     }
+    },
+    {
+     "t": {
+      "de": "Postdoc mit Mobilität",
+      "en": "Postdoc with mobility"
+     },
+     "d": {
+      "de": "Postdoc.Mobility (letzte Eingabe 2027) und Ambizione (letzte Eingabe 2026) werden 2028 durch ein neues SNF-Postdoc-Instrument ersetzt; danach SNSF Starting Grants.",
+      "en": "Postdoc.Mobility (last call 2027) and Ambizione (last call 2026) are replaced by a new SNSF postdoc scheme in 2028; then SNSF Starting Grants."
+     }
+    },
+    {
+     "t": {
+      "de": "Eigenes Projekt & Profil",
+      "en": "Own project & profile"
+     },
+     "d": {
+      "de": "Publikationen, Drittmittel und Lehre bauen das akademische Profil zur Etablierung auf.",
+      "en": "Publications, third-party funding and teaching build the academic profile towards establishment."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Doktorand:in / Assistent:in",
+     "en": "Doctoral researcher / assistant"
+    },
+    "pensum": {
+     "de": "60–100 % — der UZH-Standard für Doktorierende liegt seit 2024 bei 80 %, SNF-Projektstellen oft bei 60 %",
+     "en": "60–100 % — the UZH standard for doctoral researchers has been 80 % since 2024, SNSF project posts often 60 %"
+    },
+    "wo": {
+     "de": "Universitäten (UZH, Basel, Bern, Freiburg, Lausanne, Genf), ETH und EPFL, Pädagogische Hochschulen, Fachhochschulen, Universitätsspitäler",
+     "en": "Universities (UZH, Basel, Bern, Fribourg, Lausanne, Geneva), ETH and EPFL, universities of teacher education, universities of applied sciences, university hospitals"
+    },
+    "aufgaben": [
+     {
+      "de": "Literaturrecherche, Fragebogenerstellung, Datenerhebung und -analyse",
+      "en": "Literature review, questionnaire development, data collection and analysis"
+     },
+     {
+      "de": "Betreuung von Studienteilnehmenden, Laborerhebungen, Anleitung von Semesterassistierenden",
+      "en": "Supporting study participants, running lab sessions, supervising semester assistants"
+     },
+     {
+      "de": "Publikationen und Vorträge an nationalen und internationalen Kongressen",
+      "en": "Publications and talks at national and international conferences"
+     },
+     {
+      "de": "Wissenschaftliche Weiterqualifikation, bei Assistierenden zusätzlich Lehre",
+      "en": "Academic qualification; assistants additionally teach"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Sehr guter Abschluss im Hauptfach Psychologie",
+      "en": "Very good degree with psychology as the main subject"
+     },
+     {
+      "de": "Nachweis erster Forschungserfahrung, etwa durch eine sehr gute empirische Abschlussarbeit",
+      "en": "Evidence of initial research experience, e.g. a very good empirical thesis"
+     },
+     {
+      "de": "Fundierte Kenntnisse empirischer Methoden und weiterführender Statistik (u.a. Mehrebenenanalyse, R, SPSS)",
+      "en": "Sound knowledge of empirical methods and advanced statistics (incl. multilevel analysis, R, SPSS)"
+     },
+     {
+      "de": "Sehr gute Englischkenntnisse, Interesse an internationalen Forschungsaufenthalten",
+      "en": "Very good English, interest in international research stays"
+     }
+    ],
+    "lohn": {
+     "de": "UZH-Ansatz nach SNF-Bandbreite bei 80 %: CHF 50'504 im ersten, CHF 52'115 im zweiten, CHF 53'725 ab dem dritten Jahr. Das ist der tiefste Einstieg im ganzen Set — und die Stelle ist befristet.",
+     "en": "UZH rate based on the SNSF range at 80 %: CHF 50,504 in year one, CHF 52,115 in year two, CHF 53,725 from year three. This is the lowest entry salary in the whole set — and the post is fixed-term."
+    },
+    "lohnQ": "hoch",
+    "lohnBeleg": {
+     "de": "UZH-Einreihungsrichtlinien für wissenschaftliche Funktionen, Stand 08.01.2026; SNF-Lohnbandbreite ab 1.1.2026",
+     "en": "UZH salary guidelines for academic functions, as of 8 Jan 2026; SNSF salary range from 1 Jan 2026"
+    },
+    "wann": {
+     "de": "Direkt nach dem MSc. Befristung in der Regel drei Jahre, verlängerbar bis maximal sechs. Eine unbefristete akademische Stelle ist die grosse Ausnahme.",
+     "en": "Directly after the MSc. Normally limited to three years, extendable to a maximum of six. A permanent academic post is the rare exception."
+    }
+   }
   },
   {
    "id": "gutachten",
    "icon": "⚖️",
    "name": {
-    "de": "Diagnostik & Gutachten",
-    "en": "Assessment & expert reports"
+    "de": "Diagnostik & Rechtspsychologie",
+    "en": "Assessment & legal psychology"
    },
    "hint": {
     "de": "Forensische, verkehrs- und versicherungspsychologische Begutachtung",
@@ -722,8 +1043,676 @@ window.KARRIERE =
       "de": "Aufbau in forensischen Institutionen; Übergangsfrist bis 31.3.2028 für den erleichterten Zertifikatserwerb sur dossier.",
       "en": "Built up in forensic institutions; transition period until 31 March 2028 for simplified certificate acquisition sur dossier."
      }
+    },
+    {
+     "t": {
+      "de": "⚠️ Aufnahmestopp beim Fachtitel",
+      "en": "⚠️ Admission suspended for the specialist title"
+     },
+     "d": {
+      "de": "Die Schweizerische Gesellschaft für Rechtspsychologie hat für ihr Fachtitel-Curriculum einen Aufnahmestopp verfügt; der Vorstand prüft die Zukunft des Titels, insbesondere nach den Änderungen bei der Psychotherapieregulierung. Für forensische Psychotherapie ist ohnehin der eidgenössische Psychotherapietitel zwingend.",
+      "en": "The Swiss Society for Legal Psychology has suspended admission to its specialist-title curriculum; the board is reviewing the title's future, particularly following the changes to psychotherapy regulation. Forensic psychotherapy requires the federal psychotherapy title in any case."
+     }
     }
-   ]
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Assistenzpsycholog:in Forensik",
+     "en": "Assistant psychologist, forensics"
+    },
+    "pensum": {
+     "de": "60–100 % — Bereitschaftsdienste gehören dazu",
+     "en": "60–100 % — on-call duties are part of the role"
+    },
+    "wo": {
+     "de": "Forensisch-psychiatrische Kliniken und Institute, Justizvollzug, private Gutachterinstitute, verkehrspsychologische Abklärungsstellen (PDAG Windisch, UPZ Bern, UPK Basel, Kanton Zürich JuWe)",
+     "en": "Forensic psychiatric clinics and institutes, correctional services, private expert institutes, traffic psychology assessment centres (PDAG Windisch, UPZ Bern, UPK Basel, Canton Zurich JuWe)"
+    },
+    "aufgaben": [
+     {
+      "de": "Fallführung bei Massnahmenpatient:innen auf einer geschlossen geführten Station, unter Supervision",
+      "en": "Case management for patients under court-ordered measures on a secure ward, under supervision"
+     },
+     {
+      "de": "Risikoeinschätzungen erstellen",
+      "en": "Producing risk assessments"
+     },
+     {
+      "de": "Selbständige Planung, Durchführung und Dokumentation testdiagnostischer Abklärungen",
+      "en": "Independently planning, conducting and documenting psychometric assessments"
+     },
+     {
+      "de": "Zusammenarbeit mit interprofessionellen Teams und Justizbehörden",
+      "en": "Working with interprofessional teams and judicial authorities"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie sowie eine begonnene eidgenössisch anerkannte Psychotherapieausbildung",
+      "en": "MSc in psychology plus federally recognised psychotherapy training already started"
+     },
+     {
+      "de": "Für neuropsychologische Gutachten: fortgeschrittene postgraduale Weiterbildung in Neuropsychologie",
+      "en": "For neuropsychological expert reports: advanced postgraduate training in neuropsychology"
+     },
+     {
+      "de": "Sorgfältige, präzise schriftliche Arbeit — das Gutachten ist das Produkt",
+      "en": "Careful, precise written work — the expert report is the product"
+     },
+     {
+      "de": "Hohe Sozialkompetenz, Flexibilität und Belastbarkeit",
+      "en": "Strong social skills, flexibility and resilience"
+     }
+    ],
+    "lohn": {
+     "de": "Kein berufsspezifischer Wert publiziert. Näherung über Psycholog:innenlöhne: CHF 80'000–95'000 bei 100 % als Assistenzpsycholog:in. Erfahrene Gutachter:innen liegen deutlich höher, dazu gibt es keine publizierten Schweizer Zahlen.",
+     "en": "No occupation-specific figure published. Approximated from psychologist salaries: CHF 80,000–95,000 at 100 % as an assistant psychologist. Experienced experts earn considerably more, but no published Swiss figures exist."
+    },
+    "lohnQ": "tief",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Psychologe»; kantonale Lohnklassen 19–20 für Stellen im Psychiatrisch-Psychologischen Dienst — keines der abgerufenen Inserate nennt einen Lohn",
+     "en": "jobs.ch salary calculator “psychologist”; cantonal salary classes 19–20 for posts in the psychiatric-psychological service — none of the job ads retrieved states a salary"
+    },
+    "wann": {
+     "de": "Einstieg direkt nach dem MSc, sofern die Psychotherapieweiterbildung begonnen ist. Eigenständig Gutachten erst nach vier bis sechs Jahren. Achtung: Die Schweizerische Gesellschaft für Rechtspsychologie hat für ihr Fachtitel-Curriculum einen Aufnahmestopp verfügt und prüft die Zukunft des Titels; für forensische Psychotherapie ist der eidgenössische Psychotherapietitel zwingend.",
+     "en": "Entry directly after the MSc, provided psychotherapy training has started. Independent expert reports only after four to six years. Note: the Swiss Society for Legal Psychology has suspended admission to its specialist-title curriculum and is reviewing the title's future; forensic psychotherapy requires the federal psychotherapy title."
+    }
+   }
+  },
+  {
+   "id": "wirtschaft",
+   "icon": "🏢",
+   "name": {
+    "de": "Arbeits- & Organisationspsychologie",
+    "en": "Work & organisational psychology"
+   },
+   "hint": {
+    "de": "Personalauswahl und -entwicklung, Führung, Teams, Arbeitsgestaltung — das grösste nicht-klinische Berufsfeld",
+    "en": "Personnel selection and development, leadership, teams, work design — the largest non-clinical field"
+   },
+   "w": {
+    "Fa5": 2,
+    "Fa6": 2,
+    "Fa8": 2,
+    "Fa9": 1,
+    "Fa10": 2,
+    "KI1": 2,
+    "KI3": 2,
+    "KI5": 1,
+    "KI6": 1,
+    "Fu1": 2,
+    "Fu3": 2
+   },
+   "ziel": {
+    "Fa5": 3,
+    "Fa6": 3,
+    "Fa8": 3,
+    "Fa10": 3,
+    "KI1": 3,
+    "KI3": 3,
+    "Fu1": 3,
+    "Fu3": 3
+   },
+   "soll": [
+    0.75,
+    0.7,
+    0.8,
+    0.85,
+    0.7,
+    0.9
+   ],
+   "wahl": {
+    "r": "swo",
+    "sp": "SEOP",
+    "wp": "06SM200-510",
+    "hinweis": {
+     "de": "SWO-Themenwahl, SEOP-Vertiefungen und Economic & Consumer Psychology schärfen das Wirtschaftsprofil; Diagnostik/Assessment nicht vernachlässigen.",
+     "en": "SWO topic choices, SEOP specialisations and Economic & Consumer Psychology sharpen the business profile; don't neglect assessment."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Direkteinstieg möglich",
+      "en": "Direct entry possible"
+     },
+     "d": {
+      "de": "HR, Recruiting, Personal- und Organisationsentwicklung oder Beratung — unreguliertes Feld ohne Titelpflicht; die Konkurrenz ist hoch, Praktika und Praxisprojekte zählen.",
+      "en": "HR, recruiting, personnel and organisational development or consulting — an unregulated field with no title requirement; competition is high, internships and applied projects count."
+     }
+    },
+    {
+     "t": {
+      "de": "Optional: Fachtitel Laufbahn- und Personalpsychologie FSP",
+      "en": "Optional: FSP specialist title in career & personnel psychology"
+     },
+     "d": {
+      "de": "Über FSP-anerkannte DAS/MAS-Programme (z. B. CC&HRM der Universitäten Bern und Freiburg); seit 2026 zusätzlich dokumentierte Supervision/Intervision. FSP-Fachtitel dauern generell 2–6 Jahre.",
+      "en": "Via FSP-recognised DAS/MAS programmes (e.g. CC&HRM at the Universities of Bern and Fribourg); since 2026 documented supervision/intervision is also required. FSP titles generally take 2–6 years."
+     }
+    },
+    {
+     "t": {
+      "de": "CAS/MAS als Ausbaustufen",
+      "en": "CAS/MAS as further stages"
+     },
+     "d": {
+      "de": "Breiter Markt (u. a. FHNW, ZHAW IAP) für Leadership-, HR- und arbeitspsychologische Spezialisierungen.",
+      "en": "A broad market (incl. FHNW, ZHAW IAP) for leadership, HR and work-psychology specialisations."
+     }
+    },
+    {
+     "t": {
+      "de": "Ausbaustufe: People Analytics",
+      "en": "Advanced step: people analytics"
+     },
+     "d": {
+      "de": "Datenbasierte Personalarbeit wächst, ist aber kein eigener Einstiegsberuf: Laut einer Schweizer Befragung (n = 133) haben 49 Prozent der Unternehmen eine HR-Analytics-Funktion, meist mit einer Stelle, und fast nur ab 250 Mitarbeitenden; der Reifegrad liegt auf Reporting-Niveau. Realistisch als Spezialisierung aus einer HR- oder Analyse-Rolle heraus (CAS Human Capital Analytics, ZHAW, 12 ECTS).",
+      "en": "Data-based HR work is growing but is not a separate entry profession: a Swiss survey (n = 133) found 49 percent of firms have an HR analytics function, mostly one post, and almost only from 250 employees upwards; maturity is at reporting level. Realistic as a specialisation from an HR or analyst role (CAS Human Capital Analytics, ZHAW, 12 ECTS)."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Junior HR Business Partner / Fachspezialist:in Personalentwicklung",
+     "en": "Junior HR business partner / L&D specialist"
+    },
+    "pensum": {
+     "de": "80–100 % — neben dem Gymnasium das Feld mit den höchsten Pensen",
+     "en": "80–100 % — alongside teaching the field with the highest workloads"
+    },
+    "wo": {
+     "de": "Grossunternehmen aus Industrie, Handel, Banken, Versicherungen und Pharma, Beratungsunternehmen, Personaldienstleister, öffentliche Verwaltungen, Krankenkassen",
+     "en": "Large companies in industry, retail, banking, insurance and pharma, consultancies, staffing firms, public administrations, health insurers"
+    },
+    "aufgaben": [
+     {
+      "de": "Rekrutierung, Analyse und Auswahl von Mitarbeitenden",
+      "en": "Recruiting, analysing and selecting staff"
+     },
+     {
+      "de": "Betreuung des Mitarbeiterlebenszyklus von Onboarding bis Weiterentwicklung",
+      "en": "Managing the employee life cycle from onboarding to development"
+     },
+     {
+      "de": "Beratung und Coaching von Führungskräften, Konfliktlösung",
+      "en": "Advising and coaching managers, conflict resolution"
+     },
+     {
+      "de": "Anwendung und Weiterentwicklung von HR-Richtlinien und -Prozessen",
+      "en": "Applying and further developing HR policies and processes"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Hochschulabschluss — der Psychologie-Master ist ein Zugangsweg, kein Titel",
+      "en": "University degree — the psychology Master's is a route in, not a title"
+     },
+     {
+      "de": "Realitätscheck: Der klassische Schweizer HR-Weg führt über KV plus HR-Fachausweis, nicht zwingend über den Master",
+      "en": "Reality check: the classic Swiss HR route runs via commercial apprenticeship plus HR certificate, not necessarily via a Master's"
+     },
+     {
+      "de": "Hohe Sozialkompetenz, ausgeprägte Zuhörfähigkeit, diplomatisches Auftreten",
+      "en": "Strong social skills, marked listening ability, diplomatic manner"
+     },
+     {
+      "de": "Deutsch und Französisch oder Englisch — Mehrsprachigkeit ist in Schweizer Konzernen die Regel",
+      "en": "German and French or English — multilingualism is the norm in Swiss corporations"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 78'000–93'000 pro Jahr bei 100 %",
+     "en": "CHF 78,000–93,000 per year at 100 %"
+    },
+    "lohnQ": "hoch",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «HR Business Partner», n = 6'374 — die grösste Fallzahl im ganzen Set; ergänzend «Personalentwickler», n = 591",
+     "en": "jobs.ch salary calculator “HR business partner”, n = 6,374 — the largest sample in the whole set; plus “L&D specialist”, n = 591"
+    },
+    "wann": {
+     "de": "Direkt nach dem MSc, typischerweise über eine Junior-Position und in starker Konkurrenz zu BWL-Profilen. Kein Fachtitel nötig. Optional der FSP-Fachtitel Laufbahn- und Personalpsychologie über eine anerkannte DAS- oder MAS-Weiterbildung.",
+     "en": "Directly after the MSc, typically via a junior position and in strong competition with business graduates. No specialist title required. Optionally the FSP title in career and personnel psychology via a recognised DAS or MAS programme."
+    }
+   }
+  },
+  {
+   "id": "laufbahn",
+   "icon": "🧭",
+   "name": {
+    "de": "Berufs-, Studien- & Laufbahnberatung",
+    "en": "Career, study & vocational counselling"
+   },
+   "hint": {
+    "de": "Menschen bei Berufswahl, Laufbahnentscheiden und Neuorientierung begleiten — mit Diagnostik und Beratung",
+    "en": "Supporting people in career choice, career decisions and reorientation — with assessment and counselling"
+   },
+   "w": {
+    "Fa1": 2,
+    "Fa5": 3,
+    "Fa6": 3,
+    "Fa8": 2,
+    "Fa9": 3,
+    "Fa7": 2,
+    "Fa10": 2,
+    "KI3": 2,
+    "KI5": 2,
+    "KI6": 2,
+    "Fu2": 2,
+    "Fu3": 3
+   },
+   "ziel": {
+    "Fa5": 3,
+    "Fa6": 3,
+    "Fa8": 3,
+    "Fa9": 3,
+    "Fa7": 3,
+    "KI6": 3,
+    "Fu3": 3
+   },
+   "soll": [
+    0.75,
+    0.85,
+    0.9,
+    0.5,
+    0.75,
+    0.9
+   ],
+   "wahl": {
+    "r": "swo",
+    "sp": "SEOP",
+    "wp": null,
+    "hinweis": {
+     "de": "Persönlichkeitspsychologie, Psychologische Diagnostik und SEOP-Vertiefungen tragen diesen Weg; Interessen- und Eignungsdiagnostik ist das tägliche Handwerk.",
+     "en": "Personality psychology, psychological assessment and SEOP specialisations carry this route; interest and aptitude assessment is the daily craft."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Einstieg in Beratungsdienste",
+      "en": "Entry into counselling services"
+     },
+     "d": {
+      "de": "Kantonale Berufs-, Studien- und Laufbahnberatung, Laufbahnzentren, Hochschul-Studienberatung, Outplacement und RAV-nahe Angebote.",
+      "en": "Cantonal career and study counselling services, career centres, university study advising, outplacement and services around regional employment offices."
+     }
+    },
+    {
+     "t": {
+      "de": "FSP-Fachtitel Laufbahn- und Personalpsychologie",
+      "en": "FSP title in career and personnel psychology"
+     },
+     "d": {
+      "de": "Voraussetzungen: Psychologie-Master einer Schweizer Hochschule, eine FSP-anerkannte postgraduale Weiterbildung (DAS/MAS) und ordentliche FSP-Mitgliedschaft; anerkannt sind der MAS/DAS CC&HRM der Universitäten Bern und Freiburg sowie der MAS MRHC der Universität Lausanne. Seit 2026 sind zusätzlich Supervision und Intervision zu dokumentieren.",
+      "en": "Requirements: a psychology Master's from a Swiss university, an FSP-recognised postgraduate qualification (DAS/MAS) and full FSP membership; recognised are the MAS/DAS CC&HRM of the Universities of Bern and Fribourg and the MAS MRHC of the University of Lausanne. Since 2026 supervision and intervision must also be documented."
+     }
+    },
+    {
+     "t": {
+      "de": "Profil schärfen",
+      "en": "Sharpen the profile"
+     },
+     "d": {
+      "de": "Beratungskompetenz, Interessen- und Eignungsdiagnostik, Kenntnis des Schweizer Bildungssystems und der Arbeitsmarktentwicklung.",
+      "en": "Counselling skills, interest and aptitude assessment, knowledge of the Swiss education system and of labour-market developments."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Berufs-, Studien- und Laufbahnberater:in (in Ausbildung)",
+     "en": "Career, study and vocational counsellor (in training)"
+    },
+    "pensum": {
+     "de": "60–100 %, mit klarem Schwerpunkt bei 60–80 %",
+     "en": "60–100 %, with a clear emphasis on 60–80 %"
+    },
+    "wo": {
+     "de": "Kantonale Berufsinformationszentren (biz/BIZ), kantonale Beratungsdienste, IV-Stellen und Sozialversicherungsanstalten, Hochschul-Studienberatungen, grosse Betriebe, private Coaching- und Outplacement-Anbieter",
+     "en": "Cantonal career information centres, cantonal counselling services, disability insurance offices, university student advisory services, large companies, private coaching and outplacement providers"
+    },
+    "aufgaben": [
+     {
+      "de": "Erstausbildungsberatung von Jugendlichen, Betreuung zugeteilter Schulen",
+      "en": "Advising young people on initial vocational training, supporting assigned schools"
+     },
+     {
+      "de": "Klassen- und Elternorientierungen, Schulhaussprechstunden",
+      "en": "Class and parent information sessions, school-based consultation hours"
+     },
+     {
+      "de": "Laufbahnberatungen, auch mithilfe von Tests; Infotheksdienst",
+      "en": "Career counselling, also using tests; information desk service"
+     },
+     {
+      "de": "Workshop- und Veranstaltungsleitung, Bewerbungswerkstatt",
+      "en": "Leading workshops and events, application clinic"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Abgeschlossene oder weit fortgeschrittene Ausbildung in Berufs-, Studien- und Laufbahnberatung (MAS)",
+      "en": "Completed or well-advanced training in career, study and vocational counselling (MAS)"
+     },
+     {
+      "de": "Hohe Dienstleistungsbereitschaft, Freude an der Beratung, Arbeitsmarktkenntnis",
+      "en": "Strong service orientation, enjoyment of counselling, knowledge of the labour market"
+     },
+     {
+      "de": "Gute organisatorische und kommunikative Fähigkeiten",
+      "en": "Good organisational and communication skills"
+     },
+     {
+      "de": "Fremdsprachenkenntnisse",
+      "en": "Foreign language skills"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 85'000–95'000 pro Jahr bei 100 %; bei den üblichen 60–80 % also CHF 51'000–76'000 effektiv",
+     "en": "CHF 85,000–95,000 per year at 100 %; at the usual 60–80 % therefore CHF 51,000–76,000 effectively"
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Berufsberater», n = 208; Kanton Zürich Lohnklasse 18 aufwärts",
+     "en": "jobs.ch salary calculator “career counsellor”, n = 208; Canton of Zurich salary class 18 upwards"
+    },
+    "wann": {
+     "de": "Nicht direkt nach dem MSc: Der Titel «dipl. Berufs-, Studien- und Laufbahnberater:in» ist bundesrechtlich reglementiert. Viele Kantone stellen aber schon mit weit fortgeschrittenem Studium ein. Der MAS BSLB (ZHAW, 70 ECTS, CHF 26'800) dauert 2,5 bis 3 Jahre — Vollqualifikation nach etwa drei Jahren.",
+     "en": "Not directly after the MSc: the title of certified career counsellor is regulated by federal law. Many cantons do hire candidates whose studies are well advanced. The MAS programme (ZHAW, 70 ECTS, CHF 26,800) takes 2.5 to 3 years — full qualification after about three years."
+    }
+   }
+  },
+  {
+   "id": "konsum",
+   "icon": "🛒",
+   "name": {
+    "de": "Markt- & Konsumentenpsychologie",
+    "en": "Market & consumer psychology"
+   },
+   "hint": {
+    "de": "Entscheidungsverhalten, Werbewirkung und Marktforschung — psychologisch fundiert statt bauchgetrieben",
+    "en": "Decision behaviour, advertising effects and market research — psychologically grounded rather than gut-driven"
+   },
+   "w": {
+    "Fa2": 3,
+    "Fa3": 3,
+    "Fa4": 3,
+    "Fa6": 2,
+    "Fa1": 2,
+    "Fa9": 1,
+    "KI1": 2,
+    "KI6": 2,
+    "Fu1": 2,
+    "Fu3": 1
+   },
+   "ziel": {
+    "Fa2": 3,
+    "Fa3": 3,
+    "Fa4": 3,
+    "Fa6": 3,
+    "Fa1": 3,
+    "KI6": 3
+   },
+   "soll": [
+    0.7,
+    0.95,
+    0.8,
+    0.65,
+    0.7,
+    0.6
+   ],
+   "wahl": {
+    "r": "swo",
+    "sp": "SEOP",
+    "wp": "06SM200-510",
+    "hinweis": {
+     "de": "Economic and Consumer Psychology ist das Kernmodul dieses Wegs; SEOP-Vertiefungen und ein starkes Methodenprofil (Statistik, Fragebogenkonstruktion) sind die Eintrittskarte.",
+     "en": "Economic and Consumer Psychology is the core module of this route; SEOP specialisations and a strong methods profile (statistics, questionnaire construction) are the entry ticket."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Einstieg über Praktikum oder Volontariat",
+      "en": "Entry via internship or traineeship"
+     },
+     "d": {
+      "de": "Marktforschungsinstitute stellen typisch über Praktikum oder Volontariat ein, danach folgt die Projektleitung. Ehrlich bleiben: Psychologie ist hier ein konkurrenzfähiger, aber kein privilegierter Zugang — Marketing-, Wirtschafts- und Sozialwissenschaften bewerben sich auf dieselben Stellen.",
+      "en": "Market research institutes typically recruit via internship or traineeship, followed by project management. To be honest: psychology is a competitive but not privileged entry here — marketing, business and social sciences apply for the same posts."
+     }
+    },
+    {
+     "t": {
+      "de": "Die Branche",
+      "en": "The sector"
+     },
+     "d": {
+      "de": "Der Verband SWISS INSIGHTS beziffert den Umsatz seiner Mitgliedsinstitute auf rund 200 Millionen Franken; über 30 Institute tragen das Qualitätslabel. Konsumgüter und öffentlicher Sektor stellen zusammen etwa 40 Prozent der Nachfrage.",
+      "en": "The SWISS INSIGHTS association puts the turnover of its member institutes at around 200 million francs; over 30 institutes carry its quality label. Consumer goods and the public sector together account for about 40 percent of demand."
+     }
+    },
+    {
+     "t": {
+      "de": "Weiterbildung wo nötig",
+      "en": "Further training where needed"
+     },
+     "d": {
+      "de": "CAS Werbe- und Konsumentenpsychologie (Kalaidos, ein Semester, rund CHF 5'700), CAS Customer Behavior & Psychology (HWZ, 16 Tage) oder CAS Behavioral Insights for Marketing (ZHAW, 12 ECTS).",
+      "en": "CAS in advertising and consumer psychology (Kalaidos, one semester, around CHF 5,700), CAS Customer Behavior & Psychology (HWZ, 16 days) or CAS Behavioral Insights for Marketing (ZHAW, 12 ECTS)."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Junior Research Consultant / Research Assistant",
+     "en": "Junior research consultant / research assistant"
+    },
+    "pensum": {
+     "de": "60–100 %, in Instituten und Konzernen meist 80–100 %",
+     "en": "60–100 %, usually 80–100 % in institutes and corporations"
+    },
+    "wo": {
+     "de": "Marktforschungsinstitute, Insights-Abteilungen von Grossunternehmen, Media- und Werbeagenturen, Verbände (intervista, AmPuls, LINK, gfs.bern, gfs-zürich, Migros-Genossenschafts-Bund)",
+     "en": "Market research institutes, insights departments of large companies, media and advertising agencies, associations (intervista, AmPuls, LINK, gfs.bern, gfs-zürich, Migros)"
+    },
+    "aufgaben": [
+     {
+      "de": "Studiendesigns entwickeln, Fragebogen konstruieren und testen",
+      "en": "Developing study designs, constructing and testing questionnaires"
+     },
+     {
+      "de": "Offene Antworten codieren, Daten kontrollieren, Reports erstellen",
+      "en": "Coding open responses, checking data, producing reports"
+     },
+     {
+      "de": "Analysen rechnen und für Kundinnen und Kunden aufbereiten",
+      "en": "Running analyses and preparing them for clients"
+     },
+     {
+      "de": "Ergebnisse präsentieren und im Team abstimmen",
+      "en": "Presenting findings and coordinating within the team"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Hochschulabschluss in Psychologie, Soziologie oder Wirtschaft",
+      "en": "University degree in psychology, sociology or economics"
+     },
+     {
+      "de": "Quantitative Methodenkompetenz und Statistiksoftware (SPSS, R)",
+      "en": "Quantitative methods expertise and statistical software (SPSS, R)"
+     },
+     {
+      "de": "Präsentations- und Kundenkompetenz",
+      "en": "Presentation and client skills"
+     },
+     {
+      "de": "Sehr gutes Deutsch, dazu Englisch und Französisch",
+      "en": "Very good German, plus English and French"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 75'000–90'000 pro Jahr bei 100 %. Praktikumslöhne liegen deutlich darunter und werden nicht publiziert.",
+     "en": "CHF 75,000–90,000 per year at 100 %. Internship salaries are considerably lower and are not published."
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «Marketing Analyst», n = 4'486 (belastbarer) und «Marktforscher», n = 170",
+     "en": "jobs.ch salary calculator “marketing analyst”, n = 4,486 (more robust) and “market researcher”, n = 170"
+    },
+    "wann": {
+     "de": "Direkt nach dem MSc, häufig über ein bezahltes Praktikum von sechs bis zwölf Monaten. Kein Fachtitel, keine Regulierung. Achtung: Der Schweizer Markt ist klein — die Suche nach «Marktforschung» ergab schweizweit acht offene Stellen.",
+     "en": "Directly after the MSc, often via a paid internship of six to twelve months. No specialist title, no regulation. Note: the Swiss market is small — a search for “market research” returned eight open positions nationwide."
+    }
+   }
+  },
+  {
+   "id": "ux",
+   "icon": "🖥️",
+   "name": {
+    "de": "Nutzer- & Medienpsychologie (UX-Research)",
+    "en": "User & media psychology (UX research)"
+   },
+   "hint": {
+    "de": "Wie Menschen digitale Produkte wahrnehmen, verstehen und nutzen — Kognition und Methodik werden zum Beruf",
+    "en": "How people perceive, understand and use digital products — cognition and methodology become a profession"
+   },
+   "w": {
+    "Fa2": 3,
+    "Fa3": 2,
+    "Fa4": 3,
+    "Fa1": 2,
+    "Fa6": 3,
+    "Fa9": 2,
+    "KI1": 2,
+    "KI2": 2,
+    "KI4": 2,
+    "KI6": 2,
+    "Fu1": 2,
+    "Fu3": 2
+   },
+   "ziel": {
+    "Fa2": 3,
+    "Fa4": 3,
+    "Fa6": 3,
+    "Fa1": 3,
+    "KI4": 3,
+    "KI6": 3,
+    "Fu1": 3
+   },
+   "soll": [
+    0.7,
+    0.85,
+    0.85,
+    0.75,
+    0.8,
+    0.8
+   ],
+   "wahl": {
+    "r": "ekn",
+    "sp": "DeNC",
+    "wp": null,
+    "hinweis": {
+     "de": "Kognitionspsychologie, Kognitive Neurowissenschaften und das Experimentalpraktikum sind das fachliche Fundament; DeNC-Vertiefungen und ein sauberes Methodenprofil zahlen direkt ein.",
+     "en": "Cognitive psychology, cognitive neuroscience and the experimental lab course are the foundation; DeNC specialisations and a clean methods profile pay in directly."
+    }
+   },
+   "roadmap": [
+    {
+     "t": {
+      "de": "Einstieg als Junior UX Researcher",
+      "en": "Entry as a junior UX researcher"
+     },
+     "d": {
+      "de": "In Agenturen, Medienhäusern, Spitälern oder Produktorganisationen, oft in Teilzeit. Stelleninserate nennen Psychologie ausdrücklich neben Design und Data Science; ein Portfolio mit eigenen Usability-Tests ist praktisch Voraussetzung.",
+      "en": "In agencies, media houses, hospitals or product organisations, often part-time. Job ads name psychology explicitly alongside design and data science; a portfolio of your own usability tests is effectively required."
+     }
+    },
+    {
+     "t": {
+      "de": "MAS Human Computer Interaction Design",
+      "en": "MAS in Human Computer Interaction Design"
+     },
+     "d": {
+      "de": "Getragen von der OST, der Fakultät für Psychologie der Universität Basel und der HGK Basel FHNW; zwei bis drei Jahre, 60 ECTS, rund CHF 30'500. Die Zielgruppe nennt Psychologie ausdrücklich. Kleiner Einstieg: CAS UX Research der OST (23 Tage, 16 ECTS, rund CHF 9'800).",
+      "en": "Run by OST, the Faculty of Psychology of the University of Basel and HGK Basel FHNW; two to three years, 60 ECTS, around CHF 30,500. Psychology is named explicitly among the target groups. Smaller entry: OST's CAS in UX Research (23 days, 16 ECTS, around CHF 9,800)."
+     }
+    },
+    {
+     "t": {
+      "de": "Was du mitbringst, was andere nicht haben",
+      "en": "What you bring that others don't"
+     },
+     "d": {
+      "de": "Experimentelles Design, Stichprobenlogik, Fragebogenkonstruktion, Wahrnehmungs- und Gedächtnispsychologie — genau die Stellen, an denen Nutzerforschung sonst methodisch schwach wird.",
+      "en": "Experimental design, sampling logic, questionnaire construction, perception and memory psychology — exactly where user research otherwise becomes methodologically weak."
+     }
+    }
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Junior UX/UI Designer / UX Researcher",
+     "en": "Junior UX/UI designer / UX researcher"
+    },
+    "pensum": {
+     "de": "80–100 %, überwiegend 100 % — Teilzeit ist in diesem Feld unüblich",
+     "en": "80–100 %, mostly 100 % — part-time work is unusual in this field"
+    },
+    "wo": {
+     "de": "Digitalunternehmen und Plattformen, Banken und Versicherungen, Telekom, Medtech, Digital- und UX-Agenturen, öffentliche Digitalisierungsprojekte",
+     "en": "Digital companies and platforms, banks and insurers, telecoms, medtech, digital and UX agencies, public-sector digitalisation projects"
+    },
+    "aufgaben": [
+     {
+      "de": "Qualitative und quantitative Nutzerstudien planen und durchführen (Interviews, Usability-Tests, Tagebuchstudien)",
+      "en": "Planning and running qualitative and quantitative user studies (interviews, usability tests, diary studies)"
+     },
+     {
+      "de": "Erkenntnisse auswerten und für Produktteams aufbereiten",
+      "en": "Analysing findings and preparing them for product teams"
+     },
+     {
+      "de": "A/B-Tests und Analyse von Verhaltensdaten",
+      "en": "A/B tests and analysis of behavioural data"
+     },
+     {
+      "de": "Research-Repositories, Personas und Journey Maps aufbauen und pflegen",
+      "en": "Building and maintaining research repositories, personas and journey maps"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "Studium in Psychologie, Soziologie, Kommunikationswissenschaft oder Informatik",
+      "en": "Degree in psychology, sociology, communication science or computer science"
+     },
+     {
+      "de": "Portfolio mit Fallstudien — praktische Erfahrung zählt oft so viel wie die formale Ausbildung",
+      "en": "Portfolio with case studies — practical experience often counts as much as formal education"
+     },
+     {
+      "de": "Methodenkompetenz und Werkzeuge wie Figma, Dovetail, UserTesting",
+      "en": "Methods expertise and tools such as Figma, Dovetail, UserTesting"
+     },
+     {
+      "de": "Englisch als Arbeitssprache",
+      "en": "English as the working language"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 68'000–80'000 pro Jahr bei 100 % — zusammen mit der Promotion der tiefste Einstieg im Set. Das spricht gegen die verbreitete Wahrnehmung von UX als besonders lukrativem Ausstieg.",
+     "en": "CHF 68,000–80,000 per year at 100 % — together with the doctorate the lowest entry in the set. This contradicts the widespread perception of UX as a particularly lucrative exit."
+    },
+    "lohnQ": "mittel",
+    "lohnBeleg": {
+     "de": "jobs.ch-Lohnrechner «UX Designer», n = 1'101; ITBoard Gehaltsreport 2025/26. Für «UX Researcher» allein existiert kein Schweizer Einstiegswert.",
+     "en": "jobs.ch salary calculator “UX designer”, n = 1,101; ITBoard salary report 2025/26. No Swiss entry figure exists for “UX researcher” alone."
+    },
+    "wann": {
+     "de": "Direkt nach dem MSc möglich, praktisch aber nur mit Portfolio und Praxiserfahrung. Reine UX-Research-Stellen sind in der Schweiz selten und meist Senior-Positionen; der Einstieg führt über Design-, Product- oder Human-Factors-Rollen.",
+     "en": "Possible directly after the MSc, but in practice only with a portfolio and hands-on experience. Pure UX research posts are rare in Switzerland and mostly senior; entry usually runs via design, product or human factors roles."
+    }
+   }
   },
   {
    "id": "ppp",
@@ -795,7 +1784,70 @@ window.KARRIERE =
       "en": "Teaching the PPP major — closing the loop back to stage ⓪."
      }
     }
-   ]
+   ],
+   "stelle": {
+    "titel": {
+     "de": "Mittelschullehrperson Pädagogik/Psychologie",
+     "en": "Upper-secondary teacher, education and psychology"
+    },
+    "pensum": {
+     "de": "Gerechnet wird in Pflichtlektionen, nicht in Prozent: 22–23 Wochenlektionen sind ein Vollpensum. Für Einsteigende realistisch 40–70 %, weil PPP an vielen Schulen ein kleines Fachpensum hat.",
+     "en": "Measured in mandatory lessons rather than per cent: 22–23 weekly lessons make a full load. Realistically 40–70 % for newcomers, as the subject carries a small share at many schools."
+    },
+    "wo": {
+     "de": "Kantonsschulen und Gymnasien, Fachmittelschulen, Berufsmaturitätsschulen, private Gymnasien",
+     "en": "Cantonal schools and grammar schools, specialised secondary schools, vocational baccalaureate schools, private grammar schools"
+    },
+    "aufgaben": [
+     {
+      "de": "Unterricht in Pädagogik/Psychologie und im Zweitfach auf gymnasialer Stufe",
+      "en": "Teaching education/psychology and a second subject at upper-secondary level"
+     },
+     {
+      "de": "Vorbereitung, Durchführung und Beurteilung von Unterricht und Prüfungen",
+      "en": "Preparing, delivering and assessing lessons and examinations"
+     },
+     {
+      "de": "Betreuung von Maturitätsarbeiten",
+      "en": "Supervising baccalaureate theses"
+     },
+     {
+      "de": "Mitarbeit in Fachschaft, Schulentwicklung und Konventen, Klassenlehrerfunktion",
+      "en": "Contributing to the subject department, school development and staff meetings, class teacher duties"
+     }
+    ],
+    "anforderungen": [
+     {
+      "de": "MSc Psychologie plus Lehrdiplom für Maturitätsschulen (60 ECTS), beginnbar bereits während des Masterstudiums",
+      "en": "MSc in psychology plus a teaching diploma for baccalaureate schools (60 ECTS), which can be started during the Master's"
+     },
+     {
+      "de": "EDK-anerkanntes Diplom für den Unterricht an öffentlichen Schulen",
+      "en": "An EDK-recognised diploma for teaching at public schools"
+     },
+     {
+      "de": "Ein zweites Unterrichtsfach — im Kanton Zürich für ein volles Pensum praktisch unerlässlich",
+      "en": "A second teaching subject — practically essential for a full load in the Canton of Zurich"
+     },
+     {
+      "de": "Fachdidaktische und berufspraktische Prüfungen nach Abschluss des Masters",
+      "en": "Subject-didactic and practical examinations after completing the Master's"
+     }
+    ],
+    "lohn": {
+     "de": "CHF 105'000–110'000 pro Jahr bei vollem Pensum — der höchste belegbare Einstiegslohn im ganzen Set. Bei einem realistischen Teilpensum von 50–70 % entspricht das CHF 52'000–77'000.",
+     "en": "CHF 105,000–110,000 per year at a full load — the highest documented entry salary in the whole set. At a realistic 50–70 % load this equals CHF 52,000–77,000."
+    },
+    "lohnQ": "hoch",
+    "lohnBeleg": {
+     "de": "Kanton Zürich, Lohnreglement LR 24, Lohnklasse 20 Stufe 3 mit Fachabschluss = CHF 109'664; bestätigt durch jobs.ch «Gymnasiallehrer» Kanton Zürich",
+     "en": "Canton of Zurich salary regulations LR 24, class 20 step 3 with a subject degree = CHF 109,664; confirmed by jobs.ch “grammar school teacher”, Canton of Zurich"
+    },
+    "wann": {
+     "de": "Nicht direkt nach dem MSc, weil das Lehrdiplom zwingend ist — beginnt man es parallel zum Master, ist der Einstieg unmittelbar danach möglich. Zusätzliche Hürde: Der Stellenmarkt für Pädagogik/Psychologie ist klein und schwankt stark.",
+     "en": "Not directly after the MSc, as the teaching diploma is mandatory — starting it alongside the Master's makes entry possible immediately afterwards. Additional hurdle: the job market for education/psychology is small and volatile."
+    }
+   }
   }
  ],
  "cv": {
@@ -1160,12 +2212,24 @@ window.KARRIERE =
    "url": "https://www.fedlex.admin.ch/eli/cc/2013/768/de"
   },
   {
+   "apa": "Gerber, M., Krause, A., & Probst, J. (2023). HR Analytics in der Schweiz. personal SCHWEIZ.",
+   "url": "https://www.zhaw.ch/storage/sml/weiterbildung/sml_cas_hcai_HR_Analytics_in_der_Schweiz_Krause_Probst_Gerber.pdf"
+  },
+  {
    "apa": "Gesundheitsdirektion Kanton Zürich. (2024). Merkblatt psychologische Psychotherapie.",
    "url": "https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/gesundheit/gesundheitsberufe/merkblaetter_neu/merkblatt_psychotherapeuten_apr_2024.pdf"
   },
   {
+   "apa": "OST – Ostschweizer Fachhochschule. (o. D.). MAS Human Computer Interaction Design (mit Universität Basel, Fakultät für Psychologie).",
+   "url": "https://www.ost.ch/de/weiterbildung/weiterbildungsangebot/informatik/mas-human-computer-interaction-design"
+  },
+  {
    "apa": "Schweizerische Gesellschaft für Forensische Psychiatrie. (2025). Curriculum Zertifikat forensische Psychologie SGFP (gültig ab 1. April 2026).",
    "url": "https://www.swissforensic.ch/fileadmin/SGFP/user_upload/d_Curriculum_Zertifikat_forensischePsy_fin.pdf"
+  },
+  {
+   "apa": "Schweizerische Gesellschaft für Gesundheitspsychologie. (o. D.). Fachtitel Gesundheitspsychologie FSP.",
+   "url": "https://healthpsy.psychologie.ch/de/fachtitel"
   },
   {
    "apa": "Schweizerische Gesellschaft für Laufbahn- und Personalpsychologie. (o. D.). Fachtitel Laufbahn- und Personalpsychologie FSP.",
@@ -1184,6 +2248,14 @@ window.KARRIERE =
    "url": "https://www.snf.ch/en/jcm85VTr3a7XDkK0/news/reform-of-career-funding-schemes"
   },
   {
+   "apa": "SDBB. (o. D.). Markt- und Werbepsychologe/-login. berufsberatung.ch.",
+   "url": "https://www.berufsberatung.ch/dyn/show/1900?id=1185"
+  },
+  {
+   "apa": "SWISS INSIGHTS. (o. D.). Branche (Marktforschung Schweiz).",
+   "url": "https://swiss-insights.ch/insights-branche/branche/"
+  },
+  {
    "apa": "Universität Basel. (o. D.). EA KJP: Organisation.",
    "url": "https://wb-kjp.unibas.ch/studiengaenge/ea-kjp/organisation/"
   },
@@ -1192,8 +2264,8 @@ window.KARRIERE =
    "url": "https://www.unibe.ch/weiterbildungsangebote/mas_psychotherapie/index_ger.html"
   },
   {
-   "apa": "Universität Zürich. (o. D.). MAS in Kognitiver Verhaltenstherapie und Verhaltensmedizin.",
-   "url": "https://www.weiterbildung.uzh.ch/whp/programme/kurs/kognitiver-verhaltenstherapie-und-verhaltensmedizin"
+   "apa": "Universität Bern. (o. D.). Weiterbildungsangebote: MAS Gesundheitspsychologie (UZH und Universität Bern, 60 ECTS).",
+   "url": "https://www.unibe.ch/weiterbildungsangebote/mas_gesundheitspsychologie/index_ger.html"
   },
   {
    "apa": "Universität Zürich, Psychologisches Institut. (o. D.). Create your own profile.",
@@ -1202,6 +2274,30 @@ window.KARRIERE =
   {
    "apa": "Universität Zürich, Psychologisches Institut. (o. D.). MAS in Schulpsychologie.",
    "url": "https://www.psychologie.uzh.ch/de/bereiche/hea/kjpsych/weiterbildung/mas-schulpsychologie.html"
+  },
+  {
+   "apa": "Universität Zürich. (o. D.). MAS in Kognitiver Verhaltenstherapie und Verhaltensmedizin.",
+   "url": "https://www.weiterbildung.uzh.ch/whp/programme/kurs/kognitiver-verhaltenstherapie-und-verhaltensmedizin"
+  },
+  {
+   "apa": "Universität Zürich. (2026). Einreihungsrichtlinien für wissenschaftliche Funktionen (Stand 08.01.2026).",
+   "url": "https://www.uzh.ch/cmsssl/de/about/basics/rechtliche-grundlagen.html"
+  },
+  {
+   "apa": "Schweizerischer Nationalfonds. (2025). Höhere Löhne für Doktorierende ab 2026.",
+   "url": "https://www.snf.ch/de/news"
+  },
+  {
+   "apa": "Kanton Zürich. (2023). Lohnreglement LR 24 für Lehrpersonen an Mittelschulen.",
+   "url": "https://www.zh.ch/de/bildung/informationen-fuer-schulen/informationen-fuer-schulen-mittelschulen.html"
+  },
+  {
+   "apa": "jobs.ch. (2026). Lohnrechner: HR Business Partner, Psychologe, Schulpsychologe, UX Designer, Marketing Analyst.",
+   "url": "https://www.jobs.ch/de/lohn/"
+  },
+  {
+   "apa": "berufsberatung.ch. (o. D.). Berufsmöglichkeiten: Psychologie. SDBB.",
+   "url": "https://www.berufsberatung.ch/dyn/show/48230"
   }
  ]
 };

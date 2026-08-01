@@ -65,7 +65,7 @@ const defaultState = () => ({
   placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {}, fb: {},
   msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
   sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false],
-  pal: { bsc: "uzh", msc: "uzh" }, wzSeen: { frei: [], serious: [] }
+  pal: { bsc: "uzh", msc: "uzh" }, wzSeen: { frei: [], serious: [] }, cardSize: "m"
 });
 function autoSeason() {
   const m = new Date().getMonth() + 1;
@@ -1942,25 +1942,66 @@ function passungChips(p) {
     ${chips.map((c) => `<span style="border:1px solid ${c.col};color:${c.ok ? "#fff" : c.col};background:${c.ok ? c.col : "transparent"};border-radius:999px;padding:1px 7px">${c.ok ? "✓ " : ""}${escHtml(c.txt)}</span>`).join("")}
   </div>` + (p.wahl.hinweis && !alle ? `<p style="font-size:10px;color:#8b94ab;margin:2px 0 0">${L(p.wahl.hinweis)}</p>` : "");
 }
+/* Realistisches Stellenprofil je Pfad — aufklappbar, damit die Liste kurz bleibt.
+   Die Belegqualität des Lohns wird mitgeliefert: Wo für die Schweiz kein berufsspezifischer
+   Wert publiziert ist, soll das sichtbar sein statt als scheinbar harte Zahl durchgehen. */
+const LOHN_Q = { hoch: { icon: "●●●", farbe: "#0e8f7e" }, mittel: { icon: "●●○", farbe: "#b3831d" }, tief: { icon: "●○○", farbe: "#8b94ab" } };
+function stelleHTML(p) {
+  const s = p.stelle;
+  if (!s) return "";
+  const q = LOHN_Q[s.lohnQ] || LOHN_Q.mittel;
+  const liste = (arr) => `<ul style="margin:2px 0 0;padding-left:16px">${arr.map((x) => `<li style="margin:2px 0">${escHtml(L(x))}</li>`).join("")}</ul>`;
+  return `<details class="stelle"><summary>💼 ${t("stelle_titel")}: <b>${escHtml(L(s.titel))}</b></summary>
+    <div class="stellebody">
+      <div class="srow"><span>${t("stelle_pensum")}</span><div>${escHtml(L(s.pensum))}</div></div>
+      <div class="srow"><span>${t("stelle_wo")}</span><div>${escHtml(L(s.wo))}</div></div>
+      <div class="srow"><span>${t("stelle_aufgaben")}</span><div>${liste(s.aufgaben)}</div></div>
+      <div class="srow"><span>${t("stelle_anforderungen")}</span><div>${liste(s.anforderungen)}</div></div>
+      <div class="srow"><span>${t("stelle_lohn")}</span><div>${escHtml(L(s.lohn))}
+        <div class="sq" style="color:${q.farbe}" title="${escHtml(L(s.lohnBeleg))}">${q.icon} ${t("lohnq_" + s.lohnQ)} — ${escHtml(L(s.lohnBeleg))}</div></div></div>
+      <div class="srow"><span>${t("stelle_wann")}</span><div>${escHtml(L(s.wann))}</div></div>
+    </div></details>`;
+}
+
 /* Profil-Passung als Ähnlichkeit statt Fortschritt.
    Der bisherige Balken («gewichteter Anteil») misst faktisch, wie weit das Studium
    fortgeschritten ist: er steigt für alle Pfade gleichzeitig und steht bei Vollausbau
    überall auf 100 %. Diese Kennzahl vergleicht stattdessen die FORM des eigenen Profils
    mit der Form des Anforderungsprofils (Kosinusähnlichkeit) — sie ist fortschrittsinvariant
    und trennt Wege, statt Studienstände zu spiegeln. */
+/* Wie gut passt dieser Berufsweg zu MEINEN Entscheidungen?
+   Zwei Anteile: (1) die konkreten Wahlentscheidungen — BSc-Richtung, MSc-Schwerpunkt,
+   Wahlpflichtmodul, BA-Fragestellung — zählen doppelt, denn genau sie prägen das Profil und
+   sind das, was die Zahl verspricht; (2) die relative Form des Kompetenzprofils (zentriert
+   verglichen, damit nicht einfach der Studienfortschritt gemessen wird). */
+function wahlAnteil(p) {
+  if (!p.wahl) return null;
+  const br = bscRichtung(), mp = mscProfil(), bf = baFrage();
+  let n = 0, ok = 0;
+  if (p.wahl.r) { n++; if (br.r === p.wahl.r) ok++; }
+  if (p.wahl.sp) { n++; ok += Math.min(1, (mp.counts[p.wahl.sp] || 0) / 4); }
+  if (p.wahl.wp) { n += 0.7; if (wpWahl() === p.wahl.wp) ok += 0.7; }
+  // Die BA-Fragestellung zählt als Zusatzsignal — aber nur bei Pfaden, die überhaupt eine
+  // Wahlrichtung nahelegen. Sonst würde ein breiter Weg wie die Promotion allein daran scheitern.
+  if (bf && n > 0) { n += 0.7; if ((bf.pfade || []).includes(p.id)) ok += 0.7; }
+  return n ? ok / n : null;
+}
 function pfadPassung(p, pct) {
-  const ids = Object.keys(p.w);
-  let dot = 0, na = 0, nb = 0;
-  for (const id of ids) {
-    const a = pct[id] || 0, b = p.w[id] || 0;
-    dot += a * b; na += a * a; nb += b * b;
+  const alle = ST.kompetenzen.map((k) => k.id);
+  const a = alle.map((id) => pct[id] || 0);
+  const b = alle.map((id) => p.w[id] || 0);
+  const mA = a.reduce((x, y) => x + y, 0) / a.length;
+  const mB = b.reduce((x, y) => x + y, 0) / b.length;
+  let num = 0, dA = 0, dB = 0;
+  for (let i = 0; i < a.length; i++) {
+    const x = a[i] - mA, y = b[i] - mB;
+    num += x * y; dA += x * x; dB += y * y;
   }
-  // Gegen die Achsen ausserhalb des Pfadprofils normieren: was stark ist, aber nicht gefordert, zählt nicht mit
-  let restA = 0;
-  for (const k of ST.kompetenzen) if (!ids.includes(k.id)) restA += (pct[k.id] || 0) ** 2;
-  na += restA;
-  if (!na || !nb) return 0;
-  return Math.round((dot / (Math.sqrt(na) * Math.sqrt(nb))) * 100);
+  const r = (dA && dB) ? num / (Math.sqrt(dA) * Math.sqrt(dB)) : 0;
+  const komp = (r + 1) / 2; // 0 … 1
+  const wahl = wahlAnteil(p);
+  const wert = wahl === null ? komp : 0.62 * wahl + 0.38 * komp;
+  return Math.max(0, Math.min(100, Math.round(wert * 100)));
 }
 /* Lückenanalyse: Zielstufen des Pfads vs. erreichte Stufen.
    Zielstufen werden auf das im Curriculum Erreichbare geklemmt — eine Lücke,
@@ -2022,6 +2063,7 @@ function renderKarriere() {
       <div class="track" title="${t("fit_hint")}"><div class="fill" style="width:${fit}%;background:linear-gradient(90deg,#0e8f7e,#0028a5)"></div></div>
       <div class="pmeta">${t("fit_label")}: <b>${fit}%</b> · ${t("fortschritt_label")}: ${ready}%</div>
       ${passungChips(p)}
+      ${stelleHTML(p)}
       ${gapHtml}
       ${rmHtml}
       ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => { const voll = slotTitel(c.s).split(",")[0]; return `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${voll.length > 34 ? voll.slice(0, 33) + "…" : voll}</button>`; }).join("")}</div>` : ""}
@@ -2339,6 +2381,7 @@ function openCard(id) {
   renderFbRow(slot);
   card.classList.add("open");
   document.body.classList.add("card-open");
+  cardSizeSet(S.cardSize || "m", false);
 }
 /* Ampel-Feedback (Schiene C, Validierung): 🟢🟡🔴 + Freitext pro Zukunftsmodul, lokal, exportierbar */
 function renderFbRow(slot) {
@@ -2362,11 +2405,99 @@ function renderFbRow(slot) {
 }
 function closeCard() { card.classList.remove("open"); document.body.classList.remove("card-open"); selectedId = null; renderPlan(); }
 document.getElementById("cardClose").onclick = () => { closeCard(); clearGhost(); };
+
+/* ---------- Kartenhöhe: Bottom-Sheet mit drei Raststufen ----------
+   Lernziele und Quests brauchen Platz, das Haus soll aber sichtbar bleiben.
+   Deshalb drei Stufen statt einer festen Höhe: klein zum Bauen, mittel zum Lesen,
+   gross zum Vertiefen. Erreichbar über Ziehgriff, Knopf und Doppelklick auf den Titel;
+   die gewählte Stufe bleibt erhalten, weil Lesegewohnheiten stabil sind. */
+const CARD_SIZES = ["s", "m", "l"];
+const CARD_VH = { s: 0.46, m: 0.70, l: 1 }; // l wird per CSS auf 100vh−76px begrenzt
+function cardSizeSet(size, merken) {
+  if (!CARD_SIZES.includes(size)) size = "m";
+  card.dataset.size = size;
+  card.style.removeProperty("--ch"); // Rasterhöhe aus dem Stylesheet wieder greifen lassen
+  const btn = document.getElementById("cardSize");
+  if (btn) {
+    btn.textContent = size === "l" ? "⤡" : "⤢";
+    btn.setAttribute("aria-label", t(size === "l" ? "aria_karte_klein" : "aria_karte_groesse"));
+    btn.title = t(size === "l" ? "aria_karte_klein" : "aria_karte_groesse");
+  }
+  if (merken !== false) { S.cardSize = size; save(); }
+  requestAnimationFrame(bodyMoreCheck);
+}
+function cardSizeStep(dir) {
+  const i = CARD_SIZES.indexOf(card.dataset.size || "s");
+  cardSizeSet(CARD_SIZES[Math.max(0, Math.min(CARD_SIZES.length - 1, i + dir))]);
+}
+/* Zeigt am unteren Rand einen Verlauf, solange noch Text folgt */
+function bodyMoreCheck() {
+  const w = document.getElementById("cardBodyWrap"), b = document.getElementById("cardBody");
+  if (!w || !b) return;
+  const rest = b.scrollHeight - b.scrollTop - b.clientHeight;
+  w.classList.toggle("more", rest > 8);
+  // Griff einfärben, solange überhaupt mehr Inhalt existiert als angezeigt wird
+  card.classList.toggle("hasmore", b.scrollHeight - b.clientHeight > 8);
+}
+{
+  const grip = document.getElementById("cardGrip");
+  const body = document.getElementById("cardBody");
+  const szbtn = document.getElementById("cardSize");
+  if (body) body.addEventListener("scroll", bodyMoreCheck, { passive: true });
+  window.addEventListener("resize", bodyMoreCheck);
+  // Erst nach der Höhenanimation steht fest, ob noch Text übrig bleibt
+  card.addEventListener("transitionend", (e) => { if (e.propertyName === "height") bodyMoreCheck(); });
+  if (szbtn) szbtn.onclick = () => { cardSizeStep(card.dataset.size === "l" ? -2 : 1); SND.pick(); };
+  // Doppelklick auf die Kopfzeile: der schnellste Weg zwischen Bauen und Lesen
+  const head = card.querySelector(".head");
+  if (head) head.addEventListener("dblclick", (e) => {
+    if (e.target.closest("button")) return;
+    cardSizeSet(card.dataset.size === "s" ? "m" : "s");
+  });
+  if (grip) {
+    // Freies Ziehen mit Einrasten beim Loslassen — direkte Manipulation statt Stufenknopf
+    let startY = 0, startH = 0, aktiv = false;
+    const maxH = () => window.innerHeight - 76;
+    grip.addEventListener("pointerdown", (e) => {
+      aktiv = true; startY = e.clientY; startH = card.getBoundingClientRect().height;
+      card.classList.add("dragging");
+      try { grip.setPointerCapture(e.pointerId); } catch (err) {} // manche Browser verweigern das Capture
+      e.preventDefault();
+    });
+    grip.addEventListener("pointermove", (e) => {
+      if (!aktiv) return;
+      const h = Math.max(180, Math.min(maxH(), startH + (startY - e.clientY)));
+      card.style.setProperty("--ch", h + "px");
+      bodyMoreCheck();
+    });
+    const ende = () => {
+      if (!aktiv) return;
+      aktiv = false; card.classList.remove("dragging");
+      const h = card.getBoundingClientRect().height;
+      // auf die nächstgelegene Raststufe einrasten
+      let best = "s", d = Infinity;
+      for (const s of CARD_SIZES) {
+        const ziel = Math.min(maxH(), CARD_VH[s] * window.innerHeight);
+        if (Math.abs(ziel - h) < d) { d = Math.abs(ziel - h); best = s; }
+      }
+      cardSizeSet(best);
+    };
+    grip.addEventListener("pointerup", ende);
+    grip.addEventListener("pointercancel", ende);
+    grip.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") { cardSizeStep(1); e.preventDefault(); }
+      else if (e.key === "ArrowDown") { cardSizeStep(-1); e.preventDefault(); }
+      else if (e.key === "Enter" || e.key === " ") { cardSizeSet(card.dataset.size === "s" ? "m" : "s"); e.preventDefault(); }
+    });
+  }
+}
 document.getElementById("cardTabs").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
   cardTab = b.dataset.tab;
   document.querySelectorAll("#cardTabs button").forEach((x) => x.classList.toggle("on", x === b));
   if (selectedId) renderCardBody(SLOTS[selectedId]);
+  const bd = document.getElementById("cardBody"); if (bd) bd.scrollTop = 0;
+  requestAnimationFrame(bodyMoreCheck);
 });
 function kompPills(slot) {
   const { komp, haupt } = slotKomp(slot);
@@ -2975,6 +3106,92 @@ document.getElementById("btnCampus").onclick = () => {
   }
 };
 
+/* Karrieresteckbrief für den Kompetenzpass.
+   Bewusst kein Katalog aller zwölf Wege: Das Dokument soll je nach Studienwahl
+   ein anderes sein. Ausführlich wird nur der beste Treffer beschrieben, die
+   nächsten beiden erscheinen als Alternativen, der Rest gar nicht. */
+function karriereSteckbriefHTML(score, max) {
+  const K = window.KARRIERE || {};
+  const pfade = K.pfade || [];
+  if (!pfade.length) return "";
+  const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
+  const gebaut = ST.slots.filter((s) => isPlaced(s.slot)).length;
+  const sortiert = pfade.map((p) => ({ p, fit: pfadPassung(p, pct) })).sort((a, b) => b.fit - a.fit);
+  const top = sortiert[0], alt = sortiert.slice(1, 3);
+  const br = bscRichtung(), mp = mscProfil(), bf = baFrage(), ba = baArtefakt(), wp = wpWahl();
+
+  let h = `<div style="page-break-before:always"></div>
+  <h2 style="color:#0028a5;margin:8px 0 2px">🧭 ${t("pass_karr_titel")}</h2>
+  <p style="font-size:11px;color:#5b6478;line-height:1.5;margin-bottom:8px">${t("pass_karr_intro")}</p>`;
+
+  if (gebaut < 6) {
+    return h + `<p style="font-size:11.5px;color:#8b94ab">${t("pass_karr_leer")}</p>`;
+  }
+
+  /* Die getroffenen Wahlen — sie sind der Grund für die Reihenfolge unten */
+  const wahlZeilen = [
+    [t("richtung_bsc"), br.r ? `${ST.richtungen[br.r].icon} ${L(ST.richtungen[br.r].kurz)}` : "—"],
+    [t("richtung_msc"), mp.total
+      ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([sp, n]) => `${sp} (${n}×)`).join(" · ")
+      : "—"],
+    [t("frage"), bf ? `${((ST.baFormen || {})[bf.form] || {}).icon || ""} ${L(bf.name)}` : "—"],
+    [t("artefakt"), ba ? `${ba.icon} ${L(ba.name)}` : "—"],
+    ["Wahlpflicht", wp && OPTMOD[wp] ? L(OPTMOD[wp].titel) : "—"],
+  ];
+  h += `<h3 style="margin:12px 0 4px">${t("pass_karr_wahl")}</h3>
+  <table style="font-size:11.5px">${wahlZeilen.map(([a, b]) => `<tr><th style="width:190px">${a}</th><td>${escHtml(b)}</td></tr>`).join("")}</table>`;
+
+  /* Bester Treffer — ausführlich */
+  const p = top.p;
+  h += `<h3 style="margin:16px 0 4px">${t("pass_karr_top")}: ${p.icon} ${escHtml(L(p.name))} — ${top.fit}%</h3>
+  <p style="font-size:11.5px;color:#2c3550;margin:0 0 6px">${escHtml(L(p.hint))}</p>`;
+
+  // Das Stellenprofil ist der konkreteste Teil des Steckbriefs — hier ausgeschrieben statt aufklappbar
+  const st = p.stelle;
+  if (st) {
+    const li = (arr) => `<ul style="margin:0;padding-left:16px">${arr.map((x) => `<li style="margin:2px 0">${escHtml(L(x))}</li>`).join("")}</ul>`;
+    h += `<table style="font-size:11.5px;margin-top:6px">
+      <tr><th style="width:150px">${t("stelle_titel")}</th><td><b>${escHtml(L(st.titel))}</b></td></tr>
+      <tr><th>${t("stelle_pensum")}</th><td>${escHtml(L(st.pensum))}</td></tr>
+      <tr><th>${t("stelle_wo")}</th><td>${escHtml(L(st.wo))}</td></tr>
+      <tr><th>${t("stelle_aufgaben")}</th><td>${li(st.aufgaben)}</td></tr>
+      <tr><th>${t("stelle_anforderungen")}</th><td>${li(st.anforderungen)}</td></tr>
+      <tr><th>${t("stelle_lohn")}</th><td>${escHtml(L(st.lohn))}<div style="font-size:10px;color:#5b6478;margin-top:3px">${t("lohnq_" + st.lohnQ)} — ${escHtml(L(st.lohnBeleg))}</div></td></tr>
+      <tr><th>${t("stelle_wann")}</th><td>${escHtml(L(st.wann))}</td></tr>
+    </table>`;
+  }
+
+  const gaps = gapList(p);
+  h += `<p style="font-size:11.5px;margin:8px 0 3px"><b>${t("gap_titel")}</b></p>`;
+  h += gaps.length
+    ? `<table style="font-size:11px"><tr><th>${t("kompetenz")}</th><th style="width:70px;text-align:center">${t("stufe")}</th><th style="width:70px;text-align:center">${t("ziel_kurz")}</th></tr>
+       ${gaps.map((g) => { const k = KOMP[g.id]; return `<tr><td>${g.id} · ${k ? escHtml(L(k.name)) : ""}</td><td style="text-align:center">${g.ist}</td><td style="text-align:center"><b>${g.ziel}</b></td></tr>`; }).join("")}</table>`
+    : `<p style="font-size:11.5px;color:#0e8f7e;margin:0">✓ ${t("gap_ok")}</p>`;
+
+  if (p.roadmap && p.roadmap.length) {
+    h += `<p style="font-size:11.5px;margin:12px 0 3px"><b>${t("roadmap_titel")}</b></p>
+    <ol style="font-size:11.5px;line-height:1.55;padding-left:18px;margin:0">
+      ${p.roadmap.map((r) => `<li style="margin:4px 0"><b>${escHtml(L(r.t))}</b> — ${escHtml(L(r.d))}</li>`).join("")}</ol>`;
+  }
+  if (p.wahl && p.wahl.hinweis) {
+    h += `<p style="font-size:10.5px;color:#5b6478;line-height:1.5;margin:8px 0 0;border-left:3px solid #dbe1ef;padding-left:8px">${escHtml(L(p.wahl.hinweis))}</p>`;
+  }
+
+  /* Alternativen — nur Name, Passung, Einzeiler */
+  if (alt.length) {
+    h += `<h3 style="margin:16px 0 4px">${t("pass_karr_alt")}</h3>
+    <table style="font-size:11.5px">${alt.map((x) => `<tr><th style="width:230px">${x.p.icon} ${escHtml(L(x.p.name))}</th><td style="width:52px;text-align:center"><b>${x.fit}%</b></td><td>${x.p.stelle ? `<b>${escHtml(L(x.p.stelle.titel))}</b><br><span style="color:#5b6478">${escHtml(L(x.p.stelle.pensum))}</span>` : escHtml(L(x.p.hint))}</td></tr>`).join("")}</table>`;
+  }
+
+  const lit = (K.lit || []).slice(0, 8);
+  if (lit.length) {
+    h += `<p style="font-size:10px;color:#5b6478;line-height:1.5;margin-top:12px"><b>${t("pass_karr_q")}</b><br>
+      ${lit.map((l) => `${escHtml(l.apa)}${l.url ? ` <a href="${l.url}" style="color:#0028a5">${l.url}</a>` : ""}`).join("<br>")}</p>`;
+  }
+  h += `<p style="font-size:10px;color:#8b94ab;margin-top:6px">${t("pass_karr_disclaimer")}</p>`;
+  return h;
+}
+
 /* ---------- Kompetenzpass ---------- */
 document.getElementById("btnPass").onclick = () => {
   const { score, max } = profilWerte();
@@ -3055,6 +3272,8 @@ document.getElementById("btnPass").onclick = () => {
       <ul style="font-size:10.5px;line-height:1.5;padding-left:16px;margin:0 0 8px">${rowsIch}</ul>`;
   }
   ich += `<p style="font-size:9.5px;color:#8b94ab;margin-top:6px">${t("ich_fussnote")}</p>`;
+  /* ---- Seite 3: Karrieresteckbrief — je nach Studienwahl ein anderes Dokument ---- */
+  const karr = karriereSteckbriefHTML(score, max);
   const foto = hausFoto();
   const html = `<!DOCTYPE html><html lang="${S.lang}"><head><meta charset="utf-8"><title>Kompetenzpass</title>
   <style>*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
@@ -3072,6 +3291,7 @@ document.getElementById("btnPass").onclick = () => {
   ${foto ? `<img src="${foto}" alt="Kompetenzhaus" style="width:100%;border-radius:12px;margin:8px 0">` : ""}
   ${bars}
   ${ich}
+  ${karr}
   <h3 style="margin-top:18px">${t("bauplan")}</h3>
   <table><tr><th>Code</th><th>Modul</th><th>${t("ects")}</th><th>[A/B/C]</th><th>Quest ✦</th></tr>${rows}</table>
   <p class="hint">${L(ST.meta.hinweis)}<br>Kompetenzmodell: APA (2023); DGPs (2014); QAA (2023); Bass et al. (2025); Miao et al. (2024); Ehlers et al. (2024); Perkins et al. (2025).</p>

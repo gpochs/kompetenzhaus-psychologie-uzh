@@ -115,11 +115,35 @@
   .envrow input[type=range] { flex: 1; accent-color: var(--blue); min-width: 60px; }
 
   /* ---------- Info card ---------- */
-  #card { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 18; width: min(680px, calc(100vw - 24px));
-    background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); display: none; max-height: 46vh;
-    flex-direction: column; overflow: hidden; }
+  /* Die Karte ist ein Bottom-Sheet mit drei Raststufen (s/m/l), wie in mobilen
+     Betriebssystemen: ziehen am Griff, Knopf in der Kopfzeile, Doppelklick auf den Titel.
+     --ch trägt die Höhe, damit Ziehen und Rasten dieselbe Grösse steuern. */
+  #card { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 18;
+    /* Kopf, Tabs, Ampelzeile und Aktionsleiste belegen zusammen rund 230px. Eine reine
+       vh-Höhe liess dem Text auf flachen Fenstern nur noch eine Zeile — daher clamp()
+       mit absoluter Untergrenze, damit der Lesebereich immer nutzbar bleibt. */
+    --ch: clamp(400px, 52vh, calc(100vh - 76px)); width: min(680px, calc(100vw - 24px));
+    background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); display: none;
+    height: min(var(--ch), calc(100vh - 76px));
+    flex-direction: column; overflow: hidden;
+    transition: height .22s cubic-bezier(.2,.8,.2,1), width .22s cubic-bezier(.2,.8,.2,1); }
+  #card[data-size="m"] { --ch: clamp(480px, 72vh, calc(100vh - 76px)); width: min(780px, calc(100vw - 24px)); }
+  #card[data-size="l"] { --ch: calc(100vh - 76px); width: min(940px, calc(100vw - 24px)); }
+  #card.dragging { transition: none; user-select: none; }
   #card.open { display: flex; }
-  #card .head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; }
+  /* Ziehgriff: grosszügige Trefferfläche, sichtbar nur die schmale Pille */
+  #card .grip { flex: none; height: 18px; display: flex; align-items: center; justify-content: center;
+    cursor: row-resize; touch-action: none; }
+  #card .grip span { width: 40px; height: 4px; border-radius: 999px; background: #cfd6e6; transition: background .15s, width .15s; }
+  #card .grip:hover span, #card .grip:focus-visible span { background: var(--blue); width: 56px; }
+  /* Läuft der Text über und ist die Karte klein, zeigt der Griff selbst, wo mehr Platz herkommt */
+  #card.hasmore:not([data-size="l"]) .grip span { background: var(--blue); width: 56px; }
+  #card .grip:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 8px; }
+  #card .head .szbtn { border: 0; background: var(--paper2); border-radius: 999px; width: 34px; height: 34px;
+    cursor: pointer; font-size: 13px; flex: none; color: #5b6478; }
+  #card .head .szbtn:hover { background: #e8edf9; color: var(--blue); }
+  #card[data-size="l"] .head .szbtn { color: var(--blue); background: #e8edf9; }
+  #card .head { display: flex; align-items: center; gap: 10px; padding: 4px 16px 8px; cursor: default; }
   #card .head .gdot { width: 14px; height: 14px; border-radius: 4px; flex: none; }
   #card .head .titles { flex: 1; min-width: 0; }
   #card .head b { font-size: 14.5px; display: block; line-height: 1.2; }
@@ -131,7 +155,18 @@
   .tabs button { border: 0; background: transparent; padding: 8px 10px; font: 700 12px var(--font); color: #5b6478;
     cursor: pointer; border-bottom: 2.5px solid transparent; }
   .tabs button.on { color: var(--blue); border-bottom-color: var(--blue); }
-  #cardBody { padding: 10px 16px; overflow-y: auto; font-size: 13px; line-height: 1.5; }
+  /* Wenn unten noch Text folgt, blendet ein Verlauf ihn an — sonst wirkt die
+     abgeschnittene Zeile wie das Ende des Inhalts. */
+  .bodywrap { position: relative; flex: 1; min-height: 0; display: flex; }
+  .bodywrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26px; pointer-events: none;
+    background: linear-gradient(to top, var(--paper), transparent); opacity: 0; transition: opacity .15s; }
+  .bodywrap.more::after { opacity: 1; }
+  #cardBody { padding: 10px 16px; overflow-y: auto; font-size: 13px; line-height: 1.5; flex: 1; min-width: 0;
+    min-height: 130px; overscroll-behavior: contain; scrollbar-gutter: stable; }
+  /* Im Lesemodus tritt das Bau-Beiwerk zurück: mehr Zeilen, ruhigerer Satz */
+  #card[data-size="l"] #cardBody { font-size: 14px; line-height: 1.62; padding: 14px 22px; }
+  #card[data-size="l"] .head, #card[data-size="l"] .badges,
+  #card[data-size="l"] .tabs, #card[data-size="l"] .actions { padding-left: 22px; padding-right: 22px; }
   #cardBody ul { padding-left: 18px; } #cardBody li { margin: 3px 0; }
   #cardBody .komp-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
   .kpill { font: 600 10.5px var(--font); padding: 3px 8px; border-radius: 999px; background: var(--paper2); border: 1px solid #dbe1ef; }
@@ -247,6 +282,21 @@
   .ptabs button { flex: 1; border: 0; background: var(--paper2); border-radius: 999px; padding: 7px 0; font: 700 11.5px var(--font); color: #5b6478; cursor: pointer; }
   .ptabs button.on { background: var(--blue); color: #fff; }
   .pfad { background: var(--paper2); border-radius: 12px; padding: 10px 12px; margin: 6px 4px; }
+  /* Stellenprofil: zugeklappt eine Zeile mit der echten Stellenbezeichnung, aufgeklappt
+     der vollständige Steckbrief. So bleibt die Liste von zwölf Wegen überschaubar. */
+  .stelle { margin: 5px 0 0; border: 1px solid #dbe1ef; border-radius: 9px; background: var(--paper); }
+  .stelle > summary { cursor: pointer; font: 600 11px var(--font); color: #39415a; padding: 6px 9px; list-style: none; line-height: 1.4; }
+  .stelle > summary::-webkit-details-marker { display: none; }
+  .stelle > summary::before { content: "▸ "; color: #8b94ab; }
+  .stelle[open] > summary::before { content: "▾ "; }
+  .stelle > summary:hover { color: var(--blue); }
+  .stellebody { padding: 2px 9px 8px; font-size: 11px; line-height: 1.5; }
+  /* Das Panel ist nie breiter als rund 300px — eine Labelspalte würde den Text
+     auf drei Wörter pro Zeile quetschen. Deshalb Label über Inhalt. */
+  .srow { margin: 6px 0; }
+  .srow > span { display: block; font-weight: 700; color: #5b6478; font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: .04em; margin-bottom: 1px; }
+  .sq { font-size: 10px; margin-top: 3px; line-height: 1.4; }
   .pfad .phead { display: flex; align-items: center; gap: 8px; font: 700 12.5px var(--font); }
   .pfad .phead .pct { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--blue); }
   .pfad .phint { font-size: 10.5px; color: #5b6478; margin: 2px 0 6px 26px; }
@@ -309,13 +359,35 @@
     /* Endlos-Pulse ganz abschalten: eine auf .01s verkürzte «infinite»-Animation flackert sonst mit ~100 Hz */
     * { animation: none !important; transition-duration: .05s !important; }
   }
-  @media (hover: none) and (pointer: coarse) {
+  /* Grosse Tippflächen: auf Touch-Geräten immer, zusätzlich auf schmalen Fenstern —
+     manche Browser melden pointer:coarse nicht, das Layout ist dort trotzdem das mobile. */
+  @media (hover: none) and (pointer: coarse), (max-width: 560px) {
     .chip { min-height: 44px; } .envbtn { min-width: 38px; min-height: 38px; }
     .fbamp { min-width: 38px; min-height: 38px; } .ptabs button { min-height: 40px; }
+    #btnLang, #btnMenu, #btnSound, #btnPass, #btnCampus, #btnShare, #btnFoto,
+    #modeFrei, #modeSerious { min-width: 40px; min-height: 40px; }
   }
-  @media (max-height: 540px) { /* Landscape-Handys: Karte darf mehr Höhe nehmen, Innenbereich scrollt */
-    #card { max-height: calc(100vh - 70px); }
-    #cardBody { max-height: 30vh; }
+  @media (max-height: 540px) { /* Landscape-Handys: sehr flach — die kleinste Raststufe darf höher sein */
+    #card { --ch: 62vh; }
+    #card[data-size="m"] { --ch: 82vh; }
+  }
+  @media (max-width: 560px) {
+    /* Auf dem Handy ist das Haus ohnehin klein — Lesen bekommt hier mehr Gewicht.
+       Zugleich bricht die Aktionsleiste auf mehr Zeilen um, das Chrom frisst also mehr. */
+    #card { --ch: clamp(420px, 62vh, calc(100vh - 68px)); }
+    #card[data-size="m"] { --ch: clamp(520px, 82vh, calc(100vh - 68px)); }
+    #card[data-size="l"] { --ch: calc(100vh - 68px); }
+    #card[data-size="l"] #cardBody { padding: 12px 16px; }
+    #card[data-size="l"] .head, #card[data-size="l"] .badges,
+    #card[data-size="l"] .tabs, #card[data-size="l"] .actions { padding-left: 16px; padding-right: 16px; }
+    /* Die Stilwahl umbrach auf drei Zeilen und nahm dem Text den Platz weg —
+       eine seitlich scrollbare Zeile kostet nur eine. Themenwahl bleibt umbrechend,
+       dort sind die Beschriftungen ganze Sätze. */
+    .stilpick { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .stilpick::-webkit-scrollbar { display: none; }
+    .stilpick button { flex: none; }
+    #card .actions { padding-top: 8px; padding-bottom: 10px; gap: 6px; }
+    #card .badges { padding-bottom: 6px; }
   }
   #nextCta { display: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 17;
     border: 0; background: var(--blue); color: #fff; border-radius: 999px; padding: 12px 20px; font: 700 13px var(--font);
@@ -412,13 +484,16 @@
   <div class="tin"><input type="text" id="tutorInput" maxlength="300"><button class="primary" id="tutorSend">➤</button></div>
 </div>
 
-<div id="card">
+<div id="card" data-size="m">
+  <div class="grip" id="cardGrip" role="separator" aria-orientation="horizontal" tabindex="0"
+       data-aria="aria_karte_griff" aria-label="Kartenhöhe ändern — ziehen oder Pfeiltasten"><span></span></div>
   <div class="head">
     <div class="gdot" id="cardDot"></div>
     <div class="titles">
       <b id="cardTitle"></b>
       <div class="code" id="cardCode"></div>
     </div>
+    <button class="szbtn" id="cardSize" data-aria="aria_karte_groesse" aria-label="Karte vergrössern">⤢</button>
     <button class="close" id="cardClose" data-aria="aria_karte_zu" aria-label="Karte schliessen">✕</button>
   </div>
   <div class="badges" id="cardBadges"></div>
@@ -428,7 +503,7 @@
     <button data-tab="ki" data-i18n="tab_ki">KI & Prüfung</button>
     <button data-tab="quest" data-i18n="tab_quest">Quest ✦</button>
   </div>
-  <div id="cardBody"></div>
+  <div class="bodywrap" id="cardBodyWrap"><div id="cardBody"></div></div>
   <div id="fbRow"></div>
   <div class="actions" id="cardActions"></div>
 </div>
