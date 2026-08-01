@@ -500,7 +500,7 @@ const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-m
 /* KI-Funktionen nur, wenn die Umgebung sie bereitstellt (Claude-Artifact) */
 const HAS_AI = !!(window.claude && typeof window.claude.complete === "function");
 /* Fallback: Companion-Chat-Artifact «KI-Baututor» auf claude.ai (v4, publiziert 21.07.2026) */
-const TUTOR_URL = "https://claude.ai/public/artifacts/040b48ec-30c4-4bb5-bed0-07db36a82e2b";
+const TUTOR_URL = "https://claude.ai/public/artifacts/f5f07577-cae4-4a98-9b67-fced673c88b3";
 async function aiComplete(prompt) { return String(await window.claude.complete(prompt)).trim(); }
 let tutorCtl = null;
 
