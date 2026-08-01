@@ -2069,12 +2069,15 @@ function renderKarriere() {
       ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => { const voll = slotTitel(c.s).split(",")[0]; return `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${voll.length > 34 ? voll.slice(0, 33) + "…" : voll}</button>`; }).join("")}</div>` : ""}
     </div>`;
   }
-  html += `<button class="ghostbtn" data-steckbrief style="margin:8px 4px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
+  html += `<button class="ghostbtn" data-waswenn style="margin:8px 4px 0;width:calc(100% - 8px)">🔀 ${t("wenn_titel")}</button>`;
+  html += `<button class="ghostbtn" data-steckbrief style="margin:6px 4px 8px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
   html += verlaufHTML();
   el.innerHTML = html;
   el.querySelectorAll(".pnext button").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
   const sb = el.querySelector("[data-steckbrief]");
   if (sb) sb.onclick = karriereSteckbrief;
+  const ww = el.querySelector("[data-waswenn]");
+  if (ww) ww.onclick = openWasWenn;
 }
 
 /* ---------- Karrieresteckbrief als druckbares PDF ---------- */
@@ -2946,7 +2949,7 @@ document.getElementById("btnLang").onclick = () => {
   if (selectedId) openCard(selectedId);
   fillModals();
 };
-const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog" };
+const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog", wenn: "modalWenn" };
 function openModal(k) { document.getElementById(modals[k]).classList.add("open"); }
 document.querySelectorAll(".modal").forEach((m) => {
   m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) m.classList.remove("open"); });
@@ -3668,6 +3671,166 @@ function startTour(force) {
   show();
 }
 
+/* ---------- Was wäre, wenn? ----------
+   Das Spiel zeigt ein Profil. Die Frage, die Studierende umtreibt, ist aber ein Vergleich:
+   «Was ändert sich, wenn ich HEA statt DeNC wähle?» Erst seit die Passung überhaupt auf
+   Wahlentscheidungen reagiert, ist so ein Vergleich aussagekräftig — vorher stünden hier
+   zwei identische Spalten.
+
+   Gerechnet wird auf einer Kopie: S.placed wird gesichert, verändert, ausgewertet und im
+   finally-Block wiederhergestellt. Kein save(), kein Rendern dazwischen — der eigene
+   Spielstand kann dabei nicht verlorengehen. */
+function simuliereWahl(aend) {
+  const backup = JSON.parse(JSON.stringify(S.placed[S.mode]));
+  try {
+    const P = S.placed[S.mode];
+    if (aend.r) { // Themenwahl der drei Wahlseminare und der BA auf eine Richtung drehen
+      for (const sid of ["s11", "s12", "s13", "BA"]) {
+        if (!P[sid]) continue;
+        const th = (ST.themen[sid] || []).find((t) => t.r === aend.r);
+        if (th) { P[sid].thema = th.id; if (sid === "BA") P[sid].frage = null; }
+      }
+    }
+    if (aend.sp) { // alle gebauten Vertiefungen auf einen Schwerpunkt
+      for (const sid of ["s04", "s05", "s06", "s07", "s08", "s09"]) if (P[sid]) P[sid].sp = aend.sp;
+    }
+    if (aend.wp && P.wp) P.wp.opt = aend.wp;
+    const { score, max } = profilWerte();
+    const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
+    const passung = {};
+    (window.KARRIERE.pfade || []).forEach((p) => (passung[p.id] = pfadPassung(p, pct)));
+    const stufen = {};
+    ST.kompetenzen.forEach((k) => (stufen[k.id] = kompStufe(k.id) || 0));
+    return { passung, pct, stufen };
+  } finally {
+    S.placed[S.mode] = backup; // immer zurück, auch wenn oben etwas wirft
+  }
+}
+let wenn = { r: null, sp: null, wp: null };
+function openWasWenn() {
+  const gebaut = ["s11", "s12", "s13", "BA", "s04", "s05", "s06", "s07", "s08", "s09", "wp"]
+    .filter((id) => isPlaced(id)).length;
+  const box = document.getElementById("wennBody");
+  if (gebaut < 2) {
+    box.innerHTML = `<p style="font-size:12.5px;color:#5b6478;line-height:1.55">${t("wenn_leer")}</p>`;
+    openModal("wenn");
+    return;
+  }
+  const br = bscRichtung(), mp = mscProfil();
+  if (!wenn.r && !wenn.sp && !wenn.wp) { // sinnvoller Startvorschlag: eine echte Alternative
+    wenn.r = ["klin", "ekn", "swo"].find((r) => r !== br.r) || null;
+    wenn.sp = ["DeNC", "HEA", "SEOP"].find((s) => s !== mp.dom) || null;
+  }
+  renderWasWenn();
+  openModal("wenn");
+}
+function renderWasWenn() {
+  const box = document.getElementById("wennBody");
+  const br = bscRichtung(), mp = mscProfil(), wp = wpWahl();
+  const jetzt = simuliereWahl({});
+  const dann = simuliereWahl(wenn);
+
+  const knopf = (typ, wert, label, farbe, aktiv) =>
+    `<button class="wbtn${aktiv ? " on" : ""}" data-typ="${typ}" data-wert="${wert}"
+      style="${aktiv ? `border-color:${farbe};background:${farbe}1a;color:${farbe}` : ""}">${escHtml(label)}</button>`;
+
+  let h = `<div class="wgrid">
+    <div class="wcol"><h4>${t("wenn_jetzt")}</h4>
+      <p>${br.r ? `${ST.richtungen[br.r].icon} ${escHtml(L(ST.richtungen[br.r].kurz))}` : `<span style="color:#8b94ab">${t("richtung_keine")}</span>`}</p>
+      <p>${mp.total ? Object.entries(mp.counts).filter(([, n]) => n > 0).map(([s, n]) => `${s} ${n}`).join(" · ") : "—"}</p>
+      <p>${wp && OPTMOD[wp] ? escHtml(L(OPTMOD[wp].titel)) : "—"}</p>
+    </div>
+    <div class="wcol alt"><h4>${t("wenn_alt")}</h4>
+      <div class="wrow">${["klin", "ekn", "swo"].map((r) => knopf("r", r, ST.richtungen[r].icon + " " + L(ST.richtungen[r].kurz), ST.richtungen[r].farbe, wenn.r === r)).join("")}</div>
+      <div class="wrow">${["DeNC", "HEA", "SEOP"].map((s) => knopf("sp", s, s, ST.schwerpunkte[s].farbe, wenn.sp === s)).join("")}</div>
+      <div class="wrow">${["06SM200-511", "06SM200-512"].filter((o) => OPTMOD[o]).map((o) => knopf("wp", o, L(OPTMOD[o].titel), "#b3831d", wenn.wp === o)).join("")}</div>
+    </div>
+  </div>`;
+
+  // Berufswege nach der Grösse der Veränderung sortieren — die Bewegung ist die Aussage
+  const zeilen = (window.KARRIERE.pfade || [])
+    .map((p) => ({ p, a: jetzt.passung[p.id], b: dann.passung[p.id], d: dann.passung[p.id] - jetzt.passung[p.id] }))
+    .sort((x, y) => Math.abs(y.d) - Math.abs(x.d));
+  const bewegt = zeilen.filter((z) => z.d !== 0);
+  h += `<h4 class="wh">${t("wenn_wege")}</h4>`;
+  h += bewegt.length
+    ? `<table class="wtab"><tr><th>${t("wenn_weg")}</th><th>${t("wenn_jetzt")}</th><th>${t("wenn_dann")}</th><th></th></tr>
+      ${zeilen.slice(0, 8).map((z) => {
+        const f = z.d > 0 ? "var(--ok)" : z.d < 0 ? "#c0392b" : "#8b94ab";
+        return `<tr><td>${z.p.icon} ${escHtml(L(z.p.name))}</td><td>${z.a}%</td><td><b>${z.b}%</b></td>
+          <td style="color:${f};font-weight:800;white-space:nowrap">${z.d > 0 ? "▲ +" : z.d < 0 ? "▼ " : "– "}${z.d !== 0 ? Math.abs(z.d) : ""}</td></tr>`;
+      }).join("")}</table>`
+    : `<p class="whint">${t("wenn_gleich")}</p>`;
+
+  // Kompetenzen, die sich am stärksten bewegen
+  const kd = ST.kompetenzen.map((k) => ({ k, d: Math.round((dann.pct[k.id] - jetzt.pct[k.id]) * 100),
+                                          sa: jetzt.stufen[k.id], sb: dann.stufen[k.id] }))
+    .filter((x) => x.d !== 0 || x.sa !== x.sb)
+    .sort((a, b) => Math.abs(b.d) - Math.abs(a.d)).slice(0, 6);
+  if (kd.length) {
+    h += `<h4 class="wh">${t("wenn_komp")}</h4><div class="wchips">`;
+    for (const x of kd) {
+      const f = ST.felder[KOMP[x.k.id].feld];
+      const stufeTxt = x.sa !== x.sb ? ` · ${t("stufe")} ${x.sa}→${x.sb}` : "";
+      h += `<span class="wchip" style="border-color:${f.farbe};color:${f.farbe}" title="${escHtml(L(x.k.name))}">
+        ${x.k.id} ${x.d > 0 ? "+" : ""}${x.d}%${stufeTxt}</span>`;
+    }
+    h += `</div>`;
+  }
+  h += `<p class="whint">${t("wenn_hinweis")}</p>`;
+  box.innerHTML = h;
+  box.querySelectorAll(".wbtn").forEach((b) => (b.onclick = () => {
+    const typ = b.dataset.typ, wert = b.dataset.wert;
+    wenn[typ] = wenn[typ] === wert ? null : wert; // nochmals klicken = diese Stellschraube unverändert lassen
+    renderWasWenn();
+  }));
+}
+
+/* Spielstand für den Baututor.
+   Der Tutor konnte bisher nur die gebauten Module lesen und musste alles Weitere raten —
+   deshalb formulierte sein CV-Baustein Sätze auf beliebiger Stufe und sein Karriere-Check
+   kam auf andere Zahlen als das Spiel. Hier reisen die abgeleiteten Werte mit:
+   erreichte Kompetenzstufen, Passung je Berufsweg, Feldprozente. */
+function tutorStand() {
+  const { score, max } = profilWerte();
+  const pct = {}; ST.kompetenzen.forEach((k) => (pct[k.id] = max[k.id] ? score[k.id] / max[k.id] : 0));
+  const stufen = {};
+  ST.kompetenzen.forEach((k) => { const s = kompStufe(k.id); if (s) stufen[k.id] = s; });
+  const passung = (window.KARRIERE && window.KARRIERE.pfade || [])
+    .map((p) => ({ id: p.id, name: L(p.name), fit: pfadPassung(p, pct) }))
+    .sort((a, b) => b.fit - a.fit).slice(0, 5);
+  const feld = (f) => {
+    const ks = ST.kompetenzen.filter((k) => k.feld === f);
+    const su = ks.reduce((a, k) => a + (max[k.id] || 0), 0);
+    return su ? Math.round(ks.reduce((a, k) => a + (score[k.id] || 0), 0) / su * 100) : 0;
+  };
+  return {
+    v: 1, name: S.name || "", mode: S.mode,
+    placed: { [S.mode]: S.placed[S.mode] },
+    tutor: { stufen, passung, felder: { fa: feld("fa"), ki: feld("ki"), fu: feld("fu") },
+             ects: { bsc: ectsSum("bsc"), msc: ectsSum("msc") } },
+  };
+}
+async function tutorStandKopieren() {
+  const txt = JSON.stringify(tutorStand());
+  try {
+    await navigator.clipboard.writeText(txt);
+    toast(t("tutor_kopiert"));
+    return true;
+  } catch (e) {
+    // Zwischenablage kann blockiert sein (Berechtigung, unsicherer Kontext) — dann zum Markieren anbieten
+    const ta = document.createElement("textarea");
+    ta.value = txt;
+    Object.assign(ta.style, { position: "fixed", left: "50%", top: "50%", transform: "translate(-50%,-50%)",
+      zIndex: 60, width: "min(560px,90vw)", height: "160px", fontSize: "11px", padding: "8px" });
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); toast(t("tutor_kopiert")); } catch (e2) { toast(t("tutor_kopieren_manuell")); }
+    setTimeout(() => ta.remove(), 4000);
+    return false;
+  }
+}
+
 /* ---------- KI-Baututor (nur wenn window.claude verfügbar, z.B. Artifact) ---------- */
 function initTutor() {
   const api = window.claude && typeof window.claude.complete === "function" ? window.claude.complete.bind(window.claude) : null;
@@ -3677,7 +3840,11 @@ function initTutor() {
       fab.style.display = "block";
       fab.title = t("tutor_ext");
       fab.setAttribute("aria-label", t("tutor_ext"));
-      fab.onclick = () => window.open(TUTOR_URL, "_blank", "noopener");
+      // Spielstand gleich mitgeben: sonst müsste man exportieren, die Datei öffnen und den Text kopieren
+      fab.onclick = async () => {
+        if (ST.slots.some((s) => isPlaced(s.slot))) await tutorStandKopieren();
+        window.open(TUTOR_URL, "_blank", "noopener");
+      };
     }
     return;
   }

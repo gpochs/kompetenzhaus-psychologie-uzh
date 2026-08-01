@@ -25,10 +25,26 @@
   #standInfo { font-size:11.5px; margin-top:6px; color:#0a5c31; }
   #panel { background:#fff; border-radius:14px; flex:1; min-height:280px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 4px 18px rgba(16,24,64,.08); }
   #msgs { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
-  .m { border-radius:12px; padding:9px 12px; font-size:13px; line-height:1.5; max-width:88%; white-space:pre-wrap; overflow-wrap:anywhere; }
-  .m.me { background:var(--blue); color:#fff; align-self:flex-end; }
+  .m { border-radius:12px; padding:9px 12px; font-size:13px; line-height:1.5; max-width:88%; overflow-wrap:anywhere; position:relative; }
+  .m.me { background:var(--blue); color:#fff; align-self:flex-end; white-space:pre-wrap; }
   .m.bot { background:var(--paper2); align-self:flex-start; }
-  .m.sys { background:#fdf6e7; color:#6b4a00; align-self:stretch; max-width:100%; font-size:11.5px; }
+  .m.sys { background:#fdf6e7; color:#6b4a00; align-self:stretch; max-width:100%; font-size:11.5px; white-space:pre-wrap; }
+  /* Gerendertes Markdown: Antworten mit Aufzählungen waren bisher Fliesstext-Klumpen */
+  .m.bot p { margin:0 0 7px; } .m.bot p:last-child { margin-bottom:0; }
+  .m.bot ul, .m.bot ol { margin:5px 0 7px; padding-left:19px; }
+  .m.bot li { margin:3px 0; }
+  .m.bot code { background:#e6ebf7; border-radius:4px; padding:1px 4px; font:600 11.5px ui-monospace,Menlo,monospace; }
+  .m.bot b { font-weight:700; }
+  .copybtn { display:block; margin-top:7px; border:1px solid #dbe1ef; background:#fff; color:#5b6478;
+    border-radius:7px; padding:3px 9px; font:600 10.5px var(--font); cursor:pointer; }
+  .copybtn:hover { border-color:var(--blue); color:var(--blue); }
+  .stufenfuss { margin-top:6px; font-size:10px; color:#8b94ab; line-height:1.4; border-top:1px solid #dbe1ef; padding-top:5px; }
+  /* Anklickbare Startfragen statt leerem Eingabefeld */
+  #startfragen { display:none; flex-wrap:wrap; gap:5px; }
+  .startfrage { border:1.5px solid #dbe1ef; background:#fff; color:#39415a; border-radius:999px;
+    padding:6px 11px; font:600 11px var(--font); cursor:pointer; text-align:left; line-height:1.35; }
+  .startfrage:hover { border-color:var(--blue); color:var(--blue); background:#f4f7ff; }
+  #cvHint { flex-basis:100%; font-size:10.5px; color:#8b94ab; line-height:1.4; margin-top:2px; }
   #ctl { padding:8px 12px; border-top:1px solid #edf0f7; display:flex; flex-direction:column; gap:8px; }
   #vignRow, #cvRow { display:none; gap:6px; flex-wrap:wrap; align-items:center; font-size:11.5px; color:#5b6478; }
   select, #cvRolle { border:1.5px solid #dbe1ef; border-radius:9px; padding:7px 9px; font:600 12px var(--font); background:#fff; max-width:100%; }
@@ -36,8 +52,9 @@
   #cvRolle { flex:1; min-width:160px; }
   #cvBeispiel { flex-basis:100%; font-size:10.5px; color:#5b6478; line-height:1.4; }
   #cvBeispiel b { color:var(--blue); font-weight:700; cursor:pointer; text-decoration:underline dotted; }
-  .inrow { display:flex; gap:6px; }
-  .inrow input { flex:1; border:1.5px solid #dbe1ef; border-radius:10px; padding:10px 12px; font:500 13px var(--font); }
+  .inrow { display:flex; gap:6px; align-items:flex-end; }
+  .inrow input, .inrow textarea { flex:1; border:1.5px solid #dbe1ef; border-radius:10px; padding:10px 12px; font:500 13px var(--font); }
+  .inrow textarea { resize:none; min-height:40px; max-height:96px; line-height:1.4; font-family:var(--font); }
   .primary { border:0; background:var(--blue); color:#fff; border-radius:10px; padding:10px 16px; font:700 13px var(--font); cursor:pointer; }
   .primary:disabled { background:#b9c2d9; cursor:wait; }
   footer { font-size:10px; color:#5b6478; line-height:1.5; padding:0 4px 6px; }
@@ -95,14 +112,16 @@
         <input id="cvRolle" data-phde="Zielrolle eingeben …" data-phen="Enter target role …" placeholder="Zielrolle eingeben …">
         <button class="primary" id="cvGo" style="padding:7px 12px;font-size:11.5px" data-de="Satz formulieren" data-en="Draft sentence">Satz formulieren</button>
         <div id="cvBeispiel"></div>
+        <div id="cvHint"></div>
       </div>
       <div id="karrRow" style="display:none;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:#5b6478">
         <span data-de="Berufsweg:" data-en="Career path:">Berufsweg:</span>
         <select id="karrSel" style="flex:1;min-width:180px"></select>
         <button class="primary" id="karrGo" style="padding:7px 12px;font-size:11.5px" data-de="Weg prüfen" data-en="Check route">Weg prüfen</button>
       </div>
+      <div id="startfragen"></div>
       <div class="inrow">
-        <input id="inp" maxlength="400" data-phde="Deine Frage …" data-phen="Your question …" placeholder="Deine Frage …">
+        <textarea id="inp" rows="1" maxlength="400" data-phde="Deine Frage … (Enter sendet, Shift+Enter für neue Zeile)" data-phen="Your question … (Enter sends, Shift+Enter for a new line)" placeholder="Deine Frage … (Enter sendet, Shift+Enter für neue Zeile)"></textarea>
         <button class="primary" id="send">➤</button>
       </div>
     </div>
@@ -249,7 +268,8 @@ let mode = "tutor"; // tutor | vignette | cv | karriere
 let hist = [];
 let vignAktiv = null;
 let karrAktiv = null;
-let spielstand = null; // { titel:[], ects, name, profil }
+let spielstand = null; // { titel:[], ects, name, profil, stufen, passung, felder }
+let verlaufHinweisGezeigt = false;
 
 const $ = (id) => document.getElementById(id);
 const T = (de, en) => lang === "de" ? de : en;
@@ -266,12 +286,47 @@ function applyLang() {
   document.documentElement.lang = lang;
   fillSelects();
 }
+/* Die vier Progressionsstufen als Formulierungsgrenze für den CV-Baustein.
+   Ohne diese Bindung schrieb der Tutor für jede Kompetenz Sätze auf beliebigem Niveau —
+   auch für Kompetenzen, die im Studium noch gar nicht aufgebaut wurden. */
+const STUFEN_TXT = {
+  1: { de: "Stufe 1 (Orientieren, Grundlagen sichern): kennt, benennt, wendet unter Anleitung an. KEINE Formulierungen wie «selbständig», «verantwortet», «leitet».",
+       en: "Level 1 (orientation, securing basics): knows, names, applies with guidance. NO wording like “independently”, “is responsible for”, “leads”." },
+  2: { de: "Stufe 2 (Vertiefen, anwenden, prüfen): wendet selbständig auf bekannte Aufgaben an, prüft Ergebnisse. NICHT «forscht eigenständig» oder «verantwortet».",
+       en: "Level 2 (deepening, applying, checking): applies independently to familiar tasks, checks results. NOT “conducts own research” or “is responsible for”." },
+  3: { de: "Stufe 3 (Professionell vertiefen, KI-gestützte Forschung steuern): überträgt auf neue Fragestellungen, steuert Arbeitsschritte, begründet Entscheidungen.",
+       en: "Level 3 (professional depth, steering AI-supported research): transfers to new questions, steers work steps, justifies decisions." },
+  4: { de: "Stufe 4 (Eigenständig forschen und verantworten): plant und verantwortet eigenständig, auch unter Unsicherheit.",
+       en: "Level 4 (independent research and responsibility): plans and takes responsibility independently, also under uncertainty." },
+};
 function fillSelects() {
   $("vignSel").innerHTML = VIGN.map((v) => `<option value="${v.id}">${lang === "de" ? v.de : v.en}</option>`).join("");
-  $("cvKomp").innerHTML = KOMP.map((k) => `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}</option>`).join("");
+  fillCvKomp();
   $("karrSel").innerHTML = PFADE.map((p) => `<option value="${p.id}">${lang === "de" ? p.de : p.en}</option>`).join("");
   updateRollePlaceholder();
   updateVignInfo();
+}
+/* Mit Spielstand: nur erreichte Kompetenzen zur Auswahl, je mit Stufe.
+   Ohne Spielstand: alle, aber der Prompt sagt dann ausdrücklich, dass keine Stufe belegt ist. */
+function fillCvKomp() {
+  const st = spielstand && spielstand.stufen;
+  const liste = st ? KOMP.filter((k) => st[k[0]]) : KOMP;
+  const sel = $("cvKomp");
+  if (!sel) return;
+  const alt = sel.value;
+  sel.innerHTML = (liste.length ? liste : KOMP).map((k) => {
+    const s = st ? st[k[0]] : null;
+    return `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}${s ? ` — ${T("Stufe", "Level")} ${s}` : ""}</option>`;
+  }).join("");
+  if (alt && [...sel.options].some((o) => o.value === alt)) sel.value = alt;
+  const hint = $("cvHint");
+  if (hint) {
+    hint.textContent = st
+      ? T(`Nur deine ${liste.length} erreichten Kompetenzen — der Satz bleibt auf deiner Stufe.`,
+          `Only your ${liste.length} attained competences — the sentence stays at your level.`)
+      : T("Ohne Spielstand kennt der Tutor deine Stufen nicht und formuliert bewusst zurückhaltend. Füge oben deinen Spielstand ein.",
+          "Without a game state the tutor does not know your levels and will phrase cautiously. Insert your game state above.");
+  }
 }
 function updateVignInfo() { // volle Szenario-Beschreibung unter dem Select (nichts wird abgeschnitten)
   const v = VIGN.find((x) => x.id === $("vignSel").value) || VIGN[0];
@@ -298,8 +353,97 @@ function add(who, txt, asHtml) {
   $("msgs").scrollTop = $("msgs").scrollHeight;
   return d;
 }
+/* Minimales, sicheres Markdown. Die Antworten kamen bisher per textContent an —
+   Aufzählungen und Hervorhebungen landeten als Fliesstext-Klumpen. Erst escapen,
+   dann eine kleine, geschlossene Menge an Auszeichnungen zulassen: kein HTML aus
+   dem Modell, keine Links, keine Attribute. */
+function mdEsc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function mdRender(el, txt) {
+  const zeilen = mdEsc(txt).split("\n");
+  let html = "", liste = null;
+  const inline = (s) => s
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/(^|[\s(])\*([^*\n]+)\*/g, "$1<i>$2</i>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  const schliessen = () => { if (liste) { html += `</${liste}>`; liste = null; } };
+  for (const z of zeilen) {
+    const s = z.trim();
+    if (!s) { schliessen(); continue; }
+    const ul = s.match(/^[-*•]\s+(.*)$/), ol = s.match(/^\d+[.)]\s+(.*)$/);
+    if (ul) { if (liste !== "ul") { schliessen(); html += "<ul>"; liste = "ul"; } html += `<li>${inline(ul[1])}</li>`; continue; }
+    if (ol) { if (liste !== "ol") { schliessen(); html += "<ol>"; liste = "ol"; } html += `<li>${inline(ol[1])}</li>`; continue; }
+    schliessen();
+    html += `<p>${inline(s)}</p>`;
+  }
+  schliessen();
+  el.innerHTML = html || `<p>${inline(mdEsc(txt))}</p>`;
+}
+/* Kopieren-Knopf: Der CV-Satz soll in die Bewerbung, bisher musste man ihn markieren. */
+function kopierKnopf(el, txt) {
+  const b = document.createElement("button");
+  b.className = "copybtn";
+  b.type = "button";
+  b.textContent = T("Kopieren", "Copy");
+  b.title = T("In die Zwischenablage kopieren", "Copy to clipboard");
+  b.onclick = async () => {
+    try { await navigator.clipboard.writeText(txt); } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e2) {}
+      ta.remove();
+    }
+    b.textContent = T("✓ kopiert", "✓ copied");
+    setTimeout(() => (b.textContent = T("Kopieren", "Copy")), 1800);
+  };
+  el.appendChild(b);
+  return b;
+}
+/* Fussnote am CV-Satz: macht transparent, worauf die Formulierung beruht. */
+function stufenFuss(stufe) {
+  const f = document.createElement("div");
+  f.className = "stufenfuss";
+  f.textContent = T(
+    `Formuliert auf Stufe ${stufe} von 4 — der Stufe, die dein Spielstand für diese Kompetenz ausweist.`,
+    `Phrased at level ${stufe} of 4 — the level your game state shows for this competence.`);
+  return f;
+}
+/* Startfragen: Ein leeres Eingabefeld sagt nicht, was man fragen kann.
+   Vier anklickbare Einstiege je Modus, die zum Spielstand passen, wenn einer da ist. */
+const STARTFRAGEN = {
+  tutor: [
+    { de: "Was bedeutet [B] bei meinen Modulen konkret?", en: "What does [B] mean for my modules in practice?" },
+    { de: "Welche Kompetenz ist bei mir am schwächsten und woran liegt das?", en: "Which competence is weakest for me and why?" },
+    { de: "Wie hängen meine Wahlseminare mit meinem Berufsziel zusammen?", en: "How do my elective seminars relate to my career goal?" },
+    { de: "Was ist an der neuen Bachelorarbeit anders?", en: "What is different about the new Bachelor's thesis?" },
+  ],
+  karriere: [
+    { de: "Was fehlt mir für diesen Weg noch am meisten?", en: "What is still missing most for this route?" },
+    { de: "Was kostet mich die Weiterbildung an Zeit und Geld?", en: "What will the further training cost me in time and money?" },
+    { de: "Welche Alternative passt fast so gut zu meinem Profil?", en: "Which alternative fits my profile almost as well?" },
+    { de: "Wie sieht ein realistischer erster Arbeitstag aus?", en: "What does a realistic first day at work look like?" },
+  ],
+};
+function renderStartfragen(m) {
+  const box = $("startfragen");
+  if (!box) return;
+  const liste = STARTFRAGEN[m];
+  if (!liste || !api) { box.style.display = "none"; box.innerHTML = ""; return; }
+  box.style.display = "flex";
+  box.innerHTML = "";
+  for (const f of liste) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "startfrage";
+    b.textContent = lang === "de" ? f.de : f.en;
+    b.onclick = () => { box.style.display = "none"; send(b.textContent); };
+    box.appendChild(b);
+  }
+}
 function setMode(m) {
-  mode = m; hist = []; vignAktiv = null; karrAktiv = null;
+  mode = m; hist = []; vignAktiv = null; karrAktiv = null; verlaufHinweisGezeigt = false;
   $("tabTutor").classList.toggle("on", m === "tutor");
   $("tabVign").classList.toggle("on", m === "vignette");
   $("tabCv").classList.toggle("on", m === "cv");
@@ -312,8 +456,9 @@ function setMode(m) {
   $("msgs").innerHTML = "";
   if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C], zu deinem Wahlprofil oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic, your elective profile or your next building step."));
   if (m === "vignette") add("sys", T("Du führst das Gespräch als Therapeut:in oder Berater:in in Ausbildung; die KI spielt die fiktive Patientin bzw. Gesprächspartnerin. Wähle oben ein Szenario und starte. Mit «Stopp» beendest du die Rolle und erhältst kurzes Feedback zu deiner Gesprächsführung plus eine Reflexionsfrage.", "You lead the conversation as a therapist or counsellor in training; the AI plays the fictional patient or counterpart. Pick a scenario above and start. Type 'Stop' to end the role and receive brief feedback on your conversation skills plus a reflection question."));
-  if (m === "cv") add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence."));
-  if (m === "karriere") add("sys", T("Wähle einen Berufsweg und klick «Weg prüfen»: Du erhältst die Passung deines Wahlprofils, die Etappen nach dem Master (Fakten geprüft, Stand Juli 2026) und einen nächsten Schritt. Mit eingefügtem Spielstand wird die Einschätzung persönlich. Danach kannst du im Chat nachfragen.", "Pick a career path and click 'Check route': you'll get the fit of your elective profile, the stages after the Master's (facts verified, as of July 2026) and one next step. With a pasted game state the assessment becomes personal. You can ask follow-up questions in the chat afterwards."));
+  if (m === "cv") { add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz — formuliert auf der Stufe, die du tatsächlich erreicht hast.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence — phrased at the level you have actually attained.")); fillCvKomp(); }
+  if (m === "karriere") add("sys", T("Wähle einen Berufsweg und klick «Weg prüfen»: Du erhältst die Passung deines Wahlprofils, die Etappen nach dem Master (Fakten geprüft, Stand August 2026) und einen nächsten Schritt. Mit eingefügtem Spielstand wird die Einschätzung persönlich. Danach kannst du im Chat nachfragen.", "Pick a career path and click 'Check route': you'll get the fit of your elective profile, the stages after the Master's (facts verified, as of August 2026) and one next step. With a pasted game state the assessment becomes personal. You can ask follow-up questions in the chat afterwards."));
+  renderStartfragen(m);
 }
 
 /* ===== Spielstand ===== */
@@ -338,8 +483,17 @@ $("standTa").addEventListener("change", () => {
     const wpOpt = placed.wp && placed.wp.opt === "06SM200-511" ? "Klinische Neuropsychologie" : (placed.wp && placed.wp.opt ? "Economic and Consumer Psychology" : null);
     const baF = placed.BA && placed.BA.frage ? BA_FRAGEN[placed.BA.frage] || null : null;
     const baA = placed.BA && placed.BA.artefakt ? BA_ART[placed.BA.artefakt] || null : null;
+    /* v10: Das Spiel liefert die abgeleiteten Werte mit, statt dass der Tutor sie raten muss —
+       erreichte Kompetenzstufen (bindet den CV-Baustein) und Passung je Berufsweg (damit
+       der Karriere-Check nicht andere Zahlen nennt als das Spiel). Ältere Spielstände ohne
+       dieses Feld funktionieren unverändert weiter. */
+    const tu = o.tutor && typeof o.tutor === "object" ? o.tutor : null;
     spielstand = { titel: ids.map((id) => SLOT_TITEL[id][0]), ects: ects, name: (o.name || "").slice(0, 40),
-      profil: { richtung, rc, sc, dom, wpOpt, baF, baA } };
+      profil: { richtung, rc, sc, dom, wpOpt, baF, baA },
+      stufen: (tu && tu.stufen) || null,
+      passung: (tu && Array.isArray(tu.passung)) ? tu.passung : null,
+      felder: (tu && tu.felder) || null };
+    fillCvKomp();
     const profTxt = [];
     if (richtung) profTxt.push(T("BSc-Richtung: ", "BSc direction: ") + (lang === "de" ? RICHT[richtung].de : RICHT[richtung].en));
     if (sc.DeNC + sc.HEA + sc.SEOP > 0) profTxt.push("MSc: " + Object.entries(sc).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(" · ") + (dom ? T(" (dominant)", " (dominant)") : T(" (gemischt)", " (mixed)")));
@@ -367,10 +521,22 @@ function standText() {
     if (p.baA) teile.push("AIAS-5-Artefakt: " + p.baA);
     if (teile.length) s += ". Wahlprofil: " + teile.join("; ");
   }
+  /* Erreichte Stufen und die im Spiel berechnete Passung mitgeben — sonst schätzt der Tutor
+     und kommt auf andere Zahlen als das Spiel, was Studierende zu Recht verwirrt. */
+  if (spielstand.felder) {
+    s += `. Kompetenzfelder: Fach ${spielstand.felder.fa}%, KI ${spielstand.felder.ki}%, Future Skills ${spielstand.felder.fu}%`;
+  }
+  if (spielstand.stufen && Object.keys(spielstand.stufen).length) {
+    s += ". Erreichte Kompetenzstufen (von 4): " + Object.entries(spielstand.stufen).map(([k, v]) => `${k}=${v}`).join(", ");
+  }
+  if (spielstand.passung && spielstand.passung.length) {
+    s += ". Im Spiel berechnete Passung der Berufswege (verwende GENAU diese Zahlen, rechne nicht selbst): "
+      + spielstand.passung.map((p) => `${p.name} ${p.fit}%`).join(", ");
+  }
   return s;
 }
 function ctxTutor() {
-  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). WAHLBEREICH (v8): Im BSc gibt es keinen formalen Schwerpunkt — die Interessensrichtung entsteht aus den Themenwahlen in den drei Wahlseminaren (s11 Entwicklung, s12 Klinisch/Gesundheit, s13 Sozial/Wirtschaft/Organisation/Differentiell) und dem BA-Themenfeld (ab 2 gleichen Richtungen: Klinik & Gesundheit / Entwicklung, Kognition & Neuro / Sozial, Wirtschaft & Organisation). Im MSc entsteht das Profil allein über die Wahl der 6 Vertiefungen aus DeNC/HEA/SEOP (frei mischbar, keine Einschreibung; ab 4 von 6 gilt ein Schwerpunkt als dominant); Wahlpflicht in der Ergänzung: Economic and Consumer Psychology ODER Klinische Neuropsychologie. Im Spiel prägt das Wahlprofil die Architektur des Hauses (Farben, Signatur-Elemente, Wahrzeichen). Die BACHELORARBEIT (neu, Rückmeldung 09.07.2026) ist empirisch-methodisch statt Literaturarbeit: Themenfeld + vorgegebene Beispiel-Fragestellung in einer von drei Arbeitsformen (Analyse eines bereitgestellten Datensatzes, Reproduzierbarkeits-/Robustheitscheck, strukturierter Review mit codierten Befunden); KI-integriert nach AIAS 4 plus AIAS-5-Artefakt eigener Wahl (dokumentierter agentischer Rechercheworkflow oder vibe-coded App — bewertet werden Zweck, Datenbasis, Grenzen, Verantwortung); bewertbarer Prozessanhang (Entscheidungslogik, KI-Nutzung, Verifikation, Reflexion); zehnminütige KI-freie mündliche Prüfung als Validitätsanker; Gewichtung 70% Arbeit / 30% mündliche Prüfung. Die Wahl der BA-Fragestellung soll zum anvisierten Berufsziel passen. Die MASTERARBEIT ist das «Meisterstück» explizit eine Stufe darüber: eigene Fragestellung statt vorgegebener, eigene/komplexe Daten, selbst konfigurierte agentische Forschungspipeline mit benotetem Agenten-Audit-Protokoll, OSF-Präregistrierung, Robustheitsanalyse und Live-Demonstration des eigenen KI-Workflows in der benoteten explorativen Verteidigung; sechs Teilleistungen mit je eigener Prüfungslogik [A]/[B]/[C]. KARRIERE-GRUNDWISSEN (verifiziert, Stand Juli 2026): fünf eidgenössische Weiterbildungstitel (Psychotherapie, Kinder- und Jugendpsychologie, klinische Psychologie, Neuropsychologie, Gesundheitspsychologie); Psychotherapie-Zulassung verlangt genügende Studienleistungen in klinischer Psychologie/Psychopathologie (Art. 7 PsyG; Branchenstandard 12 ECTS — mit UZH-BSc+MSc unabhängig vom Schwerpunkt erfüllt); Neuropsychologie setzt neuropsychologische Studieninhalte voraus (Richtwert ~18 ECTS); A&O/HR und UX/Data sind unreguliert. Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). WAHLBEREICH (v8): Im BSc gibt es keinen formalen Schwerpunkt — die Interessensrichtung entsteht aus den Themenwahlen in den drei Wahlseminaren (s11 Entwicklung, s12 Klinisch/Gesundheit, s13 Sozial/Wirtschaft/Organisation/Differentiell) und dem BA-Themenfeld (ab 2 gleichen Richtungen: Klinik & Gesundheit / Entwicklung, Kognition & Neuro / Sozial, Wirtschaft & Organisation). Im MSc entsteht das Profil allein über die Wahl der 6 Vertiefungen aus DeNC/HEA/SEOP (frei mischbar, keine Einschreibung; ab 4 von 6 gilt ein Schwerpunkt als dominant); Wahlpflicht in der Ergänzung: Economic and Consumer Psychology ODER Klinische Neuropsychologie. Im Spiel prägt das Wahlprofil die Architektur des Hauses (Farben, Signatur-Elemente, Wahrzeichen). Die BACHELORARBEIT (neu, Rückmeldung 09.07.2026) ist empirisch-methodisch statt Literaturarbeit: Themenfeld + vorgegebene Beispiel-Fragestellung in einer von drei Arbeitsformen (Analyse eines bereitgestellten Datensatzes, Reproduzierbarkeits-/Robustheitscheck, strukturierter Review mit codierten Befunden); KI-integriert nach AIAS 4 plus AIAS-5-Artefakt eigener Wahl (dokumentierter agentischer Rechercheworkflow oder vibe-coded App — bewertet werden Zweck, Datenbasis, Grenzen, Verantwortung); bewertbarer Prozessanhang (Entscheidungslogik, KI-Nutzung, Verifikation, Reflexion); zehnminütige KI-freie mündliche Prüfung als Validitätsanker; Gewichtung 70% Arbeit / 30% mündliche Prüfung. Die Wahl der BA-Fragestellung soll zum anvisierten Berufsziel passen. Die MASTERARBEIT ist das «Meisterstück» explizit eine Stufe darüber: eigene Fragestellung statt vorgegebener, eigene/komplexe Daten, selbst konfigurierte agentische Forschungspipeline mit benotetem Agenten-Audit-Protokoll, OSF-Präregistrierung, Robustheitsanalyse und Live-Demonstration des eigenen KI-Workflows in der benoteten explorativen Verteidigung; sechs Teilleistungen mit je eigener Prüfungslogik [A]/[B]/[C]. KARRIERE-GRUNDWISSEN (Fakten adversarial geprüft, Stand August 2026): fünf eidgenössische Weiterbildungstitel (Psychotherapie, Kinder- und Jugendpsychologie, klinische Psychologie, Neuropsychologie, Gesundheitspsychologie); Psychotherapie-Zulassung verlangt genügende Studienleistungen in klinischer Psychologie/Psychopathologie (Art. 7 PsyG; Branchenstandard 12 ECTS — mit UZH-BSc+MSc unabhängig vom Schwerpunkt erfüllt); Neuropsychologie setzt neuropsychologische Studieninhalte voraus (Richtwert ~18 ECTS); Arbeits- und Organisationspsychologie, Markt- und Konsumentenpsychologie sowie Nutzer- und Medienpsychologie (UX-Research) sind unreguliert und brauchen keinen Fachtitel. WICHTIGE PRÄZISIERUNGEN, die häufig falsch berichtet werden: Der eidgenössische Titel im Feld Schule heisst «Eidgenössisch anerkannte:r Kinder- und Jugendpsycholog:in» (EA KJP) — der MAS KJP der Universität Basel ist ein ZUSÄTZLICHER akademischer Titel derselben Weiterbildung, nicht der Bundestitel. Der MAS Gesundheitspsychologie ist ein GEMEINSAMER Studiengang von UZH und Universität Bern und führt erst «nach geplanter Akkreditierung» zum Fachtitel — die Akkreditierung ist noch nicht abgeschlossen. Die Schweizerische Gesellschaft für Rechtspsychologie hat für ihr Fachtitel-Curriculum einen Aufnahmestopp verfügt. Am Gymnasium gilt mit Lehrdiplom Lohnklasse 21 (Kanton Zürich, Tabelle ab 1.1.2026), ohne Lehrdiplom Klasse 20. Bei ALLEN Weiterbildungen gilt: Die genannten Kosten enthalten die obligatorische Supervision nicht. Nenne NIEMALS Löhne oder Weiterbildungskosten, die nicht in den Pfaddaten stehen — wenn du eine Zahl nicht hast, sage das. Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
 }
 function ctxKarr(p) {
   return `Du bist der «KI-Baututor» des Lernspiels «Das Kompetenzhaus» (Psychologiestudium UZH) im KARRIERE-CHECK-Modus. Aufgabe: Beurteile knapp und konkret, wie gut das Wahlprofil der Person zum gewählten Berufsweg passt, und zeige den Weg nach dem Master. VERIFIZIERTE FAKTEN zu diesem Weg (Stand Juli 2026, Quellen: PsyG/BAG/FSP/SVNP/SGFP/Universitäten): ${lang === "de" ? p.f.de : p.f.en} Gebaute Module und Wahlprofil der Person: ${standText()}. Struktur deiner Antwort (max. 180 Wörter, ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}): (1) Passung des Wahlprofils in 1–2 Sätzen (falls kein Spielstand übergeben: sag das kurz und beschreibe die empfohlene Wahl). (2) Die nächsten 3–4 Etappen nach dem Master als nummerierte Liste mit Dauer/Kosten, wo bekannt. (3) GENAU EIN konkreter nächster Schritt im Studium. Bleib bei den gelieferten Fakten; für Verbindliches an Studienprogrammleitung bzw. BAG/Verbände verweisen.`;
@@ -392,14 +558,33 @@ async function send(forced, silent) {
   hist.push(who + ": " + q);
   try {
     const ctx = mode === "vignette" && vignAktiv ? ctxVign(vignAktiv) : (mode === "karriere" && karrAktiv ? ctxKarr(karrAktiv) : ctxTutor());
+    // Nur die letzten 8 Beiträge reisen mit — im Rollenspiel wäre ein stiller Gedächtnisverlust
+    // besonders irritierend, deshalb wird er einmal sichtbar gemacht.
+    const gekuerzt = hist.length > 8;
     const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
-    wait.textContent = out;
+    mdRender(wait, out);
+    kopierKnopf(wait, out);
     hist.push(bot + ": " + out);
-  } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
+    if (gekuerzt && !verlaufHinweisGezeigt) {
+      verlaufHinweisGezeigt = true;
+      add("sys", T("Hinweis: Der Tutor behält die letzten acht Beiträge im Blick. Frühere Details musst du bei Bedarf nochmals nennen.",
+                   "Note: the tutor keeps the last eight turns in view. Mention earlier details again if they matter."));
+    }
+  } catch (e) {
+    wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
+  }
   if (mode === "vignette" && /^stopp?\b/i.test(q)) { vignAktiv = null; hist = []; add("sys", T("Rolle beendet. Zurück im Tutor-Modus dieses Tabs, starte oben ein neues Szenario.", "Role ended. Back in this tab's tutor mode, start a new scenario above.")); }
 }
 $("send").onclick = () => send();
-$("inp").addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
+$("inp").addEventListener("keydown", (e) => {
+  // Enter sendet, Shift+Enter macht einen Absatz — für längere Fragen und Fallgespräche
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+// Das Feld wächst mit dem Text, bis zu vier Zeilen
+$("inp").addEventListener("input", function () {
+  this.style.height = "auto";
+  this.style.height = Math.min(this.scrollHeight, 96) + "px";
+});
 
 $("vignStart").onclick = () => {
   vignAktiv = VIGN.find((v) => v.id === $("vignSel").value) || VIGN[0];
@@ -415,10 +600,27 @@ $("cvGo").onclick = async () => {
   const k = KOMP.find((x) => x[0] === kid);
   const rolle = $("cvRolle").value.trim();
   if (!rolle) { add("sys", T("Bitte zuerst eine Zielrolle eingeben.", "Please enter a target role first.")); return; }
-  add("me", `${kid} · ${lang === "de" ? k[1] : k[2]} → ${rolle}`);
+  const stufe = spielstand && spielstand.stufen ? spielstand.stufen[kid] : null;
+  add("me", `${kid} · ${lang === "de" ? k[1] : k[2]}${stufe ? ` (${T("Stufe", "Level")} ${stufe})` : ""} → ${rolle}`);
   const wait = add("bot", "…");
+  /* Die Stufe ist eine harte Obergrenze: Ein CV-Satz, der mehr behauptet als im Studium
+     aufgebaut wurde, schadet in der Bewerbung mehr als er nützt. */
+  const stufenRegel = stufe
+    ? (lang === "de"
+        ? `Erreichte Stufe: ${stufe} von 4. ${STUFEN_TXT[stufe].de} Formuliere GENAU auf dieser Stufe — nicht darüber. Wenn die Stufe niedrig ist, ist ein bescheidener Satz das richtige Ergebnis.`
+        : `Attained level: ${stufe} of 4. ${STUFEN_TXT[stufe].en} Phrase EXACTLY at this level — not above. If the level is low, a modest sentence is the correct result.`)
+    : (lang === "de"
+        ? "Die erreichte Stufe ist unbekannt (kein Spielstand eingefügt). Formuliere daher bewusst zurückhaltend auf Grundlagenniveau und vermeide «selbständig», «verantwortet», «leitet»."
+        : "The attained level is unknown (no game state provided). Therefore phrase cautiously at a foundational level and avoid “independently”, “is responsible for”, “leads”.");
   try {
-    wait.textContent = await ask(`Formuliere GENAU EINEN CV-tauglichen Satz (${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${lang === "de" ? k[1] : k[2]}» (${kid}) aus dem Psychologiestudium UZH, zugeschnitten auf diese Zielrolle: ${rolle}. Kontext, falls hilfreich, absolvierte Module: ${standText()}. Nur der Satz, nichts anderes.`);
+    const satz = await ask(`Formuliere GENAU EINEN CV-tauglichen Satz (${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${lang === "de" ? k[1] : k[2]}» (${kid}) aus dem Psychologiestudium UZH, zugeschnitten auf diese Zielrolle: ${rolle}.
+
+${stufenRegel}
+
+Belege den Satz mit dem, was tatsächlich gebaut wurde: ${standText()}. Nur der Satz, nichts anderes.`);
+    wait.textContent = satz;
+    kopierKnopf(wait, satz);
+    if (stufe) wait.appendChild(stufenFuss(stufe));
   } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
 };
 

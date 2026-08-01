@@ -284,6 +284,26 @@
   .pfad { background: var(--paper2); border-radius: 12px; padding: 10px 12px; margin: 6px 4px; }
   /* Stellenprofil: zugeklappt eine Zeile mit der echten Stellenbezeichnung, aufgeklappt
      der vollständige Steckbrief. So bleibt die Liste von zwölf Wegen überschaubar. */
+  /* Was-wäre-wenn: links die getroffene Wahl, rechts die Alternative, darunter die Bewegung */
+  .wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wcol { border: 1.5px solid #dbe1ef; border-radius: 10px; padding: 8px 10px; }
+  .wcol.alt { border-color: var(--blue); background: #f4f7ff; }
+  .wcol h4 { margin: 0 0 6px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: #5b6478; }
+  .wcol p { margin: 3px 0; font-size: 12px; font-weight: 600; }
+  .wrow { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; }
+  .wbtn { border: 1.5px solid #dbe1ef; background: var(--paper); border-radius: 999px; padding: 4px 9px;
+    font: 600 10.5px var(--font); cursor: pointer; color: #5b6478; }
+  .wbtn:hover { border-color: var(--blue); }
+  .wbtn.on { font-weight: 800; }
+  .wh { margin: 14px 0 5px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: #5b6478; }
+  .wtab { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .wtab th { text-align: left; font-size: 10px; color: #5b6478; font-weight: 700; padding: 3px 5px; border-bottom: 1px solid #dbe1ef; }
+  .wtab td { padding: 4px 5px; border-bottom: 1px solid #f0f3fa; }
+  .wtab td:nth-child(2), .wtab td:nth-child(3) { text-align: right; width: 52px; }
+  .wchips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .wchip { font: 700 10.5px var(--font); border: 1.5px solid; border-radius: 999px; padding: 2px 8px; }
+  .whint { font-size: 10.5px; color: #6c7691; line-height: 1.5; margin: 10px 0 0; }
+  @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
   .stelle { margin: 5px 0 0; border: 1px solid #dbe1ef; border-radius: 9px; background: var(--paper); }
   .stelle > summary { cursor: pointer; font: 600 11px var(--font); color: #39415a; padding: 6px 9px; list-style: none; line-height: 1.4; }
   .stelle > summary::-webkit-details-marker { display: none; }
@@ -588,6 +608,13 @@
   <div id="bhList" style="margin:12px 0 4px"></div>
   <div id="bhEffort" class="bheffort"></div>
   <div id="bhLit"></div>
+  <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" role="dialog" aria-modal="true" id="modalWenn"><div class="mbox">
+  <h2 data-i18n="wenn_titel">🔀 Was wäre, wenn?</h2>
+  <p data-i18n="wenn_intro">Wähle rechts eine andere Studienwahl. Dein Haus bleibt unverändert — du siehst nur, wie sich dein Profil und die Berufswege verschieben würden.</p>
+  <div id="wennBody" style="margin:10px 0 4px"></div>
   <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 
