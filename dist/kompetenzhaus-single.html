@@ -8601,14 +8601,15 @@ window.QUIZ =
 
 </script>
 <script>
-/* Karrierepfade v10.1 (01.08.2026): 12 Wege aus den Fachbereichen des Studiums, je mit realistischem Stellenprofil.
-   NEU gegenüber v10: Feld `stelle` an jedem Pfad — Einstiegs-Stellenbezeichnung, Pensum, Arbeitgebertypen,
-   4 Kernaufgaben und 4 Anforderungen aus realen Schweizer Ausschreibungen, Einstiegslohn mit Belegqualität
-   (lohnQ hoch/mittel/tief) und der Zeitpunkt, ab dem die Stelle erreichbar ist.
-   Nur EIN Pfad ist akademisch (phd); die übrigen elf sind Praxisberufe aus den Fachbereichen.
-   Wo kein berufsspezifischer Schweizer Lohn publiziert ist (gesundheit, gutachten, UX-Research),
-   sagt der Text das ausdrücklich, statt zu schätzen.
-   Quellen: 90_Recherche/web_stellenprofile-ch-2026.md (Stand 01.08.2026), web_karrierepfade-aus-fachbereichen.md,
+/* Karrierepfade v10.2 (01.08.2026): 12 Wege aus den Fachbereichen des Studiums, je mit realistischem Stellenprofil.
+   Alle Lohn- und Rechtsangaben wurden adversarial nachgeprüft (6 Skeptiker-Agenten, 45 Teilbehauptungen,
+   32 bestätigt, 13 korrigiert — Korrekturprotokoll in 90_Recherche/web_stellenprofile-ch-2026.md, Anhang).
+   Wichtigste Korrekturen: Gymnasium mit Lehrdiplom = Lohnklasse 21 (CHF 120'775, Tabelle ab 1.1.2026),
+   nicht Klasse 20; der eidg. Titel im Feld Schule heisst EA KJP, der MAS ist ein Zusatztitel;
+   der MAS Gesundheitspsychologie ist ein gemeinsamer Studiengang von UZH und Universität Bern;
+   Schulpsychologie-Löhne stammen aus einem Portal, nicht aus einer amtlichen Tabelle (lohnQ = tief).
+   Je Pfad: w (Gewichtung 0-3), ziel, soll, wahl, roadmap, stelle.
+   Quellen: 90_Recherche/web_stellenprofile-ch-2026.md, web_karrierepfade-aus-fachbereichen.md,
    web_karrierewege-nach-msc.md. */
 window.KARRIERE =
 {
@@ -9028,8 +9029,8 @@ window.KARRIERE =
       "en": "⚠️ Accreditation still pending"
      },
      "d": {
-      "de": "Die Universität Bern hält zum Abrufzeitpunkt fest, dass ihr MAS Gesundheitspsychologie erst «nach geplanter Akkreditierung» zum eidgenössischen Fachtitel führt. Der Titel ist damit derzeit nur eingeschränkt erreichbar — vor der Anmeldung den aktuellen Stand prüfen.",
-      "en": "At the time of retrieval the University of Bern states that its MAS in health psychology leads to the federal specialist title only “after the planned accreditation”. The title is therefore currently only conditionally attainable — check the current status before applying."
+      "de": "Der MAS in Gesundheitspsychologie wird gemeinsam von UZH und Universität Bern getragen; die Universitäten halten fest, dass er erst «nach geplanter Akkreditierung» zum eidgenössischen Fachtitel führt. Der Titel ist damit derzeit nur eingeschränkt erreichbar — vor der Anmeldung den aktuellen Stand prüfen.",
+      "en": "The MAS in health psychology is run jointly by UZH and the University of Bern; the universities state that it leads to the federal specialist title only “after the planned accreditation”. The title is therefore currently only conditionally attainable — check the current status before applying."
      }
     }
    ],
@@ -9092,8 +9093,8 @@ window.KARRIERE =
      "en": "Canton of Zurich salary classes 17/18; no salary-calculator entry for health psychology, none of the job ads retrieved states a salary"
     },
     "wann": {
-     "de": "Einstieg direkt nach dem MSc möglich, meist über Projektstellen und in Konkurrenz zu Public Health. Achtung: Der MAS Gesundheitspsychologie der Universität Bern führt erst «nach geplanter Akkreditierung» zum eidgenössischen Fachtitel — die Akkreditierung ist noch nicht abgeschlossen. Der Titel ist damit derzeit nur eingeschränkt erreichbar.",
-     "en": "Entry possible directly after the MSc, mostly via project posts and in competition with public health graduates. Note: the University of Bern's MAS in health psychology leads to the federal title only “after the planned accreditation” — accreditation is not yet complete, so the title is currently only conditionally attainable."
+     "de": "Einstieg direkt nach dem MSc möglich, meist über Projektstellen und in Konkurrenz zu Public Health. Der Weg zum eidgenössischen Fachtitel führt über den gemeinsamen MAS von UZH und Universität Bern (60 ECTS, 2 Jahre berufsbegleitend, CHF 29'400 zuzüglich Supervisionsgebühren, Immatrikulation an der UZH). Achtung: Die Universitäten halten fest, dass der MAS erst «nach geplanter Akkreditierung» zum Titel führt — die Akkreditierung ist noch nicht abgeschlossen.",
+     "en": "Entry possible directly after the MSc, mostly via project posts and in competition with public health graduates. The route to the federal title runs through the joint MAS of UZH and the University of Bern (60 ECTS, 2 years part-time, CHF 29,400 plus supervision fees, enrolment at UZH). Note: the universities state that the MAS leads to the title only “after the planned accreditation” — accreditation is not yet complete."
     }
    }
   },
@@ -9249,8 +9250,8 @@ window.KARRIERE =
      "en": "jobs.ch salary calculator “neuropsychologist”, n = 42 — small sample, read with caution"
     },
     "wann": {
-     "de": "Weiterbildungsstelle direkt nach dem MSc. Der eidgenössisch anerkannte Neuropsychologietitel (EAN, UZH) dauert fünf Jahre berufsbegleitend — Vollqualifikation also frühestens fünf Jahre nach dem Master. Der frühere FSP-Fachtitel war nur bis Ende 2025 erwerbbar.",
-     "en": "Training post directly after the MSc. The federally recognised neuropsychology title (EAN, UZH) takes five years part-time — full qualification therefore at the earliest five years after the Master's. The former FSP title was only obtainable until the end of 2025."
+     "de": "Weiterbildungsstelle direkt nach dem MSc. Der eidgenössisch anerkannte Neuropsychologietitel (EAN, UZH) dauert fünf Jahre berufsbegleitend — Vollqualifikation also frühestens fünf Jahre nach dem Master. Der frühere FSP-Fachtitel nach dem Curriculum 2018 liess sich noch bis 31.3.2026 abschliessen, sofern die Weiterbildung dort begonnen worden war; Neueinsteigende absolvieren direkt das aktuelle Curriculum.",
+     "en": "Training post directly after the MSc. The federally recognised neuropsychology title (EAN, UZH) takes five years part-time — full qualification therefore at the earliest five years after the Master's. The former FSP title under the 2018 curriculum could still be completed until 31 March 2026 for those who had started under it; new entrants take the current curriculum directly."
     }
    }
   },
@@ -9395,17 +9396,17 @@ window.KARRIERE =
      }
     ],
     "lohn": {
-     "de": "CHF 105'000–120'000 pro Jahr bei 100 % — eines der am besten bezahlten Felder im öffentlichen Dienst, aber mit hohem Teilzeitanteil",
-     "en": "CHF 105,000–120,000 per year at 100 % — one of the best-paid public-sector fields, but with a high share of part-time posts"
+     "de": "Rund CHF 111'000 pro Jahr bei 100 % — eines der am besten bezahlten Felder für Master-Absolvierende, aber mit hohem Teilzeitanteil.",
+     "en": "Around CHF 111,000 per year at 100 % — one of the best-paid fields for Master's graduates, but with a high share of part-time posts."
     },
-    "lohnQ": "mittel",
+    "lohnQ": "tief",
     "lohnBeleg": {
-     "de": "jobs.ch-Lohnrechner «Schulpsychologe», n = 48; kantonal Lohnklasse 19–20 plausibel",
-     "en": "jobs.ch salary calculator “school psychologist”, n = 48; cantonal salary class 19–20 plausible"
+     "de": "Keine amtliche Tabelle: Die Schulpsychologischen Dienste werden von Gemeinden und Bezirken geführt. Der Wert stammt aus dem Portal jobs.ch (48 Selbstangaben, Gesamtspanne CHF 65'000–150'000). Für den Kanton Zürich weist das Portal für Berufseinsteigende gar keinen Wert aus — die dort genannten CHF 120'433 sind ein Durchschnitt über alle Erfahrungsstufen.",
+     "en": "No official table: school psychology services are run by municipalities and districts. The figure comes from the jobs.ch portal (48 self-reports, overall range CHF 65,000–150,000). For the Canton of Zurich the portal reports no entry-level figure at all — the CHF 120,433 quoted there is an average across all experience levels."
     },
     "wann": {
-     "de": "Assistenzjahr direkt nach dem MSc, danach Festanstellung. Der eidgenössische Titel Kinder- und Jugendpsychologie (MAS Universität Basel, 60 ECTS, rund CHF 19'600) folgt nach zwei bis vier Jahren — Zulassung nur mit einer Anstellung von mindestens 40 % im Feld.",
-     "en": "Assistantship year directly after the MSc, then a permanent post. The federal title in child and adolescent psychology (MAS University of Basel, 60 ECTS, around CHF 19,600) follows after two to four years — admission requires employment of at least 40 % in the field."
+     "de": "Assistenzjahr direkt nach dem MSc, danach Festanstellung. Der eidgenössische Titel heisst «Eidgenössisch anerkannte:r Kinder- und Jugendpsycholog:in» (EA KJP); der Weiterbildungsgang der Universität Basel ist der einzige dafür akkreditierte. Kosten rund CHF 19'600 ohne die obligatorischen 80 Einheiten externe Supervision, die mehrere Tausend Franken zusätzlich ausmachen. Zulassung nur mit einer Anstellung von mindestens 40 % im Feld; Titel nach zwei bis vier Jahren.",
+     "en": "Assistantship year directly after the MSc, then a permanent post. The federal title is “federally recognised child and adolescent psychologist” (EA KJP); the University of Basel programme is the only accredited route. Costs around CHF 19,600 excluding the mandatory 80 units of external supervision, which add several thousand francs. Admission requires employment of at least 40 % in the field; title after two to four years."
     }
    }
   },
@@ -9553,8 +9554,8 @@ window.KARRIERE =
      "en": "UZH salary guidelines for academic functions, as of 8 Jan 2026; SNSF salary range from 1 Jan 2026"
     },
     "wann": {
-     "de": "Direkt nach dem MSc. Befristung in der Regel drei Jahre, verlängerbar bis maximal sechs. Eine unbefristete akademische Stelle ist die grosse Ausnahme.",
-     "en": "Directly after the MSc. Normally limited to three years, extendable to a maximum of six. A permanent academic post is the rare exception."
+     "de": "Direkt nach dem MSc. Befristung in der Regel drei Jahre; die Gesamtdauer als Doktorierende und Assistierende ist auf sechs Jahre angelegt, auf begründeten Antrag ist bei familiären, gesundheitlichen oder militärischen Verzögerungen mehr möglich. Eine unbefristete akademische Stelle ist die grosse Ausnahme.",
+     "en": "Directly after the MSc. Normally limited to three years; the combined duration as doctoral researcher and assistant is designed for six years, with more possible on justified request in cases of family, health or military-service delays. A permanent academic post is the rare exception."
     }
    }
   },
@@ -9717,8 +9718,8 @@ window.KARRIERE =
      "en": "jobs.ch salary calculator “psychologist”; cantonal salary classes 19–20 for posts in the psychiatric-psychological service — none of the job ads retrieved states a salary"
     },
     "wann": {
-     "de": "Einstieg direkt nach dem MSc, sofern die Psychotherapieweiterbildung begonnen ist. Eigenständig Gutachten erst nach vier bis sechs Jahren. Achtung: Die Schweizerische Gesellschaft für Rechtspsychologie hat für ihr Fachtitel-Curriculum einen Aufnahmestopp verfügt und prüft die Zukunft des Titels; für forensische Psychotherapie ist der eidgenössische Psychotherapietitel zwingend.",
-     "en": "Entry directly after the MSc, provided psychotherapy training has started. Independent expert reports only after four to six years. Note: the Swiss Society for Legal Psychology has suspended admission to its specialist-title curriculum and is reviewing the title's future; forensic psychotherapy requires the federal psychotherapy title."
+     "de": "Einstieg direkt nach dem MSc, sofern die Psychotherapieweiterbildung begonnen ist. Eigenständig Gutachten erst nach vier bis sechs Jahren. Master und drei Jahre Berufserfahrung sind erst die Zulassung zum SGRP-Curriculum; dazu kommen der Weiterbildungsgang selbst (zwei bis sechs Jahre, 400 Einheiten Wissen und Können, 150 Einheiten Supervision, zehn Fallberichte, Schlussprüfung) und die FSP-Mitgliedschaft. Achtung: Die Schweizerische Gesellschaft für Rechtspsychologie hat für dieses Curriculum einen Aufnahmestopp verfügt.",
+     "en": "Entry directly after the MSc, provided psychotherapy training has started. Independent expert reports only after four to six years. A Master's plus three years of experience merely grant admission to the SGRP curriculum; the programme itself follows (two to six years, 400 units of knowledge and skills, 150 units of supervision, ten case reports, final examination) plus FSP membership. Note: the Swiss Society for Legal Psychology has suspended admission to this curriculum."
     }
    }
   },
@@ -10021,8 +10022,8 @@ window.KARRIERE =
      "en": "jobs.ch salary calculator “career counsellor”, n = 208; Canton of Zurich salary class 18 upwards"
     },
     "wann": {
-     "de": "Nicht direkt nach dem MSc: Der Titel «dipl. Berufs-, Studien- und Laufbahnberater:in» ist bundesrechtlich reglementiert. Viele Kantone stellen aber schon mit weit fortgeschrittenem Studium ein. Der MAS BSLB (ZHAW, 70 ECTS, CHF 26'800) dauert 2,5 bis 3 Jahre — Vollqualifikation nach etwa drei Jahren.",
-     "en": "Not directly after the MSc: the title of certified career counsellor is regulated by federal law. Many cantons do hire candidates whose studies are well advanced. The MAS programme (ZHAW, 70 ECTS, CHF 26,800) takes 2.5 to 3 years — full qualification after about three years."
+     "de": "Nicht direkt nach dem MSc: Der Titel «dipl. Berufs-, Studien- und Laufbahnberater:in» ist bundesrechtlich reglementiert. Viele Kantone stellen aber schon mit weit fortgeschrittenem Studium ein. Der MAS BSLB der ZHAW (70 ECTS, CHF 26'800) dauert 2,5 bis 3 Jahre und verlangt zusätzlich mindestens 16 Wochen betriebliche Praxis. Achtung: Die Akkreditierung des Programms durch das SBFI ist laut Programmseite erst angestrebt — die Titelberechtigung ist entsprechend im Konjunktiv formuliert.",
+     "en": "Not directly after the MSc: the title of certified career counsellor is regulated by federal law. Many cantons do hire candidates whose studies are well advanced. The ZHAW programme (70 ECTS, CHF 26,800) takes 2.5 to 3 years and additionally requires at least 16 weeks of workplace practice. Note: according to the programme page, SBFI accreditation is still being sought — the entitlement to the title is worded conditionally."
     }
    }
   },
@@ -10394,8 +10395,8 @@ window.KARRIERE =
      "en": "Upper-secondary teacher, education and psychology"
     },
     "pensum": {
-     "de": "Gerechnet wird in Pflichtlektionen, nicht in Prozent: 22–23 Wochenlektionen sind ein Vollpensum. Für Einsteigende realistisch 40–70 %, weil PPP an vielen Schulen ein kleines Fachpensum hat.",
-     "en": "Measured in mandatory lessons rather than per cent: 22–23 weekly lessons make a full load. Realistically 40–70 % for newcomers, as the subject carries a small share at many schools."
+     "de": "Gerechnet wird in Pflichtlektionen, nicht in Prozent: 23 Normallektionen pro Woche sind ein Vollpensum. Für Einsteigende realistisch 40–70 %, weil Pädagogik/Psychologie an vielen Schulen ein kleines Fachpensum hat.",
+     "en": "Measured in mandatory lessons rather than per cent: 23 standard lessons per week make a full load. Realistically 40–70 % for newcomers, as education/psychology carries a small share at many schools."
     },
     "wo": {
      "de": "Kantonsschulen und Gymnasien, Fachmittelschulen, Berufsmaturitätsschulen, private Gymnasien",
@@ -10438,13 +10439,13 @@ window.KARRIERE =
      }
     ],
     "lohn": {
-     "de": "CHF 105'000–110'000 pro Jahr bei vollem Pensum — der höchste belegbare Einstiegslohn im ganzen Set. Bei einem realistischen Teilpensum von 50–70 % entspricht das CHF 52'000–77'000.",
-     "en": "CHF 105,000–110,000 per year at a full load — the highest documented entry salary in the whole set. At a realistic 50–70 % load this equals CHF 52,000–77,000."
+     "de": "Mit Lehrdiplom Lohnklasse 21, Stufe 3: CHF 120'775 pro Jahr bei vollem Pensum — der höchste belegbare Einstieg im ganzen Set. Ohne Lehrdiplom (Klasse 20, Stufe 3) sind es CHF 112'870. Bei einem realistischen Teilpensum von 50–70 % entspricht das CHF 60'000–85'000.",
+     "en": "With a teaching diploma, salary class 21, step 3: CHF 120,775 per year at a full load — the highest documented entry in the whole set. Without the diploma (class 20, step 3) it is CHF 112,870. At a realistic 50–70 % load this equals CHF 60,000–85,000."
     },
     "lohnQ": "hoch",
     "lohnBeleg": {
-     "de": "Kanton Zürich, Lohnreglement LR 24, Lohnklasse 20 Stufe 3 mit Fachabschluss = CHF 109'664; bestätigt durch jobs.ch «Gymnasiallehrer» Kanton Zürich",
-     "en": "Canton of Zurich salary regulations LR 24, class 20 step 3 with a subject degree = CHF 109,664; confirmed by jobs.ch “grammar school teacher”, Canton of Zurich"
+     "de": "Kanton Zürich, Lohntabellen LR 24 gültig ab 1.1.2026; Einreihung nach MBVO 413.111 Anhang Teil A (mit Lehrdiplom Klasse 21, ohne Klasse 20, mit besonderen Aufgaben Klasse 22)",
+     "en": "Canton of Zurich, salary tables LR 24 valid from 1 Jan 2026; classification per MBVO 413.111 Annex Part A (class 21 with teaching diploma, 20 without, 22 with special duties)"
     },
     "wann": {
      "de": "Nicht direkt nach dem MSc, weil das Lehrdiplom zwingend ist — beginnt man es parallel zum Master, ist der Einstieg unmittelbar danach möglich. Zusätzliche Hürde: Der Stellenmarkt für Pädagogik/Psychologie ist klein und schwankt stark.",
@@ -10901,6 +10902,26 @@ window.KARRIERE =
   {
    "apa": "berufsberatung.ch. (o. D.). Berufsmöglichkeiten: Psychologie. SDBB.",
    "url": "https://www.berufsberatung.ch/dyn/show/48230"
+  },
+  {
+   "apa": "Kanton Zürich. (2026). Lohntabellen LR 24 für Lehrpersonen an Mittelschulen, gültig ab 1. Januar 2026.",
+   "url": "https://www.zh.ch/de/bildung/informationen-fuer-schulen/informationen-schulen-sek-ii.html"
+  },
+  {
+   "apa": "Kanton Zürich. (o. D.). Mittelschul-Bildungsverordnung (MBVO), LS 413.111, Anhang Teil A.",
+   "url": "https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung.html"
+  },
+  {
+   "apa": "Universität Basel. (o. D.). Weiterbildung Kinder- und Jugendpsychologie (EA KJP / MAS KJP).",
+   "url": "https://wb-kjp.unibas.ch/studiengaenge/mas/organisation/"
+  },
+  {
+   "apa": "Schweizerische Gesellschaft für Rechtspsychologie. (2024). Studienreglement Fachtitel Rechtspsychologie (Stand 1.4.2024).",
+   "url": "https://rechtspsychologie.ch/images/downloads/C_STUDIENREGLEMENT-d.pdf"
+  },
+  {
+   "apa": "Universität Zürich. (o. D.). Postgraduale Weiterbildung Neuropsychologie (EAN).",
+   "url": "https://www.ean-neuropsychologie.uzh.ch/de.html"
   }
  ]
 };
