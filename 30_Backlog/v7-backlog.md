@@ -1,6 +1,18 @@
 # v7/v8-Backlog «Das Kompetenzhaus» — die grossen Würfe
 
-Stand: 01.08.2026 (nach v10). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+Stand: 02.08.2026 (nach v11). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+
+**Offen, als Nächstes sinnvoll:** Karriere-Tab kürzen (zwölf Pfade mal Stellenprofil ist lang — Voreinstellung «Top 5 zeigen» mit Aufklappen) · Statik-Check B12 (Prüfung der [A]/[B]/[C]-Balance gegen die Two-Lane-Regel) · Baututor: Streaming statt «…» während der Antwort, Export des Gesprächs.
+
+**In v11 umgesetzt (02.08.2026) — «Vergleichen statt betrachten»:**
+
+*Spiel: «Was wäre, wenn?» (Karriere-Tab).* Das Spiel zeigte ein Profil; die Entscheidungsfrage der Studierenden ist aber ein Vergleich. Links die getroffene Wahl, rechts anklickbare Alternativen (BSc-Richtung, MSc-Schwerpunkt, Wahlpflicht), darunter die Verschiebung je Berufsweg und die Kompetenzen mit der grössten Bewegung. Gerechnet wird auf einer Kopie von `S.placed`, im `finally`-Block wiederhergestellt — kein `save()`, kein Rendern dazwischen; im Test blieb der Spielstand nachweislich unverändert. **Erst seit v10 aussagekräftig:** vorher hätte der Vergleich zwei identische Spalten gezeigt. Belegt: klinisches Profil, alternativ ekn/DeNC → Psychotherapie 84→12 (−72), UX-Research 17→89 (+72), Neuropsychologie 16→59 (+43), Fa5 −61 %, Fa2 +45 %.
+
+*Spiel: Ein-Klick-Weg zum Tutor.* Der 🤖-Knopf legt den Spielstand (4,4 kB) in die Zwischenablage und öffnet den Tutor — statt exportieren, Datei öffnen, Text kopieren. Neu reisen die abgeleiteten Werte mit: 19 Kompetenzstufen, Passung je Berufsweg, Feldprozente.
+
+*Baututor: drei Fehler behoben.* (1) Der **CV-Baustein kannte keine Stufen** und formulierte Sätze auf beliebigem Niveau — derselbe Fehler, den v10 im Spiel behoben hatte. Neu sind nur die erreichten Kompetenzen wählbar (mit Stufe im Label), die Stufe ist eine harte Formulierungsgrenze im Prompt, und unter dem Satz steht, worauf er beruht; ohne Spielstand formuliert der Tutor bewusst zurückhaltend. (2) Der **Systemprompt** nannte noch «UX/Data» und kannte die 13 Faktenkorrekturen nicht — neu mit EA KJP, MAS UZH+Unibe, SGRP-Aufnahmestopp, Lohnklasse 21 und der Auflage, keine Zahlen zu nennen, die nicht in den Pfaddaten stehen. (3) Der **Karriere-Check** rechnete selbst und konnte dem Spiel widersprechen — neu bekommt er die im Spiel berechneten Passungen mit der Auflage, genau diese Zahlen zu verwenden.
+
+*Baututor-UX.* Antworten als Markdown statt Fliesstext (erst escapen, dann eine geschlossene Menge Auszeichnungen — Script-Tags werden nachweislich escaped, nicht gerendert); Kopieren-Knopf an jeder Antwort (beim CV-Satz der eigentliche Zweck); vier anklickbare Startfragen je Modus statt leerem Eingabefeld; Shift+Enter für Absätze mit mitwachsendem Feld; einmaliger Hinweis, wenn der Verlauf die letzten acht Beiträge überschreitet.
 
 **In v10 umgesetzt (01.08.2026) — «Curriculum-Substanz, Trennschärfe, Lesbarkeit»:**
 
