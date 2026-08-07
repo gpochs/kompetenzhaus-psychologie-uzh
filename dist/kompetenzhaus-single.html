@@ -1101,7 +1101,13 @@ window.STRUKTUR = {
 
 </script>
 <script>
-/* Zukunftsmodul-Texte (de/en). v8 (21.07.2026): Masterarbeit als «Meisterstück»; v9 (22.07.2026): Bachelorarbeit neu nach Rückmeldung Ochsner 09.07.2026 — empirisch-methodisch, AIAS 4+5, Prozessanhang, 10-Min-Mündlichprüfung [A], Gewichtung 70/30; MA explizit eine Stufe darüber (eigene Fragestellung, Agenten-Audit, Robustheitsanalyse, Live-Demo). v10 (Aug. 2026): Kompetenz-Zuordnungen korrigiert (Fa5-Verzerrung, BA+Fa3/KI2, MA+Fa1, Fa7 bei Ethik-Lernzielen), IPS-Prüfungslogik vereinheitlicht. */
+/* Modultexte v12 (02.08.2026): heute (offizieller Katalogtext), zukunft (KI-integrierte Neufassung),
+   lernziele (Ich-Form der Studierenden mit F/K/S-Tags), ki, kat, komp, haupt, quest, quellen.
+   LERNZIELE FACHLOGISCH ÜBERARBEITET: 86 von 176 Lernzielen ersetzt (Audit 02.08.2026,
+   fünf Prüfagenten gegen den offiziellen Modulkatalog, die Progressionsstufe und das übrige Curriculum).
+   Häufigste Befunde: zu generisch (passte auf zehn andere Module), kein Fachinhalt (nur Abgabeformalia),
+   doppelt (die drei Wahlseminare hatten nahezu wortgleiche Ziele), falsche Progressionsstufe,
+   KI aufgesetzt statt fachlich integriert. Jedes Ersatzziel benennt einen konkreten Fachinhalt. */
 window.MODUL_TEXTE =
 {
  "06SM200-001": {
@@ -1129,8 +1135,8 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden prüfen eine KI-Antwort zu einem Grundlagenkonzept gegen Lehrbuch, OLAT-Material und PsycINFO und benennen fehlerhafte Stellen.",
-    "en": "Students check an AI answer on a foundational concept against textbook, OLAT materials and PsycINFO and identify faulty passages.",
+    "de": "Die Studierenden prüfen eine KI-Erklärung zu einem sozial- oder emotionspsychologischen Befund (z.B. Bystander-Effekt) oder zu einer statistischen Kennzahl (z.B. Standardabweichung, p-Wert) gegen Lehrbuch, OLAT-Material und PsycINFO und benennen die fehlerhaften Stellen.",
+    "en": "Students check an AI explanation of a finding from social or emotion psychology (e.g. the bystander effect) or of a statistical measure (e.g. standard deviation, p value) against the textbook, the OLAT materials and PsycINFO, and identify the faulty passages.",
     "b": [
      "F",
      "K"
@@ -1203,8 +1209,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden wenden die Grundlagen der quantitativen Forschungs- und Erhebungsmethoden auf einfache psychologische Fragestellungen an.",
-    "en": "Students apply the basics of quantitative research and data-collection methods to simple psychological questions.",
+    "de": "Die Studierenden unterscheiden experimentelle, quasi-experimentelle und korrelative Untersuchungsdesigns, benennen die Gütekriterien Objektivität, Reliabilität und Validität und ordnen einer einfachen psychologischen Fragestellung ein passendes Design zu.",
+    "en": "Students distinguish experimental, quasi-experimental and correlational research designs, name the quality criteria of objectivity, reliability and validity, and match a simple psychological research question with an appropriate design.",
     "b": [
      "F"
     ]
@@ -1217,9 +1223,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden erklären in Grundzügen, wie ein LLM funktioniert, und begründen, warum KI-Antworten plausibel klingen können, ohne zuverlässig richtig zu sein.",
-    "en": "Students explain in outline how an LLM works and justify why AI answers can sound plausible without being reliably correct.",
+    "de": "Die Studierenden erklären, dass ein Sprachmodell Antworten als Wahrscheinlichkeitsvorhersage aus Trainingsdaten erzeugt, und leiten daraus ab, warum es Studien, Effektstärken und Quellenangaben erfinden kann, die einer methodischen Prüfung nicht standhalten.",
+    "en": "Students explain that a language model generates answers as a probabilistic prediction from training data, and derive from this why it can fabricate studies, effect sizes and references that do not withstand methodological scrutiny.",
     "b": [
+     "F",
      "K"
     ]
    },
@@ -1286,8 +1293,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden recherchieren wissenschaftliche Literatur systematisch, lesen Fachtexte strukturiert und zitieren korrekt statt zu paraphrasieren.",
-    "en": "Students search the scientific literature systematically, read specialist texts in a structured way and cite correctly instead of loosely paraphrasing.",
+    "de": "Die Studierenden finden zu einer vorgegebenen psychologischen Fragestellung einschlägige Fachliteratur in PsycINFO, erschliessen einen empirischen Artikel entlang seiner Abschnitte (Einleitung, Methode, Resultate, Diskussion) und belegen fremde Gedanken korrekt nach APA.",
+    "en": "Students locate relevant literature on a given psychological question in PsycINFO, work through an empirical article along its sections (introduction, method, results, discussion) and reference other people's ideas correctly in APA style.",
     "b": [
      "F"
     ]
@@ -1301,9 +1308,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden arbeiten in der Seminargruppe aktiv mit, erproben interaktive Unterrichtsformen und bauen ein Peer-Netzwerk für das Studium auf.",
-    "en": "Students contribute actively in the seminar group, try out interactive teaching formats and build a peer network for their studies.",
+    "de": "Die Studierenden bearbeiten die Arbeitsaufträge des Proseminars in der Kleingruppe, stellen ihre Ergebnisse der Seminargruppe vor, geben einander Peer-Feedback und bauen daraus ein tragfähiges Lernnetzwerk für das Studium auf.",
+    "en": "Students work on the proseminar assignments in small groups, present their results to the seminar group, give each other peer feedback and build a durable learning network for their studies from it.",
     "b": [
+     "F",
      "S"
     ]
    },
@@ -1385,16 +1393,17 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden erklären die Annahmen der Klassischen Testtheorie und die Grundlagen der Item-Response-Theorie ohne KI-Unterstützung.",
-    "en": "Students explain the assumptions of classical test theory and the foundations of item response theory without AI support.",
+    "de": "Die Studierenden erklären die Annahmen der Klassischen Testtheorie und der Item-Response-Theorie und wenden sie auf die Konstruktion und Auswahl von Items an.",
+    "en": "Students explain the assumptions of classical test theory and item response theory and apply them to the construction and selection of items.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden prüfen KI-gestützte Scores auf Fairness und begründen, welche Verantwortung sie beim Einsatz für betroffene Personen tragen.",
-    "en": "Students examine AI-based scores for fairness and justify what responsibility they bear towards the people affected when deploying them.",
+    "de": "Die Studierenden prüfen algorithmisch erzeugte Testwerte mit psychometrischen Kriterien (Messinvarianz, Differential Item Functioning, Fairness) auf Verzerrungen zwischen Gruppen und leiten daraus Konsequenzen für den Einsatz bei betroffenen Personen ab.",
+    "en": "Students examine algorithmically generated test scores for between-group bias using psychometric criteria (measurement invariance, differential item functioning, fairness) and derive consequences for their use with the people affected.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -1472,18 +1481,18 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden schreiben eigenen R-Code und erklären ihn an KI-freien Kontrollpunkten Zeile für Zeile.",
-    "en": "Students write their own R code and explain it line by line at AI-free checkpoints.",
+    "de": "Die Studierenden lesen eigenen und fremden R-Code, erklären ihn Zeile für Zeile und kommentieren ihr Auswertungsskript so, dass die Auswertung reproduzierbar bleibt.",
+    "en": "Students read their own and others' R code, explain it line by line and comment their analysis script so that the analysis remains reproducible.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden debuggen eigenen Code mit einem hint-only-Tutor und reflektieren, an welchen Stellen die KI-Hinweise ihr eigenes Verständnis fördern oder ersetzen.",
-    "en": "Students debug their own code with a hint-only tutor and reflect on where the AI hints foster or replace their own understanding.",
+    "de": "Die Studierenden finden und beheben typische Fehler in eigenen R-Skripten (z.B. falscher Objekttyp, fehlende Werte, falsch spezifiziertes Modell), nutzen dafür einen hint-only-Tutor und begründen jede Korrektur statistisch.",
+    "en": "Students find and fix typical errors in their own R scripts (e.g. wrong object type, missing values, misspecified model), using a hint-only tutor, and justify each correction statistically.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    },
    {
@@ -1552,16 +1561,16 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden planen eigenständig ein Experiment inklusive Literaturrecherche und Hypothesenbildung und deklarieren jede KI-Unterstützung im Disclosure Form.",
-    "en": "Students independently plan an experiment, including literature search and hypothesis generation, and declare all AI support in the Disclosure Form.",
+    "de": "Die Studierenden leiten aus dem Forschungsstand eine prüfbare Hypothese ab, planen dazu ein Experiment mit passendem Design und passender Operationalisierung und weisen für jede KI-gestützt gefundene Quelle nach, dass sie sie im Original geprüft haben.",
+    "en": "Students derive a testable hypothesis from the state of research, plan an experiment with a suitable design and operationalisation, and demonstrate for every AI-retrieved source that they have checked it in the original.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden strukturieren die Mensch-KI-Arbeitsteilung in der Gruppe und dokumentieren Rollen, KI-Schritte und Prüfpflichten im Prozesslog.",
-    "en": "Students structure the human-AI division of labour in their group and document roles, AI steps, and verification duties in the process log.",
+    "de": "Die Studierenden legen für jeden Schritt des Forschungszyklus — Literatur, Design, Datenerhebung, Auswertung, Bericht — fest, welchen Teil die Gruppe selbst verantwortet und wo KI unterstützen darf, und begründen diese Abgrenzung methodisch.",
+    "en": "Students decide, for each step of the research cycle — literature, design, data collection, analysis, report — which part the group owns itself and where AI may assist, and justify that boundary in methodological terms.",
     "b": [
      "K",
      "S"
@@ -1576,9 +1585,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden schützen Versuchsdaten und geben keine sensiblen Daten in nicht freigegebene KI-Tools ein.",
-    "en": "Students protect experimental data and never enter sensitive data into non-approved AI tools.",
+    "de": "Die Studierenden anonymisieren die Daten ihrer Versuchspersonen vor der Auswertung, begründen ihr Vorgehen mit den Einwilligungs- und Datenschutzauflagen der Studie und entscheiden auf dieser Grundlage, welche Daten in welches Werkzeug gelangen dürfen.",
+    "en": "Students anonymise their participants' data before analysis, justify their approach with the study's consent and data-protection requirements, and decide on that basis which data may enter which tool.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -1732,34 +1742,34 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden erklären zentrale Theorien zu Aufmerksamkeit, Gedächtnis, Sprache und exekutiven Funktionen und belegen sie mit Befunden.",
-    "en": "Students explain key theories of attention, memory, language and executive functions and support them with evidence.",
+    "de": "Die Studierenden vergleichen konkurrierende Theorien zu Aufmerksamkeit, exekutiven Funktionen, Wissen, Sprache und Denken und entscheiden anhand empirischer Befunde, welche Erklärung die Datenlage besser trägt.",
+    "en": "Students compare competing theories of attention, executive functions, knowledge, language and thinking and decide, on the basis of empirical findings, which account fits the evidence better.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden vergleichen die Informationsverarbeitung eines LLM mit menschlicher Kognition und benennen zwei grundlegende Unterschiede.",
-    "en": "Students compare an LLM's information processing with human cognition and name two fundamental differences.",
+    "de": "Die Studierenden übertragen Modelle der Aufmerksamkeits- und Sprachverarbeitung auf die Arbeitsweise eines Sprachmodells und begründen an einem konkreten Befund (z.B. Kapazitätsgrenzen, Interferenz), wo die Analogie trägt und wo sie bricht.",
+    "en": "Students transfer models of attention and language processing to the workings of a language model and use a concrete finding (e.g. capacity limits, interference) to justify where the analogy holds and where it breaks down.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden identifizieren in einer KI-generierten Erklärung fachliche Fehler und korrigieren sie gegen Lehrbuch und Primärliteratur.",
-    "en": "Students identify factual errors in an AI-generated explanation and correct them against textbook and primary literature.",
+    "de": "Die Studierenden prüfen eine KI-Erklärung zu einem kognitionspsychologischen Modell (z.B. Aufmerksamkeitsfilter, exekutive Kontrolle, Sprachverstehen) gegen Lehrbuch und Primärliteratur und korrigieren die fachlichen Fehler mit Belegstelle.",
+    "en": "Students check an AI explanation of a cognitive-psychological model (e.g. attentional filter, executive control, language comprehension) against textbook and primary literature and correct the factual errors with a citation.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden beurteilen, wo KI-Analogien zur Kognition tragen, und reflektieren, wie solche Analogien ihr eigenes Denken über Kognition prägen.",
-    "en": "Students judge where AI analogies to cognition hold and reflect on how such analogies shape their own thinking about cognition.",
+    "de": "Die Studierenden beurteilen an einem klassischen Paradigma (z.B. Stroop-Aufgabe, Doppelaufgabe), welche Schlüsse das Design über kognitive Prozesse zulässt, und begründen, warum eine Analogie zu Sprachmodellen einen empirischen Beleg nicht ersetzt.",
+    "en": "Students judge, for a classic paradigm (e.g. Stroop task, dual task), what the design licenses them to conclude about cognitive processes, and explain why an analogy to language models cannot replace empirical evidence.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    }
   ],
@@ -1818,15 +1828,15 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden erklären, wie das Nervensystem kognitive Phänomene wie Wahrnehmung, Gedächtnis und Aufmerksamkeit hervorbringt.",
-    "en": "Students explain how the nervous system produces cognitive phenomena such as perception, memory and attention.",
+    "de": "Die Studierenden ordnen kognitive Phänomene wie Wahrnehmung, Aufmerksamkeit, Gedächtnis und kognitive Kontrolle den beteiligten neuronalen Systemen zu und begründen die Zuordnung mit Befunden aus bildgebenden und elektrophysiologischen Verfahren.",
+    "en": "Students map cognitive phenomena such as perception, attention, memory and cognitive control onto the neural systems involved and justify the mapping with findings from neuroimaging and electrophysiological methods.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden benennen zwei strukturelle Unterschiede zwischen biologischen und künstlichen neuronalen Netzen (LLMs).",
-    "en": "Students name two structural differences between biological and artificial neural networks (LLMs).",
+    "de": "Die Studierenden vergleichen die Verarbeitung im visuellen und im sprachverarbeitenden Kortex mit der Architektur künstlicher neuronaler Netze und belegen die Unterschiede (z.B. Rückkopplung, Plastizität, Lernregel) mit neurowissenschaftlichen Befunden.",
+    "en": "Students compare processing in the visual and language cortices with the architecture of artificial neural networks and support the differences (e.g. recurrence, plasticity, learning rule) with neuroscientific findings.",
     "b": [
      "F",
      "K"
@@ -1904,30 +1914,31 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden vertiefen ein Thema der Entwicklungspsychologie der Lebensspanne und ordnen Befunde in ihren Diversitäts- und Alterskontext ein.",
-    "en": "Students deepen a lifespan developmental topic and situate findings in their diversity and age context.",
+    "de": "Die Studierenden erklären an einem entwicklungspsychologischen Befund der Lebensspanne (z. B. Bindung, Gedächtnisentwicklung, kognitives Altern) den zugrunde liegenden Entwicklungsverlauf und prüfen selbstständig, ob er über Alters-, Kohorten- und Diversitätsgruppen hinweg Bestand hat.",
+    "en": "Students explain the developmental trajectory underlying a lifespan finding (e.g. attachment, memory development, cognitive ageing) and independently examine whether it holds across age, cohort and diversity groups.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden prüfen ein KI-generiertes Literaturreferat gegen Primärquellen und decken eine erfundene oder falsch zitierte Referenz auf.",
-    "en": "Students check an AI-generated literature summary against primary sources and expose a fabricated or miscited reference.",
+    "de": "Die Studierenden lassen sich einen entwicklungspsychologischen Befund (z. B. Objektpermanenz, Bindungsklassifikation, Wortschatzspurt) KI-gestützt zusammenfassen, prüfen jede Referenz und jede Kennzahl gegen die Primärstudie und benennen, wo die KI Befund, Stichprobe oder Altersbereich falsch wiedergibt.",
+    "en": "Students have a developmental finding (e.g. object permanence, attachment classification, vocabulary spurt) summarised with AI support, check every reference and figure against the primary study, and identify where the AI misrepresents the finding, the sample or the age range.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihre KI-Arbeitsschritte im Prozesslog und deklarieren sie über das Disclosure Form.",
-    "en": "Students document their AI steps in a process log and declare them via the Disclosure Form.",
+    "de": "Die Studierenden legen für ihre Seminararbeit fest, welche Arbeitsschritte (Literatursuche, Befundsynthese, Textfassung) sie KI-gestützt bearbeiten, halten dies im Prozesslog fest und begründen, warum die entwicklungspsychologische Interpretation der Befunde ihre eigene Leistung bleibt.",
+    "en": "For their seminar paper students determine which work steps (literature search, synthesis of findings, drafting) they carry out with AI support, record this in the process log, and justify why the developmental interpretation of the findings remains their own work.",
     "b": [
-     "K"
+     "K",
+     "S"
     ]
    },
    {
-    "de": "Die Studierenden trennen in einem wissenschaftlichen Text eigene Argumentation klar von KI-gestützten Vorarbeiten.",
-    "en": "Students clearly separate their own argumentation from AI-assisted preliminary work in a scientific text.",
+    "de": "Die Studierenden entwickeln in ihrer Seminararbeit eine eigene Argumentationslinie zu einer entwicklungspsychologischen Fragestellung und weisen im Text aus, welche Literaturhinweise und Formulierungsvorschläge KI-gestützt entstanden sind und welche Schlussfolgerungen sie selbst aus den Befunden ziehen.",
+    "en": "In their seminar paper students develop their own line of argument on a lifespan developmental question and indicate in the text which literature pointers and phrasing suggestions came from AI and which conclusions they themselves draw from the findings.",
     "b": [
      "F",
      "K",
@@ -1994,15 +2005,15 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden benennen, beschreiben und vergleichen zentrale Modelle und Konstrukte der Persönlichkeits- und Differentiellen Psychologie.",
-    "en": "Students name, describe and compare key models and constructs of personality and differential psychology.",
+    "de": "Die Studierenden ordnen individuelle Unterschiede in Persönlichkeit und Intelligenz den zentralen Modellen und Konstrukten der Differentiellen Psychologie zu und vergleichen deren empirische Bewährung in der Lebensspannenperspektive.",
+    "en": "Students assign individual differences in personality and intelligence to the central models and constructs of differential psychology and compare how well these are empirically supported across the lifespan.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden beurteilen Erfassungsmethoden anhand von Gütekriterien (Reliabilität, Validität).",
-    "en": "Students evaluate assessment methods using quality criteria (reliability, validity).",
+    "de": "Die Studierenden beurteilen die im Selbstversuch erprobten Persönlichkeits- und Intelligenzverfahren (Selbst- und Fremdbericht, Leistungstests) anhand von Reliabilität, Validität und Normierung und begründen, für welche differentialpsychologische Fragestellung welches Verfahren geeignet ist.",
+    "en": "Students evaluate the personality and intelligence instruments they trialled on themselves (self- and other-report, performance tests) in terms of reliability, validity and norming, and justify which instrument suits which differential-psychology question.",
     "b": [
      "F"
     ]
@@ -2016,9 +2027,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden unterscheiden psychometrische Messung von KI-Simulation und reflektieren, wie leicht eine simulierte ‹KI-Persönlichkeit› das eigene Urteil täuscht.",
-    "en": "Students distinguish psychometric measurement from AI simulation and reflect on how easily a simulated ‹AI personality› deceives their own judgement.",
+    "de": "Die Studierenden erklären mit Befunden zu Urteilsverzerrungen (z.B. Barnum-Effekt, soziale Erwünschtheit), warum Persönlichkeitsrückmeldungen auch dann überzeugen, wenn ihnen wie bei einem Sprachmodell keine psychometrische Messung zugrunde liegt, und legen fest, welche Belege sie vor einer Interpretation einfordern.",
+    "en": "Students use findings on judgement biases (e.g. Barnum effect, social desirability) to explain why personality feedback convinces even when, as with a language model, no psychometric measurement underlies it, and specify what evidence they require before interpreting it.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -2081,16 +2093,17 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden geben theoretische Grundlagen zu Personalauswahl, Motivation, Teams und Führung wieder und interpretieren Befunde korrekt.",
-    "en": "Students reproduce theoretical foundations of personnel selection, motivation, teams and leadership and interpret findings correctly.",
+    "de": "Die Studierenden wenden Theorien zu Personalauswahl und -entwicklung, Arbeitsmotivation, Leistungsbeurteilung, Teamprozessen, Konflikten und Führung auf konkrete betriebliche Situationen an und begründen ihre Einschätzung mit empirischen Befunden.",
+    "en": "Students apply theories of personnel selection and development, work motivation, performance appraisal, team processes, conflict and leadership to concrete workplace situations and justify their assessment with empirical findings.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden klären in einem Mensch-KI-Teaming-Szenario Rollen, Delegation und menschliche Letztverantwortung.",
-    "en": "Students clarify roles, delegation and human final responsibility in a human-AI teaming scenario.",
+    "de": "Die Studierenden übertragen Modelle der Rollen- und Aufgabenverteilung in Teams (z.B. geteilte Führung, Team Mental Models) auf ein Team, in dem ein KI-System mitarbeitet, und begründen, wie sich Koordination, Vertrauen und Leistungsbeurteilung dadurch verändern.",
+    "en": "Students transfer models of role and task allocation in teams (e.g. shared leadership, team mental models) to a team that includes an AI system, and explain how coordination, trust and performance appraisal change as a result.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -2169,31 +2182,32 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden geben theoretische Grundlagen zu Arbeitsgestaltung, Arbeitssicherheit und kontraproduktivem Arbeitsverhalten wieder.",
-    "en": "Students reproduce theoretical foundations of work design, occupational safety and counterproductive work behaviour.",
+    "de": "Die Studierenden analysieren einen konkreten Arbeitsplatz mit Konzepten der Arbeits- und Belastungsanalyse (Handlungsspielraum, Belastung-Beanspruchung, Arbeitszeit- und Umgebungsbedingungen) und leiten begründete Massnahmen zu Arbeitssicherheit und zur Verringerung kontraproduktiven Arbeitsverhaltens ab.",
+    "en": "Students analyse a specific workplace using concepts of work and strain analysis (job control, demand-strain balance, working-time and environmental conditions) and derive justified measures for occupational safety and for reducing counterproductive work behaviour.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden gestalten ein Mensch-KI-Arbeitsszenario (Algorithmic Management) und benennen ein psychologisches Risiko.",
-    "en": "Students design a human-AI work scenario (algorithmic management) and name one psychological risk.",
+    "de": "Die Studierenden bewerten ein algorithmisch gesteuertes Arbeitssystem (z.B. KI-gestützte Schicht- und Pausenplanung) anhand arbeitspsychologischer Gestaltungskriterien wie Handlungsspielraum, Aufgabenvollständigkeit und Rückmeldung und entwickeln eine Gestaltungsalternative.",
+    "en": "Students evaluate an algorithmically controlled work system (e.g. AI-based shift and break scheduling) against work-design criteria such as job control, task completeness and feedback, and develop a design alternative.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden definieren eine menschliche Override- bzw. Abbruchregel für ein KI-gestütztes Steuerungssystem.",
-    "en": "Students define a human override or abort rule for an AI-based control system.",
+    "de": "Die Studierenden begründen mit Befunden zu Automation Bias, Vigilanz und menschlicher Fehlerregulation, an welchen Punkten eines KI-gesteuerten Arbeitsprozesses ein Mensch eingreifen können muss, und formulieren die entsprechende Eingriffsregel.",
+    "en": "Students draw on findings on automation bias, vigilance and human error regulation to justify at which points of an AI-controlled work process a human must be able to intervene, and formulate the corresponding intervention rule.",
     "b": [
+     "F",
      "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden beurteilen algorithmische Überwachung von Arbeit ethisch und im Hinblick auf Autonomie und Fairness.",
-    "en": "Students assess algorithmic monitoring of work ethically and with regard to autonomy and fairness.",
+    "de": "Die Studierenden beurteilen ein System algorithmischer Leistungsüberwachung anhand von Kriterien organisationaler Gerechtigkeit (prozedural, distributiv, interaktional) und der Persönlichkeitsrechte am Arbeitsplatz und begründen, welche Ueberwachungspraxis arbeitspsychologisch vertretbar ist.",
+    "en": "Students assess a system of algorithmic performance monitoring against criteria of organisational justice (procedural, distributive, interactional) and employees' personality rights, and justify which monitoring practice is defensible in work-psychology terms.",
     "b": [
      "F",
      "K",
@@ -2258,8 +2272,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden vertiefen ein SWOD-Thema und beurteilen einen Fachartikel kritisch nach Design, Stichprobe, Messung und Interpretation.",
-    "en": "Students deepen a SWOD topic and critically appraise a research article by design, sample, measurement and interpretation.",
+    "de": "Die Studierenden erklären an einem Gegenstand der Sozial-, Wirtschafts-, Organisations- oder Differentiellen Psychologie (z. B. Personalauswahl, Arbeitsmotivation, sozialer Einfluss, algorithmisches Management) den theoretischen Wirkmechanismus und beurteilen eine einschlägige Studie nach Design, Stichprobe, Messung und Interpretation.",
+    "en": "Students explain the theoretical mechanism behind a topic in social, economic, organisational or differential psychology (e.g. personnel selection, work motivation, social influence, algorithmic management) and appraise a relevant study by design, sample, measurement and interpretation.",
     "b": [
      "F"
     ]
@@ -2273,17 +2287,18 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden entscheiden begründet, welche KI-Analysen fachlich tragfähig, fehlerhaft oder irreführend waren.",
-    "en": "Students decide with justification which AI analyses were sound, flawed or misleading.",
+    "de": "Die Studierenden beurteilen ein KI-gestütztes Auswahl- oder Bewertungsverfahren der Arbeits- und Organisationspsychologie (z. B. algorithmisches Screening von Bewerbungen) nach Gütekriterien und Fairnesskriterien und benennen, welche Gruppen dadurch systematisch benachteiligt werden können.",
+    "en": "Students appraise an AI-based selection or evaluation procedure from work and organisational psychology (e.g. algorithmic CV screening) against psychometric and fairness criteria and identify which groups it may systematically disadvantage.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihren KI-Workflow und verantworten in der Seminardiskussion, welche Analyseentscheidungen ihre eigenen bleiben.",
-    "en": "Students document their AI workflow and take responsibility, in the seminar discussion, for which analytical decisions remain their own.",
+    "de": "Die Studierenden vertreten in der Seminardiskussion ihre eigene Interpretation eines Befunds der Sozial-, Wirtschafts- oder Organisationspsychologie gegen einen abweichenden KI-Vorschlag und begründen fachlich, welche Analyse- und Interpretationsentscheidungen sie selbst getroffen haben.",
+    "en": "In the seminar discussion students defend their own interpretation of a finding from social, economic or organisational psychology against a diverging AI proposal and justify on disciplinary grounds which analytical and interpretive decisions they made themselves.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -2349,24 +2364,24 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden entwerfen einen fachlich begrenzten Bot oder agentischen Workflow zu einem Thema ihres Schwerpunkts und definieren Rolle, Quellenregeln und Grenzen im System-Prompt.",
-    "en": "Students design a domain-bounded bot or agentic workflow on a topic from their specialisation, defining its role, source rules, and limits in the system prompt.",
+    "de": "Die Studierenden entwerfen zu einer selbst gewählten Fragestellung ihres Vertiefungsgebiets einen fachlich begrenzten Bot oder agentischen Workflow und legen dessen Wissensbasis aus der einschlägigen Primärliteratur sowie dessen Rolle, Quellenregeln und Grenzen im System-Prompt fest.",
+    "en": "Students design a domain-bounded bot or agentic workflow for a self-chosen question from their specialisation, ground its knowledge base in the relevant primary literature, and define its role, source rules and limits in the system prompt.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden testen ihr KI-Artefakt systematisch mit Regel- und Fangfragen und protokollieren Fehlverhalten im Prozesslog.",
-    "en": "Students systematically test their AI artefact with standard and trick questions and record failure modes in the process log.",
+    "de": "Die Studierenden prüfen ihr KI-Artefakt an Fällen, deren fachlich korrekte Lösung sie aus der Primärliteratur ihres Vertiefungsgebiets kennen, und protokollieren, wo es fachlich falsch, unvollständig oder überkonfident antwortet.",
+    "en": "Students test their AI artefact on cases whose correct disciplinary solution they know from the primary literature of their specialisation, and record where it answers incorrectly, incompletely or overconfidently.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden begründen in einem KI-freien Verteidigungselement, welche fachlichen Qualitätskriterien ihr Artefakt erfüllt und wo seine Einsatzgrenzen liegen.",
-    "en": "In an AI-free defence element, students justify which disciplinary quality criteria their artefact meets and where its limits of use lie.",
+    "de": "Die Studierenden erläutern in einem KI-freien Prüfungsgespräch ohne Hilfsmittel die zentralen Theorien, Befunde und offenen Fragen ihres Vertiefungsthemas und begründen daran, wo ihr KI-Artefakt fachlich trägt und wo es an Grenzen stösst.",
+    "en": "In an AI-free oral examination, students set out unaided the central theories, findings and open questions of their specialisation topic, and use them to justify where their AI artefact holds up and where it reaches its limits.",
     "b": [
      "F",
      "K",
@@ -2374,8 +2389,8 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden deklarieren alle KI-Schritte vollständig im Disclosure Form und verifizieren jede Bot-Antwort des Portfolios gegen Fachliteratur.",
-    "en": "Students fully declare all AI steps in the disclosure form and verify every bot answer in the portfolio against the scientific literature.",
+    "de": "Die Studierenden vertiefen ein psychologisches Thema ihres Schwerpunkts an der Primärliteratur und weisen im Portfolio nach, dass ihre inhaltlichen Aussagen unabhängig vom KI-Artefakt belegt und korrekt eingeordnet sind.",
+    "en": "Students deepen a psychological topic from their specialisation using the primary literature and demonstrate in the portfolio that their substantive claims are evidenced and correctly situated independently of the AI artefact.",
     "b": [
      "F",
      "K"
@@ -2529,8 +2544,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden sammeln 500 Stunden Erfahrung in einem psychologischen Berufs- oder Forschungsfeld und vernetzen sich mit Expert:innen des Feldes.",
-    "en": "Students gain 500 hours of experience in a psychological professional or research field and build networks with experts in that field.",
+    "de": "Die Studierenden übertragen psychologisches Fach- und Methodenwissen (z. B. Gesprächsführung, diagnostische Verfahren, Interventions- oder Erhebungsmethoden) auf reale Aufgaben ihres Praktikumsfelds und steuern die dafür nötigen Arbeitsschritte in Abstimmung mit der Praxisanleitung.",
+    "en": "Students transfer psychological knowledge and methods (e.g. counselling techniques, assessment procedures, intervention or data-collection methods) to real tasks in their placement field and steer the necessary work steps in coordination with their practice supervisor.",
     "b": [
      "F",
      "S"
@@ -2554,9 +2569,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden leiten aus Praxiserfahrung und KI-Reflexion begründete Konsequenzen für ihre berufliche Spezialisierung ab.",
-    "en": "Students derive well-founded conclusions for their professional specialisation from practical experience and AI reflection.",
+    "de": "Die Studierenden bestimmen anhand ihrer Praktikumsaufgaben, welche psychologischen Kompetenzen ihr Berufsfeld verlangt (z. B. Diagnostik, Gesprächsführung, Evaluation, Datenanalyse) und welche Mensch-KI-Arbeitsteilung dort tragfähig ist, und begründen daraus die Wahl von Vertiefungs- und Methodenmodulen sowie ihres Masterarbeitsthemas.",
+    "en": "Drawing on their placement tasks, students determine which psychological competences their professional field requires (e.g. assessment, counselling, evaluation, data analysis) and which human-AI division of labour is viable there, and use this to justify their choice of specialisation and methods modules and of their master's thesis topic.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -2623,8 +2639,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden ordnen aktuelle Forschungs- und Anwendungsgebiete ihres Schwerpunkts in den Stand der Forschung ein.",
-    "en": "Students situate current research and application areas of their specialisation within the state of the art.",
+    "de": "Die Studierenden ordnen die in den Gastvorträgen vorgestellten Studien ihres Schwerpunkts (DeNC, HEA oder SEOP) nach Fragestellung, Design und Befundlage in das jeweilige Forschungsfeld ein.",
+    "en": "Students situate the studies presented in the guest lectures of their specialisation (DeNC, HEA or SEOP) within their research field in terms of research question, design and evidence base.",
     "b": [
      "F"
     ]
@@ -2646,8 +2662,8 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden diskutieren kritisch-konstruktiv in Echtzeit, ohne KI-Unterstützung.",
-    "en": "Students discuss critically and constructively in real time, without AI support.",
+    "de": "Die Studierenden leiten aus den Gastvorträgen Anschlussfragen für die eigene Masterarbeit oder Berufspraxis ab und begründen, warum diese Fragen offen und fachlich relevant sind.",
+    "en": "Students derive follow-up questions for their own master's thesis or professional practice from the guest lectures and justify why those questions are open and scientifically relevant.",
     "b": [
      "F",
      "S"
@@ -2708,16 +2724,15 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden spezifizieren, testen und dokumentieren einen KI-gestützten Analyse-Workflow für eine fortgeschrittene Erhebungs- oder Auswertungsmethode.",
-    "en": "Students specify, test, and document an AI-supported analysis workflow for an advanced data-collection or analysis method.",
+    "de": "Die Studierenden wenden die im Modul behandelte fortgeschrittene Methode (z.B. Mehrebenenmodell, Strukturgleichungsmodell, Netzwerkanalyse oder qualitative Inhaltsanalyse) selbstständig auf einen eigenen Datensatz an und begründen ihre Modell- und Auswertungsentscheidungen.",
+    "en": "Students independently apply the advanced method taught in the module (e.g. multilevel model, structural equation model, network analysis or qualitative content analysis) to a dataset of their own and justify their modelling and analysis decisions.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
-    "de": "Die Studierenden validieren AI-assisted qualitative Kodierung gegen einen menschlichen Goldstandard und interpretieren Übereinstimmungsmasse kritisch.",
-    "en": "Students validate AI-assisted qualitative coding against a human gold standard and critically interpret agreement measures.",
+    "de": "Die Studierenden validieren KI-generierte Auswertungs- oder Kodierentscheidungen gegen einen selbst erstellten Goldstandard und interpretieren Uebereinstimmungs- beziehungsweise Abweichungsmasse methodisch begründet.",
+    "en": "Students validate AI-generated analysis or coding decisions against a gold standard they created themselves and interpret agreement or divergence measures on methodological grounds.",
     "b": [
      "F",
      "K"
@@ -2732,11 +2747,11 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden erklären zentrale Analyseentscheidungen an einem KI-freien Kontrollpunkt und reflektieren, wo die fachliche Verantwortung für KI-gestützte Analysen bei ihnen als Forschenden bleibt.",
-    "en": "Students explain key analytical decisions at an AI-free checkpoint and reflect on where the professional responsibility for AI-supported analyses remains with them as researchers.",
+    "de": "Die Studierenden wenden die gewählte fortgeschrittene Erhebungs- oder Auswertungsmethode auf eine eigene Fragestellung an, begründen ihre Verfahrens- und Modellentscheidungen und erklären sie an einem KI-freien Kontrollpunkt.",
+    "en": "Students apply the chosen advanced data-collection or analysis method to a question of their own, justify their procedural and model decisions, and explain them at an AI-free checkpoint.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    }
   ],
@@ -2807,26 +2822,25 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden prüfen eine KI-generierte Verdachtsdiagnose gegen Klassifikationssysteme (z. B. RDoC, HiTOP) und Lehrbuch und korrigieren fachliche Fehler.",
-    "en": "Students test an AI-generated preliminary diagnosis against classification systems (e.g. RDoC, HiTOP) and the textbook.",
+    "de": "Die Studierenden prüfen eine KI-generierte Verdachtsdiagnose Kriterium für Kriterium gegen ICD-11 bzw. DSM-5, korrigieren die fachlichen Fehler und ordnen ein, was dimensionale Modelle wie RDoC oder HiTOP an derselben Fallbeschreibung zusätzlich sichtbar machen.",
+    "en": "Students check an AI-generated preliminary diagnosis criterion by criterion against ICD-11 or DSM-5, correct the substantive errors, and explain what dimensional models such as RDoC or HiTOP additionally reveal in the same case description.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden erklären zentrale Störungsmodelle und Wirkfaktoren ohne KI-Unterstützung.",
-    "en": "Students explain central disorder models and mechanisms of change without AI support.",
+    "de": "Die Studierenden erklären für zentrale Störungsgruppen (u.a. affektive, Angst- und Belastungsstörungen) Entstehungs- und Aufrechterhaltungsmodelle sowie die zugehörigen therapeutischen Wirkfaktoren und wenden beides auf eine neue Fallbeschreibung an.",
+    "en": "Students explain aetiological and maintenance models for central disorder groups (including affective, anxiety and stress-related disorders) together with the corresponding therapeutic mechanisms of change, and apply both to a new case description.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden leiten aus der Schweigepflichtserklärung konkrete Regeln für den KI-Einsatz im klinischen Kontext ab.",
-    "en": "Students derive concrete rules for AI use in clinical contexts from the confidentiality declaration.",
+    "de": "Die Studierenden leiten aus einer Fallbeschreibung eine diagnostische Einschätzung ab, die Suizidalität und den kulturellen Kontext der betroffenen Person einbezieht, und begründen die nächsten Schritte des klinischen Vorgehens.",
+    "en": "Students derive a diagnostic assessment from a case description that takes suicidality and the person's cultural context into account, and justify the next steps of clinical action.",
     "b": [
-     "K",
-     "S"
+     "F"
     ]
    }
   ],
@@ -2892,18 +2906,17 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden erklären zentrale biopsychologische Marker und Mechanismen psychischer und körperlicher Erkrankungen ohne KI.",
-    "en": "Students explain central biopsychological markers and mechanisms of mental and physical illness without AI.",
+    "de": "Die Studierenden erklären an Fallbeispielen, über welche psychobiologischen Mechanismen und Marker (z.B. HPA-Achse, Immunparameter) sich körperliche und psychische Erkrankungen im Lebenslauf wechselseitig beeinflussen, und ordnen die Befunde in das bio-psycho-soziale Modell ein.",
+    "en": "Students explain, using case examples, through which psychobiological mechanisms and markers (e.g. HPA axis, immune parameters) physical and mental illness influence one another across the life course, and situate the findings within the biopsychosocial model.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden identifizieren an einer KI-Erklärung zu einem Biomarker eine plausibel klingende, aber unbelegte Aussage.",
-    "en": "Students identify a plausible-sounding but unsubstantiated claim in an AI explanation of a biomarker.",
+    "de": "Die Studierenden begründen an einem Fallbeispiel, welche biologischen Marker den Erfolg einer psychologischen oder medizinischen Intervention abbilden können, und beurteilen deren Aussagekraft anhand von Messzeitpunkt, Störvariablen und Effektstärke.",
+    "en": "Students justify, using a case example, which biological markers can capture the success of a psychological or medical intervention, and appraise their informative value in terms of measurement timing, confounders and effect size.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
@@ -2915,9 +2928,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden reflektieren, wie leicht plausibel klingende KI-Erklärungen zu Biomarkern ihr eigenes Urteil beeinflussen, und leiten eine persönliche Prüfhaltung ab.",
-    "en": "Students reflect on how easily plausible-sounding AI explanations of biomarkers influence their own judgement and derive a personal auditing stance.",
+    "de": "Die Studierenden entwickeln eine Prüfroutine für biopsychologische Wirkaussagen (Primärquelle, Studiendesign, Stichprobe, Effektstärke) und wenden sie sowohl auf eine KI-Erklärung als auch auf eine Lehrbuchaussage an, um zu zeigen, dass beide demselben Massstab unterliegen.",
+    "en": "Students develop a checking routine for biopsychological causal claims (primary source, study design, sample, effect size) and apply it both to an AI explanation and to a textbook statement, showing that the same standard applies to both.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -2976,31 +2990,32 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden erkennen und beschreiben zentrale psychopathologische Störungsbilder im klinischen Setting.",
-    "en": "Students recognise and describe central psychopathological disorder patterns in clinical settings.",
+    "de": "Die Studierenden ordnen die Symptome einer Fallvignette den Störungsgruppen der beiden PTO-Curricula zu (affektive, neurotische und Belastungsstörungen, organische Störungen; Persönlichkeits-, Entwicklungs-, schizophrene und Suchtstörungen) und beschreiben den psychopathologischen Befund in Fachterminologie.",
+    "en": "Students assign the symptoms of a case vignette to the disorder groups of the two PTO curricula (affective, neurotic and stress-related, organic; personality, developmental, schizophrenic and substance-use disorders) and describe the psychopathological findings in technical terminology.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden stellen eine Verdachtsdiagnose eigenständig und begründen sie ohne KI im Verifikationsteil.",
-    "en": "Students make and justify a preliminary diagnosis independently, without AI, in the verification component.",
+    "de": "Die Studierenden leiten aus einer Fallvignette eine Verdachtsdiagnose nach ICD-Kriterien ab, benennen die entscheidenden Ein- und Ausschlusskriterien sowie die naheliegenden Differentialdiagnosen und begründen ihre Entscheidung Schritt für Schritt.",
+    "en": "Students derive a preliminary diagnosis from a case vignette according to ICD criteria, name the decisive inclusion and exclusion criteria as well as the plausible differential diagnoses, and justify their decision step by step.",
     "b": [
      "F"
     ]
    },
    {
-    "de": "Die Studierenden prüfen eine KI-generierte Fallanalyse gegen Klassifikationskriterien und benennen deren fachliche Fehler.",
-    "en": "Students test an AI-generated case analysis against classification criteria and name its factual errors.",
+    "de": "Die Studierenden prüfen eine KI-generierte Fallanalyse auf Fehler in Differentialdiagnostik und Komorbidität, korrigieren die Zuordnung anhand der ICD-Kriterien und belegen, welche Angaben der Vignette das Modell übergangen hat.",
+    "en": "Students examine an AI-generated case analysis for errors in differential diagnosis and comorbidity, correct the classification using ICD criteria, and show which details of the vignette the model overlooked.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden deklarieren jede KI-Nutzung transparent und reflektieren selbstkritisch, an welchen Stellen des Selbstlernprogramms sie eigenes Denken durch KI zu ersetzen drohen.",
-    "en": "Students declare every AI use transparently and reflect self-critically on where in the self-study programme they are at risk of replacing their own thinking with AI.",
+    "de": "Die Studierenden deklarieren ihre KI-Nutzung in den PTO-Uebungen und begründen an einer eigenen Fallanalyse, an welchem Schritt der diagnostischen Urteilsbildung (Befunderhebung, Kriterienprüfung, Differentialdiagnose) sie das Urteil nicht an ein KI-System abgeben.",
+    "en": "Students declare their AI use in the PTO exercises and justify, using one of their own case analyses, at which step of diagnostic reasoning (symptom assessment, criteria checking, differential diagnosis) they do not hand the judgement over to an AI system.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -3149,8 +3164,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden binden KI deklariert in Recherche und Schreiben ein und prüfen jeden Output gegen die Fachliteratur.",
-    "en": "Students integrate AI into search and writing in declared form and test every output against the literature.",
+    "de": "Die Studierenden recherchieren KI-gestützt die Evidenz zu einer klinisch- oder gesundheitspsychologischen Fragestellung (z. B. Wirksamkeit einer Intervention bei Angststörungen, Determinanten von Gesundheitsverhalten) und prüfen jede von der KI gelieferte Angabe zu Störungsbild, Stichprobe und Effektstärke an der Primärstudie.",
+    "en": "Students use AI support to research the evidence on a clinical or health psychology question (e.g. efficacy of an intervention for anxiety disorders, determinants of health behaviour) and verify every AI-supplied statement about disorder, sample and effect size against the primary study.",
     "b": [
      "F",
      "K"
@@ -3165,18 +3180,19 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihren KI-Einsatz vollständig über Prozesslog und Disclosure Form.",
-    "en": "Students document their AI use completely via process log and disclosure form.",
+    "de": "Die Studierenden entscheiden für ihre Seminararbeit begründet, welche Arbeitsschritte sie mit KI bearbeiten und welche klinischen Beurteilungen (Störungsmodell, Indikation, Evidenzbewertung) sie ohne KI treffen, und halten diese Arbeitsteilung im Prozesslog nachvollziehbar fest.",
+    "en": "For their seminar paper students decide with justification which work steps they carry out with AI and which clinical judgements (disorder model, indication, appraisal of evidence) they make without AI, and record this division of labour traceably in the process log.",
     "b": [
-     "K"
+     "F",
+     "K",
+     "S"
     ]
    },
    {
-    "de": "Die Studierenden verfassen einen klinisch fundierten Text und verantworten dessen Aussagen selbst.",
-    "en": "Students write a clinically grounded text and answer for its claims themselves.",
+    "de": "Die Studierenden ordnen ein Störungsbild oder ein Gesundheitsverhalten in ein theoretisches Modell ein (z. B. biopsychosoziales Modell, HAPA), leiten daraus eine Interventions- oder Präventionsempfehlung ab und belegen sie mit Wirksamkeitsevidenz.",
+    "en": "Students situate a disorder or a health behaviour within a theoretical model (e.g. the biopsychosocial model, HAPA), derive an intervention or prevention recommendation from it, and support it with efficacy evidence.",
     "b": [
-     "F",
-     "S"
+     "F"
     ]
    }
   ],
@@ -3248,27 +3264,27 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden gestalten den AIAS-4-Prozess: Sie setzen KI dokumentiert für Recherche, Analyse-Unterstützung und Überarbeitung ein und verantworten jeden Schritt fachlich.",
-    "en": "Students shape the AIAS 4 process: they use AI in a documented way for search, analysis support and revision, and take professional responsibility for every step.",
+    "de": "Die Studierenden setzen KI dokumentiert in der Literatursuche, bei der R-gestützten Auswertung und beim Überarbeiten ihres Berichts ein und prüfen jede übernommene Angabe — Zitat, Kennwert, Effektstärke, Codezeile — gegen die Quelle beziehungsweise die eigene Analyse.",
+    "en": "Students use AI in a documented way for literature search, R-based analysis and revision of their report, and verify every adopted item — citation, statistic, effect size, line of code — against the source or their own analysis.",
     "b": [
      "F",
      "K"
     ]
    },
    {
-    "de": "Die Studierenden entwickeln ein AIAS-5-Artefakt — einen dokumentierten agentischen Rechercheworkflow oder eine vibe-coded App — und erklären Zweck, Datenbasis, Grenzen und Fehlerquellen.",
-    "en": "Students develop an AIAS 5 artefact — a documented agentic research workflow or a vibe-coded app — and explain its purpose, data basis, limits and error sources.",
+    "de": "Die Studierenden entwickeln ein Arbeitsartefakt für die eigene Fragestellung — einen dokumentierten agentischen Rechercheworkflow oder eine kleine App, die die eigenen Befunde interaktiv darstellt — und erklären Zweck, Datenbasis, methodische Grenzen und Fehlerquellen im Hinblick auf die Aussagekraft ihrer Ergebnisse.",
+    "en": "Students build a work artefact for their own research question — a documented agentic search workflow or a small app that displays their own findings interactively — and explain its purpose, data basis, methodological limits and error sources with respect to the validity of their results.",
     "b": [
+     "F",
      "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren im Prozessanhang Entscheidungslogik, KI-Nutzung, Verifikation und Reflexion in bewertbarer Form.",
-    "en": "Students document decision logic, AI use, verification and reflection in an assessable process appendix.",
+    "de": "Die Studierenden begründen im Prozessanhang ihre methodischen Entscheidungen — Ein- und Ausschluss von Fällen oder Studien, Wahl des Auswertungsverfahrens, Umgang mit fehlenden Werten — und zeigen, wie robust ihre Befunde gegenüber plausiblen Alternativentscheidungen sind.",
+    "en": "In the process appendix students justify their methodological decisions — inclusion and exclusion of cases or studies, choice of analytic procedure, handling of missing data — and show how robust their findings are to plausible alternative decisions.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
@@ -3364,9 +3380,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden debuggen eigenen R-Code mit KI-Unterstützung, erklären jede Zeile selbst und reflektieren, wo die KI-Hilfe ihr statistisches Verständnis fördert oder ersetzt.",
-    "en": "Students debug their own R code with AI support, explain every line themselves, and reflect on where the AI help fosters or replaces their statistical understanding.",
+    "de": "Die Studierenden beheben Fehler in ihrem eigenen R-Code für Mehrebenen- und Strukturgleichungsmodelle (z.B. Konvergenzwarnungen in lme4, Identifikationsprobleme in lavaan) mit KI-Unterstützung, erklären jede Codezeile und jede Fehlermeldung selbst und beurteilen, wo die KI-Hilfe ihr Modellverständnis stützt und wo sie es ersetzt.",
+    "en": "Students fix errors in their own R code for multilevel and structural equation models (e.g. convergence warnings in lme4, identification problems in lavaan) with AI support, explain every line of code and every error message themselves, and judge where the AI help supports their model understanding and where it replaces it.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -3528,11 +3545,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden bewerten Chatbot- und App-basierte Gesundheitsinterventionen nach Evidenzlage, Theoriebasis und Risiken, einschliesslich Krisensituationen.",
-    "en": "Students appraise chatbot- and app-based health interventions by evidence base, theoretical grounding and risks.",
+    "de": "Die Studierenden erklären Stress-, Bewältigungs- und Ressourcenmodelle (u.a. soziale Unterstützung) und leiten daraus begründet Ansatzpunkte für eine konkrete Präventions- oder Gesundheitsförderungsmassnahme ab.",
+    "en": "Students explain models of stress, coping and resources (including social support) and derive well-founded starting points for a concrete prevention or health-promotion measure.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
@@ -3544,10 +3560,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden berücksichtigen Diversität und digitale Ungleichheit bei der Beurteilung digitaler Gesundheitsangebote.",
-    "en": "Students take diversity and digital inequality into account when appraising digital health offerings.",
+    "de": "Die Studierenden analysieren, für welche Gruppen digitale Gesundheitsangebote systematisch schlechter wirken (Gesundheitskompetenz, Sprache, Alter, Zugang), und leiten daraus konkrete Anpassungen eines Präventionsangebots ab.",
+    "en": "Students analyse for which groups digital health offerings systematically work less well (health literacy, language, age, access) and derive concrete adaptations of a prevention programme.",
     "b": [
-     "K",
+     "F",
      "S"
     ]
    }
@@ -3719,12 +3735,11 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden üben Anamnese- und Befundgespräche im KI-Rollenspiel und reflektieren die Grenzen simulierter Patient:innen.",
-    "en": "Students practise history-taking and findings interviews in AI role-play and reflect on the limits of simulated patients.",
+    "de": "Die Studierenden führen im KI-Rollenspiel ein neuropsychologisches Anamnese- und Befundgespräch (z.B. bei Neglect oder Aphasie) eigenständig durch und beurteilen, worin die Simulation von realen Patient:innen abweicht und welche diagnostischen Hinweise dabei verloren gehen.",
+    "en": "Students independently conduct a neuropsychological history-taking and findings interview in an AI role-play (e.g. for neglect or aphasia) and appraise how the simulation deviates from real patients and which diagnostic cues are lost.",
     "b": [
      "F",
-     "K",
-     "S"
+     "K"
     ]
    }
   ],
@@ -3785,8 +3800,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden vergleichen aktuelle Theorien ihres Schwerpunkts und schätzen Stärken und Schwächen empirischer Befunde begründet ein.",
-    "en": "Students compare current theories of their track and appraise the strengths and weaknesses of empirical findings.",
+    "de": "Die Studierenden vergleichen konkurrierende Theorien ihres Themengebiets (kognitive Entwicklung über die Lebensspanne, klinische Störungsmodelle oder sozialpsychologische Erklärungsansätze) und begründen anhand der Befundlage, welche Theorie welche Phänomene besser erklärt.",
+    "en": "Students compare competing theories of their topic area (cognitive development across the lifespan, clinical disorder models, or social-psychological explanations) and use the evidence to justify which theory explains which phenomena better.",
     "b": [
      "F"
     ]
@@ -3808,12 +3823,11 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden deklarieren ihre KI-Nutzung transparent und verteidigen ihre Analyseentscheidungen ohne KI.",
-    "en": "Students declare their AI use transparently and defend their analytical decisions without AI.",
+    "de": "Die Studierenden begründen die Auswahl und Interpretation ihrer Primärliteratur ohne KI und deklarieren, welche Arbeitsschritte KI-gestützt entstanden sind.",
+    "en": "Students justify their selection and interpretation of primary literature without AI and declare which work steps were produced with AI support.",
     "b": [
      "F",
-     "K",
-     "S"
+     "K"
     ]
    }
   ],
@@ -3876,8 +3890,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden beurteilen die in ihrem Schwerpunkt üblichen Methoden und schätzen ihre Stärken und Schwächen ein.",
-    "en": "Students appraise the methods common in their track and gauge their strengths and weaknesses.",
+    "de": "Die Studierenden beurteilen die Leitmethoden ihres Themengebiets (z.B. bildgebende und experimentelle Paradigmen, Screening- und Interventionsstudien oder Feld- und Befragungsdesigns in Organisationen) auf Aussagekraft, typische Verzerrungen und Uebertragbarkeit.",
+    "en": "Students appraise the core methods of their topic area (e.g. imaging and experimental paradigms, screening and intervention studies, or field and survey designs in organisations) for informativeness, typical biases and transferability.",
     "b": [
      "F"
     ]
@@ -3891,9 +3905,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden klären Mensch-KI-Rollen in einem Anwendungsszenario und halten Prüfpflichten in einem Audit-Log fest.",
-    "en": "Students clarify human–AI roles in an application scenario and record audit duties in an audit log.",
+    "de": "Die Studierenden legen für ein KI-gestütztes Auswahl- oder Screeningverfahren fest, welche Urteilsschritte psychologisch qualifizierte Personen verantworten müssen, und begründen dies mit Testgütekriterien und den Fehlerkosten einer Fehlentscheidung.",
+    "en": "For an AI-supported selection or screening procedure, students determine which judgement steps must be owned by psychologically qualified staff and justify this in terms of psychometric quality criteria and the costs of misclassification.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -3983,19 +3998,20 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden legen fest, welche sensiblen Daten nicht in KI-Systeme gehören, und begründen dies berufsethisch.",
-    "en": "Students determine which sensitive data must not enter AI systems and justify this on professional-ethical grounds.",
+    "de": "Die Studierenden bestimmen für ein konkretes Interventionssetting (z.B. Beratung, Prävention, Coaching), welche klinischen Angaben in kein KI-System gelangen dürfen, und begründen die Grenze mit Schweigepflicht, Re-Identifikationsrisiko und Schadenspotenzial für die Klient:innen.",
+    "en": "For a concrete intervention setting (e.g. counselling, prevention, coaching), students determine which clinical information must never enter an AI system and justify the boundary in terms of confidentiality, re-identification risk and potential harm to clients.",
     "b": [
+     "F",
      "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden dokumentieren ihre KI-Nutzung transparent und behalten die fachliche Letztverantwortung.",
-    "en": "Students document their AI use transparently and retain professional final responsibility.",
+    "de": "Die Studierenden begründen ihre Interventionsempfehlung anhand der Wirkfaktoren und der Evidenzlage ihres Themengebiets und weisen im Prozesslog aus, an welchen Stellen KI-Vorschläge übernommen, korrigiert oder verworfen wurden.",
+    "en": "Students justify their intervention recommendation on the basis of the mechanisms of change and the evidence in their topic area and record in the process log where AI suggestions were adopted, corrected or rejected.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    }
   ],
@@ -4074,16 +4090,15 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden prüfen eine KI-generierte Klassifikation (z. B. Emotion) gegen eine theoretische Erklärung und korrigieren Fehldeutungen.",
-    "en": "Students test an AI-generated classification (e.g. of emotion) against a theoretical explanation and correct it.",
+    "de": "Die Studierenden leiten aus einer Emotions- oder Motivationstheorie eine überprüfbare Vorhersage ab und beurteilen, mit welchem Untersuchungsdesign sie diese gegen konkurrierende Erklärungen testen würden.",
+    "en": "Students derive a testable prediction from a theory of emotion or motivation and appraise which study design would test it against competing explanations.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
-    "de": "Die Studierenden reflektieren, ob KI-Nutzung ihr eigenes Verstehen unterstützt oder ersetzt.",
-    "en": "Students reflect on whether AI use supports or replaces their own understanding.",
+    "de": "Die Studierenden prüfen eine zentrale Aussage ihres Themengebiets zuerst ohne und dann mit KI-Hilfe und begründen an diesem Vergleich, welche Denkschritte sie nicht auslagern dürfen, ohne die fachliche Beurteilung zu verlieren.",
+    "en": "Students examine a central claim of their topic area first without and then with AI support and use this comparison to justify which reasoning steps they must not outsource without losing their professional judgement.",
     "b": [
      "K",
      "S"
@@ -4149,8 +4164,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie in die Fachdiskussion ein.",
-    "en": "Students appraise theories and findings of their track and situate them in the disciplinary debate.",
+    "de": "Die Studierenden beurteilen zentrale Befunde ihres Themengebiets (soziale und emotionale Entwicklung, Prävention und Intervention oder Organisations- und Wirtschaftspsychologie) auf Replizierbarkeit, Effektstärke und praktische Bedeutsamkeit.",
+    "en": "Students appraise central findings of their topic area (social and emotional development, prevention and intervention, or organisational and economic psychology) for replicability, effect size and practical significance.",
     "b": [
      "F"
     ]
@@ -4164,9 +4179,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden klären Mensch-KI-Rollen und Abbruchkriterien und halten sie in einem Audit-Log fest.",
-    "en": "Students clarify human–AI roles and stop criteria and record them in an audit log.",
+    "de": "Die Studierenden bestimmen in einem Algorithmic-Management-Szenario, welche Führungs- und Feedbackaufgaben aus arbeitspsychologischen Gründen bei Menschen bleiben müssen, und begründen dies mit Autonomie-, Gerechtigkeits- und Beanspruchungsmodellen.",
+    "en": "In an algorithmic-management scenario, students determine which leadership and feedback tasks must remain with humans for work-psychological reasons and justify this using models of autonomy, justice and strain.",
     "b": [
+     "F",
      "K",
      "S"
     ]
@@ -4239,8 +4255,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden beurteilen Theorien und Befunde ihres Schwerpunkts und ordnen sie kritisch ein.",
-    "en": "Students appraise theories and findings of their track and situate them critically.",
+    "de": "Die Studierenden beurteilen die Befundlage ihres Themengebiets (z.B. neuronale Plastizität und Trainingseffekte, Wirksamkeit praktischer Interventionen oder anwendungsbezogene Wirkmodelle) und benennen, welche Schlussfolgerungen die Datenlage trägt und welche nicht.",
+    "en": "Students appraise the evidence base of their topic area (e.g. neural plasticity and training effects, effectiveness of practical interventions, or applied models of change) and state which conclusions the data support and which they do not.",
     "b": [
      "F"
     ]
@@ -4262,11 +4278,11 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden deklarieren ihre KI-Nutzung und begründen, wo fachliche Verantwortung bei der Person bleibt.",
-    "en": "Students declare their AI use and justify where professional responsibility remains with the person.",
+    "de": "Die Studierenden legen offen, welche Rechercheschritte ihrer Evidenzprüfung KI-gestützt erfolgten, und weisen für jedes zitierte Wirksamkeitsergebnis die Originalstudie samt Stichprobe und Design nach.",
+    "en": "Students disclose which search steps of their evidence appraisal were AI-supported and provide the original study, including sample and design, for every effectiveness result they cite.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    }
   ],
@@ -4338,11 +4354,12 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden vereinbaren vor Arbeitsbeginn einen AI Use Plan, der jede Arbeitsphase als [A] gesichert, [B] deklariert KI-unterstützt oder [C] KI-offen festlegt, und führen das Nutzungsverzeichnis laufend nach.",
-    "en": "Before starting, students agree an AI use plan that sets each work phase to [A] secured, [B] declared AI-assisted or [C] AI-open, and keep the usage register up to date throughout.",
+    "de": "Die Studierenden legen vor Arbeitsbeginn für jede Phase ihrer Untersuchung fest, welche Schritte sie ohne KI verantworten, und begründen die Grenze mit den methodischen Risiken der jeweiligen Phase (z.B. Verzerrung der Literaturauswahl, Fehlspezifikation der Analyse, Ueberinterpretation der Befunde).",
+    "en": "Before starting, students determine for each phase of their study which steps they will own without AI and justify the boundary in terms of that phase's methodological risks (e.g. biased literature selection, model misspecification, over-interpretation of findings).",
     "b": [
      "F",
-     "K"
+     "K",
+     "S"
     ]
    },
    {
@@ -4354,11 +4371,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden verifizieren KI-Outputs systematisch gegen Primärliteratur, Originaldaten und eigene Re-Analysen und dokumentieren ihre Prüfstrategie in einem benoteten Verifikationsprotokoll.",
-    "en": "Students systematically verify AI outputs against primary literature, original data and their own re-analyses, documenting their checking strategy in a graded verification protocol.",
+    "de": "Die Studierenden ordnen ihre Befunde in den internationalen Forschungsstand ein und diskutieren Limitationen, Generalisierbarkeit und Anschlussfragen ihrer Untersuchung.",
+    "en": "Students situate their findings in the international state of research and discuss the limitations, generalisability and follow-up questions of their study.",
     "b": [
-     "F",
-     "K"
+     "F"
     ]
    },
    {
@@ -4448,19 +4464,19 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden erstellen einen AI Use Plan, der pro Arbeitsschritt festlegt und begründet, was mit KI, ohne KI oder vollständig KI-integriert erfolgt.",
-    "en": "Students draft an AI use plan that determines and justifies, per work step, what runs with AI, without AI, or fully AI-integrated.",
+    "de": "Die Studierenden begründen für jeden Schritt ihres Forschungskonzepts (Literaturaufbereitung, Design, Analyseplan), welche Leistung sie selbst erbringen müssen, damit Fragestellung und Analyselogik ihre eigenen bleiben, und halten diese Festlegung schriftlich fest.",
+    "en": "For each step of their research concept (literature work, design, analysis plan), students justify which work they must do themselves so that question and analytic logic remain their own, and record this decision in writing.",
     "b": [
+     "F",
      "K",
      "S"
     ]
    },
    {
-    "de": "Die Studierenden klären Mensch-KI-Rollen, Prüfpflichten und menschliche Letztverantwortung für ihr Projekt und halten sie schriftlich fest.",
-    "en": "Students clarify human–AI roles, verification duties and final human responsibility for their project and record them.",
+    "de": "Die Studierenden leiten aus dem Forschungsstand eine präzise, prüfbare Fragestellung mit Hypothesen ab und begründen das dazu passende Design samt Stichprobenplanung.",
+    "en": "Students derive a precise, testable research question with hypotheses from the state of research and justify a matching design including sample planning.",
     "b": [
-     "K",
-     "S"
+     "F"
     ]
    },
    {
@@ -4529,10 +4545,11 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden wenden Planung, Auswertung, Interpretation und Darstellung einer Datenerhebung, Datensimulation oder Sekundäranalyse auf ihr Masterarbeitsprojekt an.",
-    "en": "Students apply planning, analysis, interpretation and presentation of a data collection, simulation or secondary analysis to their own project.",
+    "de": "Die Studierenden steuern die Auswertung ihrer Masterarbeitsdaten eigenständig, treffen und verantworten Entscheidungen zu Datenaufbereitung, Modellwahl und Umgang mit fehlenden Werten und legen diese nachvollziehbar offen.",
+    "en": "Students independently steer the analysis of their thesis data, take and own decisions on data preparation, model choice and missing-data handling, and document them transparently.",
     "b": [
-     "F"
+     "F",
+     "S"
     ]
    },
    {
@@ -4641,11 +4658,11 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden nutzen KI deklariert zur Vorbereitung (Review-Simulation) und reflektieren deren Grenzen.",
-    "en": "Students use AI in declared form for preparation (review simulation) and reflect on its limits.",
+    "de": "Die Studierenden antizipieren mithilfe einer KI-Review-Simulation die stärksten methodischen Einwände gegen ihr Design (z.B. Konfundierung, Teststärke, Messinvarianz) und bereiten dazu evidenzbasierte Antworten ohne KI vor.",
+    "en": "Using an AI review simulation, students anticipate the strongest methodological objections to their design (e.g. confounding, statistical power, measurement invariance) and prepare evidence-based answers to them without AI.",
     "b": [
-     "K",
-     "S"
+     "F",
+     "K"
     ]
    }
   ],
@@ -4730,8 +4747,8 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden diskutieren Projektplanungen und Forschungsergebnisse eigener wie fremder Arbeiten kritisch-konstruktiv.",
-    "en": "Students discuss project plans and research results, their own and others', critically and constructively.",
+    "de": "Die Studierenden beurteilen die präsentierten Resultate fremder Masterarbeiten auf Effektstärke, Alternativerklärungen und Limitationen und formulieren daraus konkrete Verbesserungsvorschläge für Auswertung und Darstellung.",
+    "en": "Students appraise the presented results of peers' theses for effect size, alternative explanations and limitations, and derive concrete suggestions for improving analysis and presentation.",
     "b": [
      "F",
      "S"
@@ -4794,8 +4811,8 @@ window.MODUL_TEXTE =
   },
   "lernziele": [
    {
-    "de": "Die Studierenden geben Methoden, Inhalte und theoretische Konzepte eines psychologischen Forschungsbereichs KI-frei wieder, reflektieren sie kritisch und bewerten sie.",
-    "en": "Students reproduce methods, content and theoretical concepts of a psychological research field AI-free.",
+    "de": "Die Studierenden ordnen Methoden, Befunde und theoretische Konzepte ihres Prüfungsgebiets ohne Hilfsmittel ein, vergleichen konkurrierende Erklärungsansätze und beziehen dazu begründet Stellung.",
+    "en": "Students situate the methods, findings and theoretical concepts of their examination area without any aids, compare competing explanatory approaches and take a reasoned position.",
     "b": [
      "F"
     ]
@@ -4816,11 +4833,10 @@ window.MODUL_TEXTE =
     ]
    },
    {
-    "de": "Die Studierenden vertreten eine begründete eigene Position gegenüber KI-generierten Gegenargumenten und behalten die fachliche Letztverantwortung.",
-    "en": "Students defend a justified position of their own against AI-generated counter-arguments and retain professional final responsibility.",
+    "de": "Die Studierenden vertreten im Prüfungsgespräch eine begründete eigene Position gegen starke Gegenargumente der Prüfenden und benennen, welche Evidenz ihre Position stützen oder widerlegen würde.",
+    "en": "In the examination, students defend a reasoned position of their own against strong counter-arguments from the examiners and state which evidence would support or refute their position.",
     "b": [
      "F",
-     "K",
      "S"
     ]
    }

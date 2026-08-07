@@ -40,6 +40,54 @@
   .copybtn:hover { border-color:var(--blue); color:var(--blue); }
   .stufenfuss { margin-top:6px; font-size:10px; color:#8b94ab; line-height:1.4; border-top:1px solid #dbe1ef; padding-top:5px; }
   /* Anklickbare Startfragen statt leerem Eingabefeld */
+  /* Übungsmodus sichtbar markieren: Wer im Rollenspiel steckt, soll das jederzeit sehen
+     und ohne Ratespiel wieder herauskommen. */
+  #uebungBanner { display:none; align-items:center; gap:8px; background:#fff4e0; border-bottom:1px solid #f0d9ae;
+    padding:7px 12px; font:700 11.5px var(--font); color:#7a4d00; }
+  #uebungBanner button { margin-left:auto; border:1.5px solid #c98a1a; background:#fff; color:#7a4d00;
+    border-radius:999px; padding:4px 11px; font:700 10.5px var(--font); cursor:pointer; }
+  #uebungBanner button:hover { background:#c98a1a; color:#fff; }
+  .pulsdot { width:8px; height:8px; border-radius:50%; background:#c98a1a; flex:none;
+    animation:puls 1.8s ease-in-out infinite; }
+  @keyframes puls { 0%,100%{opacity:1} 50%{opacity:.35} }
+  @media (prefers-reduced-motion: reduce) { .pulsdot { animation:none } }
+  /* Die drei Phasen optisch trennen: Vorbereiten, in der Rolle, Rückmeldung.
+     Der Feedbackblock ist bewusst KEINE Bot-Blase — er kommt nicht aus der Rolle. */
+  .m.brief { background:#eef3ff; color:#22305c; align-self:stretch; max-width:100%; border:1.5px solid #c9d6f5; }
+  .m.brief ul { font-size:11.5px; }
+  .brieffuss { font-size:10px; color:#5b6478; line-height:1.45; margin:8px 0 0; border-top:1px solid #c9d6f5; padding-top:6px; }
+  .fokuschips { display:flex; flex-wrap:wrap; gap:5px; }
+  .fokuschips button { border:1.5px solid #c9d6f5; background:#fff; color:#22305c; border-radius:999px;
+    padding:5px 11px; font:600 11px var(--font); cursor:pointer; }
+  .fokuschips button:hover { border-color:var(--blue); }
+  .fokuschips button.on { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:800; }
+  .fokuschips button:disabled { opacity:.6; cursor:default; }
+  .m.fb { background:#fff; align-self:stretch; max-width:100%; border:2px solid var(--teal); }
+  .fbkopf { font:800 10px var(--font); text-transform:uppercase; letter-spacing:.05em; color:var(--teal);
+    border-bottom:1px solid #cfe8e3; padding-bottom:5px; margin-bottom:8px; line-height:1.45; }
+  .fbact { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+  .fbact button { border:1.5px solid var(--teal); background:#fff; color:#0b6f61; border-radius:9px;
+    padding:6px 12px; font:700 11px var(--font); cursor:pointer; }
+  .fbact button:hover { background:var(--teal); color:#fff; }
+  /* Sicherheitshinweis: eigene Farbe, klar unterschieden vom Feedbackblock */
+  .m.krise { background:#fdecec; color:#7a1c1c; align-self:stretch; max-width:100%; border:2px solid #d46a6a; }
+  .m.krise ul { margin:0; padding-left:18px; font-size:11.5px; }
+  .m.krise li { margin:3px 0; }
+  /* Selbsteinschätzung vor der Rückmeldung */
+  .m.selbst { background:#fdf6e7; color:#4a3300; align-self:stretch; max-width:100%; }
+  .selbstrow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; justify-content:space-between;
+    padding:5px 0; border-top:1px solid #efe0c2; font-size:11.5px; }
+  .selbstrow > span:first-child { flex:1; min-width:150px; font-weight:600; }
+  .selbstbtns { display:flex; gap:3px; }
+  .selbstbtns button { border:1.5px solid #e0cfa8; background:#fff; color:#7a4d00; border-radius:999px;
+    padding:3px 9px; font:600 10.5px var(--font); cursor:pointer; }
+  .selbstbtns button.on { background:#c98a1a; border-color:#c98a1a; color:#fff; }
+  .selbstbtns button:disabled { opacity:.55; cursor:default; }
+  .selbstact { display:flex; gap:6px; margin-top:9px; flex-wrap:wrap; }
+  .selbstact button { border:1.5px solid #e0cfa8; background:#fff; color:#7a4d00; border-radius:9px;
+    padding:6px 12px; font:700 11px var(--font); cursor:pointer; }
+  .selbstact button.primary { background:var(--blue); border-color:var(--blue); color:#fff; }
+  .selbstact button:disabled { opacity:.5; cursor:default; }
   #startfragen { display:none; flex-wrap:wrap; gap:5px; }
   .startfrage { border:1.5px solid #dbe1ef; background:#fff; color:#39415a; border-radius:999px;
     padding:6px 11px; font:600 11px var(--font); cursor:pointer; text-align:left; line-height:1.35; }
@@ -99,6 +147,7 @@
   </details>
 
   <div id="panel">
+    <div id="uebungBanner"></div>
     <div id="msgs"></div>
     <div id="ctl">
       <div id="vignRow">
@@ -173,19 +222,23 @@ const VIGN = [
   { id:"klin", de:"Klinik: Erstgespräch", en:"Clinic: intake session",
     rolle:{de:"Patientin (fiktiv)",en:"Patient (fictional)"},
     info:{de:"Deine Rolle: Therapeut:in in Ausbildung. Die KI spielt eine fiktive Patientin mit diffusen Belastungssymptomen in einer psychotherapeutischen Ambulanz. Übungsfokus: Gesprächsführung und strukturierte Anamnese. Passt zu Modul 400/402.", en:"Your role: therapist in training. The AI plays a fictional patient with diffuse strain symptoms at an outpatient clinic. Practice focus: conversation skills and structured anamnesis. Fits modules 400/402."},
-    ctx:{de:"Erstgespräch in einer psychotherapeutischen Ambulanz. Deine Rolle: eine fiktive Patientin mit diffusen Belastungssymptomen (leichte bis mittlere, klar erfundene Symptomatik).", en:"Intake at an outpatient psychotherapy clinic. Your role: a fictional patient with diffuse strain symptoms (mild to moderate, clearly invented)."} },
+    ctx:{de:"Erstgespräch in einer psychotherapeutischen Ambulanz. Deine Rolle: eine fiktive Patientin mit diffusen Belastungssymptomen (leichte bis mittlere, klar erfundene Symptomatik).", en:"Intake at an outpatient psychotherapy clinic. Your role: a fictional patient with diffuse strain symptoms (mild to moderate, clearly invented)."},
+    opener:{de:"Guten Tag. Ich bin Lea Bühler, 24. Meine Hausärztin hat gesagt, ich soll mich hier melden. Ich schlafe seit ein paar Monaten schlecht und bin ständig müde, und in letzter Zeit vergesse ich Sachen bei der Arbeit. Ich weiss ehrlich gesagt nicht, ob das hierher gehört.", en:"Hello. I'm Lea Bühler, 24. My GP said I should come here. I've been sleeping badly for a few months and I'm tired all the time, and lately I forget things at work. Honestly, I'm not sure this belongs here."} },
   { id:"diag", de:"Diagnostik: Testrückmeldung", en:"Assessment: test feedback",
     rolle:{de:"Klientin (fiktiv)",en:"Client (fictional)"},
     info:{de:"Deine Rolle: Psycholog:in, die Testergebnisse zurückmeldet. Die KI spielt eine fiktive Klientin, die den Ergebnissen skeptisch begegnet. Übungsfokus: Gütekriterien verständlich erklären, faire Interpretation. Passt zu Modul 501.", en:"Your role: psychologist giving test feedback. The AI plays a fictional client who is sceptical about the results. Practice focus: explaining quality criteria clearly, fair interpretation. Fits module 501."},
-    ctx:{de:"Rückmeldegespräch nach einer psychologischen Testung. Deine Rolle: eine fiktive Klientin, die den Ergebnissen skeptisch begegnet und kritisch nachfragt.", en:"Feedback conversation after psychological testing. Your role: a fictional client who is sceptical about the results and asks critical questions."} },
+    ctx:{de:"Rückmeldegespräch nach einer psychologischen Testung. Deine Rolle: eine fiktive Klientin, die den Ergebnissen skeptisch begegnet und kritisch nachfragt.", en:"Feedback conversation after psychological testing. Your role: a fictional client who is sceptical about the results and asks critical questions."},
+    opener:{de:"Guten Tag. Sie hatten gesagt, heute gehe es um die Auswertung. Ich habe die ganze Woche daran gedacht, ehrlich gesagt. Ist da jetzt etwas herausgekommen, das nicht stimmt bei mir?", en:"Hello. You said today would be about the results. I've been thinking about it all week, to be honest. Did something come out that's wrong with me?"} },
   { id:"ges", de:"Gesundheit: Beratungsgespräch", en:"Health: counselling session",
     rolle:{de:"Klient (fiktiv)",en:"Client (fictional)"},
     info:{de:"Deine Rolle: Gesundheitsberater:in. Die KI spielt einen fiktiven Klienten, der bei der Verhaltensänderung (Bewegung, Schlaf) ambivalent ist. Übungsfokus: Theorien des Gesundheitsverhaltens anwenden, Ambivalenz aushalten. Passt zu Modul 502.", en:"Your role: health counsellor. The AI plays a fictional client who is ambivalent about behaviour change (exercise, sleep). Practice focus: applying health-behaviour theories, tolerating ambivalence. Fits module 502."},
-    ctx:{de:"Beratungsgespräch zur Verhaltensänderung (Bewegung, Schlaf). Deine Rolle: ein fiktiver Klient, der ambivalent ist und Einwände einbringt.", en:"Counselling on behaviour change (exercise, sleep). Your role: a fictional client who is ambivalent and raises objections."} },
+    ctx:{de:"Beratungsgespräch zur Verhaltensänderung (Bewegung, Schlaf). Deine Rolle: ein fiktiver Klient, der ambivalent ist und Einwände einbringt.", en:"Counselling on behaviour change (exercise, sleep). Your role: a fictional client who is ambivalent and raises objections."},
+    opener:{de:"Hoi. Also, meine Frau findet, ich sollte etwas ändern mit dem Rauchen. Ich bin eigentlich nur hier, weil ich es ihr versprochen habe. Ich meine, ich weiss schon, dass es nicht gesund ist, aber es hilft mir halt beim Runterkommen nach der Schicht.", en:"Hi. So, my wife thinks I should do something about the smoking. I'm really only here because I promised her. I mean, I know it isn't healthy, but it does help me wind down after a shift."} },
   { id:"ao", de:"AO: Teamkonflikt", en:"W&O: team conflict",
     rolle:{de:"Teamleiterin (fiktiv)",en:"Team lead (fictional)"},
     info:{de:"Deine Rolle: AO-Berater:in. Die KI spielt eine fiktive Teamleiterin mit einem eskalierenden Konflikt in ihrem Team. Übungsfokus: AO-psychologische Konzepte zu Teams, Führung und Arbeitsgestaltung anwenden. Passt zu Modul 301/302.", en:"Your role: work-and-organisational consultant. The AI plays a fictional team lead facing an escalating conflict in her team. Practice focus: applying W&O concepts on teams, leadership and work design. Fits modules 301/302."},
-    ctx:{de:"Beratungsgespräch in einer Organisation. Deine Rolle: eine fiktive Teamleiterin, deren Team in einem eskalierenden Konflikt steckt.", en:"Consulting conversation in an organisation. Your role: a fictional team lead whose team is stuck in an escalating conflict."} }
+    ctx:{de:"Beratungsgespräch in einer Organisation. Deine Rolle: eine fiktive Teamleiterin, deren Team in einem eskalierenden Konflikt steckt.", en:"Consulting conversation in an organisation. Your role: a fictional team lead whose team is stuck in an escalating conflict."},
+    opener:{de:"Guten Tag. Ich bin Marco Steiner, Teamleiter im Kundendienst. Die HR-Leiterin hat mich zu Ihnen geschickt, es geht um die Stimmung im Team. Ich sage Ihnen gleich: Ich weiss nicht genau, was ich hier soll, und was hier besprochen wird, will ich nicht nachher im Mitarbeitergespräch wiederfinden.", en:"Hello. I'm Marco Steiner, team lead in customer service. The head of HR sent me to you, it's about the mood in the team. Let me say up front: I'm not sure what I'm doing here, and I don't want what we discuss to resurface in my performance review."} }
 ];
 /* Passende Zielrollen-Beispiele pro Kompetenz (psychologienahe Berufsfelder) */
 const ROLLEN = {
@@ -270,6 +323,9 @@ let vignAktiv = null;
 let karrAktiv = null;
 let spielstand = null; // { titel:[], ects, name, profil, stufen, passung, felder }
 let verlaufHinweisGezeigt = false;
+let selbstbild = null;          // Selbsteinschätzung nach dem Fallgespräch
+let gespraechsVerlauf = [];     // gesicherter Verlauf für die Rückmeldung
+let fokusDim = null;            // selbst gewählter Übungsschwerpunkt
 
 const $ = (id) => document.getElementById(id);
 const T = (de, en) => lang === "de" ? de : en;
@@ -455,7 +511,7 @@ function setMode(m) {
   $("karrRow").style.display = m === "karriere" ? "flex" : "none";
   $("msgs").innerHTML = "";
   if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C], zu deinem Wahlprofil oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic, your elective profile or your next building step."));
-  if (m === "vignette") add("sys", T("Du führst das Gespräch als Therapeut:in oder Berater:in in Ausbildung; die KI spielt die fiktive Patientin bzw. Gesprächspartnerin. Wähle oben ein Szenario und starte. Mit «Stopp» beendest du die Rolle und erhältst kurzes Feedback zu deiner Gesprächsführung plus eine Reflexionsfrage.", "You lead the conversation as a therapist or counsellor in training; the AI plays the fictional patient or counterpart. Pick a scenario above and start. Type 'Stop' to end the role and receive brief feedback on your conversation skills plus a reflection question."));
+  if (m === "vignette") add("sys", T("Übungsgespräch in drei Schritten: Zuerst siehst du, worauf die Rückmeldung schaut, und wählst deinen Schwerpunkt. Dann führst du das Gespräch in deiner Fachrolle, die KI spielt die fiktive Person. Am Schluss schätzt du dich selbst ein und erhältst erst danach die Rückmeldung — die du auch für die Supervision mitnehmen kannst. Wähle oben ein Szenario.", "Practice conversation in three steps: first you see what the feedback looks at and pick your focus. Then you lead the conversation in your professional role while the AI plays the fictional person. At the end you rate yourself and only then receive the feedback — which you can take along to supervision. Pick a scenario above."));
   if (m === "cv") { add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz — formuliert auf der Stufe, die du tatsächlich erreicht hast.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence — phrased at the level you have actually attained.")); fillCvKomp(); }
   if (m === "karriere") add("sys", T("Wähle einen Berufsweg und klick «Weg prüfen»: Du erhältst die Passung deines Wahlprofils, die Etappen nach dem Master (Fakten geprüft, Stand August 2026) und einen nächsten Schritt. Mit eingefügtem Spielstand wird die Einschätzung persönlich. Danach kannst du im Chat nachfragen.", "Pick a career path and click 'Check route': you'll get the fit of your elective profile, the stages after the Master's (facts verified, as of August 2026) and one next step. With a pasted game state the assessment becomes personal. You can ask follow-up questions in the chat afterwards."));
   renderStartfragen(m);
@@ -542,7 +598,7 @@ function ctxKarr(p) {
   return `Du bist der «KI-Baututor» des Lernspiels «Das Kompetenzhaus» (Psychologiestudium UZH) im KARRIERE-CHECK-Modus. Aufgabe: Beurteile knapp und konkret, wie gut das Wahlprofil der Person zum gewählten Berufsweg passt, und zeige den Weg nach dem Master. VERIFIZIERTE FAKTEN zu diesem Weg (Stand Juli 2026, Quellen: PsyG/BAG/FSP/SVNP/SGFP/Universitäten): ${lang === "de" ? p.f.de : p.f.en} Gebaute Module und Wahlprofil der Person: ${standText()}. Struktur deiner Antwort (max. 180 Wörter, ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}): (1) Passung des Wahlprofils in 1–2 Sätzen (falls kein Spielstand übergeben: sag das kurz und beschreibe die empfohlene Wahl). (2) Die nächsten 3–4 Etappen nach dem Master als nummerierte Liste mit Dauer/Kosten, wo bekannt. (3) GENAU EIN konkreter nächster Schritt im Studium. Bleib bei den gelieferten Fakten; für Verbindliches an Studienprogrammleitung bzw. BAG/Verbände verweisen.`;
 }
 function ctxVign(v) {
-  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen; bringen die Nutzenden solche Themen ein, verlasse die Rolle und verweise auf professionelle Hilfe (in der Schweiz: 143 / 147). (4) Schreiben die Nutzenden «Stopp», verlasse die Rolle und gib als Supervisor:in ein kurzes, konstruktives Feedback zur Gesprächsführung: genau EINE Stärke, EIN konkreter Verbesserungspunkt, danach GENAU EINE Reflexionsfrage. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
+  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen. Bringen die Nutzenden solche Themen ein, antworte AUSSCHLIESSLICH mit dem Zeichen [[KRISE]] und sonst nichts — die Anwendung zeigt dann einen festen Sicherheitshinweis mit den Schweizer Notfallnummern an. Formuliere den Hinweis nicht selbst. (4) Schreiben die Nutzenden «Stopp», antworte nur mit einem kurzen Satz, dass du aus der Rolle gehst — die Rückmeldung übernimmt die Anwendung in einem eigenen Schritt. Gib selbst KEIN Feedback zur Gesprächsführung. (5) Halte die Figur nicht künstlich kooperativ: Widerstand, Ausweichen und Ambivalenz dürfen bestehen bleiben, bis die Fachperson sie im Gespräch aufgreift. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
 }
 
 /* ===== Senden ===== */
@@ -562,6 +618,8 @@ async function send(forced, silent) {
     // besonders irritierend, deshalb wird er einmal sichtbar gemacht.
     const gekuerzt = hist.length > 8;
     const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
+    // Krisenmarker abfangen, bevor er als Rollentext im Chat landet
+    if (mode === "vignette" && /\[\[KRISE\]\]/.test(out)) { wait.remove(); krisenBlock(); return; }
     mdRender(wait, out);
     kopierKnopf(wait, out);
     hist.push(bot + ": " + out);
@@ -573,7 +631,152 @@ async function send(forced, silent) {
   } catch (e) {
     wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
   }
-  if (mode === "vignette" && /^stopp?\b/i.test(q)) { vignAktiv = null; hist = []; add("sys", T("Rolle beendet. Zurück im Tutor-Modus dieses Tabs, starte oben ein neues Szenario.", "Role ended. Back in this tab's tutor mode, start a new scenario above.")); }
+  if (mode === "vignette" && /^stopp?\b/i.test(q)) rollenEnde();
+}
+/* Krisenausstieg: eigener Block, fester Text, KEIN Modellausgabe-Kanal.
+   Ein Sicherheitshinweis darf nicht so aussehen wie eine Übungsrückmeldung und darf
+   nicht davon abhängen, wie das Modell gerade formuliert. */
+function krisenBlock() {
+  const d = add("sys", "", true);
+  d.className = "m krise";
+  d.innerHTML = `<b>${T("Die Szene endet hier", "The scene ends here")}</b>
+    <p style="margin:5px 0">${T("Dieses Übungsgespräch bildet bewusst nur leichte bis mittlere fiktive Belastungen ab. Für alles Weitere gibt es Menschen:",
+      "This practice conversation deliberately depicts only mild to moderate fictional strain. For anything beyond that, there are people:")}</p>
+    <ul style="margin:0;padding-left:18px">
+      <li><b>143</b> — ${T("Die Dargebotene Hand, rund um die Uhr, anonym (Telefon, Chat, Mail)", "Die Dargebotene Hand, around the clock, anonymous (phone, chat, mail)")}</li>
+      <li><b>147</b> — ${T("Pro Juventute, für Kinder und Jugendliche", "Pro Juventute, for children and young people")}</li>
+      <li><b>144</b> — ${T("Sanitätsnotruf bei akuter Gefahr", "emergency medical services in acute danger")}</li>
+      <li>${T("Psychologische Beratungsstelle der UZH und ETH für Studierende", "Psychological counselling service of UZH and ETH for students")}</li>
+    </ul>
+    <p style="margin:6px 0 0;font-size:10.5px">${T("Zu dieser Szene gibt es keine Rückmeldung. Du kannst oben ein neues Szenario wählen.",
+      "There is no feedback for this scene. You can pick a new scenario above.")}</p>`;
+  vignAktiv = null;
+  hist = [];
+  uebungsbannerSetzen(false);
+}
+/* Nach «Stopp»: erst Selbsteinschätzung, dann Rückmeldung. Die Reihenfolge ist nicht
+   kosmetisch — wer sich zuerst selbst einschätzt, verarbeitet die Fremdeinschätzung
+   anders, als wenn sie ihm zuerst vorgelegt wird. */
+function rollenEnde() {
+  const v = vignAktiv;
+  gespraechsVerlauf = hist.slice(); // vor dem Leeren sichern, die Rückmeldung braucht den Verlauf
+  vignAktiv = null;
+  hist = [];
+  uebungsbannerSetzen(false);
+  if (!v) return;
+  selbsteinschaetzungZeigen(v);
+}
+function selbsteinschaetzungZeigen(v) {
+  const dims = VIGN_DIMS[v.id] || [];
+  if (!dims.length) { rueckmeldungHolen(v, null); return; }
+  const box = add("sys", "", true);
+  box.className = "m selbst";
+  const stufen = [
+    { w: 1, de: "noch nicht", en: "not yet" },
+    { w: 2, de: "ansatzweise", en: "partly" },
+    { w: 3, de: "gut gelungen", en: "done well" },
+  ];
+  box.innerHTML = `<b>${T("Szene beendet — wie schätzt du dich selbst ein?", "Scene finished — how do you rate yourself?")}</b>
+    <p style="margin:4px 0 8px;font-size:10.5px;color:#6b4a00">${T("Erst deine Einschätzung, dann die Rückmeldung. Du kannst auch überspringen.", "Your rating first, then the feedback. You can also skip.")}</p>
+    ${dims.map((d, i) => `<div class="selbstrow"><span>${lang === "de" ? d.de : d.en}</span>
+      <span class="selbstbtns">${stufen.map((s) => `<button type="button" data-dim="${i}" data-w="${s.w}">${lang === "de" ? s.de : s.en}</button>`).join("")}</span></div>`).join("")}
+    <div class="selbstact"><button type="button" class="primary" id="selbstOk" disabled>${T("Rückmeldung ansehen", "See the feedback")}</button>
+      <button type="button" id="selbstSkip">${T("Überspringen", "Skip")}</button></div>`;
+  const werte = {};
+  box.querySelectorAll("[data-dim]").forEach((b) => (b.onclick = () => {
+    const i = b.dataset.dim;
+    werte[i] = Number(b.dataset.w);
+    box.querySelectorAll(`[data-dim="${i}"]`).forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    $("selbstOk").disabled = Object.keys(werte).length < dims.length;
+  }));
+  $("selbstOk").onclick = () => {
+    selbstbild = dims.map((d, i) => `${lang === "de" ? d.de : d.en}: ${stufen.find((s) => s.w === werte[i]).de}`).join("; ");
+    box.querySelectorAll("button").forEach((b) => (b.disabled = true));
+    rueckmeldungHolen(v, selbstbild);
+  };
+  $("selbstSkip").onclick = () => {
+    box.querySelectorAll("button").forEach((b) => (b.disabled = true));
+    rueckmeldungHolen(v, null);
+  };
+}
+async function rueckmeldungHolen(v, selbst) {
+  if (!api) return;
+  const dims = VIGN_DIMS[v.id] || [];
+  const wait = add("bot", "…");
+  wait.className = "m fb";
+  // Der VOLLE Szenenverlauf, nicht das Achter-Fenster der Rolle: Eine Supervision, die nur die
+  // letzten vier Wechsel kennt, verpasst genau den Gesprächseinstieg, auf den es ankommt.
+  const verlauf = gespraechsVerlauf.join("\n");
+  const fok = fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : null;
+  try {
+    const out = await ask(`Du bist Supervisor:in in der psychologischen Ausbildung und gibst Rückmeldung zu einem GEÜBTEN Fallgespräch (Rollenspiel mit einer fiktiven Person, keine echten Patientendaten).
+
+SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
+
+BEOBACHTUNGSDIMENSIONEN — beurteile ausschliesslich diese, sie waren vorher bekannt:
+${dims.map((d, i) => `${i + 1}. ${lang === "de" ? d.de : d.en} — ${lang === "de" ? d.was.de : d.was.en}`).join("\n")}
+${fok ? `\nSELBST GEWÄHLTER SCHWERPUNKT: «${fok}». Beginne damit und widme ihm am meisten Raum.` : ""}
+
+VOLLSTÄNDIGER GESPRÄCHSVERLAUF:
+${verlauf}
+
+${selbst ? `SELBSTEINSCHÄTZUNG der studierenden Person: ${selbst}
+Gliedere danach ausdrücklich: (a) wo deine Beobachtung mit der Selbsteinschätzung übereinstimmt, (b) wo du etwas siehst, das nicht genannt wurde, (c) wo die Selbsteinschätzung strenger war als nötig. Punkt (c) nicht weglassen — Studierende schätzen sich systematisch zu streng ein.` : "Die Person hat die Selbsteinschätzung übersprungen."}
+
+FORM — je besprochener Dimension genau diese vier Teile:
+1. BEOBACHTUNG mit wörtlichem Zitat aus dem Verlauf («Du hast gefragt: ‹…›»).
+2. WIRKUNG im Gespräch («danach ist die Person auf Ja-Nein-Antworten umgeschwenkt»).
+3. ALTERNATIVE als ausformulierter, direkt nachsprechbarer Satz («Stattdessen zum Beispiel: ‹…›»).
+Danach EIN Fokus für den nächsten Durchgang und eine echte Neugierfrage nach der Begründung («Was hat dich in dem Moment dazu gebracht, …?»).
+
+VERBOTEN, ohne Ausnahme:
+- Zahlen, Punkte, Prozente, Noten, Rangaussagen, Aussagen über Eignung für den Beruf.
+- Adjektive über die Person («du wirkst unsicher/vermeidend») und Gesamturteile.
+- Aussagen zu Stimme, Tonfall, Mimik, Körperhaltung, Tempo, Pausen, Blickkontakt oder Nervosität — ein Textchat zeigt davon nichts.
+- Aussagen darüber, wie sich die studierende Person gefühlt habe.
+- Diagnostische Einschätzungen der fiktiven Figur, die als echte klinische Aussage gelesen werden könnten.
+- Mehr als drei besprochene Punkte.
+
+Falls du selbst aus der Rolle gefallen bist oder die Figur zu schnell nachgegeben hat, sage das in einem Satz — das ist eine Grenze des Werkzeugs, kein Fehler der studierenden Person.
+
+Höchstens 220 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung (ss statt ß)" : "English"}, wertschätzend und konkret.`);
+    mdRender(wait, out);
+    const kopf = document.createElement("div");
+    kopf.className = "fbkopf";
+    kopf.textContent = T("Übungsrückmeldung im Spiel. Keine Studienleistung, keine Beurteilung deiner Person, keine Grundlage für Noten.",
+                         "Practice feedback inside the game. Not coursework, not an assessment of you, not a basis for grades.");
+    wait.prepend(kopf);
+    kopierKnopf(wait, out);
+    // Wiederholen und Mitnehmen: Der zweite Durchgang ist der eigentliche Übungsschritt,
+    // und die beurteilende Instanz soll ein Mensch im Seminar bleiben.
+    const leiste = document.createElement("div");
+    leiste.className = "fbact";
+    const b1 = document.createElement("button");
+    b1.type = "button";
+    b1.textContent = "↻ " + T("Gleiche Szene nochmals", "Run the same scene again") + (fok ? ` — ${fok}` : "");
+    b1.onclick = () => vignVorbereiten(v, true);
+    const b2 = document.createElement("button");
+    b2.type = "button";
+    b2.textContent = "📋 " + T("Für die Supervision mitnehmen", "Take to supervision");
+    b2.onclick = async () => {
+      const txt = [
+        `${T("Übungsgespräch", "Practice conversation")}: ${lang === "de" ? v.de : v.en}`,
+        `${T("Schwerpunkt", "Focus")}: ${fok || "—"}`,
+        "",
+        `— ${T("Verlauf", "Transcript")} —`, verlauf, "",
+        `— ${T("Selbsteinschätzung", "Self-assessment")} —`, selbst || T("(übersprungen)", "(skipped)"), "",
+        `— ${T("Rückmeldung", "Feedback")} —`, out,
+      ].join("\n");
+      try { await navigator.clipboard.writeText(txt); b2.textContent = "✓ " + T("kopiert", "copied"); }
+      catch (e) { b2.textContent = T("Kopieren nicht möglich", "Copying not possible"); }
+      setTimeout(() => (b2.textContent = "📋 " + T("Für die Supervision mitnehmen", "Take to supervision")), 2200);
+    };
+    leiste.append(b1, b2);
+    wait.appendChild(leiste);
+  } catch (e) {
+    wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
+  }
 }
 $("send").onclick = () => send();
 $("inp").addEventListener("keydown", (e) => {
@@ -586,13 +789,100 @@ $("inp").addEventListener("input", function () {
   this.style.height = Math.min(this.scrollHeight, 96) + "px";
 });
 
-$("vignStart").onclick = () => {
-  vignAktiv = VIGN.find((v) => v.id === $("vignSel").value) || VIGN[0];
-  hist = [];
-  $("msgs").innerHTML = "";
-  add("sys", T("Fallgespräch aktiv, die KI spielt eine fiktive Person. Beenden mit «Stopp».", "Case conversation active, the AI plays a fictional person. End with 'Stop'."));
-  send(T("(Beginne in deiner fiktiven Rolle: Stell dich kurz vor und schildere in zwei, drei Sätzen dein Anliegen, so wie es die Person zu Gesprächsbeginn tun würde.)", "(Begin in your fictional role: introduce yourself briefly and describe your concern in two or three sentences, as the person would at the start of the conversation.)"), true);
+/* Beobachtungsdimensionen des Übungsgesprächs.
+   Vier Kerndimensionen für alle Szenarien, abgeleitet aus etablierten Beobachtungsinstrumenten
+   der Gesprächsausbildung (MITI 4.2.1 für Beziehung und Gesprächsverhalten, Calgary-Cambridge
+   für Struktur und Informieren, CTS-R für Agenda und Pacing), plus eine fünfte je Szenario.
+   Bewusst nur, was in einem TEXTCHAT tatsächlich beobachtbar ist — Stimme, Mimik, Tempo und
+   Pausen fallen weg, obwohl die Vorbilder sie enthalten. */
+const KERN_DIMS = [
+  { id: "K1", de: "Beziehung und Haltung", en: "Rapport and stance",
+    was: { de: "Gefühle benannt statt überhört, Einwände ernst genommen, keine Abwertung",
+           en: "feelings named rather than passed over, objections taken seriously, no dismissal" } },
+  { id: "K2", de: "Fragen und Zuhören", en: "Questions and listening",
+    was: { de: "offene statt geschlossene Fragen, Zusammenfassungen und Paraphrasen, keine Mehrfachfragen in einem Zug",
+           en: "open rather than closed questions, summaries and paraphrases, no multiple questions in one turn" } },
+  { id: "K3", de: "Struktur und Transparenz", en: "Structure and transparency",
+    was: { de: "Auftrag und Rahmen zu Beginn geklärt, Übergänge angekündigt, Zwischenzusammenfassung, Abschluss",
+           en: "purpose and frame clarified at the start, transitions signposted, interim summary, closing" } },
+  { id: "K4", de: "Informieren und mit Widerstand umgehen", en: "Informing and handling resistance",
+    was: { de: "Fachbegriffe übersetzt, Rat erst nach Erlaubnis, Widerspruch aufgenommen statt überredet",
+           en: "technical terms translated, advice only after permission, disagreement taken up rather than argued away" } },
+];
+const SZEN_DIM = {
+  klin: { id: "S", de: "Anamnese systematisch führen", en: "Systematic history taking",
+          was: { de: "Beschwerdebild, Verlauf, Auslöser und Ressourcen erfragt, ohne die Person abzufragen",
+                 en: "symptoms, course, triggers and resources explored without interrogating the person" } },
+  diag: { id: "S", de: "Befunde verständlich zurückmelden", en: "Reporting findings understandably",
+          was: { de: "Kennwerte in Alltagssprache übersetzt, Unsicherheit des Werts benannt, keine Etikettierung",
+                 en: "scores translated into everyday language, uncertainty of the value named, no labelling" } },
+  ges: { id: "S", de: "Ambivalenz stehen lassen", en: "Holding ambivalence",
+         was: { de: "beide Seiten der Ambivalenz erfragt, Änderungsabsicht nicht vorweggenommen, kein Überzeugen",
+                en: "both sides of the ambivalence explored, change intention not presumed, no persuading" } },
+  ao: { id: "S", de: "Anliegen und Auftrag trennen", en: "Separating concern and mandate",
+        was: { de: "geklärt, wer den Auftrag gibt, was vertraulich bleibt und was das Ziel des Gesprächs ist",
+               en: "clarified who commissions the conversation, what stays confidential and what its goal is" } },
 };
+const VIGN_DIMS = {};
+for (const id of Object.keys(SZEN_DIM)) VIGN_DIMS[id] = KERN_DIMS.concat([SZEN_DIM[id]]);
+
+/* ---------- Übungs- und Feedbackmodus für das Fallgespräch ----------
+   Bisher lief das Fallgespräch ohne erkennbaren Rahmen: Man wusste vorher nicht, worauf
+   geachtet wird, und das Feedback nach «Stopp» kam unangekündigt. Wirksames Feedback
+   braucht aber ein vorher bekanntes Beobachtungsraster, eine Selbsteinschätzung vor der
+   Fremdeinschätzung und die Möglichkeit, dieselbe Szene noch einmal zu spielen. */
+/* Schritt 1: Vorbereiten. Wer vorher weiss, worauf geachtet wird, übt gezielt —
+   und wählt eine Dimension als eigenen Schwerpunkt, bei der das Feedback ansetzt. */
+function vignVorbereiten(v, wiederholung) {
+  const dims = VIGN_DIMS[v.id] || [];
+  $("msgs").innerHTML = "";
+  uebungsbannerSetzen(false);
+  const box = add("sys", "", true);
+  box.className = "m brief";
+  box.innerHTML = `<b>${T("Bevor es losgeht", "Before you start")}</b>
+    <p style="margin:4px 0 6px">${lang === "de" ? v.info.de : v.info.en}</p>
+    <p style="margin:6px 0 3px"><b>${T("Darauf schaut die Rückmeldung:", "What the feedback looks at:")}</b></p>
+    <ul style="margin:0 0 8px;padding-left:18px">${dims.map((d) =>
+      `<li style="margin:3px 0"><b>${lang === "de" ? d.de : d.en}</b> — ${lang === "de" ? d.was.de : d.was.en}</li>`).join("")}</ul>
+    <p style="margin:6px 0 4px"><b>${T("Wähle deinen Schwerpunkt für diesen Durchgang:", "Pick your focus for this run:")}</b></p>
+    <div class="fokuschips">${dims.map((d, i) =>
+      `<button type="button" data-fokus="${i}">${lang === "de" ? d.de : d.en}</button>`).join("")}</div>
+    <p class="brieffuss">${T("Ein Textchat zeigt keine Stimme, keine Mimik, kein Tempo — die Rückmeldung bleibt bei dem, was im Text steht. Die Szenarien bilden bewusst leichte bis mittlere fiktive Belastungen ab.",
+      "A text chat shows no voice, no facial expression, no pacing — the feedback stays with what is in the text. The scenarios deliberately depict mild to moderate fictional strain.")}</p>
+    <div class="selbstact"><button type="button" class="primary" id="briefGo" disabled>${T("Gespräch starten", "Start the conversation")}</button></div>`;
+  box.querySelectorAll("[data-fokus]").forEach((b) => (b.onclick = () => {
+    fokusDim = dims[Number(b.dataset.fokus)];
+    box.querySelectorAll("[data-fokus]").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    $("briefGo").disabled = false;
+  }));
+  $("briefGo").onclick = () => { box.querySelectorAll("button").forEach((b) => (b.disabled = true)); vignStarten(v, wiederholung); };
+}
+/* Schritt 2: In der Rolle. */
+function vignStarten(v, wiederholung) {
+  vignAktiv = v;
+  hist = [];
+  selbstbild = null;
+  uebungsbannerSetzen(true);
+  add("sys", `<b>${T("Übungsgespräch läuft", "Practice conversation running")}</b> · ${
+    T("Schwerpunkt", "Focus")}: ${fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : "—"}${
+    wiederholung ? `<br>${T("Zweiter Durchgang derselben Szene — nimm dir eine Sache vor, die du diesmal anders machst.", "Second run of the same scene — pick one thing you will do differently this time.")}` : ""}`, true);
+  // Fester Eröffnungszug: Nur wenn beide Durchgänge gleich beginnen, ist der Vergleich etwas wert.
+  const opener = v.opener ? (lang === "de" ? v.opener.de : v.opener.en) : null;
+  if (opener) { add("bot", opener); hist.push((lang === "de" ? v.rolle.de : v.rolle.en) + ": " + opener); }
+  else send(T("(Beginne in deiner fiktiven Rolle: Stell dich kurz vor und schildere in zwei, drei Sätzen dein Anliegen, so wie es die Person zu Gesprächsbeginn tun würde.)", "(Begin in your fictional role: introduce yourself briefly and describe your concern in two or three sentences, as the person would at the start of the conversation.)"), true);
+}
+function uebungsbannerSetzen(an) {
+  const b = $("uebungBanner");
+  if (!b) return;
+  b.style.display = an ? "flex" : "none";
+  b.innerHTML = an
+    ? `<span class="pulsdot"></span><span>${T("Übungsgespräch — die KI ist in der fiktiven Rolle", "Practice conversation — the AI is in the fictional role")}</span><button type="button" id="uebungStop">${T("Stopp & Rückmeldung", "Stop & feedback")}</button>`
+    : "";
+  const s = $("uebungStop");
+  if (s) s.onclick = () => send("Stopp");
+}
+$("vignStart").onclick = () => vignVorbereiten(VIGN.find((v) => v.id === $("vignSel").value) || VIGN[0], false);
 
 $("cvGo").onclick = async () => {
   if (!api) return;
