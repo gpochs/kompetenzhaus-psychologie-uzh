@@ -432,7 +432,10 @@
     .panel.open { transform: translateX(0); }
     .panel-toggle { display: block; }
     #panelL { top: 182px; } #panelR { top: 182px; }
-    #togL { top: 128px; left: 12px; } #togR { top: 128px; right: 12px; }
+    /* Unterhalb der zweiten Kopfzeilen-Reihe: btnLang und btnMenu reichen mit ihren
+       40px-Tippflächen bis 150px hinunter und überlappten den Toggle sonst um 22px —
+       ein Tipp auf «Bauplan» löste dann den Sprachwechsel aus. */
+    #togL { top: 156px; left: 12px; } #togR { top: 156px; right: 12px; }
     #topbar { flex-wrap: wrap; }
     .brand .sub { display: none; }
   }

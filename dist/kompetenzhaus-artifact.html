@@ -427,7 +427,10 @@
     .panel.open { transform: translateX(0); }
     .panel-toggle { display: block; }
     #panelL { top: 182px; } #panelR { top: 182px; }
-    #togL { top: 128px; left: 12px; } #togR { top: 128px; right: 12px; }
+    /* Unterhalb der zweiten Kopfzeilen-Reihe: btnLang und btnMenu reichen mit ihren
+       40px-Tippflächen bis 150px hinunter und überlappten den Toggle sonst um 22px —
+       ein Tipp auf «Bauplan» löste dann den Sprachwechsel aus. */
+    #togL { top: 156px; left: 12px; } #togR { top: 156px; right: 12px; }
     #topbar { flex-wrap: wrap; }
     .brand .sub { display: none; }
   }
@@ -12737,7 +12740,7 @@ window.T = {
     tour2_t: "Bauen, Quest und Notizen",
     tour2: "Ein Klick auf einen Baustein öffnet diese Karte: Zukunftsmodul, Lernziele, Quiz und Praxis-Quest. Im Quest-Tab kannst du eigene Notizen festhalten, und mit der Ampel 🚦 sagst du uns deine Meinung zum Modul.",
     tour3_t: "Dein Kompetenzprofil",
-    tour3: "Rechts wächst dein Profil aus Fach-, KI- und Future-Skills-Kompetenzen. Klick auf eine Kompetenz für Details, auf «Karriere» für deine Passung zu sieben Berufsfeldern.",
+    tour3: "Rechts wächst dein Profil aus Fach-, KI- und Future-Skills-Kompetenzen. Klick auf eine Kompetenz für Details, auf «Karriere» für deine Passung zu zwölf Berufsfeldern.",
     tour4_t: "Der Kompetenzpass",
     tour4: "Mit diesem Knopf erstellst du jederzeit deinen Kompetenzpass als PDF: Hausfoto, Profil und eine Detailseite mit allen erreichten Lernzielen als «Ich kann»-Sätze. Im Karriere-Tab wartet zusätzlich der Karrieresteckbrief.",
     tour5_t: "Der Briefkasten",
@@ -12812,7 +12815,7 @@ window.T = {
     steck_traeger: "Tragende Kompetenzen:",
     steck_next: "Stärkt diesen Pfad als Nächstes:",
     steck_cv: "Bewerbungs-Textbausteine",
-    steck_fussnote: "Passung = gewichteter Anteil der aufgebauten Kompetenzen am Anforderungsprofil des Pfads (Selbstdeklaration, illustrativ)."
+    steck_fussnote: "Passung vergleicht die Form deines Kompetenzprofils mit dem Anforderungsprofil des Berufswegs und gewichtet deine Wahlentscheidungen (Themen, Schwerpunkt, Wahlpflicht, BA-Fragestellung) am stärksten. Sie misst nicht, wie weit du im Studium bist. Selbstdeklaration, illustrativ."
   },
   en: {
     titel: "The Competence House",
@@ -13020,7 +13023,7 @@ window.T = {
     tour2_t: "Build, quest and notes",
     tour2: "Clicking a block opens this card: future module, learning outcomes, quiz and practice quest. In the quest tab you can keep your own notes, and the traffic light 🚦 tells us what you think of the module.",
     tour3_t: "Your competence profile",
-    tour3: "On the right your profile grows across domain, AI and future-skills competences. Click any competence for details, or 'Career' for your fit with seven career fields.",
+    tour3: "On the right your profile grows across domain, AI and future-skills competences. Click any competence for details, or 'Career' for your fit with twelve career fields.",
     tour4_t: "The competence passport",
     tour4: "This button creates your competence passport as a PDF at any time: house photo, profile and a detail page listing every achieved learning objective as an 'I can' statement. The career tab also holds the printable career profile.",
     tour5_t: "The mailbox",
@@ -13095,7 +13098,7 @@ window.T = {
     steck_traeger: "Supporting competences:",
     steck_next: "Strengthens this path next:",
     steck_cv: "CV building blocks",
-    steck_fussnote: "Fit = weighted share of built competences within the path's requirement profile (self-declared, illustrative)."
+    steck_fussnote: "Fit compares the shape of your competence profile with the requirement profile of the career path and gives most weight to your elective choices (topics, specialisation, compulsory elective, thesis question). It does not measure how far you are in your studies. Self-declared, illustrative."
   }
 };
 
