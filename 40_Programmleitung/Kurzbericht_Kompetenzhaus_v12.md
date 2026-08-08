@@ -132,6 +132,16 @@ Der KI-Begleiter enthält Fallgespräche, in denen Studierende die Fachrolle fü
 
 Krisenthemen führen zu einem eigenen, **fest formulierten** Sicherheitshinweis mit 143, 147, 144 und der Beratungsstelle der UZH — nicht zu einer generierten Antwort.
 
+## Ein Befund aus dem neuen Statik-Check
+
+Das Spiel enthält neu einen Statik-Check, der die Prüfungslogik des gebauten Hauses gegen die Two-Lane-Regel hält: Ist jede Fachkompetenz mindestens einmal **KI-frei** nachgewiesen, und wird jede KI-Kompetenz mindestens einmal dort geprüft, wo KI tatsächlich vorkommt?
+
+Beim ersten Lauf über das vollständig gebaute Haus bleibt genau eine Lücke, und sie ist curricular, nicht technisch: **Fa10 Selbstmanagement wird von sieben Modulen aufgebaut — und keines davon hat einen KI-freien Prüfungsanteil.** Alle sieben sind [B] oder [B/C]; im Interaktiven Proseminar und im Praktikum ist Selbstmanagement sogar als Hauptkompetenz geführt.
+
+Ob das ein Mangel ist, ist eine fachliche Frage an die Programmleitung. Zwei Lesarten sind vertretbar: Entweder gilt Selbstmanagement als Kernfertigkeit, die auch ohne Werkzeug belegt sein sollte — dann fehlt ein KI-freier Nachweis. Oder es gilt als prozessbezogene Kompetenz, die sich ohnehin nur im begleiteten Tun zeigt — dann greift die Two-Lane-Regel hier anders als bei Methoden- oder Diagnostikkompetenz, und die Zuordnung zu den Fachkompetenzen wäre zu überdenken.
+
+Der Punkt für die Programmarbeit ist nicht die Antwort, sondern dass die Frage bisher nicht sichtbar war.
+
 ## Was das für die Programmarbeit bedeutet
 
 Drei Punkte, bei denen das Spiel auf Entscheidungen der Programmleitung trifft:
