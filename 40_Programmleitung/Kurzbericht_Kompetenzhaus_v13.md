@@ -1,6 +1,6 @@
 # Das Kompetenzhaus — Kurzbericht für die Programmleitung
 
-**Stand 8. August 2026 · Version 12 · Gian Peter Ochsner, Lehrentwicklung Psychologisches Institut UZH**
+**Stand 8. August 2026 · Version 13.6 · Gian Peter Ochsner, Lehrentwicklung Psychologisches Institut UZH**
 
 ---
 
@@ -121,6 +121,16 @@ Damit hat das Spiel drei Ausgaben, die über das Spielen hinaus Bestand haben: d
 Die Modulkarte, in der Lernziele, Prüfungslogik und Quests stehen, war zu klein: Auf flachen Bildschirmen blieben dem Text nach Abzug von Kopfzeile, Reitern, Rückmeldezeile und Aktionsleiste nur wenige Pixel. Sie ist jetzt in drei Stufen aufziehbar — über einen Ziehgriff, einen Knopf, Doppelklick auf den Titel oder die Pfeiltasten. Der Lesebereich wuchs von rund 160 auf 385 Pixel am Rechner und auf 331 Pixel am Mobilgerät. Ein Verlauf am unteren Rand zeigt an, wenn noch Text folgt.
 
 Ergänzend: Tippflächen von mindestens 40 Pixeln auch auf schmalen Fenstern, Berücksichtigung der Systemeinstellung für reduzierte Bewegung, angehobene Textkontraste. Ein Fehler, bei dem der Besuchermodus den eigenen Spielstand überschreiben konnte, ist behoben.
+
+### Ein zweiter Weg hinein: die Listenansicht
+
+Bis Version 13.5 führte genau ein Weg zum Kompetenzprofil — das dreidimensionale Haus. Das ist eine stillschweigende Zugangsvoraussetzung: Wer mit Drehen und Zoomen nichts anfangen kann, wer mit Tastatur oder Screenreader arbeitet, wer auf einem Gerät ohne 3D-Beschleunigung sitzt oder wer den Studienplan schlicht lieber liest als begeht, kam nicht ans Ziel. Ein Lernangebot, das nur über eine spielerische Oberfläche zugänglich ist, schliesst genau die Studierenden aus, die es am nüchternsten nutzen würden.
+
+Ein Knopf in der Kopfleiste zeigt deshalb jetzt denselben Stand als Dokument: Fortschritt in ECTS und belegten Bausteinen, das vollständige Kompetenzprofil mit aufklappbarem Detail je Kompetenz (erreichte Stufe, aufbauende Module, Formulierungshilfe für den Lebenslauf), und den Studienplan als Tabelle je Semester mit Status, Modulart, ECTS, Progressionsstufe, Prüfungslogik und den trainierten Kompetenzen. Bausteine lassen sich dort ebenso setzen und entfernen wie im Haus; wo eine Wahl dazugehört — Schwerpunkt, Modulvariante, Seminarthema, Fragestellung der Bachelorarbeit — öffnet sich die Modulkarte, damit nichts unbemerkt vorentschieden wird. Es ist kein zweiter Datenstand, sondern dieselbe Ansicht auf denselben Spielstand: Was in der Liste geändert wird, steht sofort im Haus und umgekehrt.
+
+Die Ansicht ist vollständig mit der Tastatur bedienbar, für Screenreader ausgezeichnet (Tabellen mit Beschriftung und Spaltenköpfen, das 3D-Bild in dieser Ansicht ausgeblendet) und **druckbar** — was sie zugleich zur einfachsten Art macht, den eigenen Studienstand in ein Beratungsgespräch mitzunehmen. Auf dem Telefon wird aus jeder Tabellenzeile eine Karte, weil eine achtspaltige Tabelle auf 340 Pixel Breite unlesbar ist.
+
+Nebeneffekt mit eigenem Gewicht: Fiel die 3D-Darstellung aus, startete das Spiel bisher überhaupt nicht — der Bildschirm blieb bei einer Fehlermeldung stehen. Das betrifft ältere Geräte, restriktive Gerätekonfigurationen und die In-App-Browser mancher Plattformen. Jetzt läuft die Anwendung ohne 3D vollständig weiter und öffnet die Listenansicht mit einer kurzen Erklärung. Fehlende 3D-Beschleunigung ist damit kein Ausschluss mehr, sondern eine Ansicht weniger.
 
 ---
 

@@ -1,6 +1,6 @@
 # v7/v8-Backlog «Das Kompetenzhaus» — die grossen Würfe
 
-Stand: 08.08.2026 (nach v13). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+Stand: 08.08.2026 (nach v13.6). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
 
 **In v13 umgesetzt (08.08.2026) — «Fachliche Ketten und Positionsfragen»:**
 
@@ -8,7 +8,15 @@ Stand: 08.08.2026 (nach v13). Quellen: Benchmark-Recherche (Duolingo/Brilliant/u
 
 *Positionsfragen.* Bisher liefen alle Kontroversen durch dieselbe Tür («die KI hat unrecht»). Vier neue Fragen legen zwei **vertretbare** Haltungen nebeneinander; gewählt wird die Begründung, die Auflösung zeigt beide Linien: 400 DSM vs. HiTOP, 301 Schmidt & Hunter vs. Sackett, 102 konfirmatorisch vs. explorativ, 300 Rangstabilität vs. Mittelwertsveränderung. Als vierte Frage, damit die acht rotierenden Motive aus v10 bleiben — möglich durch den Warteschlangen-Umbau in v12.2, seit dem die Mechanik offene Fragen zählt statt einer festen Drei.
 
-**Offen, als Nächstes sinnvoll:** nicht-spielerische Dashboard-Ansicht als gleichwertige Alternative (Evidenzbericht Punkt 13, zugleich Barrierefreiheit) · Baututor: Streaming statt «…» während der Antwort, Time-out für Mikro-Feedback mitten im Fallgespräch, Schwierigkeitsgrad der Gegenrolle · Exemplare je Feedbackdimension («So klingt eine komplexe Reflexion») statt Bewertung.
+**In v13.6 umgesetzt (08.08.2026) — «Ein zweiter Weg hinein»:**
+
+*Listenansicht.* Das 3D-Haus war der einzige Zugang zum Kompetenzprofil — für alle, die mit Drehen und Zoomen nichts anfangen, mit Tastatur oder Screenreader arbeiten oder den Studienplan schlicht lieber lesen, gab es keinen zweiten Weg (Evidenzbericht Punkt 13, Opt-out). Neu zeigt der Knopf **📋 Liste** denselben Stand als Dokument: Fortschritt, Kompetenzprofil mit aufklappbarem Detail je Kompetenz (dieselbe Ansicht wie im rechten Panel, refaktoriert zu `kompDetailHTML`/`wireKompDetail`), Studienplan als Tabelle je Semester mit Status, Art, ECTS, Stufe, Prüfungslogik und Kompetenz-Kürzeln, dazu die Werkzeuge. Bauen und Entfernen funktionieren dort direkt; Bausteine mit Wahl (Schwerpunkt, Modulvariante, Thema, BA-Frage) öffnen die Modulkarte, statt mit einem alten Zwischenstand blind gesetzt zu werden. Kein zweiter Datenstand: `renderPlan()` zieht die Liste mit, es ist dasselbe `S`. Druckbar (`@media print`), Tabellen semantisch (`caption`, `th scope`), Landmark `<main>`, Canvas `aria-hidden` in der Liste. **Auf dem Telefon** wird aus jeder Tabellenzeile eine Karte — eine achtspaltige Tabelle auf 340 px zwang Titel in fünf Zeilen und schob die Knöpfe aus dem Bild.
+
+*Kein WebGL ist kein Ausschluss mehr.* Bisher warf `new THREE.WebGLRenderer()` und riss die ganze App mit. Szene, Meshes und Spielstand sind aber reines JavaScript — der GL-Kontext wird nur zum Zeichnen gebraucht. Neu übernimmt ein stiller Ersatz-Renderer, die App läuft vollständig weiter und startet in der Liste. Nachgewiesen mit blockiertem `getContext("webgl")`: 43 Tabellenzeilen, 19 Kompetenzen, Bauen und Entfernen funktionieren, null Fehler.
+
+*Nebenbei behoben.* Der In-App-Changelog stand bei v8, die App bei v13 — fünf Versionen fehlten, jetzt nachgetragen (de/en). Die Kompetenz-Kürzel in der Liste hatten weiss auf Teal 4.0:1 und auf Sky 3.3:1 Kontrast (AA verlangt 4.5:1 für kleinen Text); die Feldfarbe steht jetzt als Kante, der Text dunkel auf hellem Grund bei 11:1. `tools/build.sh` angelegt: `build-artifact.mjs` allein bündelt `main.js` **nicht** neu — dieser Fehler hat in dieser Session eine Runde Fehlersuche gekostet.
+
+**Offen, als Nächstes sinnvoll:** Baututor: Streaming statt «…» während der Antwort, Time-out für Mikro-Feedback mitten im Fallgespräch, Schwierigkeitsgrad der Gegenrolle · Exemplare je Feedbackdimension («So klingt eine komplexe Reflexion») statt Bewertung · Fa10 Selbstmanagement: KI-freier Nachweis fehlt in allen sieben aufbauenden Modulen (curriculare Frage an die Programmleitung).
 
 **In v13.5 umgesetzt (08.08.2026):**
 
