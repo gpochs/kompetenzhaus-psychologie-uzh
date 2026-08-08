@@ -2988,9 +2988,42 @@ document.getElementById("btnLang").onclick = () => {
   fillModals();
 };
 const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog", wenn: "modalWenn" };
-function openModal(k) { document.getElementById(modals[k]).classList.add("open"); }
+/* Dialoge tastaturfest machen: Der Fokus muss beim Öffnen in den Dialog wandern, beim
+   Schliessen dorthin zurück, wo er herkam, und dazwischen im Dialog bleiben. Ohne das
+   tabbt man aus einem offenen Dialog heraus in die Seite dahinter und findet nicht zurück. */
+let modalHerkunft = null;
+function fokussierbare(m) {
+  return [...m.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((e) => e.offsetParent !== null);
+}
+function modalSchliessen(m) {
+  m.classList.remove("open");
+  if (modalHerkunft && document.contains(modalHerkunft)) { try { modalHerkunft.focus(); } catch (e) {} }
+  modalHerkunft = null;
+}
+function openModal(k) {
+  const m = document.getElementById(modals[k]);
+  modalHerkunft = document.activeElement;
+  m.classList.add("open");
+  // Erst nach der Einblendung fokussieren: Solange die Öffnungsanimation läuft, meldet
+  // offsetParent noch null und die Liste der fokussierbaren Elemente bliebe leer.
+  setTimeout(() => {
+    const f = fokussierbare(m);
+    if (f.length) { try { f[0].focus(); } catch (e) {} }
+  }, 60);
+}
 document.querySelectorAll(".modal").forEach((m) => {
-  m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) m.classList.remove("open"); });
+  m.addEventListener("click", (e) => { if (e.target === m || e.target.hasAttribute("data-close")) modalSchliessen(m); });
+  m.addEventListener("keydown", (e) => {
+    if (!m.classList.contains("open")) return;
+    if (e.key === "Escape") { e.stopPropagation(); modalSchliessen(m); return; }
+    if (e.key !== "Tab") return;
+    const f = fokussierbare(m);
+    if (!f.length) return;
+    const erste = f[0], letzte = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === erste) { e.preventDefault(); letzte.focus(); }
+    else if (!e.shiftKey && document.activeElement === letzte) { e.preventDefault(); erste.focus(); }
+  });
 });
 document.getElementById("btnMenu").onclick = () => openModal("menu");
 document.getElementById("btnHelp").onclick = () => { openModal("help"); };

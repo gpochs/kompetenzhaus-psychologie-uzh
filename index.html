@@ -25,7 +25,7 @@
   .brand .dot { width: 14px; height: 14px; border-radius: 4px; background: var(--blue); flex: none; }
   .brand b { font-size: 15px; letter-spacing: .2px; }
   .brand .sub { font-size: 11px; color: #5b6478; }
-  .badge-entwurf { font-size: 10px; font-weight: 700; color: var(--warn); border: 1.5px solid var(--warn);
+  .badge-entwurf { font-size: 11px; font-weight: 700; color: var(--warn); border: 1.5px solid var(--warn);
     padding: 2px 7px; border-radius: 999px; letter-spacing: .4px; }
   .spacer { flex: 1; }
   .seg { display: flex; background: var(--paper); border-radius: 999px; box-shadow: var(--shadow); padding: 4px; gap: 4px; }
@@ -62,7 +62,7 @@
   .chip.sel { outline: 2px solid var(--blue); }
   .chip .cdot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
   .chip .cname { flex: 1; line-height: 1.25; }
-  .chip .cects { font: 700 10.5px var(--font); color: #5b6478; flex: none; }
+  .chip .cects { font: 700 11px var(--font); color: #4a5772; flex: none; }
   .chip.built { background: #e6f4ec; }
   .chip.built .cname { color: #0a5c31; }
   /* Zustände klar trennbar: verfügbar trägt eine blaue Kante, gesperrt ist sichtbar zurückgenommen */
@@ -72,14 +72,14 @@
   .chip .tick { flex: none; font-size: 12px; }
   .chip .quest-star { color: #d9a400; font-size: 12px; flex: none; }
   .chip.next { outline: 2px solid var(--blue); animation: nextpulse 2s ease-in-out infinite; }
-  .chip .nextbadge { flex: none; font: 800 9px var(--font); color: #fff; background: var(--blue); border-radius: 999px; padding: 2px 6px; letter-spacing: .4px; }
+  .chip .nextbadge { flex: none; font: 800 11px var(--font); color: #fff; background: var(--blue); border-radius: 999px; padding: 2px 6px; letter-spacing: .4px; }
   @keyframes nextpulse { 0%,100% { outline-color: rgba(0,40,165,.9); } 50% { outline-color: rgba(0,40,165,.25); } }
   .semhead .semprog { font-weight: 600; color: #5b6478; }
 
   .kbar { margin: 2px 0; padding: 4px 6px; border-radius: 9px; cursor: pointer; border: 0; width: 100%; text-align: left; background: transparent; display: block; }
   .kbar:hover { background: rgba(0,40,165,.06); }
   .kbar .klabel { display: flex; justify-content: space-between; font: 500 11.5px var(--font); margin-bottom: 3px; font-variant-numeric: tabular-nums; }
-  .kbar .klabel .kid { font-weight: 700; color: #5b6478; margin-right: 6px; }
+  .kbar .klabel .kid { font-weight: 700; color: #454f68; margin-right: 6px; }
   .kbar .track { height: 7px; border-radius: 4px; background: #e8ebf4; overflow: hidden; }
   .kbar .fill { height: 100%; border-radius: 4px; width: 0%; transition: width .8s cubic-bezier(.2,.8,.2,1); }
   .kbar.bump { animation: kbump .9s ease; }
@@ -150,7 +150,7 @@
   #card .head .code { font-size: 11px; color: #5b6478; }
   #card .head .close { border: 0; background: var(--paper2); border-radius: 999px; width: 40px; height: 40px; cursor: pointer; font-size: 15px; flex: none; }
   .badges { display: flex; gap: 6px; padding: 0 16px 8px; flex-wrap: wrap; }
-  .badge { font: 700 10.5px var(--font); padding: 3px 9px; border-radius: 999px; color: #fff; }
+  .badge { font: 700 11px var(--font); padding: 3px 9px; border-radius: 999px; color: #fff; }
   .tabs { display: flex; gap: 4px; padding: 0 12px; border-bottom: 1px solid #edf0f7; }
   .tabs button { border: 0; background: transparent; padding: 8px 10px; font: 700 12px var(--font); color: #5b6478;
     cursor: pointer; border-bottom: 2.5px solid transparent; }
@@ -185,8 +185,8 @@
   button.gaterow { cursor: pointer; text-decoration: underline dotted; }
   .gaterow.ok { color: var(--ok); }
   .gaterow .gbox { width: 15px; text-align: center; flex: none; }
-  .ckat { font: 800 8.5px var(--font); color: #6b7a99; border: 1px solid #b9c2d9; border-radius: 5px; padding: 1px 4px; letter-spacing: .4px; flex: none; }
-  .ckat.wp { color: #b3831d; border-color: #d9a441; }
+  .ckat { font: 800 11px var(--font); color: #4a5772; border: 1px solid #9aa6c4; border-radius: 5px; padding: 1px 4px; letter-spacing: .4px; flex: none; }
+  .ckat.wp { color: #8a6210; border-color: #c08f1e; }
   .primary { border: 0; background: var(--blue); color: #fff; border-radius: 10px; padding: 10px 18px; font: 700 13px var(--font); cursor: pointer; }
   .primary:hover { background: #001f85; }
   .primary:disabled { background: #b9c2d9; cursor: not-allowed; }
@@ -275,7 +275,7 @@
   .lz-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .25; }
   .lz-dots i.on { opacity: 1; }
   .lz-kids { display: inline-flex; gap: 3px; margin-right: 6px; vertical-align: 1px; flex-wrap: wrap; }
-  .lz-kid { font: 800 9px var(--font); border: 1.2px solid; border-radius: 5px; padding: 1px 4px; white-space: nowrap; }
+  .lz-kid { font: 800 11px var(--font); border: 1.2px solid; border-radius: 5px; padding: 1px 4px; white-space: nowrap; }
 
   /* Profil-Tabs & Karriere */
   .ptabs { display: flex; gap: 4px; margin: 0 10px 4px; }
@@ -305,7 +305,7 @@
   .whint { font-size: 10.5px; color: #6c7691; line-height: 1.5; margin: 10px 0 0; }
   @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
   /* Beleg-Hinweis an der Quest: macht sichtbar, was zählt und was nur ein Häkchen ist */
-  .qbeleg { font-size: 10.5px; line-height: 1.45; color: #6c7691; background: var(--paper2);
+  .qbeleg { font-size: 11px; line-height: 1.45; color: #545e78; background: var(--paper2);
     border-radius: 8px; padding: 6px 9px; margin: 6px 0 0; }
   .qbeleg.on { color: #0b6f61; background: #e8f6f3; font-weight: 600; }
   .stelle { margin: 5px 0 0; border: 1px solid #dbe1ef; border-radius: 9px; background: var(--paper); }
@@ -416,7 +416,7 @@
   #nextCta { display: none; position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 17;
     border: 0; background: var(--blue); color: #fff; border-radius: 999px; padding: 12px 20px; font: 700 13px var(--font);
     box-shadow: var(--shadow); cursor: pointer; max-width: calc(100vw - 24px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .planlegende { font: 600 10px var(--font); color: #5b6478; padding: 8px 14px; border-top: 1px solid #edf0f7; }
+  .planlegende { font: 600 11px var(--font); color: #4a5772; padding: 8px 14px; border-top: 1px solid #edf0f7; }
   .tglbl { font: 700 12px var(--font); }
   .only-mobile { display: none !important; }
   @media (max-width: 1080px) {
