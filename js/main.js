@@ -2553,6 +2553,28 @@ function modulKompetenzSatz(slot) {
     : `<b>Students</b> primarily build the following competences in this module: ${namen}.`;
   return `<p style="margin-top:8px;font-size:12px;color:#3c4356;line-height:1.5">${txt}</p>`;
 }
+/* Fachliche Ketten in der Modulkarte.
+   Der Bauplan zeigt, was tragen muss; das hier zeigt, was inhaltlich worauf aufbaut.
+   Jede Kante nennt den Gegenstand, nicht nur das Modul — «Testtheorie» allein sagt
+   nichts, «Reliabilität, Validität, Messinvarianz — hier in der Gutachtenlogik» schon. */
+function kettenHTML(slot) {
+  const zeile = (titel, liste, pfeil) => {
+    if (!liste || !liste.length) return "";
+    return `<div class="kette"><span class="kettelbl">${pfeil} ${titel}</span>
+      <ul>${liste.map((k) => {
+        const z = SLOTS[k.slot];
+        if (!z) return "";
+        const gebaut = isPlaced(k.slot);
+        return `<li><button type="button" data-kette="${k.slot}" class="kettebtn${gebaut ? " gebaut" : ""}"
+          title="${escHtml(slotTitel(z))}">${escHtml(slotTitel(z).split(",")[0])}</button>
+          <span class="kettewas">${escHtml(L(k.was))}</span></li>`;
+      }).join("")}</ul></div>`;
+  };
+  const oben = zeile(t("kette_bautauf"), slot.bautAuf, "↑");
+  const unten = zeile(t("kette_gebrauchtin"), slot.gebrauchtIn, "↓");
+  if (!oben && !unten) return "";
+  return `<div class="kettenbox">${oben}${unten}</div>`;
+}
 function renderCardBody(slot) {
   const tx = slotText(slot);
   const el = document.getElementById("cardBody");
@@ -2561,8 +2583,9 @@ function renderCardBody(slot) {
     const bk = (ST.baukasten && ST.baukasten.zuordnung[slot.slot]) || [];
     const bkHtml = bk.length ? `<div style="margin-top:10px"><span style="font:700 11px var(--font);color:#5b6478">${t("baukasten_titel")}:</span>
       <span class="komp-pills" style="display:inline-flex;margin-left:4px">${bk.map((id) => { const d = ST.baukasten.defs[id]; return d ? `<span class="kpill" data-bk="${id}" role="button" tabindex="0" title="${L(d.kurz)}" style="border-color:#b9c2d9;cursor:pointer">${L(d.name)}</span>` : ""; }).join("")}</span></div>` : "";
-    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + modulKompetenzSatz(slot) + kompPills(slot) + bkHtml;
+    el.innerHTML = (tx ? `<p style="color:#5b6478;font-size:12px">${L(tx.heute)}</p><p style="margin-top:6px">${L(tx.zukunft)}</p>` : none) + modulKompetenzSatz(slot) + kompPills(slot) + kettenHTML(slot) + bkHtml;
     el.querySelectorAll("[data-bk]").forEach((b) => (b.onclick = () => { const d = ST.baukasten.defs[b.dataset.bk]; if (d) { toast(L(d.name) + ": " + L(d.kurz)); SND.pick(); } }));
+    el.querySelectorAll("[data-kette]").forEach((b) => (b.onclick = () => selectSlot(b.dataset.kette)));
   } else if (cardTab === "lernziele") {
     el.innerHTML = tx && tx.lernziele && tx.lernziele.length
       ? `<p style="font-size:10.5px;color:#8b94ab;margin:0 2px 6px">${t("lz_hint")}</p><ul style="list-style:none;padding-left:2px">${tx.lernziele.map((z) => `<li style="margin:5px 0"><span class="lz-kids">${lzKompBadges(slot, z)}</span>${L(z)}</li>`).join("")}</ul>`
