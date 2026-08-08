@@ -304,6 +304,10 @@
   .wchip { font: 700 10.5px var(--font); border: 1.5px solid; border-radius: 999px; padding: 2px 8px; }
   .whint { font-size: 10.5px; color: #6c7691; line-height: 1.5; margin: 10px 0 0; }
   @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
+  /* Beleg-Hinweis an der Quest: macht sichtbar, was zählt und was nur ein Häkchen ist */
+  .qbeleg { font-size: 10.5px; line-height: 1.45; color: #6c7691; background: var(--paper2);
+    border-radius: 8px; padding: 6px 9px; margin: 6px 0 0; }
+  .qbeleg.on { color: #0b6f61; background: #e8f6f3; font-weight: 600; }
   .stelle { margin: 5px 0 0; border: 1px solid #dbe1ef; border-radius: 9px; background: var(--paper); }
   .stelle > summary { cursor: pointer; font: 600 11px var(--font); color: #39415a; padding: 6px 9px; list-style: none; line-height: 1.4; }
   .stelle > summary::-webkit-details-marker { display: none; }

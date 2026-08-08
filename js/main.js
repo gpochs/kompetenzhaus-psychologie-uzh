@@ -903,9 +903,21 @@ function decorateBlock(group, slot) {
   if (S.quiz[code] && questDone) addUpgrade(group, slot);
 }
 const gardenGroup = new THREE.Group(); scene.add(gardenGroup);
+/* Zählt nur BELEGTE Einheiten: ein bestandenes Modulquiz oder eine Quest mit Merksatz.
+   Vorher zählte auch das blosse Quest-Häkchen mit — ein Klick ohne Nachweis. Der Garten
+   sagt damit etwas über geprüfte Arbeit aus, nicht über Klicks. Der Merksatz ist zugleich
+   die Reflexionsstelle, die der Evidenzbericht für jeden gesetzten Baustein empfiehlt. */
+function belegt(slot) {
+  const q = S.quests[slot.slot] || {};
+  return !!(q.done && (q.note || "").trim().length >= 15);
+}
+function belegteEinheiten() {
+  return Object.values(S.quiz).filter(Boolean).length
+    + Object.values(S.quests).filter((q) => q && q.done && (q.note || "").trim().length >= 15).length;
+}
 function rebuildGarden() {
   gardenGroup.clear();
-  const n = Object.values(S.quiz).filter(Boolean).length + Object.values(S.quests).filter((q) => q.done).length;
+  const n = belegteEinheiten();
   const wood = new THREE.MeshStandardMaterial({ color: 0x8a6642, roughness: 0.9 });
   if (n >= 5) { // Gartenbank am Weg
     const bank = new THREE.Group();
@@ -2581,14 +2593,20 @@ function renderQuestTab(slot, el, tx, none) {
     if (S.quiz[code]) {
       html += `<div class="quiz-done-banner">🚩 ${t("quiz_bestanden")}</div>`;
     } else {
-      if (!cardQuiz || cardQuiz.code !== code) cardQuiz = { code, i: 0, oks: [], picked: null, order: qShuffle(fragen[0].a.length) };
+      // Warteschlange statt fester Reihenfolge: Eine falsch beantwortete Frage wandert ans Ende,
+      // nicht sofort wieder nach vorn. Sonst liesse sich das Gate durch Ausschluss erraten —
+      // vier Optionen, drei Versuche. Der Abstand dazwischen ist zugleich verteiltes Abrufen.
+      if (!cardQuiz || cardQuiz.code !== code) {
+        cardQuiz = { code, offen: fragen.map((_, i) => i), geloest: [], picked: null, order: null };
+      }
       const qz = cardQuiz;
-      const f = fragen[qz.i];
+      const fi = qz.offen[0];
+      const f = fragen[fi];
       if (!qz.order || qz.order.length !== f.a.length) qz.order = qShuffle(f.a.length);
       html += `<p style="font-weight:800;margin-bottom:2px">🧩 ${t("quiz_titel")}</p>`;
       if (S.mode === "serious" && !isPlaced(slot.slot)) html += `<p style="font-size:11px;color:#b35c00;margin-bottom:6px">${t("quiz_gate_hint")}</p>`;
-      html += `<div class="quiz-progress">${[0, 1, 2].map((n) => `<span class="qp ${qz.oks[n] ? "done" : n === qz.i ? "cur" : ""}"></span>`).join("")}</div>`;
-      html += `<p style="font-size:10.5px;color:#5b6478">${t("quiz_von").replace("{i}", qz.i + 1)}</p>`;
+      html += `<div class="quiz-progress">${fragen.map((_, n) => `<span class="qp ${qz.geloest.includes(n) ? "done" : n === fi ? "cur" : ""}"></span>`).join("")}</div>`;
+      html += `<p style="font-size:10.5px;color:#5b6478">${t("quiz_offen").replace("{n}", qz.offen.length)}</p>`;
       html += `<p class="quiz-q">${L(f.q)}</p>`;
       qz.order.forEach((ai) => {
         const a = f.a[ai];
@@ -2599,12 +2617,11 @@ function renderQuestTab(slot, el, tx, none) {
       if (qz.picked !== null) {
         const richtig = qz.picked === f.korrekt;
         const rk = REAKT[S.lang] || REAKT.de;
-        const flavor = (richtig ? rk.ok : rk.no)[(qz.i + f.korrekt) % 5];
+        const flavor = (richtig ? rk.ok : rk.no)[(fi + f.korrekt) % 5];
         html += `<div class="quiz-erkl"><b>${richtig ? "✅ " : "❌ "}${flavor}</b><br>${L(f.erkl)}</div>`;
         if (HAS_AI && !richtig) html += `<button class="ghostbtn" data-qai style="margin-top:6px">${t("ai_quizhilfe")}</button><div data-qaiout class="quiz-erkl" style="display:none;margin-top:6px"></div>`;
-        const last = qz.i === fragen.length - 1;
-        if (!richtig) html += `<button class="primary" style="margin-top:8px" data-qredo>↺ ${t("quiz_nochmal")}</button>`;
-        else if (!last) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
+        if (!richtig) html += `<p style="font-size:10.5px;color:#b35c00;margin-top:6px">${t("quiz_spaeter")}</p>`;
+        if (qz.offen.length > 1 || !richtig) html += `<button class="primary" style="margin-top:8px" data-qnext>${t("quiz_weiter")} →</button>`;
       }
     }
   } else if (S.mode === "serious") {
@@ -2616,6 +2633,9 @@ function renderQuestTab(slot, el, tx, none) {
   html += `<p style="font-weight:800;margin:12px 0 2px">✦ ${t("praxis_quest")}</p>`;
   html += qt ? `<p><b>${L(qt.titel)}</b></p><p style="margin-top:4px">${L(qt.text)}</p>` : none;
   if (q.done) html += `<p style="color:var(--ok);margin-top:8px"><b>✓ ${t("quest_abgeschlossen")}</b></p>`;
+  // Sichtbar machen, was die Quest zur belegten Einheit macht — sonst bliebe der Merksatz
+  // eine unverbindliche Zusatzoption und der Garten zählte weiter blosse Häkchen.
+  html += `<p class="qbeleg${belegt(slot) ? " on" : ""}" data-qbeleg>${belegt(slot) ? "✓ " + t("beleg_ja") : t("beleg_nein")}</p>`;
   // Notizen zum Modul: immer verfügbar, werden lokal gespeichert und erscheinen im Kompetenzpass
   html += `<p style="font-weight:700;font-size:12px;margin:10px 0 3px">📝 ${t("notiz_titel")}</p>
     <textarea data-qnote rows="3" maxlength="500" placeholder="${t("notiz_ph")}" style="width:100%;border:1.5px solid #dbe1ef;border-radius:10px;padding:8px 10px;font:500 12px var(--font);resize:vertical">${escHtml(q.note)}</textarea>
@@ -2655,6 +2675,10 @@ function renderQuestTab(slot, el, tx, none) {
       indTimer = setTimeout(() => {
         const ind = el.querySelector("[data-qnotesaved]");
         if (ind) { ind.style.visibility = "visible"; setTimeout(() => { ind.style.visibility = "hidden"; }, 1600); }
+        rebuildGarden(); // der Merksatz macht die Quest zur belegten Einheit — Garten nachziehen
+        const bel = el.querySelector("[data-qbeleg]");
+        if (bel) bel.className = "qbeleg" + (belegt(slot) ? " on" : "");
+        if (bel) bel.textContent = belegt(slot) ? "✓ " + t("beleg_ja") : t("beleg_nein");
       }, 500);
     });
   }
@@ -2662,12 +2686,13 @@ function renderQuestTab(slot, el, tx, none) {
   el.querySelectorAll(".quiz-a").forEach((b) => (b.onclick = () => {
     if (!cardQuiz || cardQuiz.picked !== null) return;
     const ai = +b.dataset.ai;
-    const f = fragen[cardQuiz.i];
+    const fi = cardQuiz.offen[0];
+    const f = fragen[fi];
     cardQuiz.picked = ai;
-    cardQuiz.oks[cardQuiz.i] = ai === f.korrekt;
-    if (ai === f.korrekt) SND.quest(); else SND.err();
-    const last = cardQuiz.i === fragen.length - 1;
-    if (last && cardQuiz.oks.every(Boolean) && cardQuiz.oks.length === fragen.length) {
+    const richtig = ai === f.korrekt;
+    if (richtig) SND.quest(); else SND.err();
+    if (richtig && !cardQuiz.geloest.includes(fi)) cardQuiz.geloest.push(fi);
+    if (richtig && cardQuiz.offen.length === 1) {
       S.quiz[code] = true; save();
       setTimeout(() => {
         SND.fanfare();
@@ -2682,9 +2707,22 @@ function renderQuestTab(slot, el, tx, none) {
     renderCardBody(slot);
   }));
   const nx = el.querySelector("[data-qnext]");
-  if (nx) nx.onclick = () => { cardQuiz.i++; cardQuiz.picked = null; cardQuiz.order = null; renderCardBody(slot); };
-  const rd = el.querySelector("[data-qredo]");
-  if (rd) rd.onclick = () => { cardQuiz.picked = null; cardQuiz.order = qShuffle(fragen[cardQuiz.i].a.length); renderCardBody(slot); };
+  if (nx) nx.onclick = () => {
+    const fi = cardQuiz.offen.shift();
+    const war = cardQuiz.geloest.includes(fi);
+    if (!war) {
+      // Falsch beantwortet: ans Ende der Schlange. Ist sie sonst leer, kommt eine bereits
+      // gelöste Frage davor — sonst stünde dieselbe Frage sofort wieder da und liesse sich raten.
+      if (!cardQuiz.offen.length && cardQuiz.geloest.length) {
+        const w = cardQuiz.geloest[Math.floor(Math.random() * cardQuiz.geloest.length)];
+        cardQuiz.offen.push(w);
+        cardQuiz.geloest = cardQuiz.geloest.filter((x) => x !== w);
+      }
+      cardQuiz.offen.push(fi);
+    }
+    cardQuiz.picked = null; cardQuiz.order = null;
+    renderCardBody(slot);
+  };
   const qa = el.querySelector("[data-qai]");
   if (qa) qa.onclick = async () => {
     const out = el.querySelector("[data-qaiout]");
