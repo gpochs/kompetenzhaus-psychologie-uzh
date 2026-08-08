@@ -2,7 +2,21 @@
 
 Stand: 02.08.2026 (nach v11). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
 
-**Offen, als Nächstes sinnvoll:** Karriere-Tab kürzen (zwölf Pfade mal Stellenprofil ist lang — Voreinstellung «Top 5 zeigen» mit Aufklappen) · Statik-Check B12 (Prüfung der [A]/[B]/[C]-Balance gegen die Two-Lane-Regel) · Baututor: Streaming statt «…» während der Antwort, Export des Gesprächs.
+**Offen, als Nächstes sinnvoll:** Karriere-Tab kürzen (zwölf Pfade mal Stellenprofil ist lang — Voreinstellung «Top 5 zeigen» mit Aufklappen) · Statik-Check B12 (Prüfung der [A]/[B]/[C]-Balance gegen die Two-Lane-Regel) · Baututor: Streaming statt «…» während der Antwort · Positionsfragen als zweiter Quiztyp (zwei vertretbare Positionen, gewählt wird die Begründung — Kandidaten: 400 DSM vs. HiTOP, 301 Schmidt & Hunter vs. Sackett, 300 Trait-Konstanz, s09 Wirkfaktoren) · fachliches Feld `bautAuf`/`gebrauchtIn` je Modul, damit die Ketten 100→300→501 und 001→101→102 sichtbar werden · Quest-Vielfalt (heute sind fast alle «KI antworten lassen, gegen Lehrbuch prüfen») · nicht-spielerische Dashboard-Ansicht als gleichwertige Alternative (Evidenzbericht Punkt 13).
+
+**In v12 umgesetzt (02.–08.08.2026) — «Fachlogik, Nachweis, Zugänglichkeit»:**
+
+*Lernziele (86 von 172 ersetzt).* Fünf Prüfagenten hielten jedes Lernziel gegen den offiziellen Katalogtext, die Progressionsstufe und das übrige Curriculum: 91 Befunde in 37 der 42 Module. Häufigste Ursache (58 %): Das Ziel benannte die Tätigkeit, nicht den Gegenstand. Eine Schablone («eine KI-Erklärung gegen das Lehrbuch prüfen») stand sechsfach über alle Stufen hinweg. In drei Modulen — darunter das einzige fortgeschrittene Methodenmodul des MSc — war kein einziges Lernziel fachlich prüfbar. Dabei 218 umschriebene Umlaute zurückkonvertiert (die Agenten schrieben ae/oe/ue), über eine explizite Wortliste statt per Regel.
+
+*Feedbackmodus im Fallgespräch.* Drei sichtbar getrennte Phasen (Vorbereiten, Rolle, Rückmeldung); fünf Beobachtungsdimensionen aus MITI 4.2.1, Calgary-Cambridge und CTS-R, aber nur was in einem Textchat beobachtbar ist; eigener Übungsschwerpunkt; Selbsteinschätzung vor Fremdeinschätzung mit ausdrücklichem Blick auf zu strenge Selbstkritik; Form Beobachtung mit Zitat → Wirkung → nachsprechbare Alternative → ein Fokus; feste Eröffnungszüge für Vergleichbarkeit; «Gleiche Szene nochmals» und Export für die Supervision. **Behoben:** Die Supervision sah nur die letzten acht Beiträge. Grenze zur Leistungsbeurteilung hart gezogen (EU-Verordnung 2024/1689, Anhang III); Krisenausstieg als eigener Block mit festem Text.
+
+*Belegprinzip.* Das Quiz-Gate war durch Ausschluss erratbar (falsche Frage kam sofort wieder) — jetzt Warteschlange mit eingeschobener gelöster Frage. Der Garten zählte Quest-Häkchen als «geprüfte Bausteine» — jetzt zählt nur ein bestandenes Quiz oder eine Quest **mit Merksatz**; das ist zugleich die RECIPE-Reflexionsstelle aus dem Evidenzbericht.
+
+*Barrierefreiheit.* Selbst nachgemessen (WCAG-Kontrastberechnung im Browser, Emoji-Fehlalarme ausgeschlossen): 9 Mängelklassen → 0. Dialoge waren nicht tastaturbedienbar; neu Fokus hinein, Tab-Falle, Rückkehr zur Herkunftsstelle, Escape.
+
+*Fachliche Kontroversen.* Ein sachlicher Fehler korrigiert (Modul 301 stützte sich auf Schmidt & Hunter 1998; Sackett et al. 2022 revidieren: strukturiertes Interview .42 vor kognitiver Fähigkeit .31). Drei Debatten neu verankert: Replikationskrise im ExPra, DSM vs. RDoC/HiTOP plus Wirkfaktoren in der Klinischen, Stichprobenbasis des Fachs in der Methodenvorlesung.
+
+*Dokumentation.* Volldokument (MD + DOCX) aus den Spieldaten neu erzeugt, 36 Literatureinträge; Kurzbericht auf v12 mit dem Lernzielbefund an erster Stelle und einer vierten Entscheidungsfrage an die Programmleitung. `tools/md2docx.py` liegt neu im Projekt.
 
 **In v11 umgesetzt (02.08.2026) — «Vergleichen statt betrachten»:**
 
