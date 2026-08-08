@@ -541,6 +541,46 @@ window.QUIZ =
     "de": "Bei akuter Selbstgefährdung tritt die Fürsorge- und Schutzpflicht neben die Verschwiegenheit: Die Gefährdung wird zuerst fachlich abgeklärt, und die Patientin erfährt transparent, wo das Berufsgeheimnis endet. Art. 321 StGB erfasst Psychologinnen und Psychologen samt ihren Hilfspersonen; die Praktikantin arbeitet als Hilfsperson der fallverantwortlichen Fachperson, deren Einbezug innerhalb des Behandlungsteams bleibt und daher keine Offenbarung gegenüber Dritten ist. Der attraktivste Distraktor macht das Berufsgeheimnis absolut; es schützt die Patientin, verpflichtet die Praktikantin aber nicht, eine unmittelbare Lebensgefahr allein zu tragen. Die Information der Angehörigen wäre der weiter reichende Eingriff und setzt Einwilligung, Entbindung oder eine Notstandslage voraus.",
     "en": "In acute self-endangerment the duty of care stands alongside confidentiality: the risk is first assessed professionally, and the patient is told transparently where professional secrecy ends. Art. 321 of the Swiss Criminal Code covers psychologists together with their auxiliary persons; the placement student works as an auxiliary person of the clinician responsible for the case, so involving that clinician stays within the treating team and is no disclosure to third parties. The most tempting distractor treats confidentiality as absolute; it protects the patient but does not oblige the placement student to carry an immediate danger to life alone. Informing the relatives would be the far more intrusive step and requires consent, formal release or a situation of necessity."
    }
+  },
+  {
+   "typ": "position",
+   "pos": [
+    {
+     "de": "Position A — kategorial: Diagnosen nach DSM-5-TR sind Kategorien. Man hat eine Störung oder nicht; Schwellen schaffen Vergleichbarkeit, Kommunikation und Anspruch auf Leistungen.",
+     "en": "Position A — categorical: DSM-5-TR diagnoses are categories. You either have a disorder or you don't; thresholds create comparability, communication and entitlement to services."
+    },
+    {
+     "de": "Position B — dimensional: RDoC und HiTOP modellieren dieselben Phänomene als Ausprägungen auf Kontinua. Wer knapp unter der Schwelle liegt, ist nicht gesund, sondern weniger stark betroffen.",
+     "en": "Position B — dimensional: RDoC and HiTOP model the same phenomena as positions on continua. Someone just below the threshold is not healthy, just less affected."
+    }
+   ],
+   "q": {
+    "de": "Beide Positionen sind in der Fachliteratur vertreten. Welche Beobachtung spricht am stärksten für die dimensionale Sicht — und ist zugleich der Grund, warum die kategoriale Sicht in der Versorgung trotzdem gebraucht wird?",
+    "en": "Both positions are held in the literature. Which observation argues most strongly for the dimensional view — and is at the same time the reason the categorical view is still needed in care?"
+   },
+   "a": [
+    {
+     "de": "Zwei Personen mit derselben Diagnose können fast keine Symptome teilen, und Komorbidität ist die Regel statt die Ausnahme — die Kategorie bündelt Verschiedenes, bleibt aber die Einheit, an der Kostengutsprache und Behandlungsleitlinien hängen.",
+     "en": "Two people with the same diagnosis can share almost no symptoms, and comorbidity is the rule rather than the exception — the category bundles heterogeneous cases, yet remains the unit to which funding decisions and treatment guidelines are tied."
+    },
+    {
+     "de": "Dimensionale Modelle erreichen in Studien durchgehend höhere Reliabilitäten, weshalb die kategoriale Diagnostik fachlich überholt ist und nur aus Gewohnheit fortbesteht.",
+     "en": "Dimensional models consistently achieve higher reliabilities in studies, which is why categorical diagnosis is scientifically obsolete and persists only out of habit."
+    },
+    {
+     "de": "Die Schwellenwerte des DSM sind willkürlich gesetzt, weshalb Diagnosen grundsätzlich keine Aussagekraft haben und durch Symptomlisten ersetzt werden sollten.",
+     "en": "DSM thresholds are set arbitrarily, which is why diagnoses have no informative value at all and should be replaced by symptom lists."
+    },
+    {
+     "de": "Dimensionale Modelle sind vor allem ein Forschungsinstrument ohne klinische Relevanz, da Behandlungsentscheidungen ohnehin immer binär ausfallen.",
+     "en": "Dimensional models are primarily a research instrument without clinical relevance, since treatment decisions are always binary anyway."
+    }
+   ],
+   "korrekt": 0,
+   "erkl": {
+    "de": "Heterogenität innerhalb einer Diagnose und Komorbidität als Regel sind die beiden Befunde, die dimensionale Modelle motivieren (Kotov et al., 2017; Insel et al., 2010). Zugleich hängt die Versorgung an Kategorien: Kostengutsprachen, Leitlinien und rechtliche Ansprüche brauchen eine Ja-Nein-Entscheidung. Wer beides kennt, liest einen KI-Vorschlag «keine Diagnose» als Aussage über eine Schwelle, nicht über einen Menschen. Die zweite Option überzieht (Reliabilität allein entscheidet die Frage nicht), die dritte wirft Schwellenkritik mit Nutzlosigkeit zusammen, die vierte unterschätzt, dass auch Behandlungsintensität graduell gewählt wird.",
+    "en": "Heterogeneity within a diagnosis and comorbidity as the rule are the two findings motivating dimensional models (Kotov et al., 2017; Insel et al., 2010). At the same time care runs on categories: funding decisions, guidelines and legal entitlements require a yes-or-no call. Knowing both, you read an AI suggestion of “no diagnosis” as a statement about a threshold, not about a person. The second option overreaches (reliability alone does not settle the question), the third conflates criticism of thresholds with uselessness, the fourth underestimates that treatment intensity is also chosen gradually."
+   }
   }
  ],
  "06SM200-200": [
@@ -807,6 +847,46 @@ window.QUIZ =
    "erkl": {
     "de": "Studierende tragen diese Verantwortung im ExPra nicht allein: Ein Hinweis auf Suizidgedanken gehört unverzüglich an die weisungsbefugte Praktikumsleitung, die im Rahmen des bewilligten Ethikprotokolls über das weitere Vorgehen entscheidet, und der generelle Hinweis auf Beratungsangebote im Debriefing schützt alle Teilnehmenden, ohne jemanden zu exponieren. Das eigenmächtige Ansprechen ist der verführerischste Distraktor: Die Fürsorge ist richtig motiviert, überschreitet aber die eigene Rollen- und Kompetenzgrenze und bricht die Anonymitätszusicherung, ohne dass dies im Ethikverfahren vorgesehen wäre.",
     "en": "Students in the ExPra do not carry this responsibility alone: an indication of suicidal thoughts belongs immediately with the supervising staff, who decide on the next steps within the approved ethics protocol, and the general reference to counselling services in the debriefing protects all participants without exposing anyone. Approaching the person on one's own is the most tempting distractor: the caring impulse is rightly motivated, but it exceeds the students' role and competence and breaks the assurance of anonymity without any provision for this in the ethics procedure."
+   }
+  },
+  {
+   "typ": "position",
+   "pos": [
+    {
+     "de": "Position A — konfirmatorisch: Hypothese und Analyseplan werden vor dem ersten Blick auf die Daten festgelegt. Nur so ist ein p-Wert interpretierbar, weil die Zahl der getesteten Möglichkeiten bekannt ist.",
+     "en": "Position A — confirmatory: hypothesis and analysis plan are fixed before the first look at the data. Only then is a p value interpretable, because the number of tested options is known."
+    },
+    {
+     "de": "Position B — explorativ: Wer sich zu früh festlegt, übersieht, was die Daten tatsächlich zeigen. Entdeckungen entstehen beim Suchen, nicht beim Abhaken einer vorher formulierten Erwartung.",
+     "en": "Position B — exploratory: fixing everything too early means missing what the data actually show. Discoveries come from searching, not from ticking off a pre-formulated expectation."
+    }
+   ],
+   "q": {
+    "de": "Beide Haltungen haben in der Forschung ihren Platz. Welche Regel löst den Widerspruch so auf, dass beides möglich bleibt?",
+    "en": "Both stances have their place in research. Which rule resolves the tension so that both remain possible?"
+   },
+   "a": [
+    {
+     "de": "Beides ist erlaubt, aber getrennt berichtet: Was vorab festgelegt war, wird als konfirmatorischer Test mit interpretierbarem p-Wert dargestellt; was beim Suchen entstand, als explorativer Befund, der eine neue Studie zur Prüfung verlangt.",
+     "en": "Both are allowed, but reported separately: what was fixed in advance is presented as a confirmatory test with an interpretable p value; what emerged while searching, as an exploratory finding requiring a new study to test it."
+    },
+    {
+     "de": "Explorative Analysen sollten unterbleiben, solange die Hypothese nicht bestätigt ist, weil sie sonst die Fehlerrate der konfirmatorischen Tests erhöhen.",
+     "en": "Exploratory analyses should be avoided until the hypothesis is confirmed, since they otherwise inflate the error rate of the confirmatory tests."
+    },
+    {
+     "de": "Wer die Stichprobe gross genug wählt, kann beliebig viele Analysen rechnen, weil die Teststärke die Mehrfachtestung ausgleicht.",
+     "en": "With a large enough sample you can run any number of analyses, because statistical power compensates for multiple testing."
+    },
+    {
+     "de": "Die Unterscheidung ist vor allem eine Publikationskonvention; methodisch macht es keinen Unterschied, in welcher Reihenfolge Hypothese und Datenblick erfolgen.",
+     "en": "The distinction is mainly a publication convention; methodologically it makes no difference in which order hypothesis and data inspection occur."
+    }
+   ],
+   "korrekt": 0,
+   "erkl": {
+    "de": "Die Trennung ist die Antwort, nicht das Verbot. Ein p-Wert setzt voraus, dass die Zahl der geprüften Möglichkeiten feststeht — wer nach dem Datenblick die Hypothese anpasst, kennt diese Zahl nicht mehr, und der Wert verliert seine Bedeutung. Explorative Befunde bleiben wertvoll, sie sind nur Hypothesengeneratoren statt Hypothesentests. Genau deshalb hält das Experimentalpraktikum die Teststärkeberechnung, den vorab schriftlich fixierten Analyseplan und den getrennten Bericht fest. Option 2 verbietet zu viel, Option 3 verwechselt Teststärke mit Alphafehler-Korrektur, Option 4 unterschätzt, dass die Reihenfolge die Interpretierbarkeit selbst betrifft (Open Science Collaboration, 2015; Nosek et al., 2018).",
+    "en": "Separation is the answer, not prohibition. A p value presupposes that the number of tested options is fixed — adjusting the hypothesis after looking at the data means that number is unknown, and the value loses its meaning. Exploratory findings remain valuable; they are hypothesis generators rather than hypothesis tests. This is exactly why the lab course fixes power calculation, a written analysis plan and separate reporting. Option 2 forbids too much, option 3 confuses power with alpha correction, option 4 underestimates that the order itself affects interpretability (Open Science Collaboration, 2015; Nosek et al., 2018)."
    }
   }
  ],
@@ -1253,6 +1333,46 @@ window.QUIZ =
     "de": "Rangreihenstabilität und Mittelwertsveränderung sind zwei verschiedene Stabilitätsbegriffe: Die Position im Vergleich zu Gleichaltrigen bleibt im Erwachsenenalter hoch stabil, während die Mittelwerte für Gewissenhaftigkeit und emotionale Stabilität bis ins mittlere Erwachsenenalter ansteigen (Reifungsprinzip; Roberts & Mroczek, 2008). Der erste Distraktor verführt, weil er die hohe Rangreihenstabilität korrekt wiedergibt, daraus aber fälschlich schliesst, das absolute Niveau könne sich nicht mehr ändern. Die Gips-Annahme des Klienten ist damit widerlegt, ohne dass eine kurzfristige Umstellung des Profils versprochen werden dürfte: Veränderung im Erwachsenenalter verläuft graduell und über längere Zeiträume.",
     "en": "Rank-order stability and mean-level change are two different notions of stability: a person's position relative to same-aged peers stays highly stable in adulthood, whereas mean levels of conscientiousness and emotional stability rise into midlife (maturity principle; Roberts & Mroczek, 2008). The first distractor is tempting because it states rank-order stability correctly, but then wrongly infers that the absolute level can no longer change. The client's plaster assumption is thereby refuted, without licensing any promise of a short-term shift in his profile: change in adulthood is gradual and unfolds over longer periods."
    }
+  },
+  {
+   "typ": "position",
+   "pos": [
+    {
+     "de": "Position A — Stabilität: Persönlichkeitsmerkmale sind über die Lebensspanne bemerkenswert stabil. Rangordnungen bleiben über Jahrzehnte erhalten, was Merkmale zu brauchbaren Prädiktoren macht.",
+     "en": "Position A — stability: personality traits are remarkably stable across the lifespan. Rank orders persist over decades, which makes traits usable predictors."
+    },
+    {
+     "de": "Position B — Veränderbarkeit: Mittelwerte verschieben sich systematisch mit dem Alter, und Lebensereignisse wie Berufseintritt oder Partnerschaft verändern Merkmalsausprägungen nachweislich.",
+     "en": "Position B — change: mean levels shift systematically with age, and life events such as entering work or a partnership demonstrably change trait levels."
+    }
+   ],
+   "q": {
+    "de": "Beide Befunde stammen aus denselben Längsschnittstudien. Welche Unterscheidung löst den scheinbaren Widerspruch auf?",
+    "en": "Both findings come from the same longitudinal studies. Which distinction resolves the apparent contradiction?"
+   },
+   "a": [
+    {
+     "de": "Die beiden Positionen messen Verschiedenes: Rangstabilität beschreibt, ob Personen ihre relative Position in der Gruppe behalten; Mittelwertsveränderung beschreibt, ob sich die Gruppe als Ganzes verschiebt. Beides kann gleichzeitig zutreffen.",
+     "en": "The two positions measure different things: rank-order stability describes whether people keep their relative position in the group; mean-level change describes whether the group as a whole shifts. Both can hold at once."
+    },
+    {
+     "de": "Die Stabilitätsbefunde stammen aus Querschnittsstudien, die Veränderungsbefunde aus Längsschnitten — der Widerspruch ist ein Artefakt des Designs.",
+     "en": "The stability findings come from cross-sectional studies, the change findings from longitudinal ones — the contradiction is a design artefact."
+    },
+    {
+     "de": "Stabilität gilt für die Big Five, Veränderbarkeit für engere Facetten; auf Faktorebene gibt es keine systematische Veränderung.",
+     "en": "Stability applies to the Big Five, changeability to narrower facets; at factor level there is no systematic change."
+    },
+    {
+     "de": "Die Veränderungsbefunde beruhen auf Selbstberichten und bilden vor allem eine veränderte Selbstwahrnehmung ab, nicht das Merkmal selbst.",
+     "en": "The change findings rest on self-reports and mainly reflect altered self-perception rather than the trait itself."
+    }
+   ],
+   "korrekt": 0,
+   "erkl": {
+    "de": "Rangstabilität und Mittelwertsveränderung sind zwei verschiedene Kennwerte derselben Daten. Wer mit 20 gewissenhafter ist als Gleichaltrige, ist es mit 50 meist immer noch — und trotzdem steigt die Gewissenhaftigkeit im Mittel über diese Jahre bei fast allen. Die Frage «ist Persönlichkeit stabil?» ist deshalb unterbestimmt: Sie braucht die Angabe, welche Art von Stabilität gemeint ist. Diese Unterscheidung ist auch der Grund, warum ein Persönlichkeitstest für die Vorhersage relativer Unterschiede taugen kann und trotzdem keine Aussage darüber macht, wie jemand in zehn Jahren absolut ausgeprägt sein wird.",
+    "en": "Rank-order stability and mean-level change are two different statistics of the same data. Someone more conscientious than their peers at 20 usually still is at 50 — and yet conscientiousness rises on average across those years for almost everyone. The question “is personality stable?” is therefore underspecified: it needs to say which kind of stability is meant. This distinction is also why a personality test can be useful for predicting relative differences while saying nothing about someone's absolute level ten years from now."
+   }
   }
  ],
  "06SM200-301": [
@@ -1341,6 +1461,46 @@ window.QUIZ =
    "erkl": {
     "de": "Eignungsdiagnostische Einzeldaten sind an den Zweck gebunden, für den die Teilnehmenden ihre Einwilligung gegeben haben; Auftrag und Finanzierung übertragen keine Verfügungsgewalt über personenbezogene Ergebnisse, weshalb eine Zweckänderung eine neue, informierte Einwilligung verlangt (Berufsordnung der FSP; Zweckbindungsgrundsatz des Schweizer Datenschutzgesetzes). Der schriftliche Vermerk verführt, weil er wie eine Schutzmassnahme aussieht; sobald die Profile jedoch in der Personalabteilung liegen, ist die Kontrolle über ihre Verwendung abgegeben und die Zusage bereits gebrochen. Die selektive Herausgabe guter Profile verletzt dieselbe Zusage und benachteiligt die Übrigen zusätzlich, weil schon das Fehlen eines Profils zur Information wird.",
     "en": "Individual aptitude-assessment data are tied to the purpose for which participants gave their consent; commissioning and funding transfer no power of disposal over person-related results, so a change of purpose requires fresh, informed consent (FSP code of professional conduct; purpose-limitation principle of Swiss data protection law). The written note is tempting because it looks like a safeguard, yet once the profiles sit in HR, control over their use is gone and the assurance is already broken. Selectively releasing the strong profiles violates the same assurance and puts the remaining participants at an added disadvantage, because a missing profile is itself informative."
+   }
+  },
+  {
+   "typ": "position",
+   "pos": [
+    {
+     "de": "Position A — Schmidt und Hunter (1998): Der Test der allgemeinen kognitiven Fähigkeit ist der validitätsstärkste Einzelprädiktor der Berufsleistung; alles andere ordnet sich darunter ein.",
+     "en": "Position A — Schmidt and Hunter (1998): the general cognitive ability test is the single strongest predictor of job performance; everything else ranks below it."
+    },
+    {
+     "de": "Position B — Sackett und Kollegen (2022): Nach Korrektur eines methodischen Fehlers liegt das strukturierte Interview mit .42 vorn, die kognitive Fähigkeit bei .31.",
+     "en": "Position B — Sackett and colleagues (2022): after correcting a methodological error, the structured interview leads at .42, cognitive ability sits at .31."
+    }
+   ],
+   "q": {
+    "de": "Beide Metaanalysen rechnen sauber — sie korrigieren nur unterschiedlich. Worin besteht der methodische Unterschied, der die Rangfolge kippen lässt?",
+    "en": "Both meta-analyses compute correctly — they merely correct differently. What is the methodological difference that flips the ranking?"
+   },
+   "a": [
+    {
+     "de": "Die älteren Schätzungen korrigierten die Varianzeinschränkung mit Werten aus prädiktiven Studien und wandten sie auch auf gleichzeitig erhobene Daten an, bei denen die Auswahl gar nicht über das geprüfte Verfahren lief — das überkorrigiert systematisch nach oben.",
+     "en": "The older estimates corrected for range restriction using values from predictive studies and applied them to concurrent data as well, where selection did not run through the procedure under study — this systematically overcorrects upwards."
+    },
+    {
+     "de": "Die neueren Schätzungen verwenden grössere Stichproben, weshalb ihre Konfidenzintervalle enger sind und die Rangfolge sich zufällig verschiebt.",
+     "en": "The newer estimates use larger samples, so their confidence intervals are narrower and the ranking shifts by chance."
+    },
+    {
+     "de": "Die älteren Studien massen Berufsleistung über Vorgesetztenurteile, die neueren über objektive Kennzahlen, weshalb die Kriterien nicht vergleichbar sind.",
+     "en": "The older studies measured job performance via supervisor ratings, the newer ones via objective metrics, so the criteria are not comparable."
+    },
+    {
+     "de": "Strukturierte Interviews haben sich in den letzten Jahrzehnten inhaltlich verbessert, sodass die Verschiebung eine echte Veränderung der Verfahren abbildet.",
+     "en": "Structured interviews have genuinely improved over recent decades, so the shift reflects a real change in the procedures."
+    }
+   ],
+   "korrekt": 0,
+   "erkl": {
+    "de": "Sackett, Zhang, Berry und Lievens (2022) zeigen, dass Korrekturfaktoren für Varianzeinschränkung aus prädiktiven Designs auf Metaanalysen übertragen wurden, die auch gleichzeitig erhobene Studien enthielten — dort wurden die Teilnehmenden aber nicht anhand des untersuchten Verfahrens ausgewählt, sodass die Korrektur zu hoch ausfällt. Nach der Neuberechnung: strukturiertes Interview .42, Wissenstests .40, Arbeitsproben .33, kognitive Fähigkeit .31. Für die Praxis ändert das weniger, als es klingt — die Kombination zweier guter Verfahren bleibt die Empfehlung. Für die Urteilsbildung ändert es viel: Ein jahrzehntelang zitierter Rangplatz war ein Artefakt der Korrekturmethode, nicht der Daten.",
+    "en": "Sackett, Zhang, Berry and Lievens (2022) show that range-restriction correction factors from predictive designs were carried over to meta-analyses that also contained concurrent studies — where participants were not selected on the procedure under study, so the correction comes out too high. After recalculation: structured interview .42, job knowledge tests .40, work samples .33, cognitive ability .31. For practice this changes less than it sounds — combining two good procedures remains the recommendation. For judgement it changes a lot: a ranking cited for decades was an artefact of the correction method, not of the data."
    }
   }
  ],

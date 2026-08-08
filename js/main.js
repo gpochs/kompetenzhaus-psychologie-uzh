@@ -2630,6 +2630,12 @@ function renderQuestTab(slot, el, tx, none) {
       if (S.mode === "serious" && !isPlaced(slot.slot)) html += `<p style="font-size:11px;color:#b35c00;margin-bottom:6px">${t("quiz_gate_hint")}</p>`;
       html += `<div class="quiz-progress">${fragen.map((_, n) => `<span class="qp ${qz.geloest.includes(n) ? "done" : n === fi ? "cur" : ""}"></span>`).join("")}</div>`;
       html += `<p style="font-size:10.5px;color:#5b6478">${t("quiz_offen").replace("{n}", qz.offen.length)}</p>`;
+      // Positionsfrage: zwei vertretbare Haltungen vorweg, damit die Frage danach als
+      // Frage nach der BEGRÜNDUNG lesbar ist und nicht als Frage nach der richtigen Meinung.
+      if (f.typ === "position" && Array.isArray(f.pos)) {
+        html += `<div class="posbox"><span class="poslbl">⚖️ ${t("quiz_position")}</span>
+          ${f.pos.map((p) => `<p class="pospos">${escHtml(L(p))}</p>`).join("")}</div>`;
+      }
       html += `<p class="quiz-q">${L(f.q)}</p>`;
       qz.order.forEach((ai) => {
         const a = f.a[ai];
