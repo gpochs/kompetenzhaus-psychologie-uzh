@@ -65,7 +65,7 @@ const defaultState = () => ({
   placed: { frei: {}, serious: {} }, bestanden: {}, quests: {}, quiz: {}, fb: {},
   msSeen: { frei: [], serious: [] }, nachbarn: [], season: autoSeason(), tod: 35,
   sound: true, envAuto: true, p0: [false, false, false, false], minor: [false, false, false, false, false, false],
-  pal: { bsc: "uzh", msc: "uzh" }, wzSeen: { frei: [], serious: [] }, cardSize: "m"
+  pal: { bsc: "uzh", msc: "uzh" }, wzSeen: { frei: [], serious: [] }, cardSize: "m", ansicht: "haus"
 });
 function autoSeason() {
   const m = new Date().getMonth() + 1;
@@ -266,13 +266,17 @@ function canPlace(slot, mode) {
 
 /* ---------- Three.js Grundgerüst ---------- */
 const canvas = document.getElementById("c3d");
-let renderer;
+let renderer, webglOk = true;
 try {
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 } catch (e) {
-  document.body.insertAdjacentHTML("beforeend",
-    `<div style="position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#f4f6fb;padding:24px"><div style="max-width:420px;text-align:center;font-family:Helvetica,Arial,sans-serif"><div style="font-size:40px">🏗️</div><h2 style="color:#0028a5;margin:10px 0">3D wird hier nicht unterstützt</h2><p style="color:#3c4356;line-height:1.5">Dein Browser kann WebGL gerade nicht starten. Bitte öffne das Kompetenzhaus in Safari, Chrome oder Firefox (nicht im In-App-Browser) — oder auf einem anderen Gerät.</p></div></div>`);
-  throw e;
+  /* Früher starb hier die ganze App. Three.js braucht den GL-Kontext aber nur zum Zeichnen —
+     Szene, Meshes und der gesamte Spielstand sind reines JavaScript. Mit einem stillen
+     Ersatz-Renderer läuft alles weiter, nur unsichtbar, und die Listenansicht zeigt
+     denselben Studienplan. Kein WebGL ist damit kein Ausschluss mehr, sondern eine Ansicht weniger. */
+  webglOk = false;
+  renderer = { domElement: canvas, shadowMap: {}, setPixelRatio() {}, setSize() {}, render() {}, dispose() {} };
+  console.warn("WebGL nicht verfügbar — Kompetenzhaus startet in der Listenansicht", e);
 }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
@@ -1427,7 +1431,7 @@ function placeSlot(slot) {
   const { komp } = slotKomp(slot);
   renderPlan(); renderProfil([...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])]);
   showDelta(vorher);
-  if (S.onboarded) openCard(slot.slot);
+  if (S.onboarded && S.ansicht !== "liste") openCard(slot.slot); // in der Liste baut man in Folge — ein aufspringendes Sheet stört dabei
   else { // Erstbau: erst bauen, erklären später
     document.getElementById("coach").classList.remove("open");
     if (slot.slot !== "003") setTimeout(() => { // ohne Grundstein-Meilenstein käme das Onboarding sonst nie
@@ -1767,6 +1771,7 @@ function renderPlan() {
   planList.innerHTML = "";
   planList.appendChild(frag);
   planList.scrollTop = planScroll;
+  if (S.ansicht === "liste") renderListe(); // dieselben Auslöser, dieselbe Wahrheit
   document.getElementById("planHint").textContent = S.mode === "serious" ? "☑ = " + t("bestanden") : "";
   document.getElementById("planLegende").textContent = t("legende");
   // Mobiler CTA-Chip: nächster empfohlener Baustein
@@ -2296,12 +2301,11 @@ function kompStufe(id) {
   }
   return s;
 }
-function renderKompDetail(id) {
-  const k = KOMP[id]; if (!k) { profilView = null; renderProfil(); return; }
+function kompDetailHTML(id) {
+  const k = KOMP[id];
   const f = ST.felder[k.feld];
   const { score, max } = profilWerte();
   const pct = max[id] ? Math.round((score[id] / max[id]) * 100) : 0;
-  const el = document.getElementById("profilList");
   const rows = [];
   for (const slot of ST.slots) {
     const { komp, haupt } = slotKomp(slot);
@@ -2322,9 +2326,7 @@ function renderKompDetail(id) {
       <span style="color:#8b94ab;font-variant-numeric:tabular-nums">${r.slot.ects}</span>
     </button>`;
   };
-  el.innerHTML = `
-    <button class="kdetail-back">${t("zurueck")}</button>
-    <div class="kdetail">
+  return `<div class="kdetail">
       <h4><span style="color:${f.farbe}">${id}</span> ${L(k.name)}</h4>
       <p class="ich">«${L(k.ich)}»</p>
       <div class="kbar" style="cursor:default"><div class="klabel"><span>${L(f.name)}</span><span>${pct}%</span></div>
@@ -2339,7 +2341,11 @@ function renderKompDetail(id) {
       ${evidenzBlock(id, builtRows)}
       ${nextRows.length ? `<div class="subhead">${t("k_naechste")}</div>` + nextRows.map(row).join("") : ""}
     </div>`;
-  el.querySelector(".kdetail-back").onclick = () => { profilView = null; renderProfil(); };
+}
+/* Die Detailansicht einer Kompetenz wird an zwei Orten gezeigt — im rechten Panel und
+   ausgeklappt in der Listenansicht. Deshalb hängt die Verdrahtung am übergebenen
+   Element, nicht an einer festen ID. */
+function wireKompDetail(el, id) {
   el.querySelectorAll(".modrow").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
   const cp = el.querySelector("[data-cvcopy]");
   if (cp) cp.onclick = async () => {
@@ -2360,6 +2366,14 @@ function renderKompDetail(id) {
     } catch (e) { out.querySelector("p").textContent = t("tutor_err"); }
   };
 }
+function renderKompDetail(id) {
+  const k = KOMP[id]; if (!k) { profilView = null; renderProfil(); return; }
+  const el = document.getElementById("profilList");
+  el.innerHTML = `<button class="kdetail-back">${t("zurueck")}</button>` + kompDetailHTML(id);
+  el.querySelector(".kdetail-back").onclick = () => { profilView = null; renderProfil(); };
+  wireKompDetail(el, id);
+}
+
 function cvText(id, stufe) {
   const cv = (window.KARRIERE && window.KARRIERE.cv) || {};
   const e = cv[id];
@@ -3055,7 +3069,7 @@ btnSound.onclick = () => {
 };
 document.getElementById("btnLang").onclick = () => {
   S.lang = S.lang === "de" ? "en" : "de"; save();
-  applyI18n(); renderPlan(); renderProfil();
+  applyI18n(); renderPlan(); renderProfil(); ansichtSetzen(S.ansicht || "haus", false);
   if (selectedId) openCard(selectedId);
   fillModals();
 };
@@ -4267,6 +4281,10 @@ document.getElementById("btnFb").onclick = () => {
 /* Changelog-Tafel: der Rückmelde-Loop wird sichtbar */
 const CHANGELOG = {
   de: [
+    ["v13 · August 2026", "Zwei Wege statt einem: Neben dem Haus gibt es jetzt eine <b>Listenansicht</b> (Knopf 📋 oben) — derselbe Studienplan, dasselbe Kompetenzprofil, als lesbares und druckbares Dokument, vollständig mit der Tastatur bedienbar. Wo kein WebGL läuft, startet das Kompetenzhaus direkt dort statt gar nicht. Ausserdem: <b>fachliche Ketten</b> in der Modulkarte (worauf ein Modul aufbaut und wo es gebraucht wird — mit dem Gegenstand, nicht nur dem Modulnamen), <b>Positionsfragen</b> im Quiz, die zwei vertretbare Haltungen nebeneinanderstellen statt eine richtige Antwort, ein <b>Statik-Check</b> deiner Prüfungslogik gegen die Two-Lane-Regel, ein kürzerer Karriere-Tab und Quests, die öfter mit deinem eigenen Versuch beginnen statt mit der KI-Antwort."],
+    ["v12 · August 2026", "Nachweis statt Klicks: Das Quiz-Gate lässt sich nicht mehr durch Ausschluss erraten, und ein Baustein gilt erst als belegt, wenn das Quiz sitzt oder die Quest einen eigenen Merksatz hat. 86 von 172 Lernzielen fachlich überarbeitet — die häufigste Schwäche war, dass ein Ziel die Tätigkeit nannte statt den Gegenstand. Neuer <b>Feedbackmodus im Fallgespräch</b> beim KI-Baututor: Vorbereiten, Rolle spielen, Rückmeldung — Selbsteinschätzung vor Fremdeinschätzung, klar getrennt von jeder Leistungsbeurteilung. Barrierefreiheit nachgemessen und Kontraste, Fokusführung und Tastaturbedienung der Dialoge korrigiert. Drei Kontroversen des Fachs neu verankert, ein sachlicher Fehler zur Validität von Auswahlverfahren korrigiert."],
+    ["v10/v11 · August 2026", "Deine Wahl wirkt sich sichtbar aus: Die Karriere-Passung hängt jetzt wirklich an deinen Wahlentscheidungen, nicht nur am Pflichtprogramm — und «<b>Was wäre, wenn?</b>» stellt deiner Wahl eine Alternative gegenüber und zeigt, was sich je Berufsweg verschiebt. 12 statt 9 Karrierewege, aus den Fachbereichen abgeleitet. Alle 42 Modulquiz überarbeitet (126 Fragen, acht rotierende Motive statt einer Taxonomiefrage). Die Modulkarte ist ein Bottom-Sheet mit drei Raststufen geworden, der Lesebereich für Lernziele und Quests damit gut doppelt so hoch. Kompetenzpass mit Karrieresteckbrief."],
+    ["v9 · Juli 2026", "Die Bachelorarbeit ist neu empirisch-methodisch statt Literaturarbeit: drei Arbeitsformen (Datensatz-Analyse 📊, Repro-Check 🔁, strukturierter Review 🗂️), neun vorgegebene Fragestellungen, KI-integriert mit wählbarem Artefakt — und eine kurze mündliche Prüfung ohne KI als Validitätsanker. Die Masterarbeit liegt sichtbar eine Stufe darüber."],
     ["v8 · Juli 2026", "Dein Wahlprofil wird zum Haus: Themenwahl in den drei BSc-Wahlseminaren und im BA-Themenfeld prägt Erker, Dach und ein eigenes Wahrzeichen; im Master zeigt jede Vertiefung ihren Schwerpunkt architektonisch, ab 4 von 6 im selben Schwerpunkt entsteht ein grosses Wahrzeichen (Observatorium, Therapiegarten, Glasatrium). Wahlpflicht (goldene Kante) und freie Wahl (weisse Kante) sind sichtbar unterschieden, Auskragendes wird von Konsolen und Stützen getragen. Neu ausserdem: kuratierte Farbwelten pro Haus, zwei neue Baustile, Karriere-Tab mit Soll-Profilen, Lückenanalyse und «Nach dem Master»-Roadmaps (inkl. Psychotherapie- und Neuropsychologie-Weg), Masterarbeit als «Meisterstück» der Stufe 4."],
     ["v7 · Juli 2026", "Echter Keller unter dem Bodenniveau (Sockel ragen ins Erdreich), Haus vergrössert & Innenräume 1:1 an die Aussenhülle gekoppelt, Porch mit Vordach und Stufen, Erstbau-Sequenz für neue Besucher:innen, Bauhütte mit Evidenz zu den 8 Lehrelementen, Ampel-Feedback 🚦 an jedem Modul mit CSV-Export."],
     ["v6 · Juli 2026", "Mobile-Überarbeitung (Tour, Kontraste, grössere Ziele), Quiz mit Erklärung und Sofort-Wiederholung, 7 Karrierewege, Faktenkorrektur IPS-Leistungsnachweis [B]."],
@@ -4275,6 +4293,10 @@ const CHANGELOG = {
     ["v3 · Juli 2026", "Quiz-Gate im Serious Mode, Karriere-Profil, Innenansicht mit Kompetenz-Tafeln, Foto-Modus, Open-Badges- und Portfolio-Export."]
   ],
   en: [
+    ["v13 · August 2026", "Two ways in instead of one: alongside the house there is now a <b>list view</b> (📋 button at the top) — the same study plan and the same competence profile, as a readable and printable document, fully keyboard-operable. Where WebGL is unavailable, the Kompetenzhaus now starts there rather than not at all. Also: <b>subject-matter chains</b> on module cards (what a module builds on and where it is used later — naming the content, not just the module), <b>position questions</b> in the quiz that put two defensible stances side by side instead of one right answer, a <b>structural check</b> of your assessment logic against the two-lane rule, a shorter career tab, and quests that more often start with your own attempt rather than the AI\'s answer."],
+    ["v12 · August 2026", "Evidence instead of clicks: the quiz gate can no longer be guessed by elimination, and a block only counts as evidenced once the quiz is passed or the quest carries a note of your own. 86 of 172 learning objectives revised — the most common weakness was naming the activity rather than the subject. New <b>feedback mode for case conversations</b> in the AI building tutor: prepare, play the role, receive feedback — self-assessment before external assessment, clearly separated from any grading. Accessibility measured and contrast, focus handling and keyboard operation of dialogues fixed. Three disciplinary controversies newly anchored, and a factual error about the validity of selection procedures corrected."],
+    ["v10/v11 · August 2026", "Your choices now visibly matter: career fit really depends on your electives, not only on the compulsory programme — and «<b>What if?</b>» sets an alternative against your choice and shows what shifts for each career path. 12 career paths instead of 9, derived from the subject areas. All 42 module quizzes revised (126 questions, eight rotating motifs instead of one taxonomy question). The module card became a bottom sheet with three detents, roughly doubling the reading area for objectives and quests. Competence passport with a career profile page."],
+    ["v9 · July 2026", "The bachelor\'s thesis is now empirical and methodological rather than a literature review: three formats (dataset analysis 📊, reproduction check 🔁, structured review 🗂️), nine given research questions, AI-integrated with a choosable artefact — and a short AI-free oral exam as a validity anchor. The master\'s thesis sits visibly one level above."],
     ["v8 · July 2026", "Your elective profile becomes the house: topic choices in the three BSc elective seminars and the thesis field shape bay windows, roof and a landmark of your own; in the Master's each specialisation shows its track architecturally, and 4 of 6 in the same track build a large landmark (observatory, therapy garden, glass atrium). Compulsory electives (gold edge) and free electives (white edge) are visibly distinct, and everything cantilevered is carried by corbels and columns. Also new: curated colour worlds per house, two new building styles, a career tab with target profiles, gap analysis and post-Master roadmaps (incl. the psychotherapy and neuropsychology routes), and the Master's thesis as a level-4 «masterpiece»."],
     ["v7 · July 2026", "A real basement below ground level (plinths reach into the earth), bigger house with interiors matched 1:1 to the exterior shell, porch with canopy and steps, first-build sequence for new visitors, site hut with evidence for the 8 teaching elements, traffic-light feedback 🚦 on every module with CSV export."],
     ["v6 · July 2026", "Mobile overhaul (tour, contrast, larger targets), quiz with explanations and instant retry, 7 career paths, factual fix for the IPS assessment [B]."],
@@ -4307,6 +4329,7 @@ function resize() {
   const w = window.innerWidth, h = window.innerHeight;
   renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.updateProjectionMatrix();
+  if (S.ansicht === "liste") listeAbstand(); // die Topleiste bricht bei Drehung anders um
 }
 window.addEventListener("resize", resize); resize();
 
@@ -4409,8 +4432,166 @@ function step() {
     camera.position.x += (Math.random() - 0.5) * a;
     camera.position.y += (Math.random() - 0.5) * a;
   }
-  renderer.render(scene, camera);
+  if (webglOk && S.ansicht !== "liste") renderer.render(scene, camera); // verdeckte Bilder kosten nur Akku
 }
+
+
+/* ---------- Listenansicht ----------
+   Das 3D-Haus ist ein Angebot, kein Zugangsweg. Wer damit nichts anfangen kann — weil
+   Drehen und Zoomen nicht geht, weil ein Screenreader mitliest, weil kein WebGL da ist
+   oder weil man den Studienplan schlicht lieber liest — bekommt hier denselben Stand als
+   Dokument: dieselben Bausteine, dieselben Modulkarten, dieselben Werkzeuge, druckbar.
+   Es ist kein zweiter Datenstand, sondern eine zweite Ansicht auf dasselbe S. */
+let listeGeoeffnet = null; // welche Kompetenz gerade ausgeklappt ist — überlebt das Neuzeichnen
+function ansichtSetzen(modus, merken = true) {
+  S.ansicht = modus;
+  if (merken) save();
+  const liste = document.getElementById("liste");
+  const an = modus === "liste";
+  liste.hidden = !an;
+  document.body.classList.toggle("liste-an", an);
+  canvas.setAttribute("aria-hidden", an ? "true" : "false");
+  const b = document.getElementById("btnAnsicht");
+  b.setAttribute("aria-pressed", an ? "true" : "false");
+  b.innerHTML = an ? `🏠 <span>${t("ansicht_haus")}</span>` : `📋 <span>${t("ansicht_liste")}</span>`;
+  if (an) { renderListe(); listeAbstand(); liste.focus({ preventScroll: true }); }
+  else { clearGhost(); resize(); }
+}
+function listeAbstand() {
+  const tb = document.getElementById("topbar");
+  document.getElementById("liste").style.paddingTop = Math.ceil(tb.getBoundingClientRect().height + 8) + "px";
+}
+const brauchtWahl = (slot) => !!(slot.schwerpunktwahl || slot.optionen || THEMEN[slot.slot] || slot.slot === "BA");
+function listeStatus(slot) {
+  if (isPlaced(slot.slot)) return { ico: "✔", lbl: t("li_gebaut"), cls: "gebaut" };
+  const chk = canPlace(slot);
+  if (!chk.ok) return { ico: "🔒", lbl: t("li_gesperrt"), cls: "gesperrt", grund: chk.reason || "" };
+  return { ico: "○", lbl: t("li_offen"), cls: "" };
+}
+function renderListe() {
+  const el = document.getElementById("listeBody");
+  if (!el || S.ansicht !== "liste") return;
+  const { score, max } = profilWerte();
+  const gesetzt = ST.slots.filter((sl) => isPlaced(sl.slot)).length;
+  const geprueft = belegteEinheiten();
+  let h = `<h1>${t("li_titel")}</h1><p class="lead">${t("li_lead")}</p>`;
+  if (!webglOk) h += `<div class="lwarn" role="status">${t("li_kein3d")}</div>`;
+
+  h += `<section class="lsec"><h2>${t("li_fortschritt")}</h2><div class="lstat">
+      <div><b class="lnum">${ectsSum("bsc")}</b><span>BSc / 120 ${t("ects")}</span></div>
+      <div><b class="lnum">${ectsSum("msc")}</b><span>MSc / 120 ${t("ects")}</span></div>
+      <div><b class="lnum">${gesetzt}</b><span>${t("li_module")}</span></div>
+      <div><b class="lnum">${geprueft}</b><span>${t("li_geprueft")}</span></div>
+    </div><p class="lhint">${t("li_geprueft_hint")}</p></section>`;
+
+  h += `<section class="lsec"><h2>${t("li_profil")}</h2>`;
+  for (const feld of ["fa", "ki", "fu"]) {
+    const f = ST.felder[feld];
+    h += `<div class="lkfeld"><span class="fdot" style="background:${f.farbe}"></span>${L(f.name)}</div>`;
+    for (const k of ST.kompetenzen.filter((k) => k.feld === feld)) {
+      const pct = max[k.id] ? Math.round((score[k.id] / max[k.id]) * 100) : 0;
+      const st = kompStufe(k.id);
+      h += `<details class="lk" data-k="${k.id}"${listeGeoeffnet === k.id ? " open" : ""}>
+        <summary><span class="kid">${k.id}</span><span>${L(k.name)}</span>
+          <span class="ltrack"><i style="background:${f.farbe};width:${pct}%"></i></span>
+          <span class="lpct">${pct}% <span style="color:#8b94ab">· ${t("li_stufe_kurz")}${st}</span></span>
+          <span class="lchev" aria-hidden="true">▸</span></summary>
+        <div data-kbody></div></details>`;
+    }
+  }
+  h += `</section>`;
+
+  h += `<section class="lsec"><h2>${t("li_plan")}</h2>`;
+  for (const hausId of ["bsc", "msc"]) {
+    h += `<div class="lkfeld">${hausId === "bsc" ? "🏠 " + t("haus_bsc") : "🏰 " + t("haus_msc")} · <span class="lnum">${ectsSum(hausId)}/120 ${t("ects")}</span></div>`;
+    for (const sem of ST.bauplan[hausId]) {
+      if (!sem.slots.length) continue;
+      const gebaut = sem.slots.filter((id) => isPlaced(id)).length;
+      h += `<div class="ltabwrap"><table class="ltab"><caption>${t("sem")} ${sem.sem} · ${sem.hs ? t("hs") : t("fs")} — <span class="lnum">${gebaut}/${sem.slots.length}</span></caption>
+        <thead><tr><th scope="col">${t("li_th_status")}</th><th scope="col">${t("li_th_modul")}</th>
+        <th scope="col" class="opt">${t("li_th_kat")}</th><th scope="col">${t("li_th_ects")}</th>
+        <th scope="col" class="opt">${t("li_th_stufe")}</th><th scope="col" class="opt">${t("li_th_pruef")}</th>
+        <th scope="col" class="opt">${t("li_th_komp")}</th><th scope="col" class="meta" aria-hidden="true"></th><th scope="col" class="tun">${t("li_th_tun")}</th></tr></thead><tbody>`;
+      for (const id of sem.slots) {
+        const slot = SLOTS[id];
+        const stt = listeStatus(slot);
+        const platziert = isPlaced(id);
+        const { komp, kat } = slotKomp(slot);
+        const alle = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+        const katTxt = slot.kategorie === "Wahlpflicht" ? t("kat_wahlpflicht") : slot.kategorie === "Wahl" ? t("kat_wahl") : t("kat_pflicht");
+        const p = S.placed[S.mode][id];
+        h += `<tr class="${stt.cls}">
+          <td class="stc"><span class="lst" role="img" aria-label="${escHtml(stt.lbl)}" title="${escHtml(stt.lbl + (stt.grund ? " — " + stt.grund : ""))}">${stt.ico}</span></td>
+          <td class="lmod"><b>${slotTitel(slot)}</b><small>${(p && p.opt) || slot.code} · ${L(ST.gruppen[slot.gruppe].name)}${S.quiz[quizCode(slot)] ? " · 🚩" : ""}${(S.quests[id] || {}).done ? " ✦" : ""}</small></td>
+          <td class="opt">${katTxt}</td>
+          <td class="lnum ectsc">${p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects}</td>
+          <td class="opt lnum">${slot.stufe}</td>
+          <td class="opt">${(kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]).map((x) => `[${x}]`).join(" ")}</td>
+          <td class="opt"><span class="lkomp">${alle.map((kid) => KOMP[kid] ? `<span style="--kf:${ST.felder[KOMP[kid].feld].farbe}" title="${escHtml(L(KOMP[kid].name))}">${kid}</span>` : "").join("")}</span></td>
+          <td class="meta" aria-hidden="true">${katTxt} · ${p && p.opt && OPTMOD[p.opt] ? OPTMOD[p.opt].ects : slot.ects} ${t("ects")} · ${t("li_th_stufe")} ${slot.stufe} · ${(kat || "B").split(/[+/]/).map((x) => x.trim()).filter((x) => ST.pruefungslogik[x]).map((x) => `[${x}]`).join(" ")}</td>
+          <td class="tun"><span class="ltun">
+            <button class="lbtn" data-det="${id}">${t("li_details")}</button>
+            ${platziert
+              ? `<button class="lbtn" data-rm="${id}">${t("li_entfernen")}</button>`
+              : `<button class="lbtn pri" data-bau="${id}"${stt.cls === "gesperrt" ? " disabled" : ""}>${t("li_bauen")}${brauchtWahl(slot) ? " …" : ""}</button>`}
+          </span></td></tr>`;
+      }
+      h += `</tbody></table></div>`;
+    }
+  }
+  h += `</section>`;
+
+  h += `<section class="lsec noprint"><h2>${t("li_werkzeuge")}</h2><div class="lwerk">
+      <button class="lbtn pri" data-w="pass">🎓 ${t("pass")}</button>
+      <button class="lbtn" data-w="karriere">🧭 ${t("ptab_karriere")}</button>
+      <button class="lbtn" data-w="statik">🏛️ ${t("statik_menu").replace(/^\S+\s/, "")}</button>
+      <button class="lbtn" data-w="wenn">🔀 ${t("wenn_titel")}</button>
+      <button class="lbtn" data-w="tutor">🤖 ${t("tutor_titel")}</button>
+      <button class="lbtn" data-w="hilfe">${t("hilfe")}</button>
+      <button class="lbtn" data-w="print">🖨️ ${t("li_drucken")}</button>
+    </div></section>`;
+
+  const scroll = document.getElementById("liste").scrollTop;
+  const aktiv = document.activeElement;
+  const merk = aktiv && el.contains(aktiv) ? (aktiv.dataset.bau ? "bau" : aktiv.dataset.rm ? "rm" : aktiv.dataset.det ? "det" : null) : null;
+  const merkId = merk ? (aktiv.dataset.bau || aktiv.dataset.rm || aktiv.dataset.det) : null;
+  el.innerHTML = h;
+  document.getElementById("liste").scrollTop = scroll;
+
+  /* Kompetenzdetails erst beim Aufklappen bauen — 19 Detailblöcke im Voraus zu rendern
+     kostet spürbar Zeit, und die meisten schaut niemand an. */
+  el.querySelectorAll("details.lk").forEach((d) => {
+    const fuellen = () => {
+      const body = d.querySelector("[data-kbody]");
+      if (body.childElementCount) return;
+      body.innerHTML = kompDetailHTML(d.dataset.k);
+      wireKompDetail(body, d.dataset.k);
+    };
+    if (d.open) fuellen();
+    d.addEventListener("toggle", () => { listeGeoeffnet = d.open ? d.dataset.k : null; if (d.open) fuellen(); });
+  });
+  el.querySelectorAll("[data-det]").forEach((b) => (b.onclick = () => { selectedId = b.dataset.det; SND.pick(); openCard(b.dataset.det); }));
+  el.querySelectorAll("[data-bau]").forEach((b) => (b.onclick = () => {
+    const slot = SLOTS[b.dataset.bau];
+    /* Bausteine mit Wahl (Schwerpunkt, Modulvariante, Thema, BA-Frage) dürfen nicht blind
+       gesetzt werden — sonst entscheidet ein alter Zwischenstand über das Profil. */
+    if (brauchtWahl(slot)) { selectedId = slot.slot; SND.pick(); openCard(slot.slot); return; }
+    placeSlot(slot);
+  }));
+  el.querySelectorAll("[data-rm]").forEach((b) => (b.onclick = () => removeSlot(b.dataset.rm)));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => {
+    const w = b.dataset.w;
+    if (w === "pass") document.getElementById("btnPass").click();
+    else if (w === "karriere") { ansichtSetzen("haus"); profilTab = "karriere"; profilView = null; renderProfil(); document.getElementById("panelR").classList.add("open"); }
+    else if (w === "statik") openStatik();
+    else if (w === "wenn") openWasWenn();
+    else if (w === "tutor") document.getElementById("tutorFab").click();
+    else if (w === "hilfe") openModal("help");
+    else if (w === "print") window.print();
+  }));
+  if (merkId) { const zurueck = el.querySelector(`[data-rm="${merkId}"], [data-bau="${merkId}"], [data-det="${merkId}"]`); if (zurueck) zurueck.focus({ preventScroll: true }); }
+}
+document.getElementById("btnAnsicht").onclick = () => { SND.pick(); ansichtSetzen(S.ansicht === "liste" ? "haus" : "liste"); };
 
 /* ---------- Boot ---------- */
 applyI18n();
@@ -4420,6 +4601,8 @@ rebuildAll();
 growMinor();
 renderPlan();
 renderProfil();
+if (!webglOk) S.ansicht = "liste"; // ohne 3D ist die Liste der einzige Weg — und ein guter
+ansichtSetzen(S.ansicht || "haus", false);
 /* Erstbesuch: Golden Hour als Postkarten-Start; Echtzeit erst nach dem Onboarding */
 if (!S.onboarded) { S.season = autoSeason(); S.tod = 62; }
 else if (S.envAuto) applyRealEnv();

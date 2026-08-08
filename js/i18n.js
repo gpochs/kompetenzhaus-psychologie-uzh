@@ -119,6 +119,36 @@ window.T = {
     saison_titel: "Jahreszeit",
     naechstes: "ALS NÄCHSTES",
     zurueck: "← Zurück zum Profil",
+    /* Listenansicht: gleichwertiger Weg zum Kompetenzprofil ohne 3D */
+    ansicht_liste: "Liste",
+    ansicht_haus: "Haus",
+    aria_ansicht: "Zwischen Hausansicht und Listenansicht wechseln",
+    li_titel: "Studienplan und Kompetenzprofil",
+    li_lead: "Dieselben Inhalte wie im Haus, als Liste zum Lesen, Tippen und Drucken. Alles, was hier geändert wird, steht auch im Haus — es ist derselbe Stand.",
+    li_kein3d: "Dein Browser konnte die 3D-Ansicht nicht starten. Die Listenansicht zeigt denselben Studienplan und dasselbe Kompetenzprofil — nur ohne Haus.",
+    li_fortschritt: "Fortschritt",
+    li_module: "Bausteine gesetzt",
+    li_geprueft: "davon belegt",
+    li_geprueft_hint: "Ein Baustein gilt als belegt, wenn das Quiz bestanden oder die Quest mit eigener Notiz abgeschlossen ist.",
+    li_profil: "Kompetenzprofil",
+    li_plan: "Studienplan",
+    li_werkzeuge: "Werkzeuge",
+    li_bauen: "Bauen",
+    li_entfernen: "Entfernen",
+    li_details: "Details",
+    li_gesperrt: "Noch gesperrt",
+    li_th_status: "Status",
+    li_th_modul: "Baustein",
+    li_th_ects: "ECTS",
+    li_th_kat: "Art",
+    li_th_stufe: "Stufe",
+    li_th_pruef: "Prüfung",
+    li_th_komp: "Kompetenzen",
+    li_th_tun: "Aktion",
+    li_gebaut: "gebaut",
+    li_offen: "offen",
+    li_drucken: "Diese Seite drucken",
+    li_stufe_kurz: "St.",
     k_aufgebaut: "Aufgebaut durch",
     k_naechste: "Baue dafür als Nächstes",
     k_keine: "Noch kein Baustein gebaut, der diese Kompetenz trainiert.",
@@ -429,6 +459,35 @@ window.T = {
     saison_titel: "Season",
     naechstes: "UP NEXT",
     zurueck: "← Back to profile",
+    ansicht_liste: "List",
+    ansicht_haus: "House",
+    aria_ansicht: "Switch between house view and list view",
+    li_titel: "Study plan and competence profile",
+    li_lead: "The same content as in the house, as a list for reading, typing and printing. Anything changed here also shows in the house — it is the same state.",
+    li_kein3d: "Your browser could not start the 3D view. The list view shows the same study plan and the same competence profile — just without the house.",
+    li_fortschritt: "Progress",
+    li_module: "blocks placed",
+    li_geprueft: "of these evidenced",
+    li_geprueft_hint: "A block counts as evidenced once the quiz is passed or the quest is completed with your own note.",
+    li_profil: "Competence profile",
+    li_plan: "Study plan",
+    li_werkzeuge: "Tools",
+    li_bauen: "Build",
+    li_entfernen: "Remove",
+    li_details: "Details",
+    li_gesperrt: "Still locked",
+    li_th_status: "Status",
+    li_th_modul: "Block",
+    li_th_ects: "ECTS",
+    li_th_kat: "Type",
+    li_th_stufe: "Level",
+    li_th_pruef: "Assessment",
+    li_th_komp: "Competences",
+    li_th_tun: "Action",
+    li_gebaut: "built",
+    li_offen: "open",
+    li_drucken: "Print this page",
+    li_stufe_kurz: "L.",
     k_aufgebaut: "Built by",
     k_naechste: "Build next for this",
     k_keine: "No block built yet that trains this competence.",
@@ -634,6 +693,7 @@ window.HELP_HTML = {
     <li><b>Wahlbereich sichtbar:</b> Wahlpflicht trägt eine goldene, freie Wahl eine weisse Eckleiste. Ab zwei gleichen BSc-Richtungen bzw. 4 von 6 Vertiefungen im selben Schwerpunkt baut sich ein Wahrzeichen neben dem Haus — jedes Wahlprofil ergibt ein anderes Haus.</li>
     <li><b>Statik:</b> Auskragende Bausteine (Erker, Turmkonsolen) werden sichtbar getragen — Konsolen und Stützen erscheinen, solange das tragende Geschoss fehlt.</li>
     <li><b>Serious Mode:</b> Nur bestandene Module setzen (Selbstdeklaration per Häkchen). Dein Haus = dein echter Studienstand.</li>
+    <li><b>Liste statt Haus:</b> Der Knopf <b>📋 Liste</b> oben zeigt denselben Stand als Dokument — Studienplan mit allen Bausteinen, Kompetenzprofil zum Aufklappen, dieselben Modulkarten und Werkzeuge, druckbar und vollständig mit der Tastatur bedienbar. Bauen und Entfernen geht dort genauso; es ist derselbe Spielstand, nur anders angesehen.</li>
     <li><b>Teilen & Campus:</b> Haus als Link teilen; Häuser von Kolleg:innen als Nachbarhäuser speichern. Keine Ranglisten, bewusst.</li>
     <li><b>Direkt-MSc:</b> BSc anderswo abgeschlossen? <label class="sw" style="display:inline-flex"><input type="checkbox" id="ckDirektMsc"> <span>Master-Grundstück sofort öffnen</span></label></li>
   </ul>
@@ -649,6 +709,7 @@ window.HELP_HTML = {
     <li><b>Electives made visible:</b> compulsory electives carry a gold edge, free electives a white one. Two matching BSc directions, or 4 of 6 specialisations in one track, build a landmark next to the house — every elective profile yields a different house.</li>
     <li><b>Structural logic:</b> cantilevered blocks (bay windows, tower brackets) are visibly carried — corbels and columns appear while the supporting storey is missing.</li>
     <li><b>Serious mode:</b> place only passed modules (self-declared tick). Your house = your real progress.</li>
+    <li><b>List instead of house:</b> the <b>📋 List</b> button at the top shows the same state as a document — study plan with every block, an expandable competence profile, the same module cards and tools, printable and fully keyboard-operable. Building and removing work there too; it is the same saved game, just viewed differently.</li>
     <li><b>Share & campus:</b> share your house as a link; save colleagues' houses as neighbours. No leaderboards, on purpose.</li>
     <li><b>Direct MSc:</b> BSc done elsewhere? <label class="sw" style="display:inline-flex"><input type="checkbox" id="ckDirektMsc"> <span>open the Master plot right away</span></label></li>
   </ul>

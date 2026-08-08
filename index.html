@@ -252,7 +252,7 @@
   #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: background .8s;
     background: radial-gradient(ellipse at center, transparent 62%, rgba(10, 16, 45, .18) 100%); }
   body.inroom #vignette { background: radial-gradient(ellipse at center, transparent 44%, rgba(10, 16, 45, .42) 100%); }
-  body.foto #topbar, body.foto .panel, body.foto .panel-toggle, body.foto #card, body.foto #tip { display: none !important; }
+  body.foto #topbar, body.foto .panel, body.foto .panel-toggle, body.foto #card, body.foto #tip, body.foto #liste { display: none !important; }
 
   /* Quiz */
   .quiz-progress { display: flex; gap: 5px; margin: 4px 0 10px; }
@@ -496,6 +496,113 @@
     #topbar { flex-wrap: wrap; }
     .brand .sub { display: none; }
   }
+  /* ---------- Listenansicht: gleichwertiger Weg ohne 3D ----------
+     Nicht jede Person kommt über ein 3D-Haus zu ihrem Kompetenzprofil — manche wollen
+     lesen statt drehen, manche arbeiten mit Tastatur oder Screenreader, manche haben
+     kein WebGL. Diese Ansicht zeigt denselben Stand als Dokument: derselbe State,
+     dieselben Karten, dieselben Werkzeuge. Kein Ersatz zweiter Klasse. */
+  #liste { position: fixed; inset: 0; z-index: 14; background: var(--paper2); overflow-y: auto;
+    -webkit-overflow-scrolling: touch; padding-top: 64px; }
+  #liste:focus { outline: none; }
+  #liste[hidden] { display: none; }
+  body.liste-an .panel, body.liste-an .panel-toggle, body.liste-an #nextCta,
+  body.liste-an #coach, body.liste-an #envRow, body.liste-an #vignette { display: none !important; }
+  .lwrap { max-width: 1100px; margin: 0 auto; padding: 18px 16px 120px; }
+  .lwrap h1 { font-size: 22px; color: var(--blue); margin-bottom: 4px; }
+  .lwrap .lead { font-size: 13px; color: #3c4356; line-height: 1.55; max-width: 68ch; }
+  .lwarn { background: #fff4e2; border: 1.5px solid var(--warn); border-radius: 10px; padding: 10px 12px;
+    font-size: 12.5px; line-height: 1.5; color: #5a3b00; margin: 12px 0; }
+  .lsec { background: var(--paper); border-radius: var(--radius); box-shadow: 0 2px 10px rgba(16,24,64,.07);
+    padding: 14px 16px; margin: 16px 0; }
+  .lsec > h2 { font-size: 15px; color: var(--blue); margin-bottom: 10px; }
+  .lstat { display: flex; flex-wrap: wrap; gap: 10px; }
+  .lstat div { background: var(--paper2); border-radius: 10px; padding: 9px 14px; min-width: 116px; }
+  .lstat b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; color: var(--blue); }
+  .lstat span { font-size: 11.5px; color: #4a5468; }
+  .lhint { font-size: 11.5px; color: #4a5468; margin-top: 8px; line-height: 1.5; }
+
+  .lkfeld { font: 700 12px var(--font); margin: 14px 0 6px; display: flex; align-items: center; gap: 7px; }
+  .lkfeld .fdot { width: 10px; height: 10px; border-radius: 3px; }
+  details.lk { border-top: 1px solid #e6eaf3; }
+  details.lk > summary { list-style: none; cursor: pointer; padding: 7px 4px; display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) 92px 62px 18px; gap: 8px; align-items: center; font-size: 12.5px; }
+  details.lk > summary::-webkit-details-marker { display: none; }
+  details.lk > summary:hover { background: #f4f6fb; }
+  details.lk > summary:focus-visible { outline: 3px solid var(--blue); outline-offset: -2px; }
+  details.lk .kid { font: 700 11px var(--font); color: #4a5468; }
+  .ltrack { height: 9px; background: #e8ebf4; border-radius: 5px; overflow: hidden; }
+  .ltrack i { display: block; height: 100%; border-radius: 5px; }
+  .lpct { font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; color: #2b3348; }
+  .lchev { color: #8b94ab; transition: transform .15s; }
+  details.lk[open] .lchev { transform: rotate(90deg); }
+  details.lk .kdetail { padding: 2px 4px 12px; }
+
+  .ltabwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.ltab { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.ltab caption { text-align: left; font: 700 11px var(--font); color: #4a5468; text-transform: uppercase;
+    letter-spacing: .6px; padding: 12px 2px 5px; }
+  table.ltab th { text-align: left; font: 700 10.5px var(--font); color: #4a5468; text-transform: uppercase;
+    letter-spacing: .5px; padding: 5px 6px; border-bottom: 1.5px solid #d5dbea; white-space: nowrap; }
+  table.ltab td { padding: 7px 6px; border-bottom: 1px solid #eef1f7; vertical-align: top; }
+  table.ltab tr.gebaut td { background: #eef7f1; }
+  table.ltab tr.gesperrt td { color: #6b7386; }
+  .lst { font-size: 15px; line-height: 1 }
+  .lmod b { font-weight: 600; }
+  .lmod small { display: block; color: #4a5468; font-size: 11px; margin-top: 2px; }
+  .lkomp { display: flex; flex-wrap: wrap; gap: 3px; }
+  .lkomp span { font: 700 10px var(--font); color: #2b3348; background: #eef1f7; border-radius: 4px;
+    border-left: 3px solid var(--kf, #5b6478); padding: 2px 4px 2px 3px; }
+  .ltun { display: flex; gap: 5px; flex-wrap: wrap; }
+  table.ltab td.tun { white-space: nowrap; }
+  @media (min-width: 761px) { .ltun { flex-wrap: nowrap; } }
+  .lbtn { border: 1.5px solid #c9d2e6; background: var(--paper); border-radius: 8px; padding: 5px 10px;
+    font: 700 11.5px var(--font); color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .lbtn:hover { background: #e8edf9; }
+  .lbtn.pri { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .lbtn.pri:hover { background: #001f85; }
+  .lbtn:disabled { opacity: .5; cursor: not-allowed; }
+  .lbtn:focus-visible, #liste a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .lwerk { display: flex; flex-wrap: wrap; gap: 8px; }
+  .lnum { font-variant-numeric: tabular-nums; }
+  table.ltab td.meta, table.ltab th.meta { display: none; }
+  /* Telefon: aus jeder Tabellenzeile wird eine Karte. Eine achtspaltige Tabelle auf 340 px
+     zwingt Titel in fünf Zeilen und schiebt die Knöpfe aus dem Bild — als Karte bleibt
+     dieselbe Information lesbar und die Knöpfe bleiben erreichbar. */
+  @media (max-width: 560px) {
+    table.ltab, table.ltab tbody, table.ltab tr, table.ltab td { display: block; width: auto; }
+    table.ltab thead { position: absolute; left: -9999px; }
+    table.ltab tr { background: var(--paper); border: 1px solid #e2e7f2; border-radius: 11px;
+      padding: 10px 12px; margin: 8px 0; position: relative; }
+    table.ltab tr.gebaut { background: #eef7f1; border-color: #bfdfcd; }
+    table.ltab tr.gebaut td { background: transparent; }
+    table.ltab td { border: 0; padding: 0; }
+    table.ltab td.stc { position: absolute; right: 11px; top: 9px; }
+    table.ltab td.lmod { padding-right: 26px; }
+    table.ltab td.lmod b { font-size: 13.5px; }
+    table.ltab td.ectsc { display: none; }
+    table.ltab td.meta { display: block; font-size: 11px; color: #4a5468; margin: 5px 0 8px; }
+    table.ltab td.tun .ltun { flex-direction: row; }
+    table.ltab td.tun .lbtn { flex: 1; padding: 8px 10px; }
+    .ltabwrap { overflow-x: visible; }
+    table.ltab caption { display: block; width: 100%; padding-top: 14px; }
+  }
+  @media (max-width: 760px) {
+    table.ltab th.opt, table.ltab td.opt { display: none; }
+    details.lk > summary { grid-template-columns: 34px minmax(0, 1fr) 52px 56px 14px; gap: 6px; font-size: 12px; }
+    table.ltab td.tun { white-space: normal; }
+    .ltun { flex-direction: column; align-items: stretch; }
+    .lwrap { padding: 14px 10px 120px; }
+    #liste { padding-top: 118px; }
+  }
+  @media print {
+    #topbar, #liste .noprint, #card, #tutorFab, #tutor, .modal { display: none !important; }
+    html, body { overflow: visible; height: auto; }
+    #liste { position: static; overflow: visible; background: #fff; padding-top: 0 !important; }
+    #c3d { display: none; }
+    .lsec { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+    details.lk[open] .kdetail { break-inside: avoid; }
+    table.ltab { font-size: 10pt; } table.ltab td.tun, table.ltab th.tun { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -518,11 +625,13 @@
   <button class="iconbtn" id="btnCampus">🏘️ <span data-i18n="campus">Campus</span></button>
   <button class="iconbtn" id="btnShare">🔗 <span data-i18n="teilen">Teilen</span></button>
   <button class="iconbtn blue" id="btnPass">🎓 <span data-i18n="pass">Kompetenzpass</span></button>
+  <button class="iconbtn" id="btnAnsicht" data-aria="aria_ansicht" aria-label="Ansicht wechseln" aria-pressed="false">📋 <span data-i18n="ansicht_liste">Liste</span></button>
   <button class="iconbtn" id="btnSound" title="Sound">🔊</button>
   <button class="iconbtn" id="btnLang">EN</button>
   <button class="iconbtn" id="btnMenu" data-aria="aria_menue" aria-label="Menü">⋯</button>
 </div>
 <div id="vignette"></div>
+<main id="liste" tabindex="-1" hidden aria-label="Studienplan und Kompetenzprofil"><div class="lwrap" id="listeBody"></div></main>
 
 <button class="panel-toggle" id="togL" data-aria="aria_bauplan" aria-label="Bauplan öffnen">📋 <span class="tglbl" data-i18n="bauplan">Bauplan</span></button>
 <button class="panel-toggle" id="togR" data-aria="aria_profil" aria-label="Kompetenzprofil öffnen">📊 <span class="tglbl" data-i18n="ptab_profil">Profil</span></button>
