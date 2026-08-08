@@ -1,6 +1,6 @@
 # Das Kompetenzhaus — Kurzbericht für die Programmleitung
 
-**Stand 1. August 2026 · Version 10 · Gian Peter Ochsner, Lehrentwicklung Psychologisches Institut UZH**
+**Stand 8. August 2026 · Version 12 · Gian Peter Ochsner, Lehrentwicklung Psychologisches Institut UZH**
 
 ---
 
@@ -12,7 +12,36 @@ Kein Login, keine Serverdaten, keine Rangliste: Alles läuft im Browser der Stud
 
 ---
 
-## Was diese Version verändert — und warum es die Programmleitung angeht
+## Der wichtigste Befund zuerst: die Lernziele
+
+Eine systematische Prüfung aller **172 Lernziele** gegen den offiziellen Katalogtext, die Progressionsstufe des jeweiligen Moduls und das übrige Curriculum ergab **91 Beanstandungen in 37 der 42 Module**. Die Verteilung:
+
+| Problem | Anzahl |
+|---|---|
+| zu generisch — passte wortgleich auf zehn andere Module | 23 |
+| kein Fachinhalt — nur Prozesslog und Disclosure Form | 12 |
+| doppelt — die drei Wahlseminare hatten austauschbare Ziele | 10 |
+| falsche Progressionsstufe | 8 |
+| KI aufgesetzt statt fachlich integriert | 4 |
+| passte nicht zum Modul | 3 |
+
+**Ein einziger Fehlertyp erklärt 58 Prozent:** Das Lernziel benannte die Tätigkeit, aber nicht den Gegenstand. Dazu eine Schablone, die sich sechsfach wiederholte — „eine KI-Erklärung gegen das Lehrbuch prüfen" stand fast wortgleich in sechs Modulen über alle drei Progressionsstufen hinweg, ohne jede Steigerung.
+
+Am schwersten wiegt: **In drei Modulen war kein einziges Lernziel fachlich prüfbar**, darunter das einzige fortgeschrittene Methodenmodul des Masters, dessen vier Lernziele ausschliesslich KI-Workflows beschrieben. Diese Module wären bestehbar gewesen, ohne dass je Fachwissen geprüft wird.
+
+86 Lernziele sind ersetzt. Statt „ein Thema der Entwicklungspsychologie vertiefen" stehen dort jetzt Objektpermanenz und Bindungsklassifikation, statt „Grundlagen anwenden" die begründete Wahl zwischen Mehrebenenmodell und Strukturgleichungsmodell. Der Modulkatalog der Zukunft ist entsprechend nachgeführt.
+
+**Für die Programmleitung heisst das zweierlei.** Erstens: Die Formulierung von Lernzielen braucht eine Qualitätssicherung, die genau diese Fragen stellt — nennt das Ziel den Gegenstand, passt das Verb zur Stufe, unterscheidet es dieses Modul von den anderen? Zweitens, und unangenehmer: Der Befund betrifft nicht das Spiel, sondern die Vorlage. Wo Lernziele über Abgabeformalia sprechen statt über Psychologie, ist das eine Frage an die Modulbeschreibungen selbst.
+
+## Ein fachlicher Fehler, der korrigiert wurde
+
+Die Erklärung zu einer Quizfrage der Arbeits- und Organisationspsychologie stützte sich auf Schmidt und Hunter (1998) und nannte den kognitiven Fähigkeitstest als validesten Einzelprädiktor. Sackett, Zhang, Berry und Lievens (2022) haben diese Schätzungen wegen systematischer Überkorrektur für Varianzeinschränkung revidiert: Strukturierte Interviews liegen mit .42 vor Wissenstests (.40), Arbeitsproben (.33) und kognitiver Fähigkeit (.31). Die empfohlene Verfahrenskombination bleibt tragfähig, die Begründung war es nicht. Die Erklärung zeigt jetzt beide Metaanalysen und macht die Verschiebung selbst zum Lerngegenstand.
+
+## Wo das Spiel jetzt Kontroversen zeigt statt Konsens
+
+Drei Debatten sind neu dort verankert, wo sie fachlich hingehören: die **Replikationskrise** im Experimentalpraktikum (Teststärke vor der Erhebung, Analyseplan vor dem Datenblick, konfirmatorisch und explorativ getrennt berichtet — als erste Stufe der Kette zum Reproduzierbarkeitscheck der Bachelorarbeit und zur Präregistrierung der Masterarbeit); die **Klassifikationsdebatte** in der Klinischen Psychologie (DSM-5-TR als Arbeitsgrundlage, daneben RDoC und HiTOP mit ihren Gründen) samt der Wirkfaktorendebatte; und die **Stichprobenbasis des Fachs** in der Methodenvorlesung.
+
+## Was diese Versionen verändert haben — und warum es die Programmleitung angeht
 
 Version 10 hat vier Befunde behoben, die das Instrument in seiner Aussagekraft eingeschränkt hätten. Alle vier sind für die Programmarbeit relevant, weil sie an Stellen sassen, an denen das Spiel etwas über das Studium behauptet.
 
@@ -95,6 +124,14 @@ Ergänzend: Tippflächen von mindestens 40 Pixeln auch auf schmalen Fenstern, Be
 
 ---
 
+## Übungsgespräche mit Feedback — und wo die Grenze liegt
+
+Der KI-Begleiter enthält Fallgespräche, in denen Studierende die Fachrolle führen und die KI eine fiktive Gegenrolle spielt. Diese sind zu einem Übungsgerät ausgebaut worden, dessen Aufbau der Beobachtungspraxis der klinischen Ausbildung folgt (MITI, Calgary-Cambridge, CTS-R, Debriefing-Didaktik): Fünf Beobachtungsdimensionen stehen **vor** dem Gespräch fest, die Studierenden wählen einen eigenen Schwerpunkt, schätzen sich nach dem Gespräch **zuerst selbst** ein und erhalten erst danach die Rückmeldung — die ausdrücklich auch benennt, wo die Selbsteinschätzung strenger war als nötig. Jede Szene lässt sich mit identischem Eröffnungszug wiederholen, und das Ergebnis kann als Text in die menschliche Supervision mitgenommen werden.
+
+**Die Grenze ist bewusst hart gezogen:** keine Zahlen, Punkte, Noten oder Eignungsaussagen, keine Adjektive über die Person, keine Aussagen zu Stimme, Mimik oder Tempo — ein Textchat zeigt davon nichts. In jedem Rückmeldeblock steht fest: „Übungsrückmeldung im Spiel. Keine Studienleistung, keine Beurteilung deiner Person, keine Grundlage für Noten." Das ist nicht nur Didaktik: Nach der EU-Verordnung 2024/1689 (AI Act, Anhang III) zählt die Bewertung von Lernergebnissen als Hochrisiko-Anwendung. Die beurteilende Instanz bleibt ein Mensch; die KI liefert Übungsmaterial.
+
+Krisenthemen führen zu einem eigenen, **fest formulierten** Sicherheitshinweis mit 143, 147, 144 und der Beratungsstelle der UZH — nicht zu einer generierten Antwort.
+
 ## Was das für die Programmarbeit bedeutet
 
 Drei Punkte, bei denen das Spiel auf Entscheidungen der Programmleitung trifft:
@@ -104,6 +141,8 @@ Drei Punkte, bei denen das Spiel auf Entscheidungen der Programmleitung trifft:
 **Die Aussagen zur Berufslaufbahn.** Das Spiel macht Angaben zu Löhnen, Weiterbildungskosten und Titelwegen, die Studierende als Orientierung nehmen werden. Sie sind mit Quellen belegt und mit Stand Juli/August 2026 datiert, aber sie veralten. Es braucht eine Festlegung, wer diese Angaben in welchem Rhythmus nachführt — und ob das Institut sie in dieser Form verantworten will.
 
 **Die Prüfungslogik als Lerninhalt.** Dass 81 Prozent der dritten Fragen die Prüfungskategorien abfragten, war ein Konstruktionsfehler des Spiels. Die dahinterliegende Frage bleibt aber: Sollen Studierende die Logik von KI-freien, teilintegrierten und KI-integrierten Prüfungsformen explizit lernen? Falls ja, gehört das an eine eigene Stelle im Curriculum und nicht verteilt in 42 Modulquiz.
+
+**Die Lernziele selbst.** Der Befund oben — 91 Beanstandungen bei 172 Lernzielen, ein Viertel der Lernzielplätze mit Abgabeformalia belegt — betrifft die Modulbeschreibungen, nicht nur ihre Spielfassung. Die überarbeiteten Formulierungen liegen im Modulkatalog der Zukunft vollständig vor und lassen sich als Vorlage für eine Revision nutzen. Ob das gewollt ist, entscheidet die Programmleitung.
 
 ---
 
@@ -127,6 +166,10 @@ Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., & Willingham, D. T. (2
 
 Ehlers, U.-D., Lindner, M., Rauch, E., & Sablowski, M. (2024). *AIComp — AI competence framework for higher education*. Next Education. https://nextskills.org
 
+Eppich, W., & Cheng, A. (2015). Promoting Excellence and Reflective Learning in Simulation (PEARLS). *Simulation in Healthcare, 10*(2), 106–115. https://doi.org/10.1097/SIH.0000000000000072
+
+Europäische Union. (2024). *Verordnung (EU) 2024/1689 zur Festlegung harmonisierter Vorschriften für künstliche Intelligenz (KI-Verordnung)*, Anhang III. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
 Haladyna, T. M., & Rodriguez, M. C. (2013). *Developing and validating test items*. Routledge. https://doi.org/10.4324/9780203850381
 
 Liu, D., & Bridgeman, A. (2024). *The two-lane approach to assessment*. University of Sydney. https://educational-innovation.sydney.edu.au/teaching@sydney/what-to-do-about-assessments-if-we-cant-out-design-or-out-run-ai/
@@ -139,8 +182,12 @@ Schweizerische Eidgenossenschaft. (2011). *Bundesgesetz über die Psychologieber
 
 Tertiary Education Quality and Standards Agency. (2025). *Assessment reform for the age of artificial intelligence*. https://www.teqsa.gov.au/guides-resources/resources/corporate-publications/assessment-reform-age-artificial-intelligence
 
+Moyers, T. B., Manuel, J. K., & Ernst, D. (2015). *Motivational Interviewing Treatment Integrity Coding Manual 4.2.1*. https://motivationalinterviewing.org/sites/default/files/miti4_2.pdf
+
+Sackett, P. R., Zhang, C., Berry, C. M., & Lievens, F. (2022). Revisiting meta-analytic estimates of validity in personnel selection: Addressing systematic overcorrection for restriction of range. *Journal of Applied Psychology, 107*(11), 2040–2068. https://doi.org/10.1037/apl0000994
+
 Universität Zürich. (2026). *Einreihungsrichtlinien für wissenschaftliche Funktionen* (Stand 8. Januar 2026). https://www.uzh.ch/cmsssl/de/about/basics/rechtliche-grundlagen.html
 
 ---
 
-*Vollständige Recherchegrundlagen: `90_Recherche/web_stellenprofile-ch-2026.md` (Stellenprofile Schweiz, 1.8.2026), `web_karrierepfade-aus-fachbereichen.md`, `web_karrierewege-nach-msc.md`, `web_masterarbeit-stufe4.md`, `web_gestaltung-choice-evidenz.md`. Änderungsprotokoll: `30_Backlog/v7-backlog.md`.*
+*Vollständige Recherchegrundlagen: `90_Recherche/web_stellenprofile-ch-2026.md` (Stellenprofile Schweiz, 1.8.2026), `web_karrierepfade-aus-fachbereichen.md`, `web_karrierewege-nach-msc.md`, `web_masterarbeit-stufe4.md`, `web_gestaltung-choice-evidenz.md`. Feedbackdidaktik der Fallgespräche: MITI 4.2.1, Calgary-Cambridge, CTS-R, PEARLS. Änderungsprotokoll: `30_Backlog/v7-backlog.md`.*
