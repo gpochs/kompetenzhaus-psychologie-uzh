@@ -304,6 +304,20 @@
   .wchip { font: 700 10.5px var(--font); border: 1.5px solid; border-radius: 999px; padding: 2px 8px; }
   .whint { font-size: 10.5px; color: #6c7691; line-height: 1.5; margin: 10px 0 0; }
   @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
+  /* Kurzliste der übrigen Berufswege: sichtbar und vergleichbar, aber nicht im Weg */
+  .restliste { margin: 8px 4px 0; }
+  .restlbl { font: 700 10px var(--font); text-transform: uppercase; letter-spacing: .04em; color: #4a5772; margin: 0 2px 5px; }
+  .restzeile { display: flex; align-items: center; gap: 7px; width: 100%; border: 1.5px solid #dbe1ef;
+    background: var(--paper); border-radius: 9px; padding: 7px 9px; margin: 3px 0; cursor: pointer;
+    font: 500 11.5px var(--font); color: var(--ink); text-align: left; }
+  .restzeile:hover { border-color: var(--blue); background: #f4f7ff; }
+  .restzeile .rico { flex: none; font-size: 13px; }
+  .restzeile .rname { flex: 1; min-width: 0; line-height: 1.3; }
+  .restzeile .rtrack { flex: none; width: 46px; height: 6px; border-radius: 3px; background: #e8ebf4; overflow: hidden; }
+  .restzeile .rfill { display: block; height: 100%; background: linear-gradient(90deg,#0e8f7e,#0028a5); }
+  .restzeile .rpct { flex: none; width: 34px; text-align: right; font: 700 11px var(--font); color: #4a5772;
+    font-variant-numeric: tabular-nums; }
+  .restalle { width: calc(100% - 8px); margin: 6px 0 0; }
   /* Positionsfrage: zwei vertretbare Haltungen, bevor nach der Begründung gefragt wird */
   .posbox { background: #f6f2fb; border: 1.5px solid #d9cded; border-radius: 10px; padding: 8px 10px; margin: 8px 0 6px; }
   .poslbl { display: block; font: 800 10px var(--font); text-transform: uppercase; letter-spacing: .04em;

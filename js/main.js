@@ -2050,7 +2050,22 @@ function renderKarriere() {
   const passMax = Math.max(1, ...passWerte);
   // Nach Passung sortiert: die Reihenfolge ist die eigentliche Aussage, nicht der Absolutwert
   const sortiert = [...(window.KARRIERE.pfade || [])].sort((a, b) => pass[b.id] - pass[a.id]);
-  for (const p of sortiert) {
+  // Zwölf Wege mal Stellenprofil ergaben rund 13'000 Pixel Scrollhöhe — was unten steht,
+  // sieht niemand. Ausführlich sind die fünf bestpassenden; der Rest steht als Zeile da
+  // und lässt sich einzeln oder gesammelt aufklappen.
+  const AUSFUEHRLICH = 5;
+  let kurzListe = alleKarrierePfade ? [] : sortiert.slice(AUSFUEHRLICH);
+  let langListe = alleKarrierePfade ? sortiert : sortiert.slice(0, AUSFUEHRLICH);
+  // Ein einzeln aufgeklappter Weg rutscht nach oben zu den ausführlichen, bleibt aber
+  // an seiner Rangposition sortiert — sonst verliert man den Bezug zur Reihenfolge.
+  if (einzelnerPfad && !alleKarrierePfade) {
+    const p = kurzListe.find((x) => x.id === einzelnerPfad);
+    if (p) {
+      kurzListe = kurzListe.filter((x) => x.id !== einzelnerPfad);
+      langListe = [...langListe, p].sort((a, b) => pass[b.id] - pass[a.id]);
+    }
+  }
+  for (const p of langListe) {
     const wSum = Object.values(p.w).reduce((a, b) => a + b, 0);
     const ready = Math.round(Object.entries(p.w).reduce((a, [id, w]) => a + w * (pct[id] || 0), 0) / wSum * 100);
     const fit = pass[p.id];
@@ -2069,7 +2084,7 @@ function renderKarriere() {
         : `<p style="font-size:10.5px;color:var(--ok);margin:4px 0">✓ ${t("gap_ok")}</p>`}</details>` : "";
     const rmHtml = p.roadmap && p.roadmap.length ? `<details style="margin:3px 0 0"><summary style="cursor:pointer;font:700 10.5px var(--font);color:#5b6478">🚀 ${t("roadmap_titel")}</summary>
       <ol style="font-size:10.5px;line-height:1.5;padding-left:16px;margin:4px 0">${p.roadmap.map((r) => `<li style="margin:3px 0"><b>${L(r.t)}</b> — ${L(r.d)}</li>`).join("")}</ol></details>` : "";
-    html += `<div class="pfad${top ? " toppfad" : ""}">
+    html += `<div class="pfad${top ? " toppfad" : ""}" data-detail="${p.id}">
       <div class="phead"><span>${p.icon}</span><span>${L(p.name)}</span><span class="pct" title="${t("fit_hint")}">${fit}%</span></div>
       <div class="phint">${L(p.hint)}</div>
       <div class="track" title="${t("fit_hint")}"><div class="fill" style="width:${fit}%;background:linear-gradient(90deg,#0e8f7e,#0028a5)"></div></div>
@@ -2081,11 +2096,39 @@ function renderKarriere() {
       ${cand.length ? `<div class="pnext">${t("pfad_next")} ${cand.map((c) => { const voll = slotTitel(c.s).split(",")[0]; return `<button data-slot="${c.s.slot}" title="${slotTitel(c.s).replace(/"/g, "&quot;")}">${voll.length > 34 ? voll.slice(0, 33) + "…" : voll}</button>`; }).join("")}</div>` : ""}
     </div>`;
   }
+  // Die übrigen Wege als eine Zeile: sichtbar, vergleichbar, aber nicht im Weg.
+  if (kurzListe.length) {
+    html += `<div class="restliste"><p class="restlbl">${t("karr_weitere").replace("{n}", kurzListe.length)}</p>`;
+    for (const p of kurzListe) {
+      const fit = pass[p.id];
+      html += `<button class="restzeile" data-mehr="${p.id}" title="${escHtml(L(p.hint))}">
+        <span class="rico">${p.icon}</span><span class="rname">${escHtml(L(p.name))}</span>
+        <span class="rtrack"><span class="rfill" style="width:${fit}%"></span></span>
+        <span class="rpct">${fit}%</span></button>`;
+    }
+    html += `<button class="ghostbtn restalle" data-alle>${t("karr_alle")}</button></div>`;
+  } else if (sortiert.length > AUSFUEHRLICH) {
+    html += `<button class="ghostbtn restalle" data-weniger style="margin:6px 4px">${t("karr_weniger")}</button>`;
+  }
   html += `<button class="ghostbtn" data-waswenn style="margin:8px 4px 0;width:calc(100% - 8px)">🔀 ${t("wenn_titel")}</button>`;
   html += `<button class="ghostbtn" data-steckbrief style="margin:6px 4px 8px;width:calc(100% - 8px)">🖨 ${t("karriere_pdf")}</button>`;
   html += verlaufHTML();
   el.innerHTML = html;
   el.querySelectorAll(".pnext button").forEach((b) => (b.onclick = () => selectSlot(b.dataset.slot)));
+  // Einzelner Weg aus der Kurzliste: nur diesen ausklappen, ohne die Liste zu sprengen
+  el.querySelectorAll("[data-mehr]").forEach((b) => (b.onclick = () => {
+    einzelnerPfad = einzelnerPfad === b.dataset.mehr ? null : b.dataset.mehr;
+    alleKarrierePfade = false;
+    renderKarriere();
+    if (einzelnerPfad) {
+      const z = el.querySelector(`[data-detail="${einzelnerPfad}"]`);
+      if (z) z.scrollIntoView({ block: "nearest", behavior: REDUCE_MOTION ? "auto" : "smooth" });
+    }
+  }));
+  const alle = el.querySelector("[data-alle]");
+  if (alle) alle.onclick = () => { alleKarrierePfade = true; einzelnerPfad = null; renderKarriere(); };
+  const wen = el.querySelector("[data-weniger]");
+  if (wen) wen.onclick = () => { alleKarrierePfade = false; einzelnerPfad = null; renderKarriere(); el.scrollTop = 0; };
   const sb = el.querySelector("[data-steckbrief]");
   if (sb) sb.onclick = karriereSteckbrief;
   const ww = el.querySelector("[data-waswenn]");
@@ -3807,6 +3850,9 @@ function simuliereWahl(aend) {
   }
 }
 let wenn = { r: null, sp: null, wp: null };
+/* Karriere-Ansicht: nur die fünf bestpassenden Wege ausführlich, sonst 13'000 Pixel Scrollhöhe */
+let alleKarrierePfade = false;
+let einzelnerPfad = null;
 function openWasWenn() {
   const gebaut = ["s11", "s12", "s13", "BA", "s04", "s05", "s06", "s07", "s08", "s09", "wp"]
     .filter((id) => isPlaced(id)).length;
