@@ -3059,7 +3059,7 @@ document.getElementById("btnLang").onclick = () => {
   if (selectedId) openCard(selectedId);
   fillModals();
 };
-const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog", wenn: "modalWenn" };
+const modals = { menu: "modalMenu", help: "modalHelp", privacy: "modalPrivacy", about: "modalAbout", share: "modalShare", onboard: "modalOnboard", p0: "modalP0", minor: "modalMinor", bauhuette: "modalBauhuette", geraete: "modalGeraete", changelog: "modalChangelog", wenn: "modalWenn", statik: "modalStatik" };
 /* Dialoge tastaturfest machen: Der Fokus muss beim Öffnen in den Dialog wandern, beim
    Schliessen dorthin zurück, wo er herkam, und dazwischen im Dialog bleiben. Ohne das
    tabbt man aus einem offenen Dialog heraus in die Seite dahinter und findet nicht zurück. */
@@ -3814,6 +3814,89 @@ function startTour(force) {
   show();
 }
 
+/* ---------- Statik-Check: trägt die Prüfungslogik des gebauten Hauses? ----------
+   Die Two-Lane-Logik (Liu & Bridgeman) verlangt zweierlei: Jede Fachkompetenz braucht
+   mindestens einen KI-freien Nachweis [A], sonst ist nicht belegt, dass sie ohne Werkzeug
+   vorhanden ist. Und jede KI-Kompetenz braucht mindestens eine Prüfung, in der KI
+   tatsächlich vorkommt [B] oder [C], sonst wird sie zwar behauptet, aber nie geprüft.
+   Der Check misst das am tatsächlich gebauten Haus statt am Gesamtcurriculum. */
+function statikPruefen() {
+  const gebaut = ST.slots.filter((s) => isPlaced(s.slot));
+  const hatA = {}, hatBC = {}, quelleA = {}, quelleBC = {};
+  for (const s of gebaut) {
+    const tx = slotText(s);
+    const kat = (tx && tx.kat) || "";
+    const { komp } = slotKomp(s);
+    const ids = [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])];
+    for (const id of ids) {
+      if (/A/.test(kat)) { hatA[id] = (hatA[id] || 0) + 1; (quelleA[id] = quelleA[id] || []).push(s); }
+      if (/B|C/.test(kat)) { hatBC[id] = (hatBC[id] || 0) + 1; (quelleBC[id] = quelleBC[id] || []).push(s); }
+    }
+  }
+  const luecken = [];
+  for (const k of ST.kompetenzen) {
+    const angefasst = (hatA[k.id] || 0) + (hatBC[k.id] || 0) > 0;
+    if (!angefasst) continue; // Kompetenzen ohne gebautes Modul sind keine Lücke, sondern offen
+    if (k.feld === "fa" && !hatA[k.id]) luecken.push({ k, art: "fehltA" });
+    if (k.feld === "ki" && !hatBC[k.id]) luecken.push({ k, art: "fehltBC" });
+  }
+  const beruehrt = ST.kompetenzen.filter((k) => (hatA[k.id] || 0) + (hatBC[k.id] || 0) > 0);
+  return { gebaut, luecken, beruehrt, hatA, hatBC, quelleA, quelleBC };
+}
+function openStatik() {
+  const r = statikPruefen();
+  const box = document.getElementById("statikBody");
+  if (r.gebaut.length < 3) {
+    box.innerHTML = `<p style="font-size:12.5px;color:#5b6478;line-height:1.55">${t("statik_leer")}</p>`;
+    openModal("statik"); return;
+  }
+  const ok = r.luecken.length === 0;
+  let h = `<div class="plakette ${ok ? "gut" : "offen"}">
+    <span class="plaico">${ok ? "🏛️" : "🚧"}</span>
+    <div><b>${ok ? t("statik_ok_titel") : (r.luecken.length === 1 ? t("statik_offen1") : t("statik_offen_titel").replace("{n}", r.luecken.length))}</b>
+    <p>${ok ? t("statik_ok_text") : t("statik_offen_text")}</p></div></div>`;
+
+  // Zwei Spalten: Fachkompetenzen brauchen [A], KI-Kompetenzen brauchen [B]/[C]
+  const spalte = (feld, bedingung, label, erklaerung) => {
+    const ks = r.beruehrt.filter((k) => k.feld === feld);
+    if (!ks.length) return "";
+    return `<div class="stspalte"><h4>${label}</h4><p class="sthint">${erklaerung}</p>
+      <div class="stchips">${ks.map((k) => {
+        const erfuellt = bedingung(k);
+        return `<span class="stchip${erfuellt ? " ok" : " fehlt"}" title="${escHtml(L(k.name))}">${k.id}${erfuellt ? " ✓" : " ✗"}</span>`;
+      }).join("")}</div></div>`;
+  };
+  h += `<div class="stgrid">
+    ${spalte("fa", (k) => r.hatA[k.id], t("statik_fach"), t("statik_fach_hint"))}
+    ${spalte("ki", (k) => r.hatBC[k.id], t("statik_ki"), t("statik_ki_hint"))}
+  </div>`;
+
+  if (r.luecken.length) {
+    h += `<h4 class="stlueck">${t("statik_luecken")}</h4><ul class="stliste">`;
+    for (const l of r.luecken) {
+      // Welches ungebaute Modul würde die Lücke schliessen?
+      const kandidat = ST.slots.find((s) => {
+        if (isPlaced(s.slot)) return false;
+        const tx = slotText(s), kat = (tx && tx.kat) || "";
+        if (l.art === "fehltA" && !/A/.test(kat)) return false;
+        if (l.art === "fehltBC" && !/B|C/.test(kat)) return false;
+        const { komp } = slotKomp(s);
+        return [...(komp.fa || []), ...(komp.ki || []), ...(komp.fu || [])].includes(l.k.id);
+      });
+      h += `<li><b>${l.k.id} · ${escHtml(L(l.k.name))}</b> — ${t(l.art === "fehltA" ? "statik_fehltA" : "statik_fehltBC")}
+        ${kandidat ? `<button type="button" class="stbtn" data-stslot="${kandidat.slot}">${escHtml(slotTitel(kandidat).split(",")[0])}</button>` : ""}</li>`;
+    }
+    h += `</ul>`;
+  }
+  h += `<p class="sthint" style="margin-top:10px">${t("statik_quelle")}</p>`;
+  box.innerHTML = h;
+  box.querySelectorAll("[data-stslot]").forEach((b) => (b.onclick = () => {
+    document.getElementById("modalStatik").classList.remove("open");
+    selectSlot(b.dataset.stslot);
+  }));
+  openModal("statik");
+}
+
 /* ---------- Was wäre, wenn? ----------
    Das Spiel zeigt ein Profil. Die Frage, die Studierende umtreibt, ist aber ein Vergleich:
    «Was ändert sich, wenn ich HEA statt DeNC wähle?» Erst seit die Passung überhaupt auf
@@ -4210,6 +4293,7 @@ document.getElementById("btnTour").onclick = () => {
    und für Tastaturnutzende gar nicht erreichbar. */
 document.getElementById("btnBauhuetteM").onclick = () => { document.getElementById("modalMenu").classList.remove("open"); openBauhuette(); };
 document.getElementById("btnGeraeteM").onclick = () => { document.getElementById("modalMenu").classList.remove("open"); openGeraete(); };
+document.getElementById("btnStatikM").onclick = () => { document.getElementById("modalMenu").classList.remove("open"); openStatik(); };
 document.getElementById("btnChangelog").onclick = () => {
   const list = CHANGELOG[S.lang] || CHANGELOG.de;
   document.getElementById("clogList").innerHTML = list.map(([v, tx]) => `<div class="bhrow"><b>${v}</b><p>${tx}</p></div>`).join("");

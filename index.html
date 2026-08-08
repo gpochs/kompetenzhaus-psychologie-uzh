@@ -304,6 +304,28 @@
   .wchip { font: 700 10.5px var(--font); border: 1.5px solid; border-radius: 999px; padding: 2px 8px; }
   .whint { font-size: 10.5px; color: #6c7691; line-height: 1.5; margin: 10px 0 0; }
   @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
+  /* Statik-Check */
+  .plakette { display: flex; gap: 10px; align-items: flex-start; border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+  .plakette.gut { background: #e8f6f0; border: 1.5px solid #9fd4b6; }
+  .plakette.offen { background: #fff4e0; border: 1.5px solid #f0d9ae; }
+  .plakette .plaico { font-size: 22px; flex: none; }
+  .plakette b { font-size: 13px; }
+  .plakette p { font-size: 11.5px; line-height: 1.5; margin: 3px 0 0; color: #3c4356; }
+  .stgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stspalte { border: 1.5px solid #dbe1ef; border-radius: 10px; padding: 8px 10px; }
+  .stspalte h4 { font-size: 11.5px; margin: 0 0 3px; }
+  .sthint { font-size: 10.5px; color: #545e78; line-height: 1.45; margin: 0 0 6px; }
+  .stchips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .stchip { font: 700 11px var(--font); border: 1.5px solid; border-radius: 999px; padding: 2px 8px; }
+  .stchip.ok { border-color: #0a7d40; color: #0a7d40; background: #eef7f1; }
+  .stchip.fehlt { border-color: #b35c00; color: #b35c00; background: #fff6ea; }
+  .stlueck { font-size: 11.5px; margin: 12px 0 4px; }
+  .stliste { list-style: none; padding: 0; margin: 0; font-size: 11.5px; line-height: 1.5; }
+  .stliste li { margin: 6px 0; padding-left: 10px; border-left: 3px solid #f0d9ae; }
+  .stbtn { border: 1.5px solid var(--blue); background: var(--paper); color: var(--blue); border-radius: 7px;
+    padding: 2px 8px; font: 700 11px var(--font); cursor: pointer; margin-left: 4px; }
+  .stbtn:hover { background: #eef3ff; }
+  @media (max-width: 560px) { .stgrid { grid-template-columns: 1fr; } }
   /* Kurzliste der übrigen Berufswege: sichtbar und vergleichbar, aber nicht im Weg */
   .restliste { margin: 8px 4px 0; }
   .restlbl { font: 700 10px var(--font); text-transform: uppercase; letter-spacing: .04em; color: #4a5772; margin: 0 2px 5px; }
@@ -592,6 +614,7 @@
     <button class="ghostbtn" id="btnTour" data-i18n="tour_menu">🎓 Tour noch einmal ansehen</button>
     <button class="ghostbtn" id="btnBauhuetteM" data-i18n="bh_menu">🛠️ Bauhütte: Wie hier gebaut wird</button>
     <button class="ghostbtn" id="btnGeraeteM" data-i18n="gs_menu">🧰 Geräteschuppen: KI-Werkzeuge der UZH</button>
+    <button class="ghostbtn" id="btnStatikM" data-i18n="statik_menu">🏛️ Statik-Check: Prüfungslogik</button>
     <button class="ghostbtn only-mobile" id="btnCampusM">🏘️ Campus</button>
     <button class="ghostbtn only-mobile" id="btnShareM">🔗 Teilen</button>
     <button class="ghostbtn only-mobile" id="btnSoundM">🔊 Sound an/aus</button>
@@ -646,6 +669,13 @@
   <div id="bhList" style="margin:12px 0 4px"></div>
   <div id="bhEffort" class="bheffort"></div>
   <div id="bhLit"></div>
+  <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
+</div></div>
+
+<div class="modal" role="dialog" aria-modal="true" id="modalStatik"><div class="mbox">
+  <h2 data-i18n="statik_titel">🏛️ Statik-Check: Trägt deine Prüfungslogik?</h2>
+  <p data-i18n="statik_intro">Zwei Fragen an dein gebautes Haus: Ist jede Fachkompetenz mindestens einmal KI-frei nachgewiesen — und wird jede KI-Kompetenz mindestens einmal dort geprüft, wo KI tatsächlich vorkommt?</p>
+  <div id="statikBody" style="margin:10px 0 4px"></div>
   <div class="mactions"><button class="primary" data-close data-i18n="schliessen">Schliessen</button></div>
 </div></div>
 
