@@ -1,8 +1,14 @@
 # v7/v8-Backlog «Das Kompetenzhaus» — die grossen Würfe
 
-Stand: 02.08.2026 (nach v11). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+Stand: 08.08.2026 (nach v13). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
 
-**Offen, als Nächstes sinnvoll:** Karriere-Tab kürzen (zwölf Pfade mal Stellenprofil ist lang — Voreinstellung «Top 5 zeigen» mit Aufklappen) · Statik-Check B12 (Prüfung der [A]/[B]/[C]-Balance gegen die Two-Lane-Regel) · Baututor: Streaming statt «…» während der Antwort · Positionsfragen als zweiter Quiztyp (zwei vertretbare Positionen, gewählt wird die Begründung — Kandidaten: 400 DSM vs. HiTOP, 301 Schmidt & Hunter vs. Sackett, 300 Trait-Konstanz, s09 Wirkfaktoren) · fachliches Feld `bautAuf`/`gebrauchtIn` je Modul, damit die Ketten 100→300→501 und 001→101→102 sichtbar werden · Quest-Vielfalt (heute sind fast alle «KI antworten lassen, gegen Lehrbuch prüfen») · nicht-spielerische Dashboard-Ansicht als gleichwertige Alternative (Evidenzbericht Punkt 13).
+**In v13 umgesetzt (08.08.2026) — «Fachliche Ketten und Positionsfragen»:**
+
+*Fachliche Ketten.* Der `voraus`-Graph ist Gebäudestatik — er sagt, was tragen muss, nicht was inhaltlich worauf aufbaut. Neu zwei Felder je Slot (`bautAuf`, `gebrauchtIn`; 18 bzw. 15 Module), wobei jede Kante den **Gegenstand** nennt statt nur das Modul: «Reliabilität, Validität, Messinvarianz — hier in der Gutachtenlogik» statt bloss «Testtheorie». Die Gegenrichtung wird berechnet, kann also nicht auseinanderlaufen. In der Modulkarte als zwei anklickbare Zeilen; gebaute Module grün. Abgebildete Stränge: Methoden/Statistik (001→101→103→500→s03), Diagnostik (100→300→501), Klinik (400→401/402/403/502), Kognition (002→200→201), A&O (301→302), Abschlussarbeiten (102/103→BA→MA→909), Praxis (501/400→600).
+
+*Positionsfragen.* Bisher liefen alle Kontroversen durch dieselbe Tür («die KI hat unrecht»). Vier neue Fragen legen zwei **vertretbare** Haltungen nebeneinander; gewählt wird die Begründung, die Auflösung zeigt beide Linien: 400 DSM vs. HiTOP, 301 Schmidt & Hunter vs. Sackett, 102 konfirmatorisch vs. explorativ, 300 Rangstabilität vs. Mittelwertsveränderung. Als vierte Frage, damit die acht rotierenden Motive aus v10 bleiben — möglich durch den Warteschlangen-Umbau in v12.2, seit dem die Mechanik offene Fragen zählt statt einer festen Drei.
+
+**Offen, als Nächstes sinnvoll:** Karriere-Tab kürzen (zwölf Pfade mal Stellenprofil ist lang — Voreinstellung «Top 5 zeigen» mit Aufklappen) · Statik-Check B12 (Prüfung der [A]/[B]/[C]-Balance gegen die Two-Lane-Regel) · Baututor: Streaming statt «…» während der Antwort · Quest-Vielfalt (heute sind fast alle «KI antworten lassen, gegen Lehrbuch prüfen») · nicht-spielerische Dashboard-Ansicht als gleichwertige Alternative (Evidenzbericht Punkt 13).
 
 **In v12 umgesetzt (02.–08.08.2026) — «Fachlogik, Nachweis, Zugänglichkeit»:**
 
