@@ -1,6 +1,6 @@
 # v7/v8-Backlog «Das Kompetenzhaus» — die grossen Würfe
 
-Stand: 08.08.2026 (nach v13.6). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
+Stand: 08.08.2026 (nach v13.8 / Baututor v5). Quellen: Benchmark-Recherche (Duolingo/Brilliant/ustwo u.a.), UX-Audit, Ordner-Tiefenprüfung — Volltexte in `90_Recherche/` bzw. Session-Memory.
 
 **In v13 umgesetzt (08.08.2026) — «Fachliche Ketten und Positionsfragen»:**
 
@@ -16,7 +16,13 @@ Stand: 08.08.2026 (nach v13.6). Quellen: Benchmark-Recherche (Duolingo/Brilliant
 
 *Nebenbei behoben.* Der In-App-Changelog stand bei v8, die App bei v13 — fünf Versionen fehlten, jetzt nachgetragen (de/en). Die Kompetenz-Kürzel in der Liste hatten weiss auf Teal 4.0:1 und auf Sky 3.3:1 Kontrast (AA verlangt 4.5:1 für kleinen Text); die Feldfarbe steht jetzt als Kante, der Text dunkel auf hellem Grund bei 11:1. `tools/build.sh` angelegt: `build-artifact.mjs` allein bündelt `main.js` **nicht** neu — dieser Fehler hat in dieser Session eine Runde Fehlersuche gekostet.
 
-**Offen, als Nächstes sinnvoll:** Baututor: Streaming statt «…» während der Antwort, Time-out für Mikro-Feedback mitten im Fallgespräch, Schwierigkeitsgrad der Gegenrolle · Exemplare je Feedbackdimension («So klingt eine komplexe Reflexion») statt Bewertung · Fa10 Selbstmanagement: KI-freier Nachweis fehlt in allen sieben aufbauenden Modulen (curriculare Frage an die Programmleitung).
+**In v13.7/13.8 und Baututor v5 umgesetzt (08.08.2026) — «Was im Chat-Fenster ankommt»:**
+
+*Baututor v5 (gebaut und geprüft, Veröffentlichung offen).* Vier Backlog-Punkte: **Exemplare statt Einstufung** — eine Einstufung sagt, wo man steht, nicht, wie es klingt, wenn es gelingt; neu drei wörtlich nachsprechbare Fassungen desselben Zuges je Beobachtungsdimension (8 Dimensionen, zweisprachig), sichtbar nach der Schwerpunktwahl und nochmals unter der Rückmeldung. **Anspruch der Gegenrolle in drei Graden** — die Achse ist ausdrücklich nicht «stärker belastet»; der Rahmen bleibt bei leichten bis mittleren fiktiven Belastungen und die Krisengrenze verschiebt sich auf keiner Stufe. Was steigt, ist, wie viel Gesprächsführung die Figur voraussetzt, bevor sie mehr preisgibt (auf der höchsten Stufe öffnet sie sich bei Paraphrase, benanntem Zweifel oder geklärtem Auftrag). **Zwischenhinweis** nach fünf Zügen, höchstens zweimal, nur zur selbst gewählten Fokusdimension, ohne die Rolle zu beenden. **Wartezustand** — Token-Streaming gibt es in der Artifact-Laufzeit nicht, deshalb kein Fortschrittsschein, sondern ein animierter Indikator mit Wartezeitmeldung; zusätzlich läuft die Verlaufsanalyse neu während der Selbsteinschätzung, und der Abgleich mit der Selbsteinschätzung bekommt einen eigenen Aufruf und Block, statt sich 220 Wörter mit der Analyse zu teilen. Inhalt aus einem Mehragenten-Lauf mit adversarialer Prüfung: 97 Befunde, 7 blockierende, alle eingearbeitet — darunter, dass Stufe 2 der Diagnostik-Dimension genau die Fehlvorstellung vorführte, die sie korrigieren soll (ein Konfidenzintervall sagt nicht, wo der Wert einer Person «liegt»), und dass die AO-Musterlösung eine Wirkung zusagte, die nicht in der eigenen Verfügungsmacht liegt.
+
+*Zwei stille Ausfälle im Code-Artifact behoben.* Am veröffentlichten Artefakt nachgestellt: In der claude.ai-Sandbox ist `<a download>` wirkungslos und `window.open` gesperrt — beides ohne Fehlermeldung. Damit liefen dort **alle Export-Knöpfe** (Open Badges, Portfolio, Feedback-CSV, Karrieresteckbrief, Foto) und der **🤖-Knopf** ins Leere. Neu gehen Downloads über `window.claude.downloads.save`, wenn die Laufzeit sie anbietet, sonst klassisch; und wenn kein Fenster aufgeht, zeigt der 🤖-Knopf die Adresse kopierbar an, statt nichts zu tun. Geprüft: ohne Laufzeit klassisch, mit Laufzeit über die Fähigkeit, Ablehnung ohne Fehlermeldung, «unavailable» fällt zurück, echter Fehler meldet sich.
+
+**Offen, als Nächstes sinnvoll:** **Baututor v5 publizieren** — Anleitung in `50_Chat-Artifact/ANLEITUNG.md`, Versandfassung in `dist/ki-baututor-publish.html`. Die Browser-Automation kann es nicht: Sie darf weder aus der Zwischenablage in das claude.ai-Eingabefeld einfügen noch den macOS-Dateidialog bedienen. Zwei Minuten von Hand, mit Vollständigkeitsprüfung — bei 144 KB ist stille Kürzung das reale Risiko. · Fa10 Selbstmanagement: KI-freier Nachweis fehlt in allen sieben aufbauenden Modulen (curriculare Frage an die Programmleitung).
 
 **In v13.5 umgesetzt (08.08.2026):**
 

@@ -1,5 +1,25 @@
 # Companion-Chat-Artifact «KI-Baututor» — Anleitung
 
+> ## ⚠️ OFFEN: v5 ist gebaut, aber noch nicht publiziert (Stand 08.08.2026)
+>
+> Die publizierte Fassung unter **https://claude.ai/public/artifacts/f5f07577-cae4-4a98-9b67-fced673c88b3** ist noch v4.2. Die Änderungen von v5 (Exemplare je Feedbackdimension, steuerbarer Anspruch der Gegenrolle, Zwischenhinweis im Gespräch, Wartezustand) liegen fertig und geprüft im Repository, sind aber **nicht live**.
+>
+> **Warum nicht automatisch:** Die Browser-Automation kann die Zwischenablage nicht in das claude.ai-Eingabefeld einfügen (synthetische Tastenereignisse haben keinen Zugriff darauf), und den Datei-Anhang-Dialog von macOS kann sie ebenfalls nicht bedienen. Der Schritt braucht zwei Minuten von Hand.
+>
+> **So geht es (Datei: `dist/ki-baututor-publish.html`, 144 KB — die verdichtete Versandfassung aus `tools/baututor-build.mjs`, nicht die kommentierte Quelle):**
+>
+> 1. claude.ai öffnen, **neuen Chat** starten.
+> 2. `dist/ki-baututor-publish.html` **als Anhang** hochladen (Büroklammer, nicht einfügen).
+> 3. Dazu genau diesen Text schreiben:
+>
+>    > Erstelle aus dieser HTML-Datei ein HTML-Artifact. Übernimm den Code **exakt Zeichen für Zeichen**, ohne jede Änderung: nichts kürzen, nichts zusammenfassen, nichts verbessern, keine Platzhalter wie «… (gekürzt)», keine Kommentare ergänzen oder entfernen. Erfinde insbesondere **keine** Inhalte — keine Lohnangaben, keine Zahlen, keine Quellen, die nicht in der Datei stehen. Wenn die Datei zu lang für eine Antwort ist, sag das, statt zu kürzen.
+>
+> 4. **Kurztest im Artifact:** Tab «Baututor» → «Was bedeutet [B]?» — kommt eine Antwort, funktioniert `window.claude`. Dann Tab «Fallgespräch» → Szenario starten: Es müssen drei Anspruchsstufen (zugänglich / realistisch / anspruchsvoll) und nach der Schwerpunktwahl der Block «So klingt das» erscheinen. Fehlt eines davon, wurde gekürzt — **nicht publizieren**, neu versuchen.
+> 5. **Vollständigkeit prüfen:** Artifact herunterladen und `diff` gegen `dist/ki-baututor-publish.html`. Nur bei Byte-Gleichheit weiter.
+> 6. «Publish» → Link kopieren → an Claude Code zurückgeben. Dann wird `TUTOR_URL` in `js/main.js` nachgezogen und Spiel, Pages und Code-Artifact neu deployed.
+>
+> **Grösse ist das Risiko:** Bei einer früheren Runde hat das Modell eine 90-KB-Datei stillschweigend gekürzt und dabei eine Lohnquelle erfunden; erst eine auf 69 KB verdichtete Fassung kam byte-identisch durch. Die heutige Datei ist 144 KB. Deshalb Schritt 4 und 5 nicht überspringen.
+
 > **✅ ERLEDIGT, Stand 08.07.2026 (fachlogische Revision, via Chrome mit Fable Max):** Aktuelle publizierte Fassung:
 > **https://claude.ai/public/artifacts/f5f07577-cae4-4a98-9b67-fced673c88b3**
 > (Quell-Chat: claude.ai → «HTML-Code als Artifact erstellen»; Download aus dem Chat ist byte-identisch mit `ki-baututor-artifact.html` in diesem Ordner). Die URL ist als `TUTOR_URL` in `js/main.js` eingetragen — der 🤖-Button im Spiel öffnet sie überall dort, wo `window.claude` fehlt (GitHub Pages + Code-Artifact).
