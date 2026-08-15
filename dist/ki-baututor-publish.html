@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Baututor — Das Kompetenzhaus (Psychologie UZH, Entwurf)</title>
+<style>  :root { --blue:#0028a5; --blue2:#3f6cc8; --teal:#0e8f7e; --ink:#1c2333; --paper:#fff; --paper2:#f4f6fb;
+    --warn:#b35c00; --font:"Helvetica Neue",Helvetica,Arial,sans-serif; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; font-family:var(--font); color:var(--ink); background:var(--paper2); }
+  #app { max-width:720px; margin:0 auto; height:100%; display:flex; flex-direction:column; padding:12px; gap:10px; }
+  header { background:var(--blue); color:#fff; border-radius:14px; padding:12px 16px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  header h1 { font-size:16px; }
+  header .sub { font-size:11px; opacity:.85; flex-basis:100%; }
+  .badge { font:700 9.5px var(--font); border:1.5px solid #ffd27d; color:#ffd27d; border-radius:999px; padding:2px 7px; letter-spacing:.4px; }
+  #langBtn { margin-left:auto; border:0; border-radius:999px; padding:6px 12px; font:700 12px var(--font); cursor:pointer; background:#fff; color:var(--blue); }
+  .tabs { display:flex; gap:6px; }
+  .tabs button { flex:1; border:0; background:#fff; border-radius:999px; padding:9px 6px; font:700 12px var(--font); color:#5b6478; cursor:pointer; box-shadow:0 2px 10px rgba(16,24,64,.08); }
+  .tabs button.on { background:var(--blue); color:#fff; }
+  #stand { background:#fff; border-radius:12px; padding:10px 12px; font-size:12px; }
+  #stand summary { cursor:pointer; font-weight:700; color:var(--blue); }
+  #stand textarea { width:100%; margin-top:8px; border:1.5px solid #dbe1ef; border-radius:10px; padding:8px; font:500 11px var(--font); min-height:64px; }
+  #stand .hint { font-size:10.5px; color:#5b6478; margin-top:6px; line-height:1.45; }
+  #standInfo { font-size:11.5px; margin-top:6px; color:#0a5c31; }
+  #panel { background:#fff; border-radius:14px; flex:1; min-height:280px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 4px 18px rgba(16,24,64,.08); }
+  #msgs { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
+  .m { border-radius:12px; padding:9px 12px; font-size:13px; line-height:1.5; max-width:88%; overflow-wrap:anywhere; position:relative; }
+  .m.me { background:var(--blue); color:#fff; align-self:flex-end; white-space:pre-wrap; }
+  .m.bot { background:var(--paper2); align-self:flex-start; }
+  .m.sys { background:#fdf6e7; color:#6b4a00; align-self:stretch; max-width:100%; font-size:11.5px; white-space:pre-wrap; }
+  .m.bot p { margin:0 0 7px; } .m.bot p:last-child { margin-bottom:0; }
+  .m.bot ul, .m.bot ol { margin:5px 0 7px; padding-left:19px; }
+  .m.bot li { margin:3px 0; }
+  .m.bot code { background:#e6ebf7; border-radius:4px; padding:1px 4px; font:600 11.5px ui-monospace,Menlo,monospace; }
+  .m.bot b { font-weight:700; }
+  .copybtn { display:block; margin-top:7px; border:1px solid #dbe1ef; background:#fff; color:#5b6478;
+    border-radius:7px; padding:3px 9px; font:600 10.5px var(--font); cursor:pointer; }
+  .copybtn:hover { border-color:var(--blue); color:var(--blue); }
+  .stufenfuss { margin-top:6px; font-size:10px; color:#8b94ab; line-height:1.4; border-top:1px solid #dbe1ef; padding-top:5px; }
+  #uebungBanner { display:none; align-items:center; gap:8px; background:#fff4e0; border-bottom:1px solid #f0d9ae;
+    padding:7px 12px; font:700 11.5px var(--font); color:#7a4d00; }
+  #uebungBanner button { margin-left:auto; border:1.5px solid #c98a1a; background:#fff; color:#7a4d00;
+    border-radius:999px; padding:4px 11px; font:700 10.5px var(--font); cursor:pointer; }
+  #uebungBanner button:hover { background:#c98a1a; color:#fff; }
+  .pulsdot { width:8px; height:8px; border-radius:50%; background:#c98a1a; flex:none;
+    animation:puls 1.8s ease-in-out infinite; }
+  @keyframes puls { 0%,100%{opacity:1} 50%{opacity:.35} }
+  @media (prefers-reduced-motion: reduce) { .pulsdot { animation:none } }
+  .m.brief { background:#eef3ff; color:#22305c; align-self:stretch; max-width:100%; border:1.5px solid #c9d6f5; }
+  .m.brief ul { font-size:11.5px; }
+  .brieffuss { font-size:10px; color:#5b6478; line-height:1.45; margin:8px 0 0; border-top:1px solid #c9d6f5; padding-top:6px; }
+  .fokuschips { display:flex; flex-wrap:wrap; gap:5px; }
+  .fokuschips button { border:1.5px solid #c9d6f5; background:#fff; color:#22305c; border-radius:999px;
+    padding:5px 11px; font:600 11px var(--font); cursor:pointer; }
+  .fokuschips button:hover { border-color:var(--blue); }
+  .fokuschips button.on { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:800; }
+  .fokuschips button:disabled { opacity:.6; cursor:default; }
+  .m.fb { background:#fff; align-self:stretch; max-width:100%; border:2px solid var(--teal); }
+  .fbkopf { font:800 10px var(--font); text-transform:uppercase; letter-spacing:.05em; color:var(--teal);
+    border-bottom:1px solid #cfe8e3; padding-bottom:5px; margin-bottom:8px; line-height:1.45; }
+  .fbact { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+  .fbact button { border:1.5px solid var(--teal); background:#fff; color:#0b6f61; border-radius:9px;
+    padding:6px 12px; font:700 11px var(--font); cursor:pointer; }
+  .fbact button:hover { background:var(--teal); color:#fff; }
+  .m.krise { background:#fdecec; color:#7a1c1c; align-self:stretch; max-width:100%; border:2px solid #d46a6a; }
+  .m.krise ul { margin:0; padding-left:18px; font-size:11.5px; }
+  .m.krise li { margin:3px 0; }
+  .denk { display:flex; align-items:center; gap:7px; }
+  .denk i { width:6px; height:6px; border-radius:50%; background:var(--blue2); display:inline-block;
+    animation:denkhuepf 1.15s infinite ease-in-out; }
+  .denk i:nth-child(2) { animation-delay:.16s; } .denk i:nth-child(3) { animation-delay:.32s; }
+  .denk span { font-size:11px; color:#5b6478; }
+  @keyframes denkhuepf { 0%,72%,100% { transform:translateY(0); opacity:.38; } 32% { transform:translateY(-4px); opacity:1; } }
+  @media (prefers-reduced-motion:reduce) { .denk i { animation:denkpuls 1.6s infinite ease-in-out; } }
+  @keyframes denkpuls { 0%,100% { opacity:.35; } 50% { opacity:1; } }
+  .m.mikro { background:#f2fbf8; color:#0b4f45; align-self:stretch; max-width:100%;
+    border-left:3px solid var(--teal); font-size:12px; }
+  .mikrokopf { font:800 9.5px var(--font); text-transform:uppercase; letter-spacing:.05em; color:var(--teal); margin-bottom:3px; }
+  .mikrofuss { font-size:10px; color:#4a6d67; margin-top:5px; }
+  .exwrap { margin:7px 0 0; border-top:1px solid #c9d6f5; padding-top:7px; }
+  .exwrap > summary { cursor:pointer; font:700 11.5px var(--font); color:var(--blue); list-style:none; padding:3px 0; }
+  .exwrap > summary::-webkit-details-marker { display:none; }
+  .exwrap > summary::before { content:"▸ "; }
+  .exwrap[open] > summary::before { content:"▾ "; }
+  .exwrap > summary:hover { text-decoration:underline; }
+  .exstufe { border-left:3px solid #d3dcf0; padding:4px 0 4px 9px; margin:6px 0; }
+  .exstufe.top { border-left-color:var(--teal); background:#f6fbfa; border-radius:0 7px 7px 0; }
+  .exlabel { font:700 10px var(--font); text-transform:uppercase; letter-spacing:.04em; color:#5b6478; }
+  .exstufe.top .exlabel { color:var(--teal); }
+  .exsatz { font-size:12px; margin:2px 0 3px; }
+  .exwarum { font-size:10.5px; color:#5b6478; line-height:1.45; }
+  .exhinweis { font-size:10.5px; color:#6b4a00; background:#fdf6e7; border-radius:7px; padding:5px 8px; margin-top:6px; }
+  .schwerwahl { display:flex; flex-wrap:wrap; gap:5px; margin:2px 0 4px; }
+  .schwerwahl button { border:1.5px solid #c9d6f5; background:#fff; color:#22305c; border-radius:999px;
+    padding:5px 11px; font:600 11.5px var(--font); cursor:pointer; }
+  .schwerwahl button:hover { border-color:var(--blue); }
+  .schwerwahl button.on { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:800; }
+  .schwerwahl button:disabled { opacity:.6; cursor:default; }
+  .schwerkurz { font-size:10.5px; color:#5b6478; margin:0 0 4px; min-height:14px; }
+  .m.selbst { background:#fdf6e7; color:#4a3300; align-self:stretch; max-width:100%; }
+  .selbstrow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; justify-content:space-between;
+    padding:5px 0; border-top:1px solid #efe0c2; font-size:11.5px; }
+  .selbstrow > span:first-child { flex:1; min-width:150px; font-weight:600; }
+  .selbstbtns { display:flex; gap:3px; }
+  .selbstbtns button { border:1.5px solid #e0cfa8; background:#fff; color:#7a4d00; border-radius:999px;
+    padding:3px 9px; font:600 10.5px var(--font); cursor:pointer; }
+  .selbstbtns button.on { background:#c98a1a; border-color:#c98a1a; color:#fff; }
+  .selbstbtns button:disabled { opacity:.55; cursor:default; }
+  .selbstact { display:flex; gap:6px; margin-top:9px; flex-wrap:wrap; }
+  .selbstact button { border:1.5px solid #e0cfa8; background:#fff; color:#7a4d00; border-radius:9px;
+    padding:6px 12px; font:700 11px var(--font); cursor:pointer; }
+  .selbstact button.primary { background:var(--blue); border-color:var(--blue); color:#fff; }
+  .selbstact button:disabled { opacity:.5; cursor:default; }
+  #startfragen { display:none; flex-wrap:wrap; gap:5px; }
+  .startfrage { border:1.5px solid #dbe1ef; background:#fff; color:#39415a; border-radius:999px;
+    padding:6px 11px; font:600 11px var(--font); cursor:pointer; text-align:left; line-height:1.35; }
+  .startfrage:hover { border-color:var(--blue); color:var(--blue); background:#f4f7ff; }
+  #cvHint { flex-basis:100%; font-size:10.5px; color:#8b94ab; line-height:1.4; margin-top:2px; }
+  #ctl { padding:8px 12px; border-top:1px solid #edf0f7; display:flex; flex-direction:column; gap:8px; }
+  #vignRow, #cvRow { display:none; gap:6px; flex-wrap:wrap; align-items:center; font-size:11.5px; color:#5b6478; }
+  select, #cvRolle { border:1.5px solid #dbe1ef; border-radius:9px; padding:7px 9px; font:600 12px var(--font); background:#fff; max-width:100%; }
+  #cvKomp, #vignSel { flex:1; min-width:180px; }
+  #cvRolle { flex:1; min-width:160px; }
+  #cvBeispiel { flex-basis:100%; font-size:10.5px; color:#5b6478; line-height:1.4; }
+  #cvBeispiel b { color:var(--blue); font-weight:700; cursor:pointer; text-decoration:underline dotted; }
+  .inrow { display:flex; gap:6px; align-items:flex-end; }
+  .inrow input, .inrow textarea { flex:1; border:1.5px solid #dbe1ef; border-radius:10px; padding:10px 12px; font:500 13px var(--font); }
+  .inrow textarea { resize:none; min-height:40px; max-height:96px; line-height:1.4; font-family:var(--font); }
+  .primary { border:0; background:var(--blue); color:#fff; border-radius:10px; padding:10px 16px; font:700 13px var(--font); cursor:pointer; }
+  .primary:disabled { background:#b9c2d9; cursor:wait; }
+  footer { font-size:10px; color:#5b6478; line-height:1.5; padding:0 4px 6px; }
+  footer b { color:var(--warn); }
+  #noApi { display:none; background:#faeaea; color:#7a1023; border-radius:12px; padding:10px 14px; font-size:12.5px; line-height:1.5; }
+  #vignInfo { display:none; font-size:11px; color:#3c4356; background:var(--paper2); border-radius:9px; padding:7px 10px; line-height:1.5; }
+  #hinweis { position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; background:rgba(10,16,40,.45); padding:14px; }
+  #hinweis.open { display:flex; }
+  #hinweis .hbox { background:#fff; border-radius:16px; padding:20px 22px; max-width:480px; max-height:86vh; overflow-y:auto; box-shadow:0 10px 34px rgba(16,24,64,.3); }
+  #hinweis h2 { color:var(--blue); font-size:16px; margin-bottom:8px; }
+  #hinweis li { font-size:12px; line-height:1.55; color:#2c3550; margin:7px 0 7px 16px; }
+  @media (max-width:430px) {
+    .tabs button { font-size:10.5px; padding:8px 2px; }
+    header h1 { font-size:14px; }
+  }</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <span style="font-size:22px">🤖</span>
+    <h1 data-de="KI-Baututor — Das Kompetenzhaus" data-en="AI Building Tutor — The Competence House">KI-Baututor — Das Kompetenzhaus</h1>
+    <span class="badge" data-de="ENTWURF" data-en="DRAFT">ENTWURF</span>
+    <button id="langBtn">EN</button>
+    <span class="sub" data-de="Psychologie UZH · BSc &amp; MSc · Begleiter zum 3D-Bauspiel" data-en="Psychology UZH · BSc &amp; MSc · companion to the 3D building game">Psychologie UZH · BSc &amp; MSc · Begleiter zum 3D-Bauspiel</span>
+  </header>
+
+  <div id="noApi"></div>
+
+  <div class="tabs">
+    <button id="tabTutor" class="on" data-de="💬 Baututor" data-en="💬 Tutor">💬 Baututor</button>
+    <button id="tabVign" data-de="🩺 Fallgespräch" data-en="🩺 Case practice">🩺 Fallgespräch</button>
+    <button id="tabCv" data-de="📝 CV-Baustein" data-en="📝 CV builder">📝 CV-Baustein</button>
+    <button id="tabKarr" data-de="🧭 Karriere" data-en="🧭 Career">🧭 Karriere</button>
+  </div>
+
+  <details id="stand">
+    <summary data-de="🏠 Spielstand einfügen (optional)" data-en="🏠 Paste your game state (optional)">🏠 Spielstand einfügen (optional)</summary>
+    <textarea id="standTa" placeholder='{"placed": …}'></textarea>
+    <div class="hint" data-de="Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen, bitte keine echten Personendaten einfügen." data-en="In the game: menu ⋯ → 'Export house (JSON)' → open the file and paste its content here. The tutor will then know your built modules. Only module IDs are read, please do not paste real personal data.">Im Spiel: Menü ⋯ → «Haus exportieren (JSON)» → Datei öffnen, Inhalt hier einfügen. Dann kennt der Tutor deine gebauten Module. Es werden nur Modul-IDs gelesen, bitte keine echten Personendaten einfügen.</div>
+    <div id="standInfo"></div>
+  </details>
+
+  <div id="panel">
+    <div id="uebungBanner"></div>
+    <div id="msgs"></div>
+    <div id="ctl">
+      <div id="vignRow">
+        <span data-de="Szenario:" data-en="Scenario:">Szenario:</span>
+        <select id="vignSel"></select>
+        <button class="primary" id="vignStart" style="padding:7px 12px;font-size:11.5px" data-de="Gespräch starten" data-en="Start conversation">Gespräch starten</button>
+      </div>
+      <p id="vignInfo"></p>
+      <div id="cvRow">
+        <select id="cvKomp"></select>
+        <input id="cvRolle" data-phde="Zielrolle eingeben …" data-phen="Enter target role …" placeholder="Zielrolle eingeben …">
+        <button class="primary" id="cvGo" style="padding:7px 12px;font-size:11.5px" data-de="Satz formulieren" data-en="Draft sentence">Satz formulieren</button>
+        <div id="cvBeispiel"></div>
+        <div id="cvHint"></div>
+      </div>
+      <div id="karrRow" style="display:none;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:#5b6478">
+        <span data-de="Berufsweg:" data-en="Career path:">Berufsweg:</span>
+        <select id="karrSel" style="flex:1;min-width:180px"></select>
+        <button class="primary" id="karrGo" style="padding:7px 12px;font-size:11.5px" data-de="Weg prüfen" data-en="Check route">Weg prüfen</button>
+      </div>
+      <div id="startfragen"></div>
+      <div class="inrow">
+        <textarea id="inp" rows="1" maxlength="400" data-phde="Deine Frage … (Enter sendet, Shift+Enter für neue Zeile)" data-phen="Your question … (Enter sends, Shift+Enter for a new line)" placeholder="Deine Frage … (Enter sendet, Shift+Enter für neue Zeile)"></textarea>
+        <button class="primary" id="send">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <footer data-de="Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026; keine Studienberatung, verbindliche Auskünfte gibt die Studienprogrammleitung. <b>Datenschutz:</b> Deine Eingaben laufen über dein claude.ai-Konto, werden bei Anthropic gespeichert und können je nach deinen Kontoeinstellungen zur Verbesserung der Modelle (Training) verwendet werden. Gib deshalb keine persönlichen, vertraulichen oder besonders schützenswerten Daten ein: keine Klarnamen, keine echten Fall- oder Gesundheitsdaten. Fallgespräche sind vollständig fiktiv (du übst als Therapeut:in, die KI spielt die fiktive Patientin); bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche)." data-en="Everything here is a <b>DRAFT</b> based on the competence build-up model of 2 July 2026; not study advising, binding answers come from the programme direction. <b>Privacy:</b> your input runs through your claude.ai account, is stored by Anthropic and, depending on your account settings, may be used to improve the models (training). Therefore do not enter any personal, confidential or specially protected data: no real names, no real case or health data. Case conversations are entirely fictional (you practise as the therapist, the AI plays the fictional patient); in a real crisis: 143 (Dargebotene Hand) / 147 (for adolescents).">Alles hier ist ein <b>ENTWURF</b> auf Basis des Kompetenzaufbaumodells vom 02.07.2026; keine Studienberatung, verbindliche Auskünfte gibt die Studienprogrammleitung. <b>Datenschutz:</b> Deine Eingaben laufen über dein claude.ai-Konto, werden bei Anthropic gespeichert und können je nach deinen Kontoeinstellungen zur Verbesserung der Modelle (Training) verwendet werden. Gib deshalb keine persönlichen, vertraulichen oder besonders schützenswerten Daten ein: keine Klarnamen, keine echten Fall- oder Gesundheitsdaten. Fallgespräche sind vollständig fiktiv (du übst als Therapeut:in, die KI spielt die fiktive Patientin); bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche).</footer>
+</div>
+
+<div id="hinweis">
+  <div class="hbox">
+    <h2 data-de="Bevor du startest" data-en="Before you start">Bevor du startest</h2>
+    <ul style="list-style:disc">
+      <li data-de="Dieses Übungstool gehört zum Lernspiel «Das Kompetenzhaus» (Entwurf). Alle Fallgespräche sind vollständig fiktiv: Du übst in der Rolle der Therapeut:in oder Berater:in, die KI spielt die fiktive Patientin bzw. Gesprächspartnerin." data-en="This practice tool belongs to the learning game 'The Competence House' (draft). All case conversations are entirely fictional: you practise in the role of the therapist or counsellor, the AI plays the fictional patient or counterpart.">Dieses Übungstool gehört zum Lernspiel «Das Kompetenzhaus» (Entwurf). Alle Fallgespräche sind vollständig fiktiv: Du übst in der Rolle der Therapeut:in oder Berater:in, die KI spielt die fiktive Patientin bzw. Gesprächspartnerin.</li>
+      <li data-de="<b>Gib keine persönlichen, vertraulichen oder besonders schützenswerten Daten ein:</b> keine Klarnamen, keine echten Fall-, Klienten- oder Gesundheitsdaten." data-en="<b>Do not enter any personal, confidential or specially protected data:</b> no real names, no real case, client or health data."><b>Gib keine persönlichen, vertraulichen oder besonders schützenswerten Daten ein:</b> keine Klarnamen, keine echten Fall-, Klienten- oder Gesundheitsdaten.</li>
+      <li data-de="Deine Eingaben laufen über dein claude.ai-Konto und werden bei Anthropic gespeichert; je nach deinen Kontoeinstellungen können sie zur Verbesserung der Modelle (Training) verwendet werden." data-en="Your input runs through your claude.ai account and is stored by Anthropic; depending on your account settings, it may be used to improve the models (training).">Deine Eingaben laufen über dein claude.ai-Konto und werden bei Anthropic gespeichert; je nach deinen Kontoeinstellungen können sie zur Verbesserung der Modelle (Training) verwendet werden.</li>
+      <li data-de="Der Baututor ersetzt keine Studienberatung und keine echte Beratung oder Therapie. Bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche)." data-en="The tutor replaces neither study advising nor real counselling or therapy. In a real crisis: 143 (Dargebotene Hand) / 147 (for adolescents).">Der Baututor ersetzt keine Studienberatung und keine echte Beratung oder Therapie. Bei echten Krisen: 143 (Dargebotene Hand) / 147 (Jugendliche).</li>
+    </ul>
+    <button class="primary" id="hinweisOk" style="margin-top:12px;width:100%" data-de="Verstanden" data-en="Understood">Verstanden</button>
+  </div>
+</div>
+
+<script>const SLOT_TITEL = {
+  "001":["Einführung Statistik, Emotions-, Motivations-, Sozialpsychologie",18],"002":["Einführung Methoden, Kognition, Entwicklungs-, Biologische Psychologie",18],
+  "003":["Interaktives Proseminar (IPS)",2],"100":["Testtheorie",4],"101":["Rechnergestützte Datenauswertung",4],"102":["Experimentalpsychologisches Praktikum (ExPra)",8],
+  "103":["Statistik 2",8],"200":["Kognitionspsychologie 2",4],"201":["Kognitive Neurowissenschaften",4],"300":["Persönlichkeitspsychologie",4],
+  "301":["Arbeits- und Organisationspsychologie 1",4],"302":["Arbeits- und Organisationspsychologie 2",4],"400":["Einführung Klinische Psychologie und Psychopathologie",8],
+  "401":["Klinische Biopsychologie",4],"402":["Ausgewählte Themen der Psychopathologie (PTO)",4],"403":["Klinische Paar- und Familienpsychologie",4],
+  "s11":["Wahlseminar Entwicklungspsychologie",4],"s12":["Wahlseminar Klinische/Gesundheitspsychologie",4],"s13":["Wahlseminar SWOD-Psychologie",4],
+  "BA":["Bachelorarbeit",6],"500":["Statistics 3",4],"501":["Psychologische Diagnostik",4],"502":["Gesundheitspsychologie",4],
+  "wp":["Wahlpflicht: Economic/Consumer Psych. oder Klin. Neuropsychologie",4],"s01a":["Ergänzung Wahlmodul I",4],"s01b":["Ergänzung Wahlmodul II",4],"s01c":["Ergänzung Wahlmodul III (oder Mentoring)",4],
+  "s02a":["Gästekolloquium I",1],"s02b":["Gästekolloquium II",1],"s03":["Fortgeschrittene Methoden",4],
+  "s04":["Vertiefung 1",4],"s05":["Vertiefung 2",4],"s06":["Vertiefung 3",4],"s07":["Vertiefung 4",4],"s08":["Vertiefung 5",4],"s09":["Vertiefung 6",4],
+  "600":["Praktikum (500 Stunden)",16],"MA":["Masterarbeit",30],"901":["Masterarbeitsgruppe 1",2],"902":["Forschungskolloquium 1",2],"903":["Masterarbeitsgruppe 2",2],"904":["Forschungskolloquium 2",2],"909":["Masterprüfung",8]
+};
+const KOMP = [
+  ["Fa1","Fachwissen","Disciplinary knowledge"],["Fa2","Forschungsmethoden & Design","Research methods & design"],["Fa3","Statistik, R & Daten","Statistics, R & data"],
+  ["Fa4","kritisches Denken","Critical thinking"],["Fa5","Diagnostik & Testtheorie","Diagnostics & test theory"],
+  ["Fa6","Schreiben & Kommunikation","Writing & communication"],["Fa7","Ethik & Integrität","Ethics & integrity"],["Fa8","evidenzbasierte Praxis/Transfer","Evidence-based practice/transfer"],
+  ["Fa9","Diversität & Kontext","Diversity & context"],["Fa10","Selbstmanagement","Self-management"],
+  ["KI1","KI anwenden","Applying AI"],["KI2","Mit KI gestalten","Creating with AI"],["KI3","Mit KI zusammenarbeiten","Collaborating with AI"],
+  ["KI4","KI verstehen","Understanding AI"],["KI5","KI verantworten","Responsible AI use"],["KI6","KI-Ergebnisse evaluieren","Evaluating AI output"],
+  ["Fu1","Arbeiten/Gestalten (mit & ohne KI)","Working/creating (with & without AI)"],["Fu2","Persönliche Fähigkeiten","Personal capabilities"],["Fu3","Soziales Umfeld gestalten","Shaping the social environment"]
+];
+const VIGN = [
+  { id:"klin", de:"Klinik: Erstgespräch", en:"Clinic: intake session",
+    rolle:{de:"Patientin (fiktiv)",en:"Patient (fictional)"},
+    info:{de:"Deine Rolle: Therapeut:in in Ausbildung. Die KI spielt eine fiktive Patientin mit diffusen Belastungssymptomen in einer psychotherapeutischen Ambulanz. Übungsfokus: Gesprächsführung und strukturierte Anamnese. Passt zu Modul 400/402.", en:"Your role: therapist in training. The AI plays a fictional patient with diffuse strain symptoms at an outpatient clinic. Practice focus: conversation skills and structured anamnesis. Fits modules 400/402."},
+    ctx:{de:"Erstgespräch in einer psychotherapeutischen Ambulanz. Deine Rolle: eine fiktive Patientin mit diffusen Belastungssymptomen (leichte bis mittlere, klar erfundene Symptomatik).", en:"Intake at an outpatient psychotherapy clinic. Your role: a fictional patient with diffuse strain symptoms (mild to moderate, clearly invented)."},
+    opener:{de:"Guten Tag. Ich bin Lea Bühler, 24. Meine Hausärztin hat gesagt, ich soll mich hier melden. Ich schlafe seit ein paar Monaten schlecht und bin ständig müde, und in letzter Zeit vergesse ich Sachen bei der Arbeit. Ich weiss ehrlich gesagt nicht, ob das hierher gehört.", en:"Hello. I'm Lea Bühler, 24. My GP said I should come here. I've been sleeping badly for a few months and I'm tired all the time, and lately I forget things at work. Honestly, I'm not sure this belongs here."} },
+  { id:"diag", de:"Diagnostik: Testrückmeldung", en:"Assessment: test feedback",
+    rolle:{de:"Klientin (fiktiv)",en:"Client (fictional)"},
+    info:{de:"Deine Rolle: Psycholog:in, die Testergebnisse zurückmeldet. Die KI spielt eine fiktive Klientin, die den Ergebnissen skeptisch begegnet. Übungsfokus: Gütekriterien verständlich erklären, faire Interpretation. Passt zu Modul 501.", en:"Your role: psychologist giving test feedback. The AI plays a fictional client who is sceptical about the results. Practice focus: explaining quality criteria clearly, fair interpretation. Fits module 501."},
+    ctx:{de:"Rückmeldegespräch nach einer psychologischen Testung. Deine Rolle: eine fiktive Klientin, die den Ergebnissen skeptisch begegnet und kritisch nachfragt.", en:"Feedback conversation after psychological testing. Your role: a fictional client who is sceptical about the results and asks critical questions."},
+    opener:{de:"Guten Tag. Sie hatten gesagt, heute gehe es um die Auswertung. Ich habe die ganze Woche daran gedacht, ehrlich gesagt. Ist da jetzt etwas herausgekommen, das nicht stimmt bei mir?", en:"Hello. You said today would be about the results. I've been thinking about it all week, to be honest. Did something come out that's wrong with me?"} },
+  { id:"ges", de:"Gesundheit: Beratungsgespräch", en:"Health: counselling session",
+    rolle:{de:"Klient (fiktiv)",en:"Client (fictional)"},
+    info:{de:"Deine Rolle: Gesundheitsberater:in. Die KI spielt einen fiktiven Klienten, der bei der Verhaltensänderung (Bewegung, Schlaf) ambivalent ist. Übungsfokus: Theorien des Gesundheitsverhaltens anwenden, Ambivalenz aushalten. Passt zu Modul 502.", en:"Your role: health counsellor. The AI plays a fictional client who is ambivalent about behaviour change (exercise, sleep). Practice focus: applying health-behaviour theories, tolerating ambivalence. Fits module 502."},
+    ctx:{de:"Beratungsgespräch zur Verhaltensänderung (Bewegung, Schlaf). Deine Rolle: ein fiktiver Klient, der ambivalent ist und Einwände einbringt.", en:"Counselling on behaviour change (exercise, sleep). Your role: a fictional client who is ambivalent and raises objections."},
+    opener:{de:"Hoi. Also, meine Frau findet, ich sollte etwas ändern mit dem Rauchen. Ich bin eigentlich nur hier, weil ich es ihr versprochen habe. Ich meine, ich weiss schon, dass es nicht gesund ist, aber es hilft mir halt beim Runterkommen nach der Schicht.", en:"Hi. So, my wife thinks I should do something about the smoking. I'm really only here because I promised her. I mean, I know it isn't healthy, but it does help me wind down after a shift."} },
+  { id:"ao", de:"AO: Teamkonflikt", en:"W&O: team conflict",
+    rolle:{de:"Teamleiterin (fiktiv)",en:"Team lead (fictional)"},
+    info:{de:"Deine Rolle: AO-Berater:in. Die KI spielt eine fiktive Teamleiterin mit einem eskalierenden Konflikt in ihrem Team. Übungsfokus: AO-psychologische Konzepte zu Teams, Führung und Arbeitsgestaltung anwenden. Passt zu Modul 301/302.", en:"Your role: work-and-organisational consultant. The AI plays a fictional team lead facing an escalating conflict in her team. Practice focus: applying W&O concepts on teams, leadership and work design. Fits modules 301/302."},
+    ctx:{de:"Beratungsgespräch in einer Organisation. Deine Rolle: eine fiktive Teamleiterin, deren Team in einem eskalierenden Konflikt steckt.", en:"Consulting conversation in an organisation. Your role: a fictional team lead whose team is stuck in an escalating conflict."},
+    opener:{de:"Guten Tag. Ich bin Marco Steiner, Teamleiter im Kundendienst. Die HR-Leiterin hat mich zu Ihnen geschickt, es geht um die Stimmung im Team. Ich sage Ihnen gleich: Ich weiss nicht genau, was ich hier soll, und was hier besprochen wird, will ich nicht nachher im Mitarbeitergespräch wiederfinden.", en:"Hello. I'm Marco Steiner, team lead in customer service. The head of HR sent me to you, it's about the mood in the team. Let me say up front: I'm not sure what I'm doing here, and I don't want what we discuss to resurface in my performance review."} }
+];
+const ROLLEN = {
+  Fa1:{de:"Psychologin in Ausbildung in einer psychiatrischen Klinik",en:"psychologist in training at a psychiatric clinic"},
+  Fa2:{de:"Research Assistant in einem klinischen Forschungsprojekt",en:"research assistant on a clinical research project"},
+  Fa3:{de:"Data Analyst:in im Gesundheitswesen",en:"data analyst in healthcare"},
+  Fa4:{de:"wissenschaftliche:r Mitarbeiter:in in der Evaluationsforschung",en:"research associate in evaluation research"},
+  Fa5:{de:"Psychologin im schulpsychologischen Dienst",en:"psychologist in a school psychology service"},
+  Fa6:{de:"Fachredaktor:in für Wissenschaftskommunikation",en:"science communication editor"},
+  Fa7:{de:"Mitarbeiter:in einer Ethikkommission",en:"staff member of an ethics committee"},
+  Fa8:{de:"Berater:in in der betrieblichen Gesundheitsförderung",en:"consultant in workplace health promotion"},
+  Fa9:{de:"Psycholog:in in der interkulturellen Beratung",en:"psychologist in intercultural counselling"},
+  Fa10:{de:"Projektleiter:in in einem Praxisforschungsprojekt",en:"project lead on an applied research project"},
+  KI1:{de:"UX Researcher in einem Digital-Health-Team",en:"UX researcher on a digital-health team"},
+  KI2:{de:"People-Analytics-Spezialist:in im HR",en:"people-analytics specialist in HR"},
+  KI3:{de:"Produktmanager:in für digitale Gesundheitsanwendungen",en:"product manager for digital health applications"},
+  KI4:{de:"wissenschaftliche:r Mitarbeiter:in Mensch-KI-Interaktion",en:"research associate in human–AI interaction"},
+  KI5:{de:"AI-Governance-Verantwortliche:r in einem Spital",en:"AI governance officer at a hospital"},
+  KI6:{de:"Testpsycholog:in bei einem Assessment-Anbieter",en:"test psychologist at an assessment provider"},
+  Fu1:{de:"Innovationsmanager:in im Gesundheitsbereich",en:"innovation manager in the health sector"},
+  Fu2:{de:"Doktorand:in in einem Graduiertenprogramm",en:"doctoral student in a graduate programme"},
+  Fu3:{de:"Teamleiter:in in einer Beratungsstelle",en:"team lead at a counselling centre"}
+};
+const THEMA_R = { s11a:"ekn", s11b:"klin", s11c:"swo", s12a:"klin", s12b:"ekn", s12c:"swo", s13a:"swo", s13b:"ekn", s13c:"klin", BAk:"klin", BAe:"ekn", BAs:"swo" };
+const BA_FRAGEN = {
+  BAk1:"📊 Schlafqualität & depressive Symptome (Datensatz-Analyse)", BAk2:"🔁 Social Media & Wohlbefinden (Repro-Check)", BAk3:"🗂️ Digitale Gesundheits-Apps bei Stress (strukturierter Review)",
+  BAe1:"📊 Altersunterschiede im Arbeitsgedächtnis (Datensatz-Analyse)", BAe2:"🔁 Robustheitscheck eines Gedächtniseffekts (Repro-Check)", BAe3:"🗂️ Bildschirmzeit in der frühen Kindheit (strukturierter Review)",
+  BAs1:"📊 Homeoffice & Arbeitszufriedenheit (Datensatz-Analyse)", BAs2:"🔁 Nudging & Umweltverhalten (Repro-Check)", BAs3:"🗂️ Algorithmus-Aversion & Vertrauen in KI (strukturierter Review)"
+};
+const BA_ART = { agent:"🤖 agentischer Rechercheworkflow", app:"📱 vibe-coded App" };
+const RICHT = { klin:{de:"Klinik & Gesundheit",en:"clinic & health"}, ekn:{de:"Entwicklung, Kognition & Neuro",en:"development, cognition & neuro"}, swo:{de:"Sozial, Wirtschaft & Organisation",en:"social, economic & organisational"} };
+const PFADE = [
+  { id:"psycho", de:"🛋️ Psychotherapie", en:"🛋️ Psychotherapy",
+    f:{de:"Einstiegsstelle: «Psycholog:in / PG-Psycholog:in (in Weiterbildung)», typisch 80–100 %. Arbeitgeber: Psychiatrische und universitäre Kliniken, Ambulatorien, psychosomatische und Rehabilitationskliniken, grosse Praxisverbünde (UPK Basel, PUK Zürich, PDAG, ipw Winterthur, UPZ Bern). Einstiegslohn: CHF 80'000–95'000 pro Jahr bei 100 % in der Weiterbildungsphase; nach dem eidgenössischen Titel CHF 100'000–120'000 (mittel belegt: jobs.ch-Lohnrechner «Psychologe», n = 764; Lohnbuch Schweiz 2025). Erreichbarkeit: Einstieg direkt nach dem MSc. Der eidgenössische Titel folgt nach 4–6 Jahren berufsbegleitender Weiterbildung, die man selbst bezahlt (CHF 25'000–48'750). Route: Zulassung sichern (im Studium!) → Einstieg als Assistenzpsychotherapeut:in → Akkreditierte Weiterbildung (4–6 Jahre) → Eidg. Titel + kantonale Bewilligung → OKP-Zulassung & eigene Praxis. Empfohlene Wahl im Studium: klinische Themen + HEA",
+       en:"Entry position: “Psychologist / postgraduate psychologist (in training)”, typically 80–100 %. Employers: Psychiatric and university clinics, outpatient units, psychosomatic and rehabilitation clinics, large group practices (UPK Basel, PUK Zurich, PDAG, ipw Winterthur, UPZ Bern). Entry salary: CHF 80,000–95,000 per year at 100 % during training; CHF 100,000–120,000 after the federal title (moderately documented: jobs.ch salary calculator “psychologist”, n = 764; Lohnbuch Schweiz 2025). Attainability: Entry directly after the MSc. The federal title follows after 4–6 years of part-time training, paid for privately (CHF 25,000–48,750). Route: Secure admission (during your studies!) → Entry as assistant psychotherapist → Accredited training (4–6 years) → Federal title + cantonal licence → Health-insurance admission & own practice. Recommended electives: clinical topics + HEA"} },
+  { id:"klinik", de:"🩺 Klinische Psychologie", en:"🩺 Clinical psychology",
+    f:{de:"Einstiegsstelle: «Psycholog:in / Assistenzpsycholog:in», typisch 60–100 %. Arbeitgeber: Psychiatrische, psychosomatische und Rehabilitationskliniken, Suchtfachstellen, kantonale Fachstellen, Opferberatung, Wohn- und Sozialinstitutionen (Kliniken Valens, Oberwaid, Psychiatrie Baselland, Arud Zürich). Einstiegslohn: CHF 78'000–92'000 pro Jahr bei 100 % — typischerweise die tiefer bezahlte Variante gegenüber der Psychotherapie-Schiene (mittel belegt: jobs.ch-Lohnrechner «Psychologe», n = 764; Kanton Zürich Lohnklasse 19 für Stellen mit Therapietätigkeit). Erreichbarkeit: Direkt nach dem MSc — neben der Promotion das einzige Feld mit breitem Zugang ohne postgraduale Weiterbildung. Route: Einstieg in die Versorgung → Fachtitel Klinische Psychologie (SVKP/FSP) → Alternativer eidgenössischer Weg. Empfohlene Wahl im Studium: klinische Themen + HEA",
+       en:"Entry position: “Psychologist / assistant psychologist”, typically 60–100 %. Employers: Psychiatric, psychosomatic and rehabilitation clinics, addiction services, cantonal specialist units, victim support, residential and social institutions (Kliniken Valens, Oberwaid, Psychiatrie Baselland, Arud Zurich). Entry salary: CHF 78,000–92,000 per year at 100 % — typically the lower-paid variant compared with the psychotherapy track (moderately documented: jobs.ch salary calculator “psychologist”, n = 764; Canton of Zurich salary class 19 for posts with therapeutic duties). Attainability: Directly after the MSc — alongside the doctorate the only field with broad access without postgraduate training. Route: Entry into care settings → Specialist title in clinical psychology (SVKP/FSP) → Alternative federal route. Recommended electives: clinical topics + HEA"} },
+  { id:"gesundheit", de:"🌱 Gesundheitsförderung & Prävention", en:"🌱 Health promotion & prevention",
+    f:{de:"Einstiegsstelle: «Fachmitarbeiter:in Prävention / Projektleiter:in Gesundheitsförderung», typisch 50–80 % ist hier der Normalfall, nicht 100 %. Arbeitgeber: Kantonale Fachstellen für Prävention und Gesundheitsförderung, regionale Suchtpräventionsstellen, NPO und Stiftungen, Krankenversicherer, Gesundheitsdirektionen, Hochschulinstitute. Einstiegslohn: Kein berufsspezifischer Wert publiziert. Aus den kantonalen Lohnklassen abgeleitet CHF 85'000–100'000 bei 100 % — wegen der üblichen Pensen von 60–80 % liegt der effektive Jahreslohn oft bei CHF 55'000–75'000. (NICHT spezifisch belegbar: Kanton Zürich Lohnklassen 17/18; kein Lohnrechner-Eintrag für Gesundheitspsychologie, keine der abgerufenen Ausschreibungen nennt einen Lohn). Erreichbarkeit: Einstieg direkt nach dem MSc möglich, meist über Projektstellen und in Konkurrenz zu Public Health. Der Weg zum eidgenössischen Fachtitel führt über den gemeinsamen MAS von UZH und Universität Bern (60 ECTS, 2 Jahre berufsbegleitend, CHF 29'400 zuzüglich Supervisionsgebühren, Immatrikulation an der UZH). Achtung: Die Universitäten halten fest, dass der MAS erst «nach geplanter Akkreditierung» zum Titel führt — die Akkreditierung ist noch nicht abgeschlossen. Route: Einstieg ohne Titelpflicht möglich → MAS Gesundheitspsychologie (UZH + Universität Bern) → Alternative: modulare SGGPsy-Weiterbildung → Angrenzendes Wachstumsfeld: E-Mental-Health → Achtung: Akkreditierung noch offen. Empfohlene Wahl im Studium: klinische Themen + HEA",
+       en:"Entry position: “Prevention officer / health promotion project manager”, typically 50–80 % is the norm here, not 100 %. Employers: Cantonal prevention and health promotion units, regional addiction prevention services, NPOs and foundations, health insurers, health directorates, university institutes. Entry salary: No occupation-specific figure published. Derived from cantonal salary classes: CHF 85,000–100,000 at 100 % — with the usual 60–80 % workloads the effective annual salary is often CHF 55,000–75,000. (NOT specifically documented: Canton of Zurich salary classes 17/18; no salary-calculator entry for health psychology, none of the job ads retrieved states a salary). Attainability: Entry possible directly after the MSc, mostly via project posts and in competition with public health graduates. The route to the federal title runs through the joint MAS of UZH and the University of Bern (60 ECTS, 2 years part-time, CHF 29,400 plus supervision fees, enrolment at UZH). Note: the universities state that the MAS leads to the title only “after the planned accreditation” — accreditation is not yet complete. Route: Entry possible without a protected title → MAS in Health Psychology (UZH + University of Bern) → Alternative: modular SGGPsy training → Adjacent growth field: e-mental health → Achtung: Accreditation still pending. Recommended electives: clinical topics + HEA"} },
+  { id:"neuro", de:"🧠 Neuropsychologie", en:"🧠 Neuropsychology",
+    f:{de:"Einstiegsstelle: «Neuropsycholog:in in EAN-Ausbildung», typisch 60–100 %. Arbeitgeber: Akutspitäler (Neurologie, Memory Clinics), Rehabilitationskliniken, psychiatrische Kliniken, forensische Dienste, neuropsychologische Praxen (KS Winterthur, KS Graubünden, Spital Thurgau, Clienia, PUK Zürich). Einstiegslohn: In der Weiterbildungsphase analog Psycholog:in CHF 80'000–92'000 bei 100 %, bei 60 % Pensum entsprechend CHF 48'000–55'000. Nach Titelerwerb im Mittel CHF 100'600. (mittel belegt: jobs.ch-Lohnrechner «Neuropsychologe», n = 42 — kleine Fallzahl, mit Vorsicht zu lesen). Erreichbarkeit: Weiterbildungsstelle direkt nach dem MSc. Der eidgenössisch anerkannte Neuropsychologietitel (EAN, UZH) dauert fünf Jahre berufsbegleitend — Vollqualifikation also frühestens fünf Jahre nach dem Master. Der frühere FSP-Fachtitel nach dem Curriculum 2018 liess sich noch bis 31.3.2026 abschliessen, sofern die Weiterbildung dort begonnen worden war; Neueinsteigende absolvieren direkt das aktuelle Curriculum. Route: Voraussetzung im Studium → Einstieg Klinik/Rehabilitation → MAS Neuropsychologie (EAN), UZH oder Genf → OKP-Diagnostik. Empfohlene Wahl im Studium: Entwicklungs-/Kognitions-/Neuro-Themen + DeNC",
+       en:"Entry position: “Neuropsychologist in federal (EAN) training”, typically 60–100 %. Employers: Acute hospitals (neurology, memory clinics), rehabilitation clinics, psychiatric clinics, forensic services, neuropsychological practices (KS Winterthur, KS Graubünden, Spital Thurgau, Clienia, PUK Zurich). Entry salary: During training comparable to a psychologist, CHF 80,000–92,000 at 100 %, i.e. CHF 48,000–55,000 at a 60 % workload. After the title, a mean of CHF 100,600. (moderately documented: jobs.ch salary calculator “neuropsychologist”, n = 42 — small sample, read with caution). Attainability: Training post directly after the MSc. The federally recognised neuropsychology title (EAN, UZH) takes five years part-time — full qualification therefore at the earliest five years after the Master's. The former FSP title under the 2018 curriculum could still be completed until 31 March 2026 for those who had started under it; new entrants take the current curriculum directly. Route: Prerequisite during the degree → Entry into clinic/rehabilitation → MAS in Neuropsychology (EAN), UZH or Geneva → Insurance-funded assessment. Recommended electives: development/cognition/neuro topics + DeNC"} },
+  { id:"schule", de:"🏫 Kinder-, Jugend- & Schulpsychologie", en:"🏫 Child, adolescent & school psychology",
+    f:{de:"Einstiegsstelle: «Schulpsycholog:in (nach dem Assistenzjahr)», typisch 50–100 %. Arbeitgeber: Kommunale und regionale Schulpsychologische Dienste, kantonale Dienste, Kinder- und Jugendpsychiatrische Dienste, Erziehungsberatungen (Stadt Winterthur, KJPD St. Gallen, SPD Kanton Aargau, PUK Zürich). Einstiegslohn: Rund CHF 111'000 pro Jahr bei 100 % — eines der am besten bezahlten Felder für Master-Absolvierende, aber mit hohem Teilzeitanteil. (NICHT spezifisch belegbar: Keine amtliche Tabelle: Die Schulpsychologischen Dienste werden von Gemeinden und Bezirken geführt. Der Wert stammt aus dem Portal jobs.ch (48 Selbstangaben, Gesamtspanne CHF 65'000–150'000). Für den Kanton Zürich weist das Portal für Berufseinsteigende gar keinen Wert aus — die dort genannten CHF 120'433 sind ein Durchschnitt über alle Erfahrungsstufen.). Erreichbarkeit: Assistenzjahr direkt nach dem MSc, danach Festanstellung. Der eidgenössische Titel heisst «Eidgenössisch anerkannte:r Kinder- und Jugendpsycholog:in» (EA KJP); der Weiterbildungsgang der Universität Basel ist der einzige dafür akkreditierte. Kosten rund CHF 19'600 ohne die obligatorischen 80 Einheiten externe Supervision, die mehrere Tausend Franken zusätzlich ausmachen. Zulassung nur mit einer Anstellung von mindestens 40 % im Feld; Titel nach zwei bis vier Jahren. Route: Türöffner: Feldstelle → EA KJP (Universität Basel) → MAS Schulpsychologie (UZH) → Kantonale Anforderungen prüfen. Empfohlene Wahl im Studium: klinische Themen + HEA",
+       en:"Entry position: “School psychologist (after the assistantship year)”, typically 50–100 %. Employers: Municipal and regional school psychology services, cantonal services, child and adolescent psychiatric services, educational counselling (City of Winterthur, KJPD St. Gallen, SPD Canton Aargau, PUK Zurich). Entry salary: Around CHF 111,000 per year at 100 % — one of the best-paid fields for Master's graduates, but with a high share of part-time posts. (NOT specifically documented: No official table: school psychology services are run by municipalities and districts. The figure comes from the jobs.ch portal (48 self-reports, overall range CHF 65,000–150,000). For the Canton of Zurich the portal reports no entry-level figure at all — the CHF 120,433 quoted there is an average across all experience levels.). Attainability: Assistantship year directly after the MSc, then a permanent post. The federal title is “federally recognised child and adolescent psychologist” (EA KJP); the University of Basel programme is the only accredited route. Costs around CHF 19,600 excluding the mandatory 80 units of external supervision, which add several thousand francs. Admission requires employment of at least 40 % in the field; title after two to four years. Route: Door opener: a field position → EA KJP (University of Basel) → MAS in School Psychology (UZH) → Check cantonal requirements. Recommended electives: clinical topics + HEA"} },
+  { id:"phd", de:"🔬 PhD & Forschung", en:"🔬 PhD & research",
+    f:{de:"Einstiegsstelle: «Doktorand:in / Assistent:in», typisch 60–100 %. Arbeitgeber: Universitäten (UZH, Basel, Bern, Freiburg, Lausanne, Genf), ETH und EPFL, Pädagogische Hochschulen, Fachhochschulen, Universitätsspitäler. Einstiegslohn: UZH-Ansatz nach SNF-Bandbreite bei 80 %: CHF 50'504 im ersten, CHF 52'115 im zweiten, CHF 53'725 ab dem dritten Jahr. Das ist der tiefste Einstieg im ganzen Set — und die Stelle ist befristet. (gut belegt: UZH-Einreihungsrichtlinien für wissenschaftliche Funktionen, Stand 08.01.2026; SNF-Lohnbandbreite ab 1.1.2026). Erreichbarkeit: Direkt nach dem MSc. Befristung in der Regel drei Jahre; die Gesamtdauer als Doktorierende und Assistierende ist auf sechs Jahre angelegt, auf begründeten Antrag ist bei familiären, gesundheitlichen oder militärischen Verzögerungen mehr möglich. Eine unbefristete akademische Stelle ist die grosse Ausnahme. Route: Doktorat (3–5 Jahre) → Postdoc mit Mobilität → Eigenes Projekt & Profil",
+       en:"Entry position: “Doctoral researcher / assistant”, typically 60–100 %. Employers: Universities (UZH, Basel, Bern, Fribourg, Lausanne, Geneva), ETH and EPFL, universities of teacher education, universities of applied sciences, university hospitals. Entry salary: UZH rate based on the SNSF range at 80 %: CHF 50,504 in year one, CHF 52,115 in year two, CHF 53,725 from year three. This is the lowest entry salary in the whole set — and the post is fixed-term. (well documented: UZH salary guidelines for academic functions, as of 8 Jan 2026; SNSF salary range from 1 Jan 2026). Attainability: Directly after the MSc. Normally limited to three years; the combined duration as doctoral researcher and assistant is designed for six years, with more possible on justified request in cases of family, health or military-service delays. A permanent academic post is the rare exception. Route: Doctorate (3–5 years) → Postdoc with mobility → Own project & profile"} },
+  { id:"gutachten", de:"⚖️ Diagnostik & Rechtspsychologie", en:"⚖️ Assessment & legal psychology",
+    f:{de:"Einstiegsstelle: «Assistenzpsycholog:in Forensik», typisch 60–100 %. Arbeitgeber: Forensisch-psychiatrische Kliniken und Institute, Justizvollzug, private Gutachterinstitute, verkehrspsychologische Abklärungsstellen (PDAG Windisch, UPZ Bern, UPK Basel, Kanton Zürich JuWe). Einstiegslohn: Kein berufsspezifischer Wert publiziert. Näherung über Psycholog:innenlöhne: CHF 80'000–95'000 bei 100 % als Assistenzpsycholog:in. Erfahrene Gutachter:innen liegen deutlich höher, dazu gibt es keine publizierten Schweizer Zahlen. (NICHT spezifisch belegbar: jobs.ch-Lohnrechner «Psychologe»; kantonale Lohnklassen 19–20 für Stellen im Psychiatrisch-Psychologischen Dienst — keines der abgerufenen Inserate nennt einen Lohn). Erreichbarkeit: Einstieg direkt nach dem MSc, sofern die Psychotherapieweiterbildung begonnen ist. Eigenständig Gutachten erst nach vier bis sechs Jahren. Master und drei Jahre Berufserfahrung sind erst die Zulassung zum SGRP-Curriculum; dazu kommen der Weiterbildungsgang selbst (zwei bis sechs Jahre, 400 Einheiten Wissen und Können, 150 Einheiten Supervision, zehn Fallberichte, Schlussprüfung) und die FSP-Mitgliedschaft. Achtung: Die Schweizerische Gesellschaft für Rechtspsychologie hat für dieses Curriculum einen Aufnahmestopp verfügt. Route: Systemwechsel ab 1.4.2026 → Grundvoraussetzung: Psychotherapie-Titel → Breites Fachprofil aufbauen → Begutachtungspraxis → Achtung: Aufnahmestopp beim Fachtitel. Empfohlene Wahl im Studium: klinische Themen + HEA",
+       en:"Entry position: “Assistant psychologist, forensics”, typically 60–100 %. Employers: Forensic psychiatric clinics and institutes, correctional services, private expert institutes, traffic psychology assessment centres (PDAG Windisch, UPZ Bern, UPK Basel, Canton Zurich JuWe). Entry salary: No occupation-specific figure published. Approximated from psychologist salaries: CHF 80,000–95,000 at 100 % as an assistant psychologist. Experienced experts earn considerably more, but no published Swiss figures exist. (NOT specifically documented: jobs.ch salary calculator “psychologist”; cantonal salary classes 19–20 for posts in the psychiatric-psychological service — none of the job ads retrieved states a salary). Attainability: Entry directly after the MSc, provided psychotherapy training has started. Independent expert reports only after four to six years. A Master's plus three years of experience merely grant admission to the SGRP curriculum; the programme itself follows (two to six years, 400 units of knowledge and skills, 150 units of supervision, ten case reports, final examination) plus FSP membership. Note: the Swiss Society for Legal Psychology has suspended admission to this curriculum. Route: System change from 1 April 2026 → Prerequisite: psychotherapy title → Build a broad specialist profile → Assessment practice → Achtung: Admission suspended for the specialist title. Recommended electives: clinical topics + HEA"} },
+  { id:"wirtschaft", de:"🏢 Arbeits- & Organisationspsychologie", en:"🏢 Work & organisational psychology",
+    f:{de:"Einstiegsstelle: «Junior HR Business Partner / Fachspezialist:in Personalentwicklung», typisch 80–100 %. Arbeitgeber: Grossunternehmen aus Industrie, Handel, Banken, Versicherungen und Pharma, Beratungsunternehmen, Personaldienstleister, öffentliche Verwaltungen, Krankenkassen. Einstiegslohn: CHF 78'000–93'000 pro Jahr bei 100 % (gut belegt: jobs.ch-Lohnrechner «HR Business Partner», n = 6'374 — die grösste Fallzahl im ganzen Set; ergänzend «Personalentwickler», n = 591). Erreichbarkeit: Direkt nach dem MSc, typischerweise über eine Junior-Position und in starker Konkurrenz zu BWL-Profilen. Kein Fachtitel nötig. Optional der FSP-Fachtitel Laufbahn- und Personalpsychologie über eine anerkannte DAS- oder MAS-Weiterbildung. Route: Direkteinstieg möglich → Optional: Fachtitel Laufbahn- und Personalpsychologie FSP → CAS/MAS als Ausbaustufen → Ausbaustufe: People Analytics. Empfohlene Wahl im Studium: Sozial-/Wirtschafts-/Organisations-Themen + SEOP",
+       en:"Entry position: “Junior HR business partner / L&D specialist”, typically 80–100 %. Employers: Large companies in industry, retail, banking, insurance and pharma, consultancies, staffing firms, public administrations, health insurers. Entry salary: CHF 78,000–93,000 per year at 100 % (well documented: jobs.ch salary calculator “HR business partner”, n = 6,374 — the largest sample in the whole set; plus “L&D specialist”, n = 591). Attainability: Directly after the MSc, typically via a junior position and in strong competition with business graduates. No specialist title required. Optionally the FSP title in career and personnel psychology via a recognised DAS or MAS programme. Route: Direct entry possible → Optional: FSP specialist title in career & personnel psychology → CAS/MAS as further stages → Advanced step: people analytics. Recommended electives: social/economic/organisational topics + SEOP"} },
+  { id:"laufbahn", de:"🧭 Berufs-, Studien- & Laufbahnberatung", en:"🧭 Career, study & vocational counselling",
+    f:{de:"Einstiegsstelle: «Berufs-, Studien- und Laufbahnberater:in (in Ausbildung)», typisch 60–100 %, mit klarem Schwerpunkt bei 60–80 %. Arbeitgeber: Kantonale Berufsinformationszentren (biz/BIZ), kantonale Beratungsdienste, IV-Stellen und Sozialversicherungsanstalten, Hochschul-Studienberatungen, grosse Betriebe, private Coaching- und Outplacement-Anbieter. Einstiegslohn: CHF 85'000–95'000 pro Jahr bei 100 %; bei den üblichen 60–80 % also CHF 51'000–76'000 effektiv (mittel belegt: jobs.ch-Lohnrechner «Berufsberater», n = 208; Kanton Zürich Lohnklasse 18 aufwärts). Erreichbarkeit: Nicht direkt nach dem MSc: Der Titel «dipl. Berufs-, Studien- und Laufbahnberater:in» ist bundesrechtlich reglementiert. Viele Kantone stellen aber schon mit weit fortgeschrittenem Studium ein. Der MAS BSLB der ZHAW (70 ECTS, CHF 26'800) dauert 2,5 bis 3 Jahre und verlangt zusätzlich mindestens 16 Wochen betriebliche Praxis. Achtung: Die Akkreditierung des Programms durch das SBFI ist laut Programmseite erst angestrebt — die Titelberechtigung ist entsprechend im Konjunktiv formuliert. Route: Einstieg in Beratungsdienste → FSP-Fachtitel Laufbahn- und Personalpsychologie → Profil schärfen. Empfohlene Wahl im Studium: Sozial-/Wirtschafts-/Organisations-Themen + SEOP",
+       en:"Entry position: “Career, study and vocational counsellor (in training)”, typically 60–100 %, with a clear emphasis on 60–80 %. Employers: Cantonal career information centres, cantonal counselling services, disability insurance offices, university student advisory services, large companies, private coaching and outplacement providers. Entry salary: CHF 85,000–95,000 per year at 100 %; at the usual 60–80 % therefore CHF 51,000–76,000 effectively (moderately documented: jobs.ch salary calculator “career counsellor”, n = 208; Canton of Zurich salary class 18 upwards). Attainability: Not directly after the MSc: the title of certified career counsellor is regulated by federal law. Many cantons do hire candidates whose studies are well advanced. The ZHAW programme (70 ECTS, CHF 26,800) takes 2.5 to 3 years and additionally requires at least 16 weeks of workplace practice. Note: according to the programme page, SBFI accreditation is still being sought — the entitlement to the title is worded conditionally. Route: Entry into counselling services → FSP title in career and personnel psychology → Sharpen the profile. Recommended electives: social/economic/organisational topics + SEOP"} },
+  { id:"konsum", de:"🛒 Markt- & Konsumentenpsychologie", en:"🛒 Market & consumer psychology",
+    f:{de:"Einstiegsstelle: «Junior Research Consultant / Research Assistant», typisch 60–100 %, in Instituten und Konzernen meist 80–100 %. Arbeitgeber: Marktforschungsinstitute, Insights-Abteilungen von Grossunternehmen, Media- und Werbeagenturen, Verbände (intervista, AmPuls, LINK, gfs.bern, gfs-zürich, Migros-Genossenschafts-Bund). Einstiegslohn: CHF 75'000–90'000 pro Jahr bei 100 %. Praktikumslöhne liegen deutlich darunter und werden nicht publiziert. (mittel belegt: jobs.ch-Lohnrechner «Marketing Analyst», n = 4'486 (belastbarer) und «Marktforscher», n = 170). Erreichbarkeit: Direkt nach dem MSc, häufig über ein bezahltes Praktikum von sechs bis zwölf Monaten. Kein Fachtitel, keine Regulierung. Achtung: Der Schweizer Markt ist klein — die Suche nach «Marktforschung» ergab schweizweit acht offene Stellen. Route: Einstieg über Praktikum oder Volontariat → Die Branche → Weiterbildung wo nötig. Empfohlene Wahl im Studium: Sozial-/Wirtschafts-/Organisations-Themen + SEOP",
+       en:"Entry position: “Junior research consultant / research assistant”, typically 60–100 %, usually 80–100 % in institutes and corporations. Employers: Market research institutes, insights departments of large companies, media and advertising agencies, associations (intervista, AmPuls, LINK, gfs.bern, gfs-zürich, Migros). Entry salary: CHF 75,000–90,000 per year at 100 %. Internship salaries are considerably lower and are not published. (moderately documented: jobs.ch salary calculator “marketing analyst”, n = 4,486 (more robust) and “market researcher”, n = 170). Attainability: Directly after the MSc, often via a paid internship of six to twelve months. No specialist title, no regulation. Note: the Swiss market is small — a search for “market research” returned eight open positions nationwide. Route: Entry via internship or traineeship → The sector → Further training where needed. Recommended electives: social/economic/organisational topics + SEOP"} },
+  { id:"ux", de:"🖥️ Nutzer- & Medienpsychologie (UX-Research)", en:"🖥️ User & media psychology (UX research)",
+    f:{de:"Einstiegsstelle: «Junior UX/UI Designer / UX Researcher», typisch 80–100 %, überwiegend 100 %. Arbeitgeber: Digitalunternehmen und Plattformen, Banken und Versicherungen, Telekom, Medtech, Digital- und UX-Agenturen, öffentliche Digitalisierungsprojekte. Einstiegslohn: CHF 68'000–80'000 pro Jahr bei 100 % — zusammen mit der Promotion der tiefste Einstieg im Set. Das spricht gegen die verbreitete Wahrnehmung von UX als besonders lukrativem Ausstieg. (mittel belegt: jobs.ch-Lohnrechner «UX Designer», n = 1'101; ITBoard Gehaltsreport 2025/26. Für «UX Researcher» allein existiert kein Schweizer Einstiegswert.). Erreichbarkeit: Direkt nach dem MSc möglich, praktisch aber nur mit Portfolio und Praxiserfahrung. Reine UX-Research-Stellen sind in der Schweiz selten und meist Senior-Positionen; der Einstieg führt über Design-, Product- oder Human-Factors-Rollen. Route: Einstieg als Junior UX Researcher → MAS Human Computer Interaction Design → Was du mitbringst, was andere nicht haben. Empfohlene Wahl im Studium: Entwicklungs-/Kognitions-/Neuro-Themen + DeNC",
+       en:"Entry position: “Junior UX/UI designer / UX researcher”, typically 80–100 %, mostly 100 %. Employers: Digital companies and platforms, banks and insurers, telecoms, medtech, digital and UX agencies, public-sector digitalisation projects. Entry salary: CHF 68,000–80,000 per year at 100 % — together with the doctorate the lowest entry in the set. This contradicts the widespread perception of UX as a particularly lucrative exit. (moderately documented: jobs.ch salary calculator “UX designer”, n = 1,101; ITBoard salary report 2025/26. No Swiss entry figure exists for “UX researcher” alone.). Attainability: Possible directly after the MSc, but in practice only with a portfolio and hands-on experience. Pure UX research posts are rare in Switzerland and mostly senior; entry usually runs via design, product or human factors roles. Route: Entry as a junior UX researcher → MAS in Human Computer Interaction Design → What you bring that others don't. Recommended electives: development/cognition/neuro topics + DeNC"} },
+  { id:"ppp", de:"🎓 PPP-Lehrperson (Gymnasium)", en:"🎓 PPP teacher (high school)",
+    f:{de:"Einstiegsstelle: «Mittelschullehrperson Pädagogik/Psychologie», typisch Gerechnet wird in Pflichtlektionen, nicht in Prozent: 23 Normallektionen pro Woche sind ein Vollpensum. Für Einsteigende realistisch 40–70 %, weil Pädagogik/Psychologie an vielen Schulen ein kleines Fachpensum hat. Arbeitgeber: Kantonsschulen und Gymnasien, Fachmittelschulen, Berufsmaturitätsschulen, private Gymnasien. Einstiegslohn: Mit Lehrdiplom Lohnklasse 21, Stufe 3: CHF 120'775 pro Jahr bei vollem Pensum — der höchste belegbare Einstieg im ganzen Set. Ohne Lehrdiplom (Klasse 20, Stufe 3) sind es CHF 112'870. Bei einem realistischen Teilpensum von 50–70 % entspricht das CHF 60'000–85'000. (gut belegt: Kanton Zürich, Lohntabellen LR 24 gültig ab 1.1.2026; Einreihung nach MBVO 413.111 Anhang Teil A (mit Lehrdiplom Klasse 21, ohne Klasse 20, mit besonderen Aufgaben Klasse 22)). Erreichbarkeit: Nicht direkt nach dem MSc, weil das Lehrdiplom zwingend ist — beginnt man es parallel zum Master, ist der Einstieg unmittelbar danach möglich. Zusätzliche Hürde: Der Stellenmarkt für Pädagogik/Psychologie ist klein und schwankt stark. Route: Lehrdiplom für Maturitätsschulen → Unterricht am Gymnasium",
+       en:"Entry position: “Upper-secondary teacher, education and psychology”, typically Measured in mandatory lessons rather than per cent: 23 standard lessons per week make a full load. Realistically 40–70 % for newcomers, as education/psychology carries a small share at many schools. Employers: Cantonal schools and grammar schools, specialised secondary schools, vocational baccalaureate schools, private grammar schools. Entry salary: With a teaching diploma, salary class 21, step 3: CHF 120,775 per year at a full load — the highest documented entry in the whole set. Without the diploma (class 20, step 3) it is CHF 112,870. At a realistic 50–70 % load this equals CHF 60,000–85,000. (well documented: Canton of Zurich, salary tables LR 24 valid from 1 Jan 2026; classification per MBVO 413.111 Annex Part A (class 21 with teaching diploma, 20 without, 22 with special duties)). Attainability: Not directly after the MSc, as the teaching diploma is mandatory — starting it alongside the Master's makes entry possible immediately afterwards. Additional hurdle: the job market for education/psychology is small and volatile. Route: Teaching diploma for upper-secondary schools → Teaching at upper-secondary school"} },
+];
+let lang = "de";
+let mode = "tutor";
+let hist = [];
+let vignAktiv = null;
+let karrAktiv = null;
+let spielstand = null;
+let verlaufHinweisGezeigt = false;
+let selbstbild = null;
+let gespraechsVerlauf = [];
+let fokusDim = null;
+let schwierigkeit = "mittel";
+let mikroZuege = 0;
+let mikroGesamt = 0;
+let mikroLaeuft = false;
+const $ = (id) => document.getElementById(id);
+const T = (de, en) => lang === "de" ? de : en;
+const api = window.claude && typeof window.claude.complete === "function" ? window.claude.complete.bind(window.claude) : null;
+async function ask(prompt) { return String(await api(prompt)).trim(); }
+function applyLang() {
+  document.querySelectorAll("[data-de]").forEach((el) => { el.innerHTML = el.getAttribute(lang === "de" ? "data-de" : "data-en"); });
+  document.querySelectorAll("[data-phde]").forEach((el) => { el.placeholder = el.getAttribute(lang === "de" ? "data-phde" : "data-phen"); });
+  $("langBtn").textContent = lang === "de" ? "EN" : "DE";
+  document.documentElement.lang = lang;
+  fillSelects();
+}
+const STUFEN_TXT = {
+  1: { de: "Stufe 1 (Orientieren, Grundlagen sichern): kennt, benennt, wendet unter Anleitung an. KEINE Formulierungen wie «selbständig», «verantwortet», «leitet».",
+       en: "Level 1 (orientation, securing basics): knows, names, applies with guidance. NO wording like “independently”, “is responsible for”, “leads”." },
+  2: { de: "Stufe 2 (Vertiefen, anwenden, prüfen): wendet selbständig auf bekannte Aufgaben an, prüft Ergebnisse. NICHT «forscht eigenständig» oder «verantwortet».",
+       en: "Level 2 (deepening, applying, checking): applies independently to familiar tasks, checks results. NOT “conducts own research” or “is responsible for”." },
+  3: { de: "Stufe 3 (Professionell vertiefen, KI-gestützte Forschung steuern): überträgt auf neue Fragestellungen, steuert Arbeitsschritte, begründet Entscheidungen.",
+       en: "Level 3 (professional depth, steering AI-supported research): transfers to new questions, steers work steps, justifies decisions." },
+  4: { de: "Stufe 4 (Eigenständig forschen und verantworten): plant und verantwortet eigenständig, auch unter Unsicherheit.",
+       en: "Level 4 (independent research and responsibility): plans and takes responsibility independently, also under uncertainty." },
+};
+function fillSelects() {
+  $("vignSel").innerHTML = VIGN.map((v) => `<option value="${v.id}">${lang === "de" ? v.de : v.en}</option>`).join("");
+  fillCvKomp();
+  $("karrSel").innerHTML = PFADE.map((p) => `<option value="${p.id}">${lang === "de" ? p.de : p.en}</option>`).join("");
+  updateRollePlaceholder();
+  updateVignInfo();
+}
+function fillCvKomp() {
+  const st = spielstand && spielstand.stufen;
+  const liste = st ? KOMP.filter((k) => st[k[0]]) : KOMP;
+  const sel = $("cvKomp");
+  if (!sel) return;
+  const alt = sel.value;
+  sel.innerHTML = (liste.length ? liste : KOMP).map((k) => {
+    const s = st ? st[k[0]] : null;
+    return `<option value="${k[0]}">${k[0]} · ${lang === "de" ? k[1] : k[2]}${s ? ` — ${T("Stufe", "Level")} ${s}` : ""}</option>`;
+  }).join("");
+  if (alt && [...sel.options].some((o) => o.value === alt)) sel.value = alt;
+  const hint = $("cvHint");
+  if (hint) {
+    hint.textContent = st
+      ? T(`Nur deine ${liste.length} erreichten Kompetenzen — der Satz bleibt auf deiner Stufe.`,
+          `Only your ${liste.length} attained competences — the sentence stays at your level.`)
+      : T("Ohne Spielstand kennt der Tutor deine Stufen nicht und formuliert bewusst zurückhaltend. Füge oben deinen Spielstand ein.",
+          "Without a game state the tutor does not know your levels and will phrase cautiously. Insert your game state above.");
+  }
+}
+function updateVignInfo() {
+  const v = VIGN.find((x) => x.id === $("vignSel").value) || VIGN[0];
+  const el = $("vignInfo");
+  el.textContent = lang === "de" ? v.info.de : v.info.en;
+  el.style.display = mode === "vignette" ? "block" : "none";
+}
+$("vignSel").addEventListener("change", updateVignInfo);
+function updateRollePlaceholder() {
+  const r = ROLLEN[$("cvKomp").value];
+  const box = $("cvBeispiel");
+  if (r) {
+    const bsp = lang === "de" ? r.de : r.en;
+    box.innerHTML = (lang === "de" ? "Beispiel für diese Kompetenz: " : "Example for this competence: ") + `<b data-fill>${bsp}</b>` + (lang === "de" ? " (zum Übernehmen anklicken)" : " (click to use)");
+    box.querySelector("[data-fill]").onclick = () => { $("cvRolle").value = bsp; $("cvRolle").focus(); };
+  } else box.textContent = "";
+}
+$("cvKomp").addEventListener("change", updateRollePlaceholder);
+function denkAn(el, was) {
+  el.innerHTML = `<span class="denk"><i></i><i></i><i></i><span data-denktext>${was || T("denkt nach", "thinking")}</span></span>`;
+  const start = Date.now();
+  const stufen = [
+    { ab: 7000, de: "denkt noch nach", en: "still thinking" },
+    { ab: 16000, de: "das dauert heute laenger als sonst", en: "this is taking longer than usual today" },
+    { ab: 32000, de: "immer noch dran — bei einem Abbruch einfach nochmals senden", en: "still working — if it stops, just send again" },
+  ];
+  const tick = setInterval(() => {
+    const w = Date.now() - start;
+    const t = stufen.filter((x) => w >= x.ab).pop();
+    const feld = el.querySelector("[data-denktext]");
+    if (feld && t) feld.textContent = lang === "de" ? t.de : t.en;
+  }, 1000);
+  return () => clearInterval(tick);
+}
+function add(who, txt, asHtml) {
+  const d = document.createElement("div");
+  d.className = "m " + who;
+  if (asHtml) d.innerHTML = txt; else d.textContent = txt;
+  $("msgs").appendChild(d);
+  $("msgs").scrollTop = $("msgs").scrollHeight;
+  return d;
+}
+function mdEsc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function mdRender(el, txt) {
+  const zeilen = mdEsc(txt).split("\n");
+  let html = "", liste = null;
+  const inline = (s) => s
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/(^|[\s(])\*([^*\n]+)\*/g, "$1<i>$2</i>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  const schliessen = () => { if (liste) { html += `</${liste}>`; liste = null; } };
+  for (const z of zeilen) {
+    const s = z.trim();
+    if (!s) { schliessen(); continue; }
+    const ul = s.match(/^[-*•]\s+(.*)$/), ol = s.match(/^\d+[.)]\s+(.*)$/);
+    if (ul) { if (liste !== "ul") { schliessen(); html += "<ul>"; liste = "ul"; } html += `<li>${inline(ul[1])}</li>`; continue; }
+    if (ol) { if (liste !== "ol") { schliessen(); html += "<ol>"; liste = "ol"; } html += `<li>${inline(ol[1])}</li>`; continue; }
+    schliessen();
+    html += `<p>${inline(s)}</p>`;
+  }
+  schliessen();
+  el.innerHTML = html || `<p>${inline(mdEsc(txt))}</p>`;
+}
+function kopierKnopf(el, txt) {
+  const b = document.createElement("button");
+  b.className = "copybtn";
+  b.type = "button";
+  b.textContent = T("Kopieren", "Copy");
+  b.title = T("In die Zwischenablage kopieren", "Copy to clipboard");
+  b.onclick = async () => {
+    try { await navigator.clipboard.writeText(txt); } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e2) {}
+      ta.remove();
+    }
+    b.textContent = T("✓ kopiert", "✓ copied");
+    setTimeout(() => (b.textContent = T("Kopieren", "Copy")), 1800);
+  };
+  el.appendChild(b);
+  return b;
+}
+function stufenFuss(stufe) {
+  const f = document.createElement("div");
+  f.className = "stufenfuss";
+  f.textContent = T(
+    `Formuliert auf Stufe ${stufe} von 4 — der Stufe, die dein Spielstand für diese Kompetenz ausweist.`,
+    `Phrased at level ${stufe} of 4 — the level your game state shows for this competence.`);
+  return f;
+}
+const STARTFRAGEN = {
+  tutor: [
+    { de: "Was bedeutet [B] bei meinen Modulen konkret?", en: "What does [B] mean for my modules in practice?" },
+    { de: "Welche Kompetenz ist bei mir am schwächsten und woran liegt das?", en: "Which competence is weakest for me and why?" },
+    { de: "Wie hängen meine Wahlseminare mit meinem Berufsziel zusammen?", en: "How do my elective seminars relate to my career goal?" },
+    { de: "Was ist an der neuen Bachelorarbeit anders?", en: "What is different about the new Bachelor's thesis?" },
+  ],
+  karriere: [
+    { de: "Was fehlt mir für diesen Weg noch am meisten?", en: "What is still missing most for this route?" },
+    { de: "Was kostet mich die Weiterbildung an Zeit und Geld?", en: "What will the further training cost me in time and money?" },
+    { de: "Welche Alternative passt fast so gut zu meinem Profil?", en: "Which alternative fits my profile almost as well?" },
+    { de: "Wie sieht ein realistischer erster Arbeitstag aus?", en: "What does a realistic first day at work look like?" },
+  ],
+};
+function renderStartfragen(m) {
+  const box = $("startfragen");
+  if (!box) return;
+  const liste = STARTFRAGEN[m];
+  if (!liste || !api) { box.style.display = "none"; box.innerHTML = ""; return; }
+  box.style.display = "flex";
+  box.innerHTML = "";
+  for (const f of liste) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "startfrage";
+    b.textContent = lang === "de" ? f.de : f.en;
+    b.onclick = () => { box.style.display = "none"; send(b.textContent); };
+    box.appendChild(b);
+  }
+}
+function setMode(m) {
+  mode = m; hist = []; vignAktiv = null; karrAktiv = null; verlaufHinweisGezeigt = false;
+  $("tabTutor").classList.toggle("on", m === "tutor");
+  $("tabVign").classList.toggle("on", m === "vignette");
+  $("tabCv").classList.toggle("on", m === "cv");
+  $("tabKarr").classList.toggle("on", m === "karriere");
+  $("vignRow").style.display = m === "vignette" ? "flex" : "none";
+  $("vignInfo").style.display = m === "vignette" ? "block" : "none";
+  if (m === "vignette") updateVignInfo();
+  $("cvRow").style.display = m === "cv" ? "flex" : "none";
+  $("karrRow").style.display = m === "karriere" ? "flex" : "none";
+  $("msgs").innerHTML = "";
+  if (m === "tutor") add("bot", T("Hoi! Ich bin dein Baututor. Frag mich zu Modulen, Kompetenzen (Fa1–Fa10, KI1–KI6, Fu1–Fu3), zur Prüfungslogik [A]/[B]/[C], zu deinem Wahlprofil oder zu deinem nächsten Bauschritt.", "Hi! I'm your building tutor. Ask me about modules, competences (Fa1–Fa10, KI1–KI6, Fu1–Fu3), the [A]/[B]/[C] assessment logic, your elective profile or your next building step."));
+  if (m === "vignette") add("sys", T("Übungsgespräch in drei Schritten: Zuerst siehst du, worauf die Rückmeldung schaut, und wählst deinen Schwerpunkt. Dann führst du das Gespräch in deiner Fachrolle, die KI spielt die fiktive Person. Am Schluss schätzt du dich selbst ein und erhältst erst danach die Rückmeldung — die du auch für die Supervision mitnehmen kannst. Wähle oben ein Szenario.", "Practice conversation in three steps: first you see what the feedback looks at and pick your focus. Then you lead the conversation in your professional role while the AI plays the fictional person. At the end you rate yourself and only then receive the feedback — which you can take along to supervision. Pick a scenario above."));
+  if (m === "cv") { add("sys", T("Wähle eine Kompetenz, nenne deine Zielrolle, du erhältst genau einen CV-tauglichen Satz — formuliert auf der Stufe, die du tatsächlich erreicht hast.", "Pick a competence, state your target role, you'll get exactly one CV-ready sentence — phrased at the level you have actually attained.")); fillCvKomp(); }
+  if (m === "karriere") add("sys", T("Wähle einen Berufsweg und klick «Weg prüfen»: Du erhältst die Passung deines Wahlprofils, die Etappen nach dem Master (Fakten geprüft, Stand August 2026) und einen nächsten Schritt. Mit eingefügtem Spielstand wird die Einschätzung persönlich. Danach kannst du im Chat nachfragen.", "Pick a career path and click 'Check route': you'll get the fit of your elective profile, the stages after the Master's (facts verified, as of August 2026) and one next step. With a pasted game state the assessment becomes personal. You can ask follow-up questions in the chat afterwards."));
+  renderStartfragen(m);
+}
+$("standTa").addEventListener("change", () => {
+  const raw = $("standTa").value.trim();
+  if (!raw) { spielstand = null; $("standInfo").textContent = ""; return; }
+  try {
+    const o = JSON.parse(raw);
+    const placed = Object.assign({}, (o.placed && o.placed.frei) || {}, (o.placed && o.placed.serious) || {});
+    const ids = Object.keys(placed).filter((id) => SLOT_TITEL[id]);
+    const ects = ids.reduce((n, id) => n + SLOT_TITEL[id][1], 0);
+    const rc = { klin: 0, ekn: 0, swo: 0 }, sc = { DeNC: 0, HEA: 0, SEOP: 0 };
+    for (const [id, st] of Object.entries(placed)) {
+      if (st && st.thema && THEMA_R[st.thema]) rc[THEMA_R[st.thema]]++;
+      if (st && st.sp && sc[st.sp] !== undefined && /^s0[4-9]$/.test(id)) sc[st.sp]++;
+    }
+    let br = null, bn = 0, tie = false;
+    for (const r of Object.keys(rc)) { if (rc[r] > bn) { br = r; bn = rc[r]; tie = false; } else if (rc[r] === bn && bn > 0) tie = true; }
+    const richtung = bn >= 2 && !tie ? br : null;
+    let dom = null; for (const sp of Object.keys(sc)) if (sc[sp] >= 4) dom = sp;
+    const wpOpt = placed.wp && placed.wp.opt === "06SM200-511" ? "Klinische Neuropsychologie" : (placed.wp && placed.wp.opt ? "Economic and Consumer Psychology" : null);
+    const baF = placed.BA && placed.BA.frage ? BA_FRAGEN[placed.BA.frage] || null : null;
+    const baA = placed.BA && placed.BA.artefakt ? BA_ART[placed.BA.artefakt] || null : null;
+    const tu = o.tutor && typeof o.tutor === "object" ? o.tutor : null;
+    spielstand = { titel: ids.map((id) => SLOT_TITEL[id][0]), ects: ects, name: (o.name || "").slice(0, 40),
+      profil: { richtung, rc, sc, dom, wpOpt, baF, baA },
+      stufen: (tu && tu.stufen) || null,
+      passung: (tu && Array.isArray(tu.passung)) ? tu.passung : null,
+      felder: (tu && tu.felder) || null };
+    fillCvKomp();
+    const profTxt = [];
+    if (richtung) profTxt.push(T("BSc-Richtung: ", "BSc direction: ") + (lang === "de" ? RICHT[richtung].de : RICHT[richtung].en));
+    if (sc.DeNC + sc.HEA + sc.SEOP > 0) profTxt.push("MSc: " + Object.entries(sc).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(" · ") + (dom ? T(" (dominant)", " (dominant)") : T(" (gemischt)", " (mixed)")));
+    if (wpOpt) profTxt.push(T("Wahlpflicht: ", "Compulsory elective: ") + wpOpt);
+    if (baF) profTxt.push("BA: " + baF);
+    if (baA) profTxt.push(T("Artefakt: ", "Artefact: ") + baA);
+    $("standInfo").textContent = "✓ " + T(`${ids.length} Module erkannt (${ects} ECTS)`, `${ids.length} modules recognised (${ects} ECTS)`) + (profTxt.length ? " · " + profTxt.join(" · ") : "");
+  } catch (e) {
+    spielstand = null;
+    $("standInfo").textContent = T("⚠️ Konnte das JSON nicht lesen.", "⚠️ Could not parse the JSON.");
+  }
+});
+function standText() {
+  if (!spielstand || !spielstand.titel.length) return T("(kein Spielstand übergeben)", "(no game state provided)");
+  let s = spielstand.titel.join("; ") + ` (${spielstand.ects} ECTS)`;
+  const p = spielstand.profil;
+  if (p) {
+    const teile = [];
+    if (p.richtung) teile.push("BSc-Richtung " + RICHT[p.richtung].de);
+    if (p.sc && (p.sc.DeNC + p.sc.HEA + p.sc.SEOP) > 0) teile.push("MSc-Schwerpunkte " + Object.entries(p.sc).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}/6`).join(", ") + (p.dom ? ` (dominant: ${p.dom})` : " (gemischt)"));
+    if (p.wpOpt) teile.push("Wahlpflicht: " + p.wpOpt);
+    if (p.baF) teile.push("BA-Fragestellung: " + p.baF);
+    if (p.baA) teile.push("AIAS-5-Artefakt: " + p.baA);
+    if (teile.length) s += ". Wahlprofil: " + teile.join("; ");
+  }
+  if (spielstand.felder) {
+    s += `. Kompetenzfelder: Fach ${spielstand.felder.fa}%, KI ${spielstand.felder.ki}%, Future Skills ${spielstand.felder.fu}%`;
+  }
+  if (spielstand.stufen && Object.keys(spielstand.stufen).length) {
+    s += ". Erreichte Kompetenzstufen (von 4): " + Object.entries(spielstand.stufen).map(([k, v]) => `${k}=${v}`).join(", ");
+  }
+  if (spielstand.passung && spielstand.passung.length) {
+    s += ". Im Spiel berechnete Passung der Berufswege (verwende GENAU diese Zahlen, rechne nicht selbst): "
+      + spielstand.passung.map((p) => `${p.name} ${p.fit}%`).join(", ");
+  }
+  return s;
+}
+function ctxTutor() {
+  return `Du bist der «KI-Baututor» zum Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH, BSc 06B-7200-120 / MSc 06M-7200-120; Module = Bausteine eines Hauses). Kompetenzmodell (Basis: Kompetenzaufbaumodell vom 02.07.2026, ein ENTWURF als Gesprächsbasis, kein beschlossenes Curriculum): Fa1–Fa10 Fachkompetenzen, KI1–KI6 KI-Kompetenzen (Anwenden, Gestalten, Zusammenarbeiten, Verstehen, Verantworten, Evaluieren), Fu1–Fu3 Future Skills (mit und ohne KI). Vier Progressionsstufen: 1 Orientieren/Grundlagen sichern (BSc Sem. 1–2), 2 Vertiefen/anwenden/prüfen (BSc Sem. 3–6), 3 Professionell vertiefen und KI-gestützte Forschung steuern (MSc Sem. 1–2), 4 Eigenständig forschen und verantworten (MSc Sem. 3–4). Prüfungslogik: [A] KI-frei sichert Kernfertigkeiten; [B] teilweise KI-integriert = einzelne Schritte mit KI, mit Disclosure und Prozesslog; [C] KI-integriert = KI in jedem Arbeitsschritt, anspruchsvolles Newskilling (nicht «einfacher»!). WAHLBEREICH (v8): Im BSc gibt es keinen formalen Schwerpunkt — die Interessensrichtung entsteht aus den Themenwahlen in den drei Wahlseminaren (s11 Entwicklung, s12 Klinisch/Gesundheit, s13 Sozial/Wirtschaft/Organisation/Differentiell) und dem BA-Themenfeld (ab 2 gleichen Richtungen: Klinik & Gesundheit / Entwicklung, Kognition & Neuro / Sozial, Wirtschaft & Organisation). Im MSc entsteht das Profil allein über die Wahl der 6 Vertiefungen aus DeNC/HEA/SEOP (frei mischbar, keine Einschreibung; ab 4 von 6 gilt ein Schwerpunkt als dominant); Wahlpflicht in der Ergänzung: Economic and Consumer Psychology ODER Klinische Neuropsychologie. Im Spiel prägt das Wahlprofil die Architektur des Hauses (Farben, Signatur-Elemente, Wahrzeichen). Die BACHELORARBEIT (neu, Rückmeldung 09.07.2026) ist empirisch-methodisch statt Literaturarbeit: Themenfeld + vorgegebene Beispiel-Fragestellung in einer von drei Arbeitsformen (Analyse eines bereitgestellten Datensatzes, Reproduzierbarkeits-/Robustheitscheck, strukturierter Review mit codierten Befunden); KI-integriert nach AIAS 4 plus AIAS-5-Artefakt eigener Wahl (dokumentierter agentischer Rechercheworkflow oder vibe-coded App — bewertet werden Zweck, Datenbasis, Grenzen, Verantwortung); bewertbarer Prozessanhang (Entscheidungslogik, KI-Nutzung, Verifikation, Reflexion); zehnminütige KI-freie mündliche Prüfung als Validitätsanker; Gewichtung 70% Arbeit / 30% mündliche Prüfung. Die Wahl der BA-Fragestellung soll zum anvisierten Berufsziel passen. Die MASTERARBEIT ist das «Meisterstück» explizit eine Stufe darüber: eigene Fragestellung statt vorgegebener, eigene/komplexe Daten, selbst konfigurierte agentische Forschungspipeline mit benotetem Agenten-Audit-Protokoll, OSF-Präregistrierung, Robustheitsanalyse und Live-Demonstration des eigenen KI-Workflows in der benoteten explorativen Verteidigung; sechs Teilleistungen mit je eigener Prüfungslogik [A]/[B]/[C]. KARRIERE-GRUNDWISSEN (Fakten adversarial geprüft, Stand August 2026): fünf eidgenössische Weiterbildungstitel (Psychotherapie, Kinder- und Jugendpsychologie, klinische Psychologie, Neuropsychologie, Gesundheitspsychologie); Psychotherapie-Zulassung verlangt genügende Studienleistungen in klinischer Psychologie/Psychopathologie (Art. 7 PsyG; Branchenstandard 12 ECTS — mit UZH-BSc+MSc unabhängig vom Schwerpunkt erfüllt); Neuropsychologie setzt neuropsychologische Studieninhalte voraus (Richtwert ~18 ECTS); Arbeits- und Organisationspsychologie, Markt- und Konsumentenpsychologie sowie Nutzer- und Medienpsychologie (UX-Research) sind unreguliert und brauchen keinen Fachtitel. WICHTIGE PRÄZISIERUNGEN, die häufig falsch berichtet werden: Der eidgenössische Titel im Feld Schule heisst «Eidgenössisch anerkannte:r Kinder- und Jugendpsycholog:in» (EA KJP) — der MAS KJP der Universität Basel ist ein ZUSÄTZLICHER akademischer Titel derselben Weiterbildung, nicht der Bundestitel. Der MAS Gesundheitspsychologie ist ein GEMEINSAMER Studiengang von UZH und Universität Bern und führt erst «nach geplanter Akkreditierung» zum Fachtitel — die Akkreditierung ist noch nicht abgeschlossen. Die Schweizerische Gesellschaft für Rechtspsychologie hat für ihr Fachtitel-Curriculum einen Aufnahmestopp verfügt. Am Gymnasium gilt mit Lehrdiplom Lohnklasse 21 (Kanton Zürich, Tabelle ab 1.1.2026), ohne Lehrdiplom Klasse 20. Bei ALLEN Weiterbildungen gilt: Die genannten Kosten enthalten die obligatorische Supervision nicht. Nenne NIEMALS Löhne oder Weiterbildungskosten, die nicht in den Pfaddaten stehen — wenn du eine Zahl nicht hast, sage das. Antworte kurz (max. 120 Wörter), freundlich, auf ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung, «ss» statt «ß»)" : "English"}. Keine Rechtsauskünfte und keine verbindliche Studienberatung, dafür an die Studienprogrammleitung verweisen. Gebaute Module der Person: ${standText()}.`;
+}
+function ctxKarr(p) {
+  return `Du bist der «KI-Baututor» des Lernspiels «Das Kompetenzhaus» (Psychologiestudium UZH) im KARRIERE-CHECK-Modus. Aufgabe: Beurteile knapp und konkret, wie gut das Wahlprofil der Person zum gewählten Berufsweg passt, und zeige den Weg nach dem Master. VERIFIZIERTE FAKTEN zu diesem Weg (Stand Juli 2026, Quellen: PsyG/BAG/FSP/SVNP/SGFP/Universitäten): ${lang === "de" ? p.f.de : p.f.en} Gebaute Module und Wahlprofil der Person: ${standText()}. Struktur deiner Antwort (max. 180 Wörter, ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}): (1) Passung des Wahlprofils in 1–2 Sätzen (falls kein Spielstand übergeben: sag das kurz und beschreibe die empfohlene Wahl). (2) Die nächsten 3–4 Etappen nach dem Master als nummerierte Liste mit Dauer/Kosten, wo bekannt. (3) GENAU EIN konkreter nächster Schritt im Studium. Bleib bei den gelieferten Fakten; für Verbindliches an Studienprogrammleitung bzw. BAG/Verbände verweisen.`;
+}
+function ctxVign(v) {
+  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen. Bringen die Nutzenden solche Themen ein, antworte AUSSCHLIESSLICH mit dem Zeichen [[KRISE]] und sonst nichts — die Anwendung zeigt dann einen festen Sicherheitshinweis mit den Schweizer Notfallnummern an. Formuliere den Hinweis nicht selbst. (4) Schreiben die Nutzenden «Stopp», antworte nur mit einem kurzen Satz, dass du aus der Rolle gehst — die Rückmeldung übernimmt die Anwendung in einem eigenen Schritt. Gib selbst KEIN Feedback zur Gesprächsführung. (5) Halte die Figur nicht künstlich kooperativ: Widerstand, Ausweichen und Ambivalenz dürfen bestehen bleiben, bis die Fachperson sie im Gespräch aufgreift. ANSPRUCH DER FIGUR IN DIESEM DURCHGANG: ${(schwierGrad() && (lang === "de" ? schwierGrad().regie.de : schwierGrad().regie.en)) || ""} Dieser Anspruch verändert NICHT den Belastungsgrad der Figur und nicht Regel (3): Auch auf der höchsten Stufe bleibt es bei leichten bis mittleren fiktiven Belastungen. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
+}
+async function send(forced, silent) {
+  if (!api) return;
+  const q = forced || $("inp").value.trim();
+  if (!q) return;
+  if (!forced) $("inp").value = "";
+  if (!silent) add("me", q);
+  const wait = add("bot", "…");
+  const who = mode === "vignette" ? T("Therapeut:in (Studierende:r)", "Therapist (student)") : T("Studierende:r", "Student");
+  const bot = mode === "vignette" && vignAktiv ? (lang === "de" ? vignAktiv.rolle.de : vignAktiv.rolle.en) : "Baututor";
+  const denkStop = denkAn(wait, mode === "vignette" && vignAktiv ? T(bot + " antwortet", bot + " is answering") : null);
+  hist.push(who + ": " + q);
+  try {
+    const ctx = mode === "vignette" && vignAktiv ? ctxVign(vignAktiv) : (mode === "karriere" && karrAktiv ? ctxKarr(karrAktiv) : ctxTutor());
+    const gekuerzt = hist.length > 8;
+    const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
+    denkStop();
+    if (mode === "vignette" && /\[\[KRISE\]\]/.test(out)) { wait.remove(); krisenBlock(); return; }
+    mdRender(wait, out);
+    kopierKnopf(wait, out);
+    hist.push(bot + ": " + out);
+    if (gekuerzt && !verlaufHinweisGezeigt) {
+      verlaufHinweisGezeigt = true;
+      add("sys", T("Hinweis: Der Tutor behält die letzten acht Beiträge im Blick. Frühere Details musst du bei Bedarf nochmals nennen.",
+                   "Note: the tutor keeps the last eight turns in view. Mention earlier details again if they matter."));
+    }
+  } catch (e) {
+    denkStop();
+    wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
+  }
+  if (mode === "vignette" && /^stopp?\b/i.test(q)) { rollenEnde(); return; }
+  if (mode === "vignette" && vignAktiv && !forced) mikroPruefen();
+}
+function krisenBlock() {
+  const d = add("sys", "", true);
+  d.className = "m krise";
+  d.innerHTML = `<b>${T("Die Szene endet hier", "The scene ends here")}</b>
+    <p style="margin:5px 0">${T("Dieses Übungsgespräch bildet bewusst nur leichte bis mittlere fiktive Belastungen ab. Für alles Weitere gibt es Menschen:",
+      "This practice conversation deliberately depicts only mild to moderate fictional strain. For anything beyond that, there are people:")}</p>
+    <ul style="margin:0;padding-left:18px">
+      <li><b>143</b> — ${T("Die Dargebotene Hand, rund um die Uhr, anonym (Telefon, Chat, Mail)", "Die Dargebotene Hand, around the clock, anonymous (phone, chat, mail)")}</li>
+      <li><b>147</b> — ${T("Pro Juventute, für Kinder und Jugendliche", "Pro Juventute, for children and young people")}</li>
+      <li><b>144</b> — ${T("Sanitätsnotruf bei akuter Gefahr", "emergency medical services in acute danger")}</li>
+      <li>${T("Psychologische Beratungsstelle der UZH und ETH für Studierende", "Psychological counselling service of UZH and ETH for students")}</li>
+    </ul>
+    <p style="margin:6px 0 0;font-size:10.5px">${T("Zu dieser Szene gibt es keine Rückmeldung. Du kannst oben ein neues Szenario wählen.",
+      "There is no feedback for this scene. You can pick a new scenario above.")}</p>`;
+  vignAktiv = null;
+  hist = [];
+  uebungsbannerSetzen(false);
+}
+const MIKRO_NACH = 5;
+const MIKRO_MAX = 2;
+function mikroPruefen() {
+  if (!vignAktiv || !fokusDim || mikroLaeuft) return;
+  mikroZuege++;
+  if (mikroGesamt >= MIKRO_MAX) return;
+  if (mikroZuege < MIKRO_NACH) return;
+  mikroZuege = 0;
+  mikroGesamt++;
+  mikroHolen();
+}
+async function mikroHolen() {
+  if (!api || !vignAktiv || !fokusDim) return;
+  mikroLaeuft = true;
+  const v = vignAktiv;
+  const fok = lang === "de" ? fokusDim.de : fokusDim.en;
+  const was = lang === "de" ? fokusDim.was.de : fokusDim.was.en;
+  const box = add("bot", "", true);
+  box.className = "m mikro";
+  const kopf = document.createElement("div");
+  kopf.className = "mikrokopf";
+  kopf.textContent = T("Kurz innegehalten · " + fok, "Brief pause · " + fok);
+  box.appendChild(kopf);
+  const inhalt = document.createElement("div");
+  box.appendChild(inhalt);
+  const denkStop = denkAn(inhalt, T("schaut auf deinen Schwerpunkt", "looking at your focus"));
+  try {
+    const out = await ask(`Du begleitest ein laufendes Übungs-Fallgespräch in der psychologischen Ausbildung. Die studierende Person führt das Gespräch, eine KI spielt eine fiktive Gegenrolle. Das Gespräch LÄUFT NOCH — du gibst einen kurzen Zwischenhinweis, keine Abschlussrückmeldung.
+SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
+DER SELBST GEWÄHLTE SCHWERPUNKT dieser Übung: «${fok}» — ${was}
+Schreibe AUSSCHLIESSLICH zu diesem Schwerpunkt. Alles andere, das dir auffällt, gehört nicht hierher.
+BISHERIGER VERLAUF:
+${hist.join("\n")}
+FORM — genau zwei Sätze, keiner länger als 20 Wörter:
+Satz 1: eine Beobachtung mit wörtlichem Zitat aus dem Verlauf («Deine letzten Fragen waren: ‹…›»).
+Satz 2: EINE Sache, die im nächsten Zug anders gehen könnte, als direkt nachsprechbarer Satz («Zum Beispiel: ‹…›»).
+VERBOTEN: Zahlen, Punkte, Noten, Lob oder Tadel über die Person, Adjektive über die Person, Aussagen zu Stimme, Tonfall, Mimik, Tempo oder Nervosität, Gesamturteile, mehr als eine Sache. Keine Anrede wie «gut gemacht» und keine Einleitung — beginne direkt mit der Beobachtung.
+Wenn zum Schwerpunkt bisher noch nichts Beobachtbares vorliegt, schreibe genau einen Satz, der das sagt, und nenne eine Gelegenheit, die im nächsten Zug entstehen könnte.
+Sprache: ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung (ss statt ß)" : "English"}.`);
+    denkStop();
+    mdRender(inhalt, out);
+    const fuss = document.createElement("div");
+    fuss.className = "mikrofuss";
+    fuss.textContent = T("Zwischenhinweis, nur zu deinem Schwerpunkt. Das Gespräch läuft weiter — die vollständige Rückmeldung kommt nach «Stopp».",
+                         "Interim note, on your focus only. The conversation continues — the full feedback comes after «Stop».");
+    box.appendChild(fuss);
+  } catch (e) {
+    denkStop();
+    inhalt.textContent = T("Der Zwischenhinweis liess sich gerade nicht abrufen — das Gespräch läuft normal weiter.",
+                           "The interim note could not be retrieved — the conversation continues as normal.");
+  }
+  mikroLaeuft = false;
+  $("msgs").scrollTop = $("msgs").scrollHeight;
+}
+function rollenEnde() {
+  const v = vignAktiv;
+  gespraechsVerlauf = hist.slice();
+  vignAktiv = null;
+  hist = [];
+  uebungsbannerSetzen(false);
+  if (!v) return;
+  vorabAnalyse = analyseHolen(v);
+  selbsteinschaetzungZeigen(v);
+}
+let vorabAnalyse = null;
+function analyseHolen(v) {
+  if (!api) return null;
+  const dims = VIGN_DIMS[v.id] || [];
+  const fok = fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : null;
+  return ask(`Du bist Supervisor:in in der psychologischen Ausbildung und gibst Rückmeldung zu einem GEÜBTEN Fallgespräch (Rollenspiel mit einer fiktiven Person, keine echten Patientendaten).
+SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
+BEOBACHTUNGSDIMENSIONEN — beurteile ausschliesslich diese, sie waren vorher bekannt:
+${dims.map((d, i) => `${i + 1}. ${lang === "de" ? d.de : d.en} — ${lang === "de" ? d.was.de : d.was.en}`).join("\n")}
+${fok ? `\nSELBST GEWÄHLTER SCHWERPUNKT: «${fok}». Beginne damit und widme ihm am meisten Raum.` : ""}
+VOLLSTÄNDIGER GESPRÄCHSVERLAUF:
+${gespraechsVerlauf.join("\n")}
+FORM — höchstens drei besprochene Punkte, je genau diese drei Teile:
+1. BEOBACHTUNG mit wörtlichem Zitat aus dem Verlauf («Du hast gefragt: ‹…›»).
+2. WIRKUNG im Gespräch («danach ist die Person auf Ja-Nein-Antworten umgeschwenkt»).
+3. ALTERNATIVE als ausformulierter, direkt nachsprechbarer Satz («Stattdessen zum Beispiel: ‹…›»).
+Danach EIN Fokus für den nächsten Durchgang und eine echte Neugierfrage nach der Begründung («Was hat dich in dem Moment dazu gebracht, …?»).
+VERBOTEN, ohne Ausnahme:
+- Zahlen, Punkte, Prozente, Noten, Rangaussagen, Aussagen über Eignung für den Beruf.
+- Adjektive über die Person («du wirkst unsicher/vermeidend») und Gesamturteile.
+- Aussagen zu Stimme, Tonfall, Mimik, Körperhaltung, Tempo, Pausen, Blickkontakt oder Nervosität — ein Textchat zeigt davon nichts.
+- Aussagen darüber, wie sich die studierende Person gefühlt habe.
+- Diagnostische Einschätzungen der fiktiven Figur, die als echte klinische Aussage gelesen werden könnten.
+- Mehr als drei besprochene Punkte.
+Falls du selbst aus der Rolle gefallen bist oder die Figur zu schnell nachgegeben hat, sage das in einem Satz — das ist eine Grenze des Werkzeugs, kein Fehler der studierenden Person.
+Höchstens 200 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung (ss statt ß)" : "English"}, wertschätzend und konkret.`);
+}
+function selbsteinschaetzungZeigen(v) {
+  const dims = VIGN_DIMS[v.id] || [];
+  if (!dims.length) { rueckmeldungHolen(v, null); return; }
+  const box = add("sys", "", true);
+  box.className = "m selbst";
+  const stufen = [
+    { w: 1, de: "noch nicht", en: "not yet" },
+    { w: 2, de: "ansatzweise", en: "partly" },
+    { w: 3, de: "gut gelungen", en: "done well" },
+  ];
+  box.innerHTML = `<b>${T("Szene beendet — wie schätzt du dich selbst ein?", "Scene finished — how do you rate yourself?")}</b>
+    <p style="margin:4px 0 8px;font-size:10.5px;color:#6b4a00">${T("Erst deine Einschätzung, dann die Rückmeldung. Du kannst auch überspringen.", "Your rating first, then the feedback. You can also skip.")}</p>
+    ${dims.map((d, i) => `<div class="selbstrow"><span>${lang === "de" ? d.de : d.en}</span>
+      <span class="selbstbtns">${stufen.map((s) => `<button type="button" data-dim="${i}" data-w="${s.w}">${lang === "de" ? s.de : s.en}</button>`).join("")}</span></div>`).join("")}
+    <div class="selbstact"><button type="button" class="primary" id="selbstOk" disabled>${T("Rückmeldung ansehen", "See the feedback")}</button>
+      <button type="button" id="selbstSkip">${T("Überspringen", "Skip")}</button></div>`;
+  const werte = {};
+  box.querySelectorAll("[data-dim]").forEach((b) => (b.onclick = () => {
+    const i = b.dataset.dim;
+    werte[i] = Number(b.dataset.w);
+    box.querySelectorAll(`[data-dim="${i}"]`).forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    $("selbstOk").disabled = Object.keys(werte).length < dims.length;
+  }));
+  $("selbstOk").onclick = () => {
+    selbstbild = dims.map((d, i) => `${lang === "de" ? d.de : d.en}: ${stufen.find((s) => s.w === werte[i]).de}`).join("; ");
+    box.querySelectorAll("button").forEach((b) => (b.disabled = true));
+    rueckmeldungHolen(v, selbstbild);
+  };
+  $("selbstSkip").onclick = () => {
+    box.querySelectorAll("button").forEach((b) => (b.disabled = true));
+    rueckmeldungHolen(v, null);
+  };
+}
+async function rueckmeldungHolen(v, selbst) {
+  if (!api) return;
+  const dims = VIGN_DIMS[v.id] || [];
+  const wait = add("bot", "…");
+  wait.className = "m fb";
+  const denkStop = denkAn(wait, T("die Rueckmeldung wird geschrieben", "writing the feedback"));
+  // Der VOLLE Szenenverlauf, nicht das Achter-Fenster der Rolle: Eine Supervision, die nur die
+  // letzten vier Wechsel kennt, verpasst genau den Gesprächseinstieg, auf den es ankommt.
+  const verlauf = gespraechsVerlauf.join("\n");
+  const fok = fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : null;
+  try {
+    /* Die Analyse laeuft seit «Stopp» — waehrend der Selbsteinschaetzung. Faellt sie aus
+       (etwa weil die Person direkt uebersprungen hat, bevor sie startete), wird sie hier
+       nachgeholt. */
+    const out = await (vorabAnalyse || analyseHolen(v));
+    vorabAnalyse = null;
+    denkStop();
+    mdRender(wait, out);
+    const kopf = document.createElement("div");
+    kopf.className = "fbkopf";
+    kopf.textContent = T("Übungsrückmeldung im Spiel. Keine Studienleistung, keine Beurteilung deiner Person, keine Grundlage für Noten.",
+                         "Practice feedback inside the game. Not coursework, not an assessment of you, not a basis for grades.");
+    wait.prepend(kopf);
+    kopierKnopf(wait, out);
+    /* Der Abgleich mit der Selbsteinschaetzung bekommt einen eigenen Aufruf und einen eigenen
+       Block. Vorher musste er sich 220 Woerter mit der Analyse teilen und schrumpfte regelmaessig
+       auf einen Nebensatz — dabei ist er der Teil, der Feedback-Literacy aufbaut. */
+    let abgleich = "";
+    if (selbst) {
+      const ab = document.createElement("div");
+      ab.className = "m mikro";
+      ab.style.marginTop = "9px";
+      const abKopf = document.createElement("div");
+      abKopf.className = "mikrokopf";
+      abKopf.textContent = T("Deine Einschätzung neben der Beobachtung", "Your rating next to the observation");
+      ab.appendChild(abKopf);
+      const abInhalt = document.createElement("div");
+      ab.appendChild(abInhalt);
+      wait.appendChild(ab);
+      const abStop = denkAn(abInhalt, T("gleicht ab", "comparing"));
+      try {
+        abgleich = await ask(`Eine studierende Person hat ein Übungs-Fallgespräch geführt und sich danach selbst eingeschätzt. Du hast als Supervisor:in bereits die Beobachtung geschrieben. Vergleiche jetzt NUR beides miteinander.
+SELBSTEINSCHÄTZUNG: ${selbst}
+DEINE BEOBACHTUNG (bereits gegeben, nicht wiederholen):
+${out}
+Schreibe genau drei kurze Punkte als Aufzählung, je höchstens 25 Wörter:
+- Übereinstimmung: wo Selbsteinschätzung und Beobachtung dasselbe zeigen.
+- Blinder Fleck: wo du etwas siehst, das in der Selbsteinschätzung nicht vorkommt.
+- Zu streng: wo die Selbsteinschätzung härter ausfiel als das, was im Verlauf steht. Diesen Punkt NICHT weglassen — Studierende schätzen sich systematisch zu streng ein. Wenn wirklich nichts zu streng war, sage genau das in einem Satz.
+VERBOTEN: Zahlen, Punkte, Noten, Eignungsaussagen, Adjektive über die Person, Aussagen zu Stimme, Mimik oder Tempo, und jede Wiederholung der Beobachtung.
+Sprache: ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung (ss statt ß)" : "English"}.`);
+        abStop();
+        mdRender(abInhalt, abgleich);
+      } catch (e) {
+        abStop();
+        ab.remove();
+        abgleich = "";
+      }
+    }
+    // Wiederholen und Mitnehmen: Der zweite Durchgang ist der eigentliche Übungsschritt,
+    // und die beurteilende Instanz soll ein Mensch im Seminar bleiben.
+    const leiste = document.createElement("div");
+    leiste.className = "fbact";
+    const b1 = document.createElement("button");
+    b1.type = "button";
+    b1.textContent = "↻ " + T("Gleiche Szene nochmals", "Run the same scene again") + (fok ? ` — ${fok}` : "");
+    b1.onclick = () => vignVorbereiten(v, true);
+    const b2 = document.createElement("button");
+    b2.type = "button";
+    b2.textContent = "📋 " + T("Für die Supervision mitnehmen", "Take to supervision");
+    b2.onclick = async () => {
+      const txt = [
+        `${T("Übungsgespräch", "Practice conversation")}: ${lang === "de" ? v.de : v.en}`,
+        `${T("Schwerpunkt", "Focus")}: ${fok || "—"}`,
+        "",
+        `— ${T("Verlauf", "Transcript")} —`, verlauf, "",
+        `— ${T("Selbsteinschätzung", "Self-assessment")} —`, selbst || T("(übersprungen)", "(skipped)"), "",
+        `— ${T("Rückmeldung", "Feedback")} —`, out,
+        ...(abgleich ? ["", `— ${T("Abgleich mit der Selbsteinschätzung", "Comparison with the self-assessment")} —`, abgleich] : []),
+      ].join("\n");
+      try { await navigator.clipboard.writeText(txt); b2.textContent = "✓ " + T("kopiert", "copied"); }
+      catch (e) { b2.textContent = T("Kopieren nicht möglich", "Copying not possible"); }
+      setTimeout(() => (b2.textContent = "📋 " + T("Für die Supervision mitnehmen", "Take to supervision")), 2200);
+    };
+    leiste.append(b1, b2);
+    wait.appendChild(leiste);
+    /* Rückmeldung sagt, was war. Das Exemplar sagt, wie es klingen könnte — beides
+       zusammen, sonst bleibt die Alternative eine Behauptung. */
+    if (fokusDim) { const ex = exemplarBlock(fokusDim, false); if (ex) wait.appendChild(ex); }
+  } catch (e) {
+    denkStop();
+    wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
+  }
+}
+$("send").onclick = () => send();
+$("inp").addEventListener("keydown", (e) => {
+  // Enter sendet, Shift+Enter macht einen Absatz — für längere Fragen und Fallgespräche
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+// Das Feld wächst mit dem Text, bis zu vier Zeilen
+$("inp").addEventListener("input", function () {
+  this.style.height = "auto";
+  this.style.height = Math.min(this.scrollHeight, 96) + "px";
+});
+/* ---------- Anspruch der fiktiven Gegenrolle ----------
+   Bisher spielte das Modell die Figur immer gleich. Studierende im dritten Semester und
+   im Master brauchen aber nicht dasselbe Gegenüber. Die Achse ist bewusst NICHT «stärker
+   belastet» — der Rahmen bleibt bei leichten bis mittleren fiktiven Belastungen, und die
+   Krisengrenze verschiebt sich auf keiner Stufe. Was steigt, ist, wie viel Gesprächsführung
+   die Figur voraussetzt, bevor sie mehr von sich preisgibt. */
+const SCHWIERIGKEIT = [
+  {"id":"leicht","label":{"de":"zugänglich","en":"forthcoming"},"kurz":{"de":"Die Figur erzählt von sich aus weiter und nennt ihre Zweifel selbst — gut für den ersten Durchgang in einer neuen Szene.","en":"The character keeps talking of its own accord and names its doubts itself — good for a first run through a new scene."},"regie":{"de":"Antworte auf jede offene Frage mit drei bis vier Sätzen und ergänze von dir aus ein Beispiel aus deinem Alltag. Auch auf eine geschlossene Frage gibst du mehr als ein Wort. Wenn du ambivalent bist, sagst du beide Seiten selbst, ohne dass danach gefragt wird. Widerstand zeigst du höchstens einmal und lässt ihn fallen, sobald die Fachperson ihn überhaupt erwähnt.","en":"Answer every open question with three or four sentences and add an example from your everyday life unprompted. Even to a closed question you give more than one word. When you are ambivalent, you state both sides yourself without being asked. You show resistance at most once and drop it as soon as the professional so much as mentions it."}},
+  {"id":"mittel","label":{"de":"realistisch","en":"realistic"},"kurz":{"de":"Zweifel und Ambivalenz bleiben stehen, bis sie im Gespräch aufgegriffen werden. Voreinstellung.","en":"Doubt and ambivalence stay until they are taken up in the conversation. Default setting."},"regie":{"de":"Antworte auf offene Fragen mit zwei bis vier Sätzen, auf geschlossene knapp. Ergänze von dir aus wenig. Ambivalenz und Zweifel behältst du bei, bis die Fachperson sie benennt oder danach fragt — dann gibst du mehr preis. Auf eine Beruhigung ohne Nachfrage reagierst du zustimmend, aber du kommst von dir aus nicht mehr auf das Thema zurück.","en":"Answer open questions with two to four sentences, closed ones briefly. Add little of your own accord. You keep your ambivalence and doubt until the professional names them or asks about them — then you give more. To reassurance without a follow-up question you respond agreeably, but you do not return to the topic on your own."}},
+  {"id":"schwer","label":{"de":"anspruchsvoll","en":"demanding"},"kurz":{"de":"Die Figur gibt wenig von selbst preis und prüft den Rahmen des Gesprächs. Sie öffnet sich, wenn ihr Anliegen wirklich aufgegriffen wird — aber nicht vorher.","en":"The character gives little unprompted and tests the frame of the conversation. It opens up once its concern is genuinely taken up — but not before."},"regie":{"de":"Beantworte geschlossene Fragen mit einem Wort und ergänze nichts von dir aus. Auf eine erste offene Frage antwortest du allgemein und ausweichend. Mehr gibst du erst preis, wenn eines von drei Dingen geschieht: die Fachperson gibt etwas von dem, was du gesagt hast, in deinen eigenen Worten zurück; sie benennt deinen Zweifel oder deine Ambivalenz, ohne sie sofort auszuräumen; oder sie klärt, wozu dieses Gespräch dient und was damit geschieht. Passiert eines davon, antwortest du deutlich ausführlicher und bleibst dabei. Frage mindestens einmal selbst nach, wozu eine Auskunft dient oder wer davon erfährt. Werde nicht unfreundlich, sarkastisch oder abweisend — du bist zurückhaltend, nicht feindselig, und ein gelungenes Gespräch muss möglich bleiben.","en":"Answer closed questions with one word and add nothing of your own accord. To a first open question you reply in general, evasive terms. You give more only once one of three things happens: the professional gives back something you said in your own words; they name your doubt or ambivalence without clearing it away straight off; or they clarify what this conversation is for and what happens with it. If one of those happens, you answer markedly more fully and stay that way. At least once, ask yourself what a piece of information is for or who will hear about it. Do not become unfriendly, sarcastic or dismissive — you are reserved, not hostile, and a successful conversation must remain possible."}}
+];
+function schwierGrad() { return SCHWIERIGKEIT.find((g) => g.id === schwierigkeit) || SCHWIERIGKEIT[1] || SCHWIERIGKEIT[0]; }
+/* ---------- Exemplare je Beobachtungsdimension ----------
+   Eine Einstufung («ansatzweise / gut gelungen») sagt, wo man steht, aber nicht, wie es
+   klingt, wenn es gelingt. Deshalb stehen pro Dimension drei wörtlich nachsprechbare
+   Fassungen desselben Zuges — lesbar vor dem Gespräch und nach der Rückmeldung.
+   Die Etiketten beschreiben die Äusserung, nie die Person. */
+const EXEMPLARE = {
+  "S_ges": {"key":"S_ges","niveaus":[{"stufe":1,"label_de":"Zustimmung mit anschliessendem Einwand","label_en":"Agreement followed by an objection","satz_de":"Ich verstehe gut, dass Ihnen die Zigarette nach der Schicht beim Runterkommen hilft. Trotzdem gibt es andere Wege abzuschalten — sollen wir schauen, welcher davon für Sie in Frage käme?","satz_en":"I can see that the cigarette after your shift is what helps you unwind. Still, there are other ways to switch off — shall we look at which of them might work for you?","warum_de":"Nach dem «trotzdem» steht Marco als Verteidiger seiner Zigarette da, und je länger er sie verteidigt, desto mehr Gründe fürs Weiterrauchen führt er selbst an.","warum_en":"After the \"still\", Marco is placed in the position of defending his cigarette, and the longer he defends it, the more reasons for carrying on he supplies himself."},{"stufe":2,"label_de":"Beide Seiten, als Schema erfragt","label_en":"Both sides, asked as a formula","satz_de":"Schauen wir uns beide Seiten an: Was spricht für Sie fürs Rauchen, und was spricht dagegen?","satz_en":"Let's look at both sides: what speaks in favour of smoking for you, and what speaks against it?","warum_de":"Beide Seiten liegen auf dem Tisch, aber das Pro-Kontra-Schema fordert ihn ausdrücklich auf, seine Gründe fürs Rauchen auszuformulieren — und was er selbst dafür sagt, bindet ihn stärker daran.","warum_en":"Both sides are on the table, but the pro-and-con format expressly asks him to spell out his reasons for smoking — and what he says in its favour binds him to it more strongly."},{"stufe":3,"label_de":"Beide Seiten in seinen Worten","label_en":"Both sides in his own terms","satz_de":"Die Zigarette nach der Schicht ist im Moment das, was Sie zu Hause ankommen lässt, und hier sind Sie, weil Sie es Ihrer Frau versprochen haben. Erzählen Sie mir zuerst von dieser Zigarette — was tut die für Sie? Was das Versprechen für Sie bedeutet, kommt danach.","satz_en":"The cigarette after your shift is what gets you home at the moment, and you are here because you gave your wife your word. Tell me about that cigarette first — what does it do for you? What the promise means to you, we can come to after that.","warum_de":"Weil die Seite des Rauchens zuerst und ohne Einwand drankommt, muss Marco sie nicht verteidigen, und das Versprechen bleibt sein Thema statt mein Ziel.","warum_en":"Because the smoking side comes first and meets no objection, Marco does not have to defend it, and the promise stays his own subject rather than my goal for him."}],"hinweis":{"de":"Beide Seiten zu benennen ist noch kein Stehenlassen — sobald auf die erste Seite ein «trotzdem» oder «aber» folgt, wird das Verständnis zum Anlauf fürs Überzeugen.","en":"Naming both sides is not yet holding them — the moment a \"but\" or \"still\" follows the first side, the understanding turns into a run-up to persuasion."}},
+  "S_klin": {"key":"S_klin","niveaus":[{"stufe":1,"label_de":"Frühe Engführung auf ein Symptom","label_en":"Narrowing to one symptom early","satz_de":"Sie schlafen also seit Monaten schlecht. Gehen Sie denn immer etwa zur gleichen Zeit ins Bett, und schauen Sie vorher noch aufs Handy?","satz_en":"So the sleep has been bad for months. Do you go to bed at roughly the same time each night, and are you on your phone before that?","warum_de":"Das Gespräch bindet sich an eine Einzelheit, bevor feststeht, was überhaupt zusammengehört; die Müdigkeit, das Vergessen bei der Arbeit und ihr Zweifel, ob sie hier richtig ist, kommen dabei nicht vor.","warum_en":"The conversation attaches itself to one detail before it is clear what belongs together; the tiredness, the forgetting at work and her doubt about being in the right place never enter the picture."},{"stufe":2,"label_de":"Alle Bereiche als Fragenkette","label_en":"All areas as a run of questions","satz_de":"Ich möchte mir zuerst ein Bild machen. Seit wann besteht das, wie hat es angefangen, gibt es Situationen, in denen es besser oder schlechter ist, und was hilft Ihnen sonst im Alltag?","satz_en":"I'd like to build a picture first. When did this start, how did it begin, are there situations where it gets better or worse, and what helps you get through the day?","warum_de":"Die Bereiche werden abgedeckt, aber sie beantwortet Frage um Frage; was der schlechte Schlaf mit dem Vergessen bei der Arbeit zu tun hat, bleibt dabei unverbunden.","warum_en":"The areas do get covered, but she answers item by item, and how the poor sleep relates to the forgetting at work is left unconnected."},{"stufe":3,"label_de":"Verlauf entlang ihrer Schilderung","label_en":"Course traced through her own account","satz_de":"Sie haben drei Dinge genannt, die zusammen aufgetreten sind: den Schlaf, die Müdigkeit und dass Ihnen bei der Arbeit Sachen entfallen. Fangen wir bei dem an, was zuerst da war — erzählen Sie mir, wie es über diese Monate weiterging. Was Sie in dieser Zeit getragen hat, interessiert mich dabei genauso wie das Schwierige.","satz_en":"You have named three things that came together: the sleep, the tiredness, and things slipping your mind at work. Let us start with whichever came first — tell me how it went on over these months. What carried you through that time interests me just as much as what was hard.","warum_de":"Sie ordnet die Monate selbst und bestimmt, was zuerst kommt; die Ressourcen werden Teil derselben Erzählung statt einer Zusatzfrage am Schluss.","warum_en":"She orders the months herself and decides what comes first, and her resources become part of the same account rather than an extra question at the end."}],"hinweis":{"de":"Viele halten Vollständigkeit für Systematik — doch eine abgearbeitete Fragenliste ergibt noch keinen Verlauf; systematisch wird es erst, wenn jede Antwort an das gebunden wird, was sie vorher erzählt hat.","en":"Many take completeness for system — but a list of questions worked through still yields no course over time; it only becomes systematic when each answer is tied back to what she has already said."}},
+  "K3": {"key":"K3","niveaus":[{"stufe":1,"label_de":"Ablauf angekündigt, nicht abgesprochen","label_en":"Plan announced, not agreed","satz_de":"Ich habe die Ergebnisse der Abklärung mitgebracht und gehe sie mit Ihnen der Reihe nach durch. Am Schluss haben Sie dann Zeit für Ihre Fragen.","satz_en":"I've brought the results of the assessment with me and I'll take you through them one by one. There'll be time for your questions at the end.","warum_de":"Die Reihenfolge steht damit fest, bevor sie sagen konnte, was sie zuerst wissen möchte, und ihre eigene Frage kommt erst dran, wenn das meiste schon gesagt ist.","warum_en":"The order is settled before she has said what she wants to hear first, so her own question only comes up once most of it has already been said."},{"stufe":2,"label_de":"Gliederung sauber, Anliegen ungenannt","label_en":"Clear signposting, generic agenda","satz_de":"Ich schlage vor, wir gehen so vor: zuerst erzähle ich Ihnen, wie die Abklärung abgelaufen ist, dann kommen die Ergebnisse, und zum Schluss überlegen wir gemeinsam, was daraus folgt. Ist das für Sie so in Ordnung?","satz_en":"Here's what I'd suggest: I'll start with how the assessment was done, then we'll go through the results, and at the end we'll look together at what follows from them. Does that work for you?","warum_de":"Sie weiss jetzt, was kommt, und kann widersprechen; woran sie sich in dieser Rückmeldung festhalten kann, bleibt aber offen, weil der Ablauf für jede beliebige Rückmeldung gleich klingt.","warum_en":"She now knows what is coming and can object, but the run-through would fit any feedback session, so she still has nothing of her own to hold on to."},{"stufe":3,"label_de":"Ablauf entlang ihrer Frage","label_en":"Agenda built on her question","satz_de":"Sie haben bei der Anmeldung gesagt, Sie möchten vor allem verstehen, warum Ihnen das Lernen so schwerfällt. Ich beginne darum genau dort und zeige Ihnen danach, woran ich meine Einschätzung festmache; zum Schluss halten wir fest, was Sie davon mitnehmen. Wenn Ihnen unterwegs etwas anderes wichtiger wird, sagen Sie es mir, dann ändern wir die Reihenfolge.","satz_en":"When you booked the appointment you said what you mainly wanted was to understand why learning takes so much out of you. So I'll start right there, then show you what I'm basing my reading on, and at the end we'll put down what you want to take away. If something else becomes more important along the way, say so and we'll change the order.","warum_de":"Der Ablauf hängt an ihrer eigenen Frage, deshalb kann sie an jedem Übergang prüfen, ob es noch um ihr Anliegen geht, und ihn ändern, ohne dass die Rückmeldung dafür von vorne beginnen muss.","warum_en":"The plan hangs on her own question, so at every transition she can check whether this is still about her concern and reshape it without the feedback having to start over."}],"hinweis":{"de":"Einen Ablauf anzukündigen ist noch keine geklärte Agenda, solange die andere Person nicht sagen konnte, was zuerst drankommt.","en":"Announcing your plan is not the same as agreeing on one: structure only becomes transparent once the other person has had a say in what comes first."}},
+  "S_ao": {"key":"S_ao","niveaus":[{"stufe":1,"label_de":"Vertraulichkeit pauschal zugesichert","label_en":"Blanket confidentiality promised","satz_de":"Alles, was Sie mir hier erzählen, bleibt selbstverständlich unter uns. Erzählen Sie einfach ganz offen, was in Ihrem Team gerade schwierig ist.","satz_en":"Everything you tell me here stays between the two of us, of course. Just talk openly about what has been difficult in your team lately.","warum_de":"Die Zusicherung deckt nicht ab, was die HR-Leitung als Auftraggeberin erwartet, und Marco Steiner erfährt weiterhin nicht, wer dieses Gespräch bestellt hat; sobald das Mitarbeitergespräch zur Sprache kommt, muss die Zusage eingeschränkt werden.","warum_en":"The promise covers something the consultant does not control, and Steiner still does not learn who asked for this meeting or why, so it has to be walked back the moment the appraisal comes up."},{"stufe":2,"label_de":"Dreieckskontrakt formal benannt","label_en":"Triangular contract named formally","satz_de":"Bevor wir inhaltlich einsteigen, klären wir den Auftrag. In einer Beratung wie dieser gibt es drei Beteiligte: die auftraggebende Stelle, Sie als Klient und mich als Berater. Wir sollten festhalten, welche Informationen an die HR-Leitung zurückgehen und welche nicht.","satz_en":"Before we go into content, let us clarify the mandate. In a consultation like this there are three parties: the commissioning side, you as the client, and me as the consultant. We should agree which information goes back to HR and which does not.","warum_de":"Der Rahmen liegt auf dem Tisch, aber Marco Steiner muss die Rollenbegriffe erst auf seine eigene Lage übersetzen, bevor er entscheiden kann, wovon er erzählt.","warum_en":"The frame is on the table, but Steiner first has to translate the role labels into his own situation before he can decide what he is willing to say."},{"stufe":3,"label_de":"Rückfluss und Ziel geklärt","label_en":"Reporting and purpose clarified","satz_de":"Herr Steiner, die HR-Leitung hat mich gebeten, mit Ihnen über die Zusammenarbeit in Ihrem Team zu sprechen; mehr weiss ich nicht, und bestellt haben Sie dieses Gespräch nicht. Zurück geht nur eine kurze Rückmeldung, die wir am Schluss gemeinsam formulieren — was die HR-Leitung damit macht, liegt nicht bei mir, deshalb halten wir am Schluss auch fest, was darin nichts zu suchen hat. Bleibt die Frage, wozu Sie diese Stunde selber nutzen möchten.","satz_en":"Mr Steiner, HR asked me to talk with you about how the collaboration in your team is going; that is all I was told, and you did not ask for this meeting yourself. All that goes back is a short report we word together at the end — what HR then does with it is not mine to control, which is why we will also put down what has no place in it. That leaves the question of what you yourself would want to get out of this hour.","warum_de":"Er weiss jetzt, was die beratende Person aus dem Auftrag kennt, was zurückfliesst und wo deren Einfluss endet, und kann von da an selbst bestimmen, wovon er erzählt.","warum_en":"He now knows what the consultant was told, what will travel back and where her influence ends, so from here on he decides himself what he talks about."}],"hinweis":{"de":"Die häufigste Verwechslung: Vertraulichkeit zuzusichern gilt schon als Auftragsklärung — solange aber nicht gesagt ist, wer das Gespräch bestellt hat, mit welchem Anliegen und was am Schluss zurückgeht, weiss das Gegenüber trotz aller Zusicherung nicht, worauf es sich einlässt.","en":"The commonest mix-up is treating a promise of confidentiality as mandate clarification: until it is said who asked for the meeting, with what concern, and what will be reported back, the other person still does not know what they are agreeing to."}},
+  "K1": {"key":"K1","niveaus":[{"stufe":1,"label_de":"Zweifel weggenommen statt aufgenommen","label_en":"Doubt reassured away","satz_de":"Das gehört auf jeden Fall hierher, damit sind Sie bei uns richtig. Ich stelle Ihnen zuerst ein paar Fragen zum Schlaf, dann bekommen wir ein Bild.","satz_en":"That certainly belongs here, you have come to the right place. Let me start with a few questions about your sleep, then we will have a picture.","warum_de":"Lea hat gesagt, sie wisse nicht, ob das hierher gehöre — die Frage ist beantwortet, bevor sie sagen konnte, was sie daran unsicher macht. Sie hat damit keinen Anlass mehr, darauf zurückzukommen; wer das Thema wieder aufmacht, muss gegen die Beruhigung anreden.","warum_en":"Lea said she was not sure this belonged here — the question is settled before she could say what makes her unsure, and she has no reason to return to it later in the session."},{"stufe":2,"label_de":"Gefühl benannt, aber allgemein","label_en":"Feeling named in general terms","satz_de":"Ich verstehe Sie so, dass Sie nicht sicher sind, ob Sie hier richtig sind. Das ist gut verständlich, vielen Menschen geht es im Erstgespräch so. Erzählen Sie mir gern mehr davon.","satz_en":"I take it you are not sure whether you are in the right place. That is quite understandable, many people feel this way in a first session. Do tell me more about it.","warum_de":"Das Gefühl ist damit im Gespräch, aber weil es allen Erstgesprächen zugeschrieben wird, muss Lea erst prüfen, ob damit auch ihres gemeint ist, bevor sie weiterredet.","warum_en":"The feeling is now in the conversation, but because it is attributed to first sessions in general, Lea first has to work out whether hers is included before she says more."},{"stufe":3,"label_de":"Zweifel stehen gelassen","label_en":"Doubt left standing","satz_de":"Ihre Hausärztin hat Sie hergeschickt, und Sie selbst sind nicht sicher, ob schlecht schlafen und Dinge bei der Arbeit vergessen hierher gehören. Diesen Zweifel müssen Sie hier nicht ausräumen — er darf stehen bleiben. Was macht Sie denn unsicher?","satz_en":"Your GP sent you here, and you yourself are not sure whether sleeping badly and forgetting things at work belong in this room. You do not have to drop that doubt to be here — it can stay. What is it that makes you unsure?","warum_de":"Der Zweifel bleibt stehen, statt beantwortet zu werden — Lea kann als Nächstes sagen, woraus er besteht, statt ihn fallen zu lassen.","warum_en":"The doubt is left standing rather than answered — Lea can say next what it consists of, instead of dropping it."}],"hinweis":{"de":"Beruhigen liest sich freundlich, beendet aber das Thema — ein Gefühl ist erst dann benannt, wenn die Person danach noch etwas dazu sagen kann.","en":"Reassurance reads as friendly but closes the topic — a feeling is only named if the person can still say something about it afterwards."}},
+  "K2": {"key":"K2","niveaus":[{"stufe":1,"label_de":"Geschlossene Frage, mehrfach gestellt","label_en":"Closed question, asked in a bundle","satz_de":"Hat Sie das Ergebnis überrascht? Und waren Sie an dem Tag ausgeschlafen, oder hat Sie beim Test etwas abgelenkt?","satz_en":"Did the result surprise you? And had you slept well that day, or was something distracting you during the test?","warum_de":"Auf drei Fragen in einem Zug antwortet sie meist nur auf die letzte, und womit sie beginnen möchte, entscheidet sie dann nicht mehr selbst.","warum_en":"Faced with three questions at once she usually answers only the last one, and she no longer gets to decide where the conversation starts."},{"stufe":2,"label_de":"Korrekte Zusammenfassung, allgemein gehalten","label_en":"Accurate summary, kept generic","satz_de":"Ich fasse zusammen, was Sie bisher gesagt haben: Das Ergebnis passt nicht zu dem Bild, das Sie von sich haben. Wie geht es Ihnen damit?","satz_en":"Let me summarise what you have said so far: the result does not match the picture you have of yourself. How is that for you?","warum_de":"Die Zusammenfassung hält das Gespräch offen, aber weil kein einziges ihrer eigenen Worte darin vorkommt, kann sie ebenso gut nur bestätigt wie ausgeführt werden.","warum_en":"The summary keeps the conversation open, but since none of her own words appear in it, she can just as easily confirm it as expand on it."},{"stufe":3,"label_de":"Paraphrase in ihren eigenen Worten","label_en":"Paraphrase built from her own words","satz_de":"Vorhin haben Sie erzählt, dass Sie beim Lernen immer wieder aufstehen und danach nicht mehr in den Text zurückfinden. Genau darum geht es in dem Abschnitt der Rückmeldung, den Sie gerade gelesen haben. Erzählen Sie mir, wie so ein Lernnachmittag bei Ihnen abläuft.","satz_en":"Earlier you said that while revising you keep getting up and then cannot find your way back into the text. That is exactly what the section of the report you have just read is about. Tell me how an afternoon of revising actually goes for you.","warum_de":"Weil ihr eigener Satz zurückkommt, wird die Rückmeldung an ihrem Alltag festgemacht, und sie bestimmt selbst, welchen Teil davon sie ausführt.","warum_en":"Because her own sentence comes back to her, the report gets anchored in her everyday life, and she decides herself which part of it she takes further."}],"hinweis":{"de":"Eine Frage wird nicht dadurch offen, dass sie mit «Wie» oder «Was» beginnt — «Wie oft war das?» und «Was war es, Ärger oder Enttäuschung?» lassen genauso wenig Spielraum wie eine Ja-Nein-Frage.","en":"A question does not become open just because it starts with «how» or «what» — «How often did that happen?» and «What was it, anger or disappointment?» leave just as little room as a yes-or-no question."}},
+  "S_diag": {"key":"S_diag","niveaus":[{"stufe":1,"label_de":"Beruhigung ersetzt die Erklärung","label_en":"Reassurance replaces the explanation","satz_de":"Ihre Ergebnisse liegen alle im unauffälligen Bereich, da ist wirklich nichts dabei, was Sorgen machen müsste. Mit Ihnen stimmt also alles, Sie können ganz beruhigt sein.","satz_en":"Your results all sit in the unremarkable range, there is really nothing in there to worry about. So nothing is wrong with you, you can set your mind at rest.","warum_de":"Die Beruhigung schliesst das Thema, bevor die Klientin ihre Befürchtung an etwas Konkretem prüfen kann, und lässt ihr nur die Wahl, dem Urteil zu glauben oder es abzulehnen.","warum_en":"The reassurance closes the topic before she can check her worry against anything concrete, leaving her only the choice of believing the verdict or rejecting it."},{"stufe":2,"label_de":"Unsicherheit allgemein benannt","label_en":"Uncertainty stated in general terms","satz_de":"Ein Testwert ist nie ganz genau, jedes Verfahren misst mit einer gewissen Streuung. Deshalb nenne ich Ihnen nicht einfach eine Zahl, sondern sage dazu, wie genau sie überhaupt ist. So gehen wir mit allen Ergebnissen aus dieser Testung um.","satz_en":"A test score is never entirely precise, every instrument measures with a certain spread. So I will not just give you a number, I will also say how precise it is. We treat every result from this assessment that way.","warum_de":"Die Unsicherheit ist damit im Gespräch, gehört aber dem Verfahren und nicht ihrer Frage, und sie erfährt, wie Tests funktionieren, statt was ihr Ergebnis über sie sagt und was nicht.","warum_en":"The uncertainty is now on the table, but it belongs to the instrument rather than to her question, so she learns how tests work instead of what her result does and does not say about her."},{"stufe":3,"label_de":"Befund an ihre Befürchtung gebunden","label_en":"Finding tied to her stated worry","satz_de":"Sie haben vorhin gesagt, Sie befürchten, dass mit Ihnen etwas nicht stimmt — darum sage ich Ihnen zuerst, was herausgekommen ist: Verglichen mit Menschen in Ihrem Alter liegen Ihre Werte im mittleren Bereich. Was dieser Wert zeigt, ist, wie Sie an diesem einen Vormittag mit diesen Aufgaben zurechtgekommen sind; ob mit Ihnen etwas nicht stimmt, sagt er nicht. Das können wir nur zusammen anschauen, wenn Sie mir erzählen, wo es im Alltag schwierig wird.","satz_en":"You said earlier that you are afraid something is wrong with you — so let me start with what came out: compared with people of your age, your scores are in the middle range. What this score shows is how you worked through these particular tasks on this one morning; whether something is wrong with you, it does not say. That we can only look at together, if you tell me where things get difficult in everyday life.","warum_de":"Der Befund ist an ihre eigene Befürchtung angeschlossen und zugleich in seiner Reichweite begrenzt, sodass sie im nächsten Zug prüfen kann, ob das Beschriebene zu ihrem Alltag passt, statt ein Urteil über sich übernehmen zu müssen.","warum_en":"The finding is connected to her own worry and at the same time limited in its reach, so her next move can be to check whether what was described fits her everyday life, instead of having to accept a verdict about herself."}],"hinweis":{"de":"Ein Befund ohne Fachbegriff ist noch nicht verständlich zurückgemeldet: Verständlich wird er erst, wenn dazugesagt ist, wie genau der Wert überhaupt ist und worüber er nichts aussagt, und Beruhigung ersetzt das nicht.","en":"Dropping the technical term does not yet make a finding understandable: it only becomes understandable once you also say how precise the value actually is and what it says nothing about, and reassurance is no substitute for that."}},
+  "K4": {"key":"K4","niveaus":[{"stufe":1,"label_de":"Einwand fachlich entkräftet","label_en":"Objection corrected with facts","satz_de":"Was Sie als Entspannung erleben, ist zu einem grossen Teil das Nachlassen der Entzugssymptome zwischen zwei Zigaretten. Das Rauchen beruhigt Sie also von einem Zustand herunter, den es selbst erzeugt, und es gibt bessere Wege, nach der Schicht abzuschalten.","satz_en":"What you experience as relaxation is largely the withdrawal easing off between one cigarette and the next. So smoking calms you down from a state it creates in the first place, and there are better ways of switching off after a shift.","warum_de":"Sein Grund wird zum Irrtum erklärt, bevor er ihn ausführen konnte, und der Fachbegriff kommt ungefragt dazu; danach bleibt ihm nur zustimmen oder verteidigen, und was ihm das Rauchen nach der Schicht tatsächlich gibt, kommt nicht mehr zur Sprache.","warum_en":"His own reason is declared a mistake before he has spelled it out, and the technical term arrives unasked; from there he can only agree or defend, and what the cigarette actually does for him after a shift never gets said."},{"stufe":2,"label_de":"Erlaubnis geholt, Inhalt allgemein","label_en":"Permission asked, content generic","satz_de":"Da stehen zwei Seiten nebeneinander: Das Rauchen tut etwas für Sie, und gleichzeitig gibt es einen Grund, warum Sie sich heute gemeldet haben. Darf ich Ihnen kurz sagen, was die Forschung zum Zusammenhang von Rauchen und Entspannung zeigt, und Sie sagen mir danach, was davon für Sie zutrifft?","satz_en":"There are two sides here: smoking does something for you, and at the same time there is a reason you got in touch today. May I tell you briefly what the research says about smoking and relaxation, and then you tell me which part of it fits for you?","warum_de":"Die Erlaubnisfrage lässt ihm die Wahl, ob er die Information überhaupt hören will, und die Rückfrage am Schluss gibt ihm das Urteil darüber zurück; weil die Information aber für jede rauchende Person gälte, muss er allein herausfinden, was sie mit seinen Schichten zu tun hat.","warum_en":"Asking permission leaves him the choice of whether to hear the information at all, and the closing question hands the verdict back to him; but since the content would fit any smoker, he is left to work out on his own what it has to do with his shifts."},{"stufe":3,"label_de":"Sein Grund bleibt stehen","label_en":"His reason left standing","satz_de":"Nach der Schicht ist die Zigarette für Sie der Moment, in dem der Tag aufhört, und ein Rauchstopp würde Ihnen diesen Moment vorerst wegnehmen. Ich kenne ein paar Wege, wie sich Leute im Schichtbetrieb dieses Abschalten anders zurückholen; wollen Sie die hören, oder ist Ihnen zuerst das mit dem Versprechen an Ihre Frau wichtiger?","satz_en":"After a shift, that cigarette is the moment when the day ends for you, and stopping would take that moment away first of all. I know a few ways people on shift work get that switching off back by other means; would you like to hear them, or is the promise to your wife the more pressing thing today?","warum_de":"Weil sein Grund als Grund stehen bleibt, muss er ihn nicht länger verteidigen, und die echte Wahl zwischen Information und dem Versprechen an seine Frau lässt ihn bestimmen, worüber im Beratungsgespräch als Nächstes gesprochen wird.","warum_en":"Because his reason is left standing as a reason, he no longer has to defend it, and the genuine choice between the information and the promise to his wife lets him decide what this counselling session turns to next."}],"hinweis":{"de":"Der häufigste Irrtum ist, dass ein verständnisvolles Aber den Einwand aufnimmt: Was nach dem Aber kommt, räumt ihn wieder weg, und eine Erlaubnisfrage zählt erst dann als eine, wenn ein Nein den nächsten Satz tatsächlich ändern würde.","en":"The commonest mix-up is believing that a sympathetic \"but\" takes the objection on board: whatever follows the \"but\" clears it away again, and asking permission only counts as asking if a \"no\" would genuinely change what comes next."}}
+};
+function exemplarBlock(dim, offen) {
+  const e = EXEMPLARE[dim.ex];
+  if (!e) return null;
+  const d = document.createElement("details");
+  d.className = "exwrap";
+  if (offen) d.open = true;
+  const titel = lang === "de" ? dim.de : dim.en;
+  d.innerHTML = `<summary>${T("So klingt das", "What this sounds like")} — ${titel}</summary>
+    ${e.niveaus.map((n, i) => `<div class="exstufe${i === e.niveaus.length - 1 ? " top" : ""}">
+      <div class="exlabel">${lang === "de" ? n.label_de : n.label_en}</div>
+      <div class="exsatz">«${lang === "de" ? n.satz_de : n.satz_en}»</div>
+      <div class="exwarum">${lang === "de" ? n.warum_de : n.warum_en}</div></div>`).join("")}
+    ${e.hinweis ? `<div class="exhinweis"><b>${T("Häufige Verwechslung:", "Common mix-up:")}</b> ${lang === "de" ? e.hinweis.de : e.hinweis.en}</div>` : ""}`;
+  return d;
+}
+/* Beobachtungsdimensionen des Übungsgesprächs.
+   Vier Kerndimensionen für alle Szenarien, abgeleitet aus etablierten Beobachtungsinstrumenten
+   der Gesprächsausbildung (MITI 4.2.1 für Beziehung und Gesprächsverhalten, Calgary-Cambridge
+   für Struktur und Informieren, CTS-R für Agenda und Pacing), plus eine fünfte je Szenario.
+   Bewusst nur, was in einem TEXTCHAT tatsächlich beobachtbar ist — Stimme, Mimik, Tempo und
+   Pausen fallen weg, obwohl die Vorbilder sie enthalten. */
+const KERN_DIMS = [
+  { id: "K1", ex: "K1", de: "Beziehung und Haltung", en: "Rapport and stance",
+    was: { de: "Gefühle benannt statt überhört, Einwände ernst genommen, keine Abwertung",
+           en: "feelings named rather than passed over, objections taken seriously, no dismissal" } },
+  { id: "K2", ex: "K2", de: "Fragen und Zuhören", en: "Questions and listening",
+    was: { de: "offene statt geschlossene Fragen, Zusammenfassungen und Paraphrasen, keine Mehrfachfragen in einem Zug",
+           en: "open rather than closed questions, summaries and paraphrases, no multiple questions in one turn" } },
+  { id: "K3", ex: "K3", de: "Struktur und Transparenz", en: "Structure and transparency",
+    was: { de: "Auftrag und Rahmen zu Beginn geklärt, Übergänge angekündigt, Zwischenzusammenfassung, Abschluss",
+           en: "purpose and frame clarified at the start, transitions signposted, interim summary, closing" } },
+  { id: "K4", ex: "K4", de: "Informieren und mit Widerstand umgehen", en: "Informing and handling resistance",
+    was: { de: "Fachbegriffe übersetzt, Rat erst nach Erlaubnis, Widerspruch aufgenommen statt überredet",
+           en: "technical terms translated, advice only after permission, disagreement taken up rather than argued away" } },
+];
+const SZEN_DIM = {
+  klin: { id: "S", ex: "S_klin", de: "Anamnese systematisch führen", en: "Systematic history taking",
+          was: { de: "Beschwerdebild, Verlauf, Auslöser und Ressourcen erfragt, ohne die Person abzufragen",
+                 en: "symptoms, course, triggers and resources explored without interrogating the person" } },
+  diag: { id: "S", ex: "S_diag", de: "Befunde verständlich zurückmelden", en: "Reporting findings understandably",
+          was: { de: "Kennwerte in Alltagssprache übersetzt, Unsicherheit des Werts benannt, keine Etikettierung",
+                 en: "scores translated into everyday language, uncertainty of the value named, no labelling" } },
+  ges: { id: "S", ex: "S_ges", de: "Ambivalenz stehen lassen", en: "Holding ambivalence",
+         was: { de: "beide Seiten der Ambivalenz erfragt, Änderungsabsicht nicht vorweggenommen, kein Überzeugen",
+                en: "both sides of the ambivalence explored, change intention not presumed, no persuading" } },
+  ao: { id: "S", ex: "S_ao", de: "Anliegen und Auftrag trennen", en: "Separating concern and mandate",
+        was: { de: "geklärt, wer den Auftrag gibt, was vertraulich bleibt und was das Ziel des Gesprächs ist",
+               en: "clarified who commissions the conversation, what stays confidential and what its goal is" } },
+};
+const VIGN_DIMS = {};
+for (const id of Object.keys(SZEN_DIM)) VIGN_DIMS[id] = KERN_DIMS.concat([SZEN_DIM[id]]);
+/* ---------- Übungs- und Feedbackmodus für das Fallgespräch ----------
+   Bisher lief das Fallgespräch ohne erkennbaren Rahmen: Man wusste vorher nicht, worauf
+   geachtet wird, und das Feedback nach «Stopp» kam unangekündigt. Wirksames Feedback
+   braucht aber ein vorher bekanntes Beobachtungsraster, eine Selbsteinschätzung vor der
+   Fremdeinschätzung und die Möglichkeit, dieselbe Szene noch einmal zu spielen. */
+/* Schritt 1: Vorbereiten. Wer vorher weiss, worauf geachtet wird, übt gezielt —
+   und wählt eine Dimension als eigenen Schwerpunkt, bei der das Feedback ansetzt. */
+function vignVorbereiten(v, wiederholung) {
+  const dims = VIGN_DIMS[v.id] || [];
+  $("msgs").innerHTML = "";
+  uebungsbannerSetzen(false);
+  const box = add("sys", "", true);
+  box.className = "m brief";
+  box.innerHTML = `<b>${T("Bevor es losgeht", "Before you start")}</b>
+    <p style="margin:4px 0 6px">${lang === "de" ? v.info.de : v.info.en}</p>
+    <p style="margin:6px 0 3px"><b>${T("Darauf schaut die Rückmeldung:", "What the feedback looks at:")}</b></p>
+    <ul style="margin:0 0 8px;padding-left:18px">${dims.map((d) =>
+      `<li style="margin:3px 0"><b>${lang === "de" ? d.de : d.en}</b> — ${lang === "de" ? d.was.de : d.was.en}</li>`).join("")}</ul>
+    ${SCHWIERIGKEIT.length ? `<p style="margin:6px 0 3px"><b>${T("Wie anspruchsvoll soll die Figur sein?", "How demanding should the character be?")}</b></p>
+    <div class="schwerwahl">${SCHWIERIGKEIT.map((g) =>
+      `<button type="button" data-schwer="${g.id}"${g.id === schwierigkeit ? ' class="on"' : ""}>${lang === "de" ? g.label.de : g.label.en}</button>`).join("")}</div>
+    <p class="schwerkurz" data-schwerkurz></p>` : ""}
+    <p style="margin:6px 0 4px"><b>${T("Wähle deinen Schwerpunkt für diesen Durchgang:", "Pick your focus for this run:")}</b></p>
+    <div class="fokuschips">${dims.map((d, i) =>
+      `<button type="button" data-fokus="${i}">${lang === "de" ? d.de : d.en}</button>`).join("")}</div>
+    <div data-exhier></div>
+    <p class="brieffuss">${T("Ein Textchat zeigt keine Stimme, keine Mimik, kein Tempo — die Rückmeldung bleibt bei dem, was im Text steht. Die Szenarien bilden bewusst leichte bis mittlere fiktive Belastungen ab.",
+      "A text chat shows no voice, no facial expression, no pacing — the feedback stays with what is in the text. The scenarios deliberately depict mild to moderate fictional strain.")}</p>
+    <div class="selbstact"><button type="button" class="primary" id="briefGo" disabled>${T("Gespräch starten", "Start the conversation")}</button></div>`;
+  const kurzFeld = box.querySelector("[data-schwerkurz]");
+  const kurzSetzen = () => { const g = schwierGrad(); if (kurzFeld && g) kurzFeld.textContent = lang === "de" ? g.kurz.de : g.kurz.en; };
+  kurzSetzen();
+  box.querySelectorAll("[data-schwer]").forEach((b) => (b.onclick = () => {
+    schwierigkeit = b.dataset.schwer;
+    box.querySelectorAll("[data-schwer]").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    kurzSetzen();
+  }));
+  /* Die Exemplare erscheinen erst NACH der Schwerpunktwahl und nur zur gewählten Dimension.
+     Alle acht auf einmal wären ein Merkblatt; eines zur eigenen Wahl ist ein Vorbild. */
+  const exHier = box.querySelector("[data-exhier]");
+  box.querySelectorAll("[data-fokus]").forEach((b) => (b.onclick = () => {
+    fokusDim = dims[Number(b.dataset.fokus)];
+    box.querySelectorAll("[data-fokus]").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    if (exHier) {
+      exHier.innerHTML = "";
+      const ex = exemplarBlock(fokusDim, true);
+      if (ex) exHier.appendChild(ex);
+    }
+    $("briefGo").disabled = false;
+  }));
+  $("briefGo").onclick = () => { box.querySelectorAll("button").forEach((b) => (b.disabled = true)); vignStarten(v, wiederholung); };
+}
+/* Schritt 2: In der Rolle. */
+function vignStarten(v, wiederholung) {
+  vignAktiv = v;
+  hist = [];
+  selbstbild = null;
+  mikroZuege = 0; mikroGesamt = 0; mikroLaeuft = false;
+  uebungsbannerSetzen(true);
+  const grad = schwierGrad();
+  add("sys", `<b>${T("Übungsgespräch läuft", "Practice conversation running")}</b> · ${
+    T("Schwerpunkt", "Focus")}: ${fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : "—"}${
+    grad ? ` · ${T("Figur", "Character")}: ${lang === "de" ? grad.label.de : grad.label.en}` : ""}${
+    wiederholung ? `<br>${T("Zweiter Durchgang derselben Szene — nimm dir eine Sache vor, die du diesmal anders machst.", "Second run of the same scene — pick one thing you will do differently this time.")}` : ""}`, true);
+  // Fester Eröffnungszug: Nur wenn beide Durchgänge gleich beginnen, ist der Vergleich etwas wert.
+  const opener = v.opener ? (lang === "de" ? v.opener.de : v.opener.en) : null;
+  if (opener) { add("bot", opener); hist.push((lang === "de" ? v.rolle.de : v.rolle.en) + ": " + opener); }
+  else send(T("(Beginne in deiner fiktiven Rolle: Stell dich kurz vor und schildere in zwei, drei Sätzen dein Anliegen, so wie es die Person zu Gesprächsbeginn tun würde.)", "(Begin in your fictional role: introduce yourself briefly and describe your concern in two or three sentences, as the person would at the start of the conversation.)"), true);
+}
+function uebungsbannerSetzen(an) {
+  const b = $("uebungBanner");
+  if (!b) return;
+  b.style.display = an ? "flex" : "none";
+  b.innerHTML = an
+    ? `<span class="pulsdot"></span><span>${T("Übungsgespräch — die KI ist in der fiktiven Rolle", "Practice conversation — the AI is in the fictional role")}</span><button type="button" id="uebungStop">${T("Stopp & Rückmeldung", "Stop & feedback")}</button>`
+    : "";
+  const s = $("uebungStop");
+  if (s) s.onclick = () => send("Stopp");
+}
+$("vignStart").onclick = () => vignVorbereiten(VIGN.find((v) => v.id === $("vignSel").value) || VIGN[0], false);
+$("cvGo").onclick = async () => {
+  if (!api) return;
+  const kid = $("cvKomp").value;
+  const k = KOMP.find((x) => x[0] === kid);
+  const rolle = $("cvRolle").value.trim();
+  if (!rolle) { add("sys", T("Bitte zuerst eine Zielrolle eingeben.", "Please enter a target role first.")); return; }
+  const stufe = spielstand && spielstand.stufen ? spielstand.stufen[kid] : null;
+  add("me", `${kid} · ${lang === "de" ? k[1] : k[2]}${stufe ? ` (${T("Stufe", "Level")} ${stufe})` : ""} → ${rolle}`);
+  const wait = add("bot", "…");
+  const denkStop = denkAn(wait, T("formuliert den Satz", "phrasing the sentence"));
+  /* Die Stufe ist eine harte Obergrenze: Ein CV-Satz, der mehr behauptet als im Studium
+     aufgebaut wurde, schadet in der Bewerbung mehr als er nützt. */
+  const stufenRegel = stufe
+    ? (lang === "de"
+        ? `Erreichte Stufe: ${stufe} von 4. ${STUFEN_TXT[stufe].de} Formuliere GENAU auf dieser Stufe — nicht darüber. Wenn die Stufe niedrig ist, ist ein bescheidener Satz das richtige Ergebnis.`
+        : `Attained level: ${stufe} of 4. ${STUFEN_TXT[stufe].en} Phrase EXACTLY at this level — not above. If the level is low, a modest sentence is the correct result.`)
+    : (lang === "de"
+        ? "Die erreichte Stufe ist unbekannt (kein Spielstand eingefügt). Formuliere daher bewusst zurückhaltend auf Grundlagenniveau und vermeide «selbständig», «verantwortet», «leitet»."
+        : "The attained level is unknown (no game state provided). Therefore phrase cautiously at a foundational level and avoid “independently”, “is responsible for”, “leads”.");
+  try {
+    const satz = await ask(`Formuliere GENAU EINEN CV-tauglichen Satz (${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}, dritte Person ohne Subjekt, keine Übertreibung) für die Kompetenz «${lang === "de" ? k[1] : k[2]}» (${kid}) aus dem Psychologiestudium UZH, zugeschnitten auf diese Zielrolle: ${rolle}.
+${stufenRegel}
+Belege den Satz mit dem, was tatsächlich gebaut wurde: ${standText()}. Nur der Satz, nichts anderes.`);
+    denkStop();
+    wait.textContent = satz;
+    kopierKnopf(wait, satz);
+    if (stufe) wait.appendChild(stufenFuss(stufe));
+  } catch (e) { denkStop(); wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
+};
+$("karrGo").onclick = () => {
+  if (!api) return;
+  karrAktiv = PFADE.find((p) => p.id === $("karrSel").value) || PFADE[0];
+  hist = [];
+  send(T(`Prüfe meinen Weg: ${karrAktiv.de.replace(/^[^ ]+ /, "")}.`, `Check my route: ${karrAktiv.en.replace(/^[^ ]+ /, "")}.`));
+};
+$("tabTutor").onclick = () => setMode("tutor");
+$("tabVign").onclick = () => setMode("vignette");
+$("tabCv").onclick = () => setMode("cv");
+$("tabKarr").onclick = () => setMode("karriere");
+$("langBtn").onclick = () => { lang = lang === "de" ? "en" : "de"; applyLang(); setMode(mode); };
+/* Erstöffnungs-Hinweis (Datenschutz und Rollen); localStorage kann in der Artifact-Sandbox fehlen */
+$("hinweisOk").onclick = () => {
+  $("hinweis").classList.remove("open");
+  try { localStorage.setItem("kh-baututor-hinweis-v1", "1"); } catch (e) {}
+};
+(function () {
+  let gesehen = false;
+  try { gesehen = localStorage.getItem("kh-baututor-hinweis-v1") === "1"; } catch (e) {}
+  if (!gesehen) $("hinweis").classList.add("open");
+})();
+/* ===== Boot ===== */
+applyLang();
+setMode("tutor");
+if (!api) {
+  $("noApi").style.display = "block";
+  $("noApi").innerHTML = T(
+    "⚠️ <b>Keine KI-Verbindung.</b> Diese Seite muss als <b>Artifact in einem claude.ai-Chat</b> laufen, nur dort steht die KI-Schnittstelle (window.claude) zur Verfügung. Bitte öffne den geteilten Artifact-Link in claude.ai.",
+    "⚠️ <b>No AI connection.</b> This page must run as an <b>artifact inside a claude.ai chat</b>, only there is the AI interface (window.claude) available. Please open the shared artifact link on claude.ai."
+  );
+  $("send").disabled = true; $("vignStart").disabled = true; $("cvGo").disabled = true; $("karrGo").disabled = true;
+}</script>
+</body>
+</html>

@@ -4082,6 +4082,22 @@ async function tutorStandKopieren() {
 }
 
 /* ---------- KI-Baututor (nur wenn window.claude verfügbar, z.B. Artifact) ---------- */
+/* Ersatzweg, wenn die Umgebung kein neues Fenster erlaubt: Adresse anzeigen, kopierbar. */
+function tutorLinkZeigen() {
+  const m = document.getElementById("modalAbout");
+  const box = document.getElementById("aboutBox");
+  if (!box || !m) return;
+  box.innerHTML = `<h2>\ud83e\udd16 ${t("tutor_ext")}</h2>
+    <p>${t("tutor_link_hint")}</p>
+    <div class="linkbox"><input type="text" value="${escHtml(TUTOR_URL)}" readonly><button class="primary" data-tlcopy>${t("kopieren")}</button></div>
+    <div class="mactions"><button class="ghostbtn" data-close>${t("schliessen")}</button></div>`;
+  const b = box.querySelector("[data-tlcopy]");
+  b.onclick = async () => {
+    try { await navigator.clipboard.writeText(TUTOR_URL); b.textContent = "\u2713 " + t("kopieren"); } catch (e) { box.querySelector("input").select(); }
+  };
+  box.querySelector("[data-close]").onclick = () => modalSchliessen(m);
+  openModal("about");
+}
 function initTutor() {
   const api = window.claude && typeof window.claude.complete === "function" ? window.claude.complete.bind(window.claude) : null;
   if (!api) {
@@ -4091,9 +4107,14 @@ function initTutor() {
       fab.title = t("tutor_ext");
       fab.setAttribute("aria-label", t("tutor_ext"));
       // Spielstand gleich mitgeben: sonst müsste man exportieren, die Datei öffnen und den Text kopieren
+      /* window.open ist in der Artifact-Sandbox gesperrt und meldet das nicht — der Knopf
+         tat dort schlicht nichts. Wenn das Fenster nicht aufgeht, kommt deshalb die
+         Adresse sichtbar auf den Tisch, statt dass die Person ins Leere klickt. */
       fab.onclick = async () => {
         if (ST.slots.some((s) => isPlaced(s.slot))) await tutorStandKopieren();
-        window.open(TUTOR_URL, "_blank", "noopener");
+        let w = null;
+        try { w = window.open(TUTOR_URL, "_blank", "noopener"); } catch (e) { w = null; }
+        if (!w) tutorLinkZeigen();
       };
     }
     return;
