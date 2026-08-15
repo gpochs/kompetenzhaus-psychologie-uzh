@@ -2233,7 +2233,8 @@ function karriereSteckbrief() {
   ${lit}
   <p class="hint">${L(ST.meta.hinweis)} ${t("steck_fussnote")}</p>
   </body></html>`;
-  const w = window.open("about:blank");
+  let w = null;
+  try { w = window.open("about:blank"); } catch (e) { w = null; } // in der Artifact-Sandbox gesperrt
   if (w && w.document) { w.document.write(html); w.document.close(); }
   else download("karrieresteckbrief.html", html, "text/html");
   SND.pick();
@@ -3499,11 +3500,17 @@ document.getElementById("btnFoto").onclick = () => {
     step();
     renderer.render(scene, camera);
     try {
-      const a = document.createElement("a");
-      a.href = renderer.domElement.toDataURL("image/png");
-      a.download = "kompetenzhaus-" + new Date().toISOString().slice(0, 10) + ".png";
-      a.click();
-      toast("📷 " + t("foto_hint"));
+      const name = "kompetenzhaus-" + new Date().toISOString().slice(0, 10) + ".png";
+      const dl = window.claude && window.claude.downloads;
+      if (dl && typeof dl.save === "function") {
+        renderer.domElement.toBlob((b) => { if (b) dl.save({ filename: name, data: b }).then(() => toast("📷 " + t("foto_hint")), () => {}); }, "image/png");
+      } else {
+        const a = document.createElement("a");
+        a.href = renderer.domElement.toDataURL("image/png");
+        a.download = name;
+        a.click();
+        toast("📷 " + t("foto_hint"));
+      }
     } catch (e) {}
     setTimeout(() => {
       document.body.classList.remove("foto");
@@ -4144,10 +4151,28 @@ function initTutor() {
 }
 
 /* ---------- Exporte: Open Badges & Portfolio ---------- */
-function download(name, text, type = "application/json") {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([text], { type }));
-  a.download = name; a.click(); URL.revokeObjectURL(a.href);
+/* Datei an die nutzende Person geben.
+   In der Artifact-Ansicht auf claude.ai ist ein <a download> wirkungslos — die Sandbox
+   erlaubt der Seite keinen eigenen Download. Dort führt der Weg über die Downloads-
+   Fähigkeit der Laufzeit, die der Person eine Bestätigung zeigt; sie darf ablehnen.
+   Überall sonst (GitHub Pages, lokal) bleibt der klassische Weg. */
+async function download(name, text, type = "application/json") {
+  const dl = window.claude && window.claude.downloads;
+  if (dl && typeof dl.save === "function") {
+    try { await dl.save({ filename: name, data: text }); return true; }
+    catch (e) {
+      if (e && e.code === "declined") return false; // bewusst abgelehnt: keine Ersatzmeldung
+      if (e && (e.code === "unavailable" || e.code === "not_granted" || e.code === "capability_disabled" || e.code === "capability_removed")) {
+        // fällt unten auf den klassischen Weg zurück
+      } else { toast(t("dl_fehler")); return false; }
+    }
+  }
+  try {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type }));
+    a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    return true;
+  } catch (e) { toast(t("dl_fehler")); return false; }
 }
 function badgesExport() {
   const seen = S.msSeen[S.mode] || [];

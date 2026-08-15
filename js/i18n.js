@@ -119,6 +119,7 @@ window.T = {
     saison_titel: "Jahreszeit",
     naechstes: "ALS NÄCHSTES",
     zurueck: "← Zurück zum Profil",
+    dl_fehler: "Das Herunterladen hat nicht geklappt. Versuch es nochmals oder öffne das Kompetenzhaus im Browser statt im Chat.",
     /* Listenansicht: gleichwertiger Weg zum Kompetenzprofil ohne 3D */
     ansicht_liste: "Liste",
     ansicht_haus: "Haus",
@@ -459,6 +460,7 @@ window.T = {
     saison_titel: "Season",
     naechstes: "UP NEXT",
     zurueck: "← Back to profile",
+    dl_fehler: "The download did not work. Try again, or open the Kompetenzhaus in a browser rather than in the chat.",
     ansicht_liste: "List",
     ansicht_haus: "House",
     aria_ansicht: "Switch between house view and list view",
