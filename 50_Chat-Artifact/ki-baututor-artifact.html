@@ -74,6 +74,46 @@
   .m.krise ul { margin:0; padding-left:18px; font-size:11.5px; }
   .m.krise li { margin:3px 0; }
   /* Selbsteinschätzung vor der Rückmeldung */
+  /* Wartezustand: «…» als reiner Text sah aus wie eine abgebrochene Antwort. Token-Streaming
+     gibt es in der Artifact-Laufzeit nicht (window.claude.complete liefert die fertige
+     Antwort in einem Stück), also zeigt der Indikator wenigstens ehrlich an, dass gearbeitet
+     wird — und sagt nach einer Weile, dass es diesmal laenger dauert. */
+  .denk { display:flex; align-items:center; gap:7px; }
+  .denk i { width:6px; height:6px; border-radius:50%; background:var(--blue2); display:inline-block;
+    animation:denkhuepf 1.15s infinite ease-in-out; }
+  .denk i:nth-child(2) { animation-delay:.16s; } .denk i:nth-child(3) { animation-delay:.32s; }
+  .denk span { font-size:11px; color:#5b6478; }
+  @keyframes denkhuepf { 0%,72%,100% { transform:translateY(0); opacity:.38; } 32% { transform:translateY(-4px); opacity:1; } }
+  @media (prefers-reduced-motion:reduce) { .denk i { animation:denkpuls 1.6s infinite ease-in-out; } }
+  @keyframes denkpuls { 0%,100% { opacity:.35; } 50% { opacity:1; } }
+  /* Mikro-Rueckmeldung mitten im Gespraech: sichtbar etwas anderes als die Schlussrueckmeldung
+     (schmaler, ohne Rahmen, ohne Kopfzeile) — sonst liest man sie als Bewertung. */
+  .m.mikro { background:#f2fbf8; color:#0b4f45; align-self:stretch; max-width:100%;
+    border-left:3px solid var(--teal); font-size:12px; }
+  .mikrokopf { font:800 9.5px var(--font); text-transform:uppercase; letter-spacing:.05em; color:var(--teal); margin-bottom:3px; }
+  .mikrofuss { font-size:10px; color:#4a6d67; margin-top:5px; }
+  /* Exemplare: keine Einstufung, sondern drei hoerbare Fassungen desselben Zuges. */
+  .exwrap { margin:7px 0 0; border-top:1px solid #c9d6f5; padding-top:7px; }
+  .exwrap > summary { cursor:pointer; font:700 11.5px var(--font); color:var(--blue); list-style:none; padding:3px 0; }
+  .exwrap > summary::-webkit-details-marker { display:none; }
+  .exwrap > summary::before { content:"▸ "; }
+  .exwrap[open] > summary::before { content:"▾ "; }
+  .exwrap > summary:hover { text-decoration:underline; }
+  .exstufe { border-left:3px solid #d3dcf0; padding:4px 0 4px 9px; margin:6px 0; }
+  .exstufe.top { border-left-color:var(--teal); background:#f6fbfa; border-radius:0 7px 7px 0; }
+  .exlabel { font:700 10px var(--font); text-transform:uppercase; letter-spacing:.04em; color:#5b6478; }
+  .exstufe.top .exlabel { color:var(--teal); }
+  .exsatz { font-size:12px; margin:2px 0 3px; }
+  .exwarum { font-size:10.5px; color:#5b6478; line-height:1.45; }
+  .exhinweis { font-size:10.5px; color:#6b4a00; background:#fdf6e7; border-radius:7px; padding:5px 8px; margin-top:6px; }
+  /* Schwierigkeitswahl der Gegenrolle */
+  .schwerwahl { display:flex; flex-wrap:wrap; gap:5px; margin:2px 0 4px; }
+  .schwerwahl button { border:1.5px solid #c9d6f5; background:#fff; color:#22305c; border-radius:999px;
+    padding:5px 11px; font:600 11.5px var(--font); cursor:pointer; }
+  .schwerwahl button:hover { border-color:var(--blue); }
+  .schwerwahl button.on { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:800; }
+  .schwerwahl button:disabled { opacity:.6; cursor:default; }
+  .schwerkurz { font-size:10.5px; color:#5b6478; margin:0 0 4px; min-height:14px; }
   .m.selbst { background:#fdf6e7; color:#4a3300; align-self:stretch; max-width:100%; }
   .selbstrow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; justify-content:space-between;
     padding:5px 0; border-top:1px solid #efe0c2; font-size:11.5px; }
@@ -326,6 +366,10 @@ let verlaufHinweisGezeigt = false;
 let selbstbild = null;          // Selbsteinschätzung nach dem Fallgespräch
 let gespraechsVerlauf = [];     // gesicherter Verlauf für die Rückmeldung
 let fokusDim = null;            // selbst gewählter Übungsschwerpunkt
+let schwierigkeit = "mittel";   // Anspruch der fiktiven Gegenrolle: leicht | mittel | schwer
+let mikroZuege = 0;             // Züge der studierenden Person seit der letzten Mikro-Rückmeldung
+let mikroGesamt = 0;            // wie oft in dieser Szene schon eine kam
+let mikroLaeuft = false;
 
 const $ = (id) => document.getElementById(id);
 const T = (de, en) => lang === "de" ? de : en;
@@ -401,6 +445,26 @@ function updateRollePlaceholder() { // Zielrollen-Beispiel sichtbar unter dem Fe
   } else box.textContent = "";
 }
 $("cvKomp").addEventListener("change", updateRollePlaceholder);
+/* Warteanzeige. Die Artifact-Laufzeit kennt kein Token-Streaming — window.claude.complete
+   liefert die fertige Antwort in einem Stueck. Statt Fortschritt vorzutaeuschen, zeigt der
+   Indikator ehrlich, dass gearbeitet wird, und meldet sich, wenn es ungewoehnlich lange dauert.
+   Ein totes «…» war von einer abgebrochenen Antwort nicht zu unterscheiden. */
+function denkAn(el, was) {
+  el.innerHTML = `<span class="denk"><i></i><i></i><i></i><span data-denktext>${was || T("denkt nach", "thinking")}</span></span>`;
+  const start = Date.now();
+  const stufen = [
+    { ab: 7000, de: "denkt noch nach", en: "still thinking" },
+    { ab: 16000, de: "das dauert heute laenger als sonst", en: "this is taking longer than usual today" },
+    { ab: 32000, de: "immer noch dran — bei einem Abbruch einfach nochmals senden", en: "still working — if it stops, just send again" },
+  ];
+  const tick = setInterval(() => {
+    const w = Date.now() - start;
+    const t = stufen.filter((x) => w >= x.ab).pop();
+    const feld = el.querySelector("[data-denktext]");
+    if (feld && t) feld.textContent = lang === "de" ? t.de : t.en;
+  }, 1000);
+  return () => clearInterval(tick);
+}
 function add(who, txt, asHtml) {
   const d = document.createElement("div");
   d.className = "m " + who;
@@ -598,7 +662,7 @@ function ctxKarr(p) {
   return `Du bist der «KI-Baututor» des Lernspiels «Das Kompetenzhaus» (Psychologiestudium UZH) im KARRIERE-CHECK-Modus. Aufgabe: Beurteile knapp und konkret, wie gut das Wahlprofil der Person zum gewählten Berufsweg passt, und zeige den Weg nach dem Master. VERIFIZIERTE FAKTEN zu diesem Weg (Stand Juli 2026, Quellen: PsyG/BAG/FSP/SVNP/SGFP/Universitäten): ${lang === "de" ? p.f.de : p.f.en} Gebaute Module und Wahlprofil der Person: ${standText()}. Struktur deiner Antwort (max. 180 Wörter, ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung" : "English"}): (1) Passung des Wahlprofils in 1–2 Sätzen (falls kein Spielstand übergeben: sag das kurz und beschreibe die empfohlene Wahl). (2) Die nächsten 3–4 Etappen nach dem Master als nummerierte Liste mit Dauer/Kosten, wo bekannt. (3) GENAU EIN konkreter nächster Schritt im Studium. Bleib bei den gelieferten Fakten; für Verbindliches an Studienprogrammleitung bzw. BAG/Verbände verweisen.`;
 }
 function ctxVign(v) {
-  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen. Bringen die Nutzenden solche Themen ein, antworte AUSSCHLIESSLICH mit dem Zeichen [[KRISE]] und sonst nichts — die Anwendung zeigt dann einen festen Sicherheitshinweis mit den Schweizer Notfallnummern an. Formuliere den Hinweis nicht selbst. (4) Schreiben die Nutzenden «Stopp», antworte nur mit einem kurzen Satz, dass du aus der Rolle gehst — die Rückmeldung übernimmt die Anwendung in einem eigenen Schritt. Gib selbst KEIN Feedback zur Gesprächsführung. (5) Halte die Figur nicht künstlich kooperativ: Widerstand, Ausweichen und Ambivalenz dürfen bestehen bleiben, bis die Fachperson sie im Gespräch aufgreift. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
+  return `ROLLENSPIEL-MODUS im Lernspiel «Das Kompetenzhaus» (Psychologiestudium UZH). Rollenverteilung: Die nutzende Person (Studierende:r) FÜHRT das Gespräch in der Rolle einer Therapeutin, eines Therapeuten oder einer beratenden Fachperson in Ausbildung. DU spielst ausschliesslich die fiktive Gegenrolle. Szenario: ${v.ctx[lang] || v.ctx.de} Regeln: (1) Alles ist vollständig erfunden; keine realen Ratschläge und keine echten Diagnosen an die Nutzenden. (2) Bleibe konsequent in deiner Rolle, antworte kurz (2-4 Sätze), realistisch und didaktisch ergiebig; übernimm NICHT selbst die Rolle der Fachperson und stelle keine Fachfragen an die Nutzenden. (3) KEINE Schilderung akuter Suizidalität oder schwerer Krisen. Bringen die Nutzenden solche Themen ein, antworte AUSSCHLIESSLICH mit dem Zeichen [[KRISE]] und sonst nichts — die Anwendung zeigt dann einen festen Sicherheitshinweis mit den Schweizer Notfallnummern an. Formuliere den Hinweis nicht selbst. (4) Schreiben die Nutzenden «Stopp», antworte nur mit einem kurzen Satz, dass du aus der Rolle gehst — die Rückmeldung übernimmt die Anwendung in einem eigenen Schritt. Gib selbst KEIN Feedback zur Gesprächsführung. (5) Halte die Figur nicht künstlich kooperativ: Widerstand, Ausweichen und Ambivalenz dürfen bestehen bleiben, bis die Fachperson sie im Gespräch aufgreift. ANSPRUCH DER FIGUR IN DIESEM DURCHGANG: ${(schwierGrad() && (lang === "de" ? schwierGrad().regie.de : schwierGrad().regie.en)) || ""} Dieser Anspruch verändert NICHT den Belastungsgrad der Figur und nicht Regel (3): Auch auf der höchsten Stufe bleibt es bei leichten bis mittleren fiktiven Belastungen. Sprache: ${lang === "de" ? "Deutsch (Schweizer Rechtschreibung)" : "English"}.`;
 }
 
 /* ===== Senden ===== */
@@ -611,6 +675,7 @@ async function send(forced, silent) {
   const wait = add("bot", "…");
   const who = mode === "vignette" ? T("Therapeut:in (Studierende:r)", "Therapist (student)") : T("Studierende:r", "Student");
   const bot = mode === "vignette" && vignAktiv ? (lang === "de" ? vignAktiv.rolle.de : vignAktiv.rolle.en) : "Baututor";
+  const denkStop = denkAn(wait, mode === "vignette" && vignAktiv ? T(bot + " antwortet", bot + " is answering") : null);
   hist.push(who + ": " + q);
   try {
     const ctx = mode === "vignette" && vignAktiv ? ctxVign(vignAktiv) : (mode === "karriere" && karrAktiv ? ctxKarr(karrAktiv) : ctxTutor());
@@ -619,6 +684,7 @@ async function send(forced, silent) {
     const gekuerzt = hist.length > 8;
     const out = await ask(ctx + "\n\n" + hist.slice(-8).join("\n") + "\n" + bot + ":");
     // Krisenmarker abfangen, bevor er als Rollentext im Chat landet
+    denkStop();
     if (mode === "vignette" && /\[\[KRISE\]\]/.test(out)) { wait.remove(); krisenBlock(); return; }
     mdRender(wait, out);
     kopierKnopf(wait, out);
@@ -629,9 +695,11 @@ async function send(forced, silent) {
                    "Note: the tutor keeps the last eight turns in view. Mention earlier details again if they matter."));
     }
   } catch (e) {
+    denkStop();
     wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
   }
-  if (mode === "vignette" && /^stopp?\b/i.test(q)) rollenEnde();
+  if (mode === "vignette" && /^stopp?\b/i.test(q)) { rollenEnde(); return; }
+  if (mode === "vignette" && vignAktiv && !forced) mikroPruefen(); // der erzwungene Eröffnungszug ist keiner
 }
 /* Krisenausstieg: eigener Block, fester Text, KEIN Modellausgabe-Kanal.
    Ein Sicherheitshinweis darf nicht so aussehen wie eine Übungsrückmeldung und darf
@@ -654,6 +722,74 @@ function krisenBlock() {
   hist = [];
   uebungsbannerSetzen(false);
 }
+/* ---------- Mikro-Rückmeldung mitten im Gespräch ----------
+   Bisher kam die einzige Rückmeldung nach «Stopp» — also nach einem Gespräch, in dem man
+   dieselbe Sache zwölfmal gleich gemacht haben kann. Ein kurzer Hinweis nach einigen Zügen
+   trifft den Moment, in dem er noch etwas ändert. Drei Grenzen halten ihn davon ab, das
+   Gespräch zu zerreissen: er kommt höchstens zweimal, er betrifft NUR den selbst gewählten
+   Schwerpunkt, und er unterbricht die Rolle nicht — die Figur wartet einfach. */
+const MIKRO_NACH = 5;   // Züge der studierenden Person bis zum ersten Hinweis
+const MIKRO_MAX = 2;    // mehr wäre Beaufsichtigung statt Übung
+function mikroPruefen() {
+  if (!vignAktiv || !fokusDim || mikroLaeuft) return;
+  mikroZuege++;
+  if (mikroGesamt >= MIKRO_MAX) return;
+  if (mikroZuege < MIKRO_NACH) return;
+  mikroZuege = 0;
+  mikroGesamt++;
+  mikroHolen();
+}
+async function mikroHolen() {
+  if (!api || !vignAktiv || !fokusDim) return;
+  mikroLaeuft = true;
+  const v = vignAktiv;
+  const fok = lang === "de" ? fokusDim.de : fokusDim.en;
+  const was = lang === "de" ? fokusDim.was.de : fokusDim.was.en;
+  const box = add("bot", "", true);
+  box.className = "m mikro";
+  const kopf = document.createElement("div");
+  kopf.className = "mikrokopf";
+  kopf.textContent = T("Kurz innegehalten · " + fok, "Brief pause · " + fok);
+  box.appendChild(kopf);
+  const inhalt = document.createElement("div");
+  box.appendChild(inhalt);
+  const denkStop = denkAn(inhalt, T("schaut auf deinen Schwerpunkt", "looking at your focus"));
+  try {
+    const out = await ask(`Du begleitest ein laufendes Übungs-Fallgespräch in der psychologischen Ausbildung. Die studierende Person führt das Gespräch, eine KI spielt eine fiktive Gegenrolle. Das Gespräch LÄUFT NOCH — du gibst einen kurzen Zwischenhinweis, keine Abschlussrückmeldung.
+
+SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
+
+DER SELBST GEWÄHLTE SCHWERPUNKT dieser Übung: «${fok}» — ${was}
+Schreibe AUSSCHLIESSLICH zu diesem Schwerpunkt. Alles andere, das dir auffällt, gehört nicht hierher.
+
+BISHERIGER VERLAUF:
+${hist.join("\n")}
+
+FORM — genau zwei Sätze, keiner länger als 20 Wörter:
+Satz 1: eine Beobachtung mit wörtlichem Zitat aus dem Verlauf («Deine letzten Fragen waren: ‹…›»).
+Satz 2: EINE Sache, die im nächsten Zug anders gehen könnte, als direkt nachsprechbarer Satz («Zum Beispiel: ‹…›»).
+
+VERBOTEN: Zahlen, Punkte, Noten, Lob oder Tadel über die Person, Adjektive über die Person, Aussagen zu Stimme, Tonfall, Mimik, Tempo oder Nervosität, Gesamturteile, mehr als eine Sache. Keine Anrede wie «gut gemacht» und keine Einleitung — beginne direkt mit der Beobachtung.
+
+Wenn zum Schwerpunkt bisher noch nichts Beobachtbares vorliegt, schreibe genau einen Satz, der das sagt, und nenne eine Gelegenheit, die im nächsten Zug entstehen könnte.
+
+Sprache: ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung (ss statt ß)" : "English"}.`);
+    denkStop();
+    mdRender(inhalt, out);
+    const fuss = document.createElement("div");
+    fuss.className = "mikrofuss";
+    fuss.textContent = T("Zwischenhinweis, nur zu deinem Schwerpunkt. Das Gespräch läuft weiter — die vollständige Rückmeldung kommt nach «Stopp».",
+                         "Interim note, on your focus only. The conversation continues — the full feedback comes after «Stop».");
+    box.appendChild(fuss);
+  } catch (e) {
+    denkStop();
+    inhalt.textContent = T("Der Zwischenhinweis liess sich gerade nicht abrufen — das Gespräch läuft normal weiter.",
+                           "The interim note could not be retrieved — the conversation continues as normal.");
+  }
+  mikroLaeuft = false;
+  $("msgs").scrollTop = $("msgs").scrollHeight;
+}
+
 /* Nach «Stopp»: erst Selbsteinschätzung, dann Rückmeldung. Die Reihenfolge ist nicht
    kosmetisch — wer sich zuerst selbst einschätzt, verarbeitet die Fremdeinschätzung
    anders, als wenn sie ihm zuerst vorgelegt wird. */
@@ -664,7 +800,47 @@ function rollenEnde() {
   hist = [];
   uebungsbannerSetzen(false);
   if (!v) return;
+  /* Die Analyse des Verlaufs haengt nicht von der Selbsteinschaetzung ab — sie kann laufen,
+     waehrend die Person sich einschaetzt. Token-Streaming gibt es in der Artifact-Laufzeit
+     nicht; das hier ist der ehrliche Ersatz: Die Wartezeit faellt in eine Zeit, in der die
+     Person ohnehin beschaeftigt ist. Zugleich bekommt der Abgleich mit der Selbsteinschaetzung
+     einen eigenen Aufruf, statt sich 220 Woerter mit der Analyse teilen zu muessen. */
+  vorabAnalyse = analyseHolen(v);
   selbsteinschaetzungZeigen(v);
+}
+let vorabAnalyse = null;
+function analyseHolen(v) {
+  if (!api) return null;
+  const dims = VIGN_DIMS[v.id] || [];
+  const fok = fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : null;
+  return ask(`Du bist Supervisor:in in der psychologischen Ausbildung und gibst Rückmeldung zu einem GEÜBTEN Fallgespräch (Rollenspiel mit einer fiktiven Person, keine echten Patientendaten).
+
+SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
+
+BEOBACHTUNGSDIMENSIONEN — beurteile ausschliesslich diese, sie waren vorher bekannt:
+${dims.map((d, i) => `${i + 1}. ${lang === "de" ? d.de : d.en} — ${lang === "de" ? d.was.de : d.was.en}`).join("\n")}
+${fok ? `\nSELBST GEWÄHLTER SCHWERPUNKT: «${fok}». Beginne damit und widme ihm am meisten Raum.` : ""}
+
+VOLLSTÄNDIGER GESPRÄCHSVERLAUF:
+${gespraechsVerlauf.join("\n")}
+
+FORM — höchstens drei besprochene Punkte, je genau diese drei Teile:
+1. BEOBACHTUNG mit wörtlichem Zitat aus dem Verlauf («Du hast gefragt: ‹…›»).
+2. WIRKUNG im Gespräch («danach ist die Person auf Ja-Nein-Antworten umgeschwenkt»).
+3. ALTERNATIVE als ausformulierter, direkt nachsprechbarer Satz («Stattdessen zum Beispiel: ‹…›»).
+Danach EIN Fokus für den nächsten Durchgang und eine echte Neugierfrage nach der Begründung («Was hat dich in dem Moment dazu gebracht, …?»).
+
+VERBOTEN, ohne Ausnahme:
+- Zahlen, Punkte, Prozente, Noten, Rangaussagen, Aussagen über Eignung für den Beruf.
+- Adjektive über die Person («du wirkst unsicher/vermeidend») und Gesamturteile.
+- Aussagen zu Stimme, Tonfall, Mimik, Körperhaltung, Tempo, Pausen, Blickkontakt oder Nervosität — ein Textchat zeigt davon nichts.
+- Aussagen darüber, wie sich die studierende Person gefühlt habe.
+- Diagnostische Einschätzungen der fiktiven Figur, die als echte klinische Aussage gelesen werden könnten.
+- Mehr als drei besprochene Punkte.
+
+Falls du selbst aus der Rolle gefallen bist oder die Figur zu schnell nachgegeben hat, sage das in einem Satz — das ist eine Grenze des Werkzeugs, kein Fehler der studierenden Person.
+
+Höchstens 200 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung (ss statt ß)" : "English"}, wertschätzend und konkret.`);
 }
 function selbsteinschaetzungZeigen(v) {
   const dims = VIGN_DIMS[v.id] || [];
@@ -705,42 +881,18 @@ async function rueckmeldungHolen(v, selbst) {
   const dims = VIGN_DIMS[v.id] || [];
   const wait = add("bot", "…");
   wait.className = "m fb";
+  const denkStop = denkAn(wait, T("die Rueckmeldung wird geschrieben", "writing the feedback"));
   // Der VOLLE Szenenverlauf, nicht das Achter-Fenster der Rolle: Eine Supervision, die nur die
   // letzten vier Wechsel kennt, verpasst genau den Gesprächseinstieg, auf den es ankommt.
   const verlauf = gespraechsVerlauf.join("\n");
   const fok = fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : null;
   try {
-    const out = await ask(`Du bist Supervisor:in in der psychologischen Ausbildung und gibst Rückmeldung zu einem GEÜBTEN Fallgespräch (Rollenspiel mit einer fiktiven Person, keine echten Patientendaten).
-
-SZENARIO: ${lang === "de" ? v.info.de : v.info.en}
-
-BEOBACHTUNGSDIMENSIONEN — beurteile ausschliesslich diese, sie waren vorher bekannt:
-${dims.map((d, i) => `${i + 1}. ${lang === "de" ? d.de : d.en} — ${lang === "de" ? d.was.de : d.was.en}`).join("\n")}
-${fok ? `\nSELBST GEWÄHLTER SCHWERPUNKT: «${fok}». Beginne damit und widme ihm am meisten Raum.` : ""}
-
-VOLLSTÄNDIGER GESPRÄCHSVERLAUF:
-${verlauf}
-
-${selbst ? `SELBSTEINSCHÄTZUNG der studierenden Person: ${selbst}
-Gliedere danach ausdrücklich: (a) wo deine Beobachtung mit der Selbsteinschätzung übereinstimmt, (b) wo du etwas siehst, das nicht genannt wurde, (c) wo die Selbsteinschätzung strenger war als nötig. Punkt (c) nicht weglassen — Studierende schätzen sich systematisch zu streng ein.` : "Die Person hat die Selbsteinschätzung übersprungen."}
-
-FORM — je besprochener Dimension genau diese vier Teile:
-1. BEOBACHTUNG mit wörtlichem Zitat aus dem Verlauf («Du hast gefragt: ‹…›»).
-2. WIRKUNG im Gespräch («danach ist die Person auf Ja-Nein-Antworten umgeschwenkt»).
-3. ALTERNATIVE als ausformulierter, direkt nachsprechbarer Satz («Stattdessen zum Beispiel: ‹…›»).
-Danach EIN Fokus für den nächsten Durchgang und eine echte Neugierfrage nach der Begründung («Was hat dich in dem Moment dazu gebracht, …?»).
-
-VERBOTEN, ohne Ausnahme:
-- Zahlen, Punkte, Prozente, Noten, Rangaussagen, Aussagen über Eignung für den Beruf.
-- Adjektive über die Person («du wirkst unsicher/vermeidend») und Gesamturteile.
-- Aussagen zu Stimme, Tonfall, Mimik, Körperhaltung, Tempo, Pausen, Blickkontakt oder Nervosität — ein Textchat zeigt davon nichts.
-- Aussagen darüber, wie sich die studierende Person gefühlt habe.
-- Diagnostische Einschätzungen der fiktiven Figur, die als echte klinische Aussage gelesen werden könnten.
-- Mehr als drei besprochene Punkte.
-
-Falls du selbst aus der Rolle gefallen bist oder die Figur zu schnell nachgegeben hat, sage das in einem Satz — das ist eine Grenze des Werkzeugs, kein Fehler der studierenden Person.
-
-Höchstens 220 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung (ss statt ß)" : "English"}, wertschätzend und konkret.`);
+    /* Die Analyse laeuft seit «Stopp» — waehrend der Selbsteinschaetzung. Faellt sie aus
+       (etwa weil die Person direkt uebersprungen hat, bevor sie startete), wird sie hier
+       nachgeholt. */
+    const out = await (vorabAnalyse || analyseHolen(v));
+    vorabAnalyse = null;
+    denkStop();
     mdRender(wait, out);
     const kopf = document.createElement("div");
     kopf.className = "fbkopf";
@@ -748,6 +900,46 @@ Höchstens 220 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung
                          "Practice feedback inside the game. Not coursework, not an assessment of you, not a basis for grades.");
     wait.prepend(kopf);
     kopierKnopf(wait, out);
+    /* Der Abgleich mit der Selbsteinschaetzung bekommt einen eigenen Aufruf und einen eigenen
+       Block. Vorher musste er sich 220 Woerter mit der Analyse teilen und schrumpfte regelmaessig
+       auf einen Nebensatz — dabei ist er der Teil, der Feedback-Literacy aufbaut. */
+    let abgleich = "";
+    if (selbst) {
+      const ab = document.createElement("div");
+      ab.className = "m mikro";
+      ab.style.marginTop = "9px";
+      const abKopf = document.createElement("div");
+      abKopf.className = "mikrokopf";
+      abKopf.textContent = T("Deine Einschätzung neben der Beobachtung", "Your rating next to the observation");
+      ab.appendChild(abKopf);
+      const abInhalt = document.createElement("div");
+      ab.appendChild(abInhalt);
+      wait.appendChild(ab);
+      const abStop = denkAn(abInhalt, T("gleicht ab", "comparing"));
+      try {
+        abgleich = await ask(`Eine studierende Person hat ein Übungs-Fallgespräch geführt und sich danach selbst eingeschätzt. Du hast als Supervisor:in bereits die Beobachtung geschrieben. Vergleiche jetzt NUR beides miteinander.
+
+SELBSTEINSCHÄTZUNG: ${selbst}
+
+DEINE BEOBACHTUNG (bereits gegeben, nicht wiederholen):
+${out}
+
+Schreibe genau drei kurze Punkte als Aufzählung, je höchstens 25 Wörter:
+- Übereinstimmung: wo Selbsteinschätzung und Beobachtung dasselbe zeigen.
+- Blinder Fleck: wo du etwas siehst, das in der Selbsteinschätzung nicht vorkommt.
+- Zu streng: wo die Selbsteinschätzung härter ausfiel als das, was im Verlauf steht. Diesen Punkt NICHT weglassen — Studierende schätzen sich systematisch zu streng ein. Wenn wirklich nichts zu streng war, sage genau das in einem Satz.
+
+VERBOTEN: Zahlen, Punkte, Noten, Eignungsaussagen, Adjektive über die Person, Aussagen zu Stimme, Mimik oder Tempo, und jede Wiederholung der Beobachtung.
+
+Sprache: ${lang === "de" ? "Deutsch, Schweizer Rechtschreibung (ss statt ß)" : "English"}.`);
+        abStop();
+        mdRender(abInhalt, abgleich);
+      } catch (e) {
+        abStop();
+        ab.remove();
+        abgleich = "";
+      }
+    }
     // Wiederholen und Mitnehmen: Der zweite Durchgang ist der eigentliche Übungsschritt,
     // und die beurteilende Instanz soll ein Mensch im Seminar bleiben.
     const leiste = document.createElement("div");
@@ -767,6 +959,7 @@ Höchstens 220 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung
         `— ${T("Verlauf", "Transcript")} —`, verlauf, "",
         `— ${T("Selbsteinschätzung", "Self-assessment")} —`, selbst || T("(übersprungen)", "(skipped)"), "",
         `— ${T("Rückmeldung", "Feedback")} —`, out,
+        ...(abgleich ? ["", `— ${T("Abgleich mit der Selbsteinschätzung", "Comparison with the self-assessment")} —`, abgleich] : []),
       ].join("\n");
       try { await navigator.clipboard.writeText(txt); b2.textContent = "✓ " + T("kopiert", "copied"); }
       catch (e) { b2.textContent = T("Kopieren nicht möglich", "Copying not possible"); }
@@ -774,7 +967,11 @@ Höchstens 220 Wörter, ${lang === "de" ? "Deutsch mit Schweizer Rechtschreibung
     };
     leiste.append(b1, b2);
     wait.appendChild(leiste);
+    /* Rückmeldung sagt, was war. Das Exemplar sagt, wie es klingen könnte — beides
+       zusammen, sonst bleibt die Alternative eine Behauptung. */
+    if (fokusDim) { const ex = exemplarBlock(fokusDim, false); if (ex) wait.appendChild(ex); }
   } catch (e) {
+    denkStop();
     wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again.");
   }
 }
@@ -789,6 +986,50 @@ $("inp").addEventListener("input", function () {
   this.style.height = Math.min(this.scrollHeight, 96) + "px";
 });
 
+/* ---------- Anspruch der fiktiven Gegenrolle ----------
+   Bisher spielte das Modell die Figur immer gleich. Studierende im dritten Semester und
+   im Master brauchen aber nicht dasselbe Gegenüber. Die Achse ist bewusst NICHT «stärker
+   belastet» — der Rahmen bleibt bei leichten bis mittleren fiktiven Belastungen, und die
+   Krisengrenze verschiebt sich auf keiner Stufe. Was steigt, ist, wie viel Gesprächsführung
+   die Figur voraussetzt, bevor sie mehr von sich preisgibt. */
+const SCHWIERIGKEIT = [
+  {"id":"leicht","label":{"de":"zugänglich","en":"forthcoming"},"kurz":{"de":"Die Figur erzählt von sich aus weiter und nennt ihre Zweifel selbst — gut für den ersten Durchgang in einer neuen Szene.","en":"The character keeps talking of its own accord and names its doubts itself — good for a first run through a new scene."},"regie":{"de":"Antworte auf jede offene Frage mit drei bis vier Sätzen und ergänze von dir aus ein Beispiel aus deinem Alltag. Auch auf eine geschlossene Frage gibst du mehr als ein Wort. Wenn du ambivalent bist, sagst du beide Seiten selbst, ohne dass danach gefragt wird. Widerstand zeigst du höchstens einmal und lässt ihn fallen, sobald die Fachperson ihn überhaupt erwähnt.","en":"Answer every open question with three or four sentences and add an example from your everyday life unprompted. Even to a closed question you give more than one word. When you are ambivalent, you state both sides yourself without being asked. You show resistance at most once and drop it as soon as the professional so much as mentions it."}},
+  {"id":"mittel","label":{"de":"realistisch","en":"realistic"},"kurz":{"de":"Zweifel und Ambivalenz bleiben stehen, bis sie im Gespräch aufgegriffen werden. Voreinstellung.","en":"Doubt and ambivalence stay until they are taken up in the conversation. Default setting."},"regie":{"de":"Antworte auf offene Fragen mit zwei bis vier Sätzen, auf geschlossene knapp. Ergänze von dir aus wenig. Ambivalenz und Zweifel behältst du bei, bis die Fachperson sie benennt oder danach fragt — dann gibst du mehr preis. Auf eine Beruhigung ohne Nachfrage reagierst du zustimmend, aber du kommst von dir aus nicht mehr auf das Thema zurück.","en":"Answer open questions with two to four sentences, closed ones briefly. Add little of your own accord. You keep your ambivalence and doubt until the professional names them or asks about them — then you give more. To reassurance without a follow-up question you respond agreeably, but you do not return to the topic on your own."}},
+  {"id":"schwer","label":{"de":"anspruchsvoll","en":"demanding"},"kurz":{"de":"Die Figur gibt wenig von selbst preis und prüft den Rahmen des Gesprächs. Sie öffnet sich, wenn ihr Anliegen wirklich aufgegriffen wird — aber nicht vorher.","en":"The character gives little unprompted and tests the frame of the conversation. It opens up once its concern is genuinely taken up — but not before."},"regie":{"de":"Beantworte geschlossene Fragen mit einem Wort und ergänze nichts von dir aus. Auf eine erste offene Frage antwortest du allgemein und ausweichend. Mehr gibst du erst preis, wenn eines von drei Dingen geschieht: die Fachperson gibt etwas von dem, was du gesagt hast, in deinen eigenen Worten zurück; sie benennt deinen Zweifel oder deine Ambivalenz, ohne sie sofort auszuräumen; oder sie klärt, wozu dieses Gespräch dient und was damit geschieht. Passiert eines davon, antwortest du deutlich ausführlicher und bleibst dabei. Frage mindestens einmal selbst nach, wozu eine Auskunft dient oder wer davon erfährt. Werde nicht unfreundlich, sarkastisch oder abweisend — du bist zurückhaltend, nicht feindselig, und ein gelungenes Gespräch muss möglich bleiben.","en":"Answer closed questions with one word and add nothing of your own accord. To a first open question you reply in general, evasive terms. You give more only once one of three things happens: the professional gives back something you said in your own words; they name your doubt or ambivalence without clearing it away straight off; or they clarify what this conversation is for and what happens with it. If one of those happens, you answer markedly more fully and stay that way. At least once, ask yourself what a piece of information is for or who will hear about it. Do not become unfriendly, sarcastic or dismissive — you are reserved, not hostile, and a successful conversation must remain possible."}}
+];
+function schwierGrad() { return SCHWIERIGKEIT.find((g) => g.id === schwierigkeit) || SCHWIERIGKEIT[1] || SCHWIERIGKEIT[0]; }
+
+/* ---------- Exemplare je Beobachtungsdimension ----------
+   Eine Einstufung («ansatzweise / gut gelungen») sagt, wo man steht, aber nicht, wie es
+   klingt, wenn es gelingt. Deshalb stehen pro Dimension drei wörtlich nachsprechbare
+   Fassungen desselben Zuges — lesbar vor dem Gespräch und nach der Rückmeldung.
+   Die Etiketten beschreiben die Äusserung, nie die Person. */
+const EXEMPLARE = {
+  "S_ges": {"key":"S_ges","niveaus":[{"stufe":1,"label_de":"Zustimmung mit anschliessendem Einwand","label_en":"Agreement followed by an objection","satz_de":"Ich verstehe gut, dass Ihnen die Zigarette nach der Schicht beim Runterkommen hilft. Trotzdem gibt es andere Wege abzuschalten — sollen wir schauen, welcher davon für Sie in Frage käme?","satz_en":"I can see that the cigarette after your shift is what helps you unwind. Still, there are other ways to switch off — shall we look at which of them might work for you?","warum_de":"Nach dem «trotzdem» steht Marco als Verteidiger seiner Zigarette da, und je länger er sie verteidigt, desto mehr Gründe fürs Weiterrauchen führt er selbst an.","warum_en":"After the \"still\", Marco is placed in the position of defending his cigarette, and the longer he defends it, the more reasons for carrying on he supplies himself."},{"stufe":2,"label_de":"Beide Seiten, als Schema erfragt","label_en":"Both sides, asked as a formula","satz_de":"Schauen wir uns beide Seiten an: Was spricht für Sie fürs Rauchen, und was spricht dagegen?","satz_en":"Let's look at both sides: what speaks in favour of smoking for you, and what speaks against it?","warum_de":"Beide Seiten liegen auf dem Tisch, aber das Pro-Kontra-Schema fordert ihn ausdrücklich auf, seine Gründe fürs Rauchen auszuformulieren — und was er selbst dafür sagt, bindet ihn stärker daran.","warum_en":"Both sides are on the table, but the pro-and-con format expressly asks him to spell out his reasons for smoking — and what he says in its favour binds him to it more strongly."},{"stufe":3,"label_de":"Beide Seiten in seinen Worten","label_en":"Both sides in his own terms","satz_de":"Die Zigarette nach der Schicht ist im Moment das, was Sie zu Hause ankommen lässt, und hier sind Sie, weil Sie es Ihrer Frau versprochen haben. Erzählen Sie mir zuerst von dieser Zigarette — was tut die für Sie? Was das Versprechen für Sie bedeutet, kommt danach.","satz_en":"The cigarette after your shift is what gets you home at the moment, and you are here because you gave your wife your word. Tell me about that cigarette first — what does it do for you? What the promise means to you, we can come to after that.","warum_de":"Weil die Seite des Rauchens zuerst und ohne Einwand drankommt, muss Marco sie nicht verteidigen, und das Versprechen bleibt sein Thema statt mein Ziel.","warum_en":"Because the smoking side comes first and meets no objection, Marco does not have to defend it, and the promise stays his own subject rather than my goal for him."}],"hinweis":{"de":"Beide Seiten zu benennen ist noch kein Stehenlassen — sobald auf die erste Seite ein «trotzdem» oder «aber» folgt, wird das Verständnis zum Anlauf fürs Überzeugen.","en":"Naming both sides is not yet holding them — the moment a \"but\" or \"still\" follows the first side, the understanding turns into a run-up to persuasion."}},
+  "S_klin": {"key":"S_klin","niveaus":[{"stufe":1,"label_de":"Frühe Engführung auf ein Symptom","label_en":"Narrowing to one symptom early","satz_de":"Sie schlafen also seit Monaten schlecht. Gehen Sie denn immer etwa zur gleichen Zeit ins Bett, und schauen Sie vorher noch aufs Handy?","satz_en":"So the sleep has been bad for months. Do you go to bed at roughly the same time each night, and are you on your phone before that?","warum_de":"Das Gespräch bindet sich an eine Einzelheit, bevor feststeht, was überhaupt zusammengehört; die Müdigkeit, das Vergessen bei der Arbeit und ihr Zweifel, ob sie hier richtig ist, kommen dabei nicht vor.","warum_en":"The conversation attaches itself to one detail before it is clear what belongs together; the tiredness, the forgetting at work and her doubt about being in the right place never enter the picture."},{"stufe":2,"label_de":"Alle Bereiche als Fragenkette","label_en":"All areas as a run of questions","satz_de":"Ich möchte mir zuerst ein Bild machen. Seit wann besteht das, wie hat es angefangen, gibt es Situationen, in denen es besser oder schlechter ist, und was hilft Ihnen sonst im Alltag?","satz_en":"I'd like to build a picture first. When did this start, how did it begin, are there situations where it gets better or worse, and what helps you get through the day?","warum_de":"Die Bereiche werden abgedeckt, aber sie beantwortet Frage um Frage; was der schlechte Schlaf mit dem Vergessen bei der Arbeit zu tun hat, bleibt dabei unverbunden.","warum_en":"The areas do get covered, but she answers item by item, and how the poor sleep relates to the forgetting at work is left unconnected."},{"stufe":3,"label_de":"Verlauf entlang ihrer Schilderung","label_en":"Course traced through her own account","satz_de":"Sie haben drei Dinge genannt, die zusammen aufgetreten sind: den Schlaf, die Müdigkeit und dass Ihnen bei der Arbeit Sachen entfallen. Fangen wir bei dem an, was zuerst da war — erzählen Sie mir, wie es über diese Monate weiterging. Was Sie in dieser Zeit getragen hat, interessiert mich dabei genauso wie das Schwierige.","satz_en":"You have named three things that came together: the sleep, the tiredness, and things slipping your mind at work. Let us start with whichever came first — tell me how it went on over these months. What carried you through that time interests me just as much as what was hard.","warum_de":"Sie ordnet die Monate selbst und bestimmt, was zuerst kommt; die Ressourcen werden Teil derselben Erzählung statt einer Zusatzfrage am Schluss.","warum_en":"She orders the months herself and decides what comes first, and her resources become part of the same account rather than an extra question at the end."}],"hinweis":{"de":"Viele halten Vollständigkeit für Systematik — doch eine abgearbeitete Fragenliste ergibt noch keinen Verlauf; systematisch wird es erst, wenn jede Antwort an das gebunden wird, was sie vorher erzählt hat.","en":"Many take completeness for system — but a list of questions worked through still yields no course over time; it only becomes systematic when each answer is tied back to what she has already said."}},
+  "K3": {"key":"K3","niveaus":[{"stufe":1,"label_de":"Ablauf angekündigt, nicht abgesprochen","label_en":"Plan announced, not agreed","satz_de":"Ich habe die Ergebnisse der Abklärung mitgebracht und gehe sie mit Ihnen der Reihe nach durch. Am Schluss haben Sie dann Zeit für Ihre Fragen.","satz_en":"I've brought the results of the assessment with me and I'll take you through them one by one. There'll be time for your questions at the end.","warum_de":"Die Reihenfolge steht damit fest, bevor sie sagen konnte, was sie zuerst wissen möchte, und ihre eigene Frage kommt erst dran, wenn das meiste schon gesagt ist.","warum_en":"The order is settled before she has said what she wants to hear first, so her own question only comes up once most of it has already been said."},{"stufe":2,"label_de":"Gliederung sauber, Anliegen ungenannt","label_en":"Clear signposting, generic agenda","satz_de":"Ich schlage vor, wir gehen so vor: zuerst erzähle ich Ihnen, wie die Abklärung abgelaufen ist, dann kommen die Ergebnisse, und zum Schluss überlegen wir gemeinsam, was daraus folgt. Ist das für Sie so in Ordnung?","satz_en":"Here's what I'd suggest: I'll start with how the assessment was done, then we'll go through the results, and at the end we'll look together at what follows from them. Does that work for you?","warum_de":"Sie weiss jetzt, was kommt, und kann widersprechen; woran sie sich in dieser Rückmeldung festhalten kann, bleibt aber offen, weil der Ablauf für jede beliebige Rückmeldung gleich klingt.","warum_en":"She now knows what is coming and can object, but the run-through would fit any feedback session, so she still has nothing of her own to hold on to."},{"stufe":3,"label_de":"Ablauf entlang ihrer Frage","label_en":"Agenda built on her question","satz_de":"Sie haben bei der Anmeldung gesagt, Sie möchten vor allem verstehen, warum Ihnen das Lernen so schwerfällt. Ich beginne darum genau dort und zeige Ihnen danach, woran ich meine Einschätzung festmache; zum Schluss halten wir fest, was Sie davon mitnehmen. Wenn Ihnen unterwegs etwas anderes wichtiger wird, sagen Sie es mir, dann ändern wir die Reihenfolge.","satz_en":"When you booked the appointment you said what you mainly wanted was to understand why learning takes so much out of you. So I'll start right there, then show you what I'm basing my reading on, and at the end we'll put down what you want to take away. If something else becomes more important along the way, say so and we'll change the order.","warum_de":"Der Ablauf hängt an ihrer eigenen Frage, deshalb kann sie an jedem Übergang prüfen, ob es noch um ihr Anliegen geht, und ihn ändern, ohne dass die Rückmeldung dafür von vorne beginnen muss.","warum_en":"The plan hangs on her own question, so at every transition she can check whether this is still about her concern and reshape it without the feedback having to start over."}],"hinweis":{"de":"Einen Ablauf anzukündigen ist noch keine geklärte Agenda, solange die andere Person nicht sagen konnte, was zuerst drankommt.","en":"Announcing your plan is not the same as agreeing on one: structure only becomes transparent once the other person has had a say in what comes first."}},
+  "S_ao": {"key":"S_ao","niveaus":[{"stufe":1,"label_de":"Vertraulichkeit pauschal zugesichert","label_en":"Blanket confidentiality promised","satz_de":"Alles, was Sie mir hier erzählen, bleibt selbstverständlich unter uns. Erzählen Sie einfach ganz offen, was in Ihrem Team gerade schwierig ist.","satz_en":"Everything you tell me here stays between the two of us, of course. Just talk openly about what has been difficult in your team lately.","warum_de":"Die Zusicherung deckt nicht ab, was die HR-Leitung als Auftraggeberin erwartet, und Marco Steiner erfährt weiterhin nicht, wer dieses Gespräch bestellt hat; sobald das Mitarbeitergespräch zur Sprache kommt, muss die Zusage eingeschränkt werden.","warum_en":"The promise covers something the consultant does not control, and Steiner still does not learn who asked for this meeting or why, so it has to be walked back the moment the appraisal comes up."},{"stufe":2,"label_de":"Dreieckskontrakt formal benannt","label_en":"Triangular contract named formally","satz_de":"Bevor wir inhaltlich einsteigen, klären wir den Auftrag. In einer Beratung wie dieser gibt es drei Beteiligte: die auftraggebende Stelle, Sie als Klient und mich als Berater. Wir sollten festhalten, welche Informationen an die HR-Leitung zurückgehen und welche nicht.","satz_en":"Before we go into content, let us clarify the mandate. In a consultation like this there are three parties: the commissioning side, you as the client, and me as the consultant. We should agree which information goes back to HR and which does not.","warum_de":"Der Rahmen liegt auf dem Tisch, aber Marco Steiner muss die Rollenbegriffe erst auf seine eigene Lage übersetzen, bevor er entscheiden kann, wovon er erzählt.","warum_en":"The frame is on the table, but Steiner first has to translate the role labels into his own situation before he can decide what he is willing to say."},{"stufe":3,"label_de":"Rückfluss und Ziel geklärt","label_en":"Reporting and purpose clarified","satz_de":"Herr Steiner, die HR-Leitung hat mich gebeten, mit Ihnen über die Zusammenarbeit in Ihrem Team zu sprechen; mehr weiss ich nicht, und bestellt haben Sie dieses Gespräch nicht. Zurück geht nur eine kurze Rückmeldung, die wir am Schluss gemeinsam formulieren — was die HR-Leitung damit macht, liegt nicht bei mir, deshalb halten wir am Schluss auch fest, was darin nichts zu suchen hat. Bleibt die Frage, wozu Sie diese Stunde selber nutzen möchten.","satz_en":"Mr Steiner, HR asked me to talk with you about how the collaboration in your team is going; that is all I was told, and you did not ask for this meeting yourself. All that goes back is a short report we word together at the end — what HR then does with it is not mine to control, which is why we will also put down what has no place in it. That leaves the question of what you yourself would want to get out of this hour.","warum_de":"Er weiss jetzt, was die beratende Person aus dem Auftrag kennt, was zurückfliesst und wo deren Einfluss endet, und kann von da an selbst bestimmen, wovon er erzählt.","warum_en":"He now knows what the consultant was told, what will travel back and where her influence ends, so from here on he decides himself what he talks about."}],"hinweis":{"de":"Die häufigste Verwechslung: Vertraulichkeit zuzusichern gilt schon als Auftragsklärung — solange aber nicht gesagt ist, wer das Gespräch bestellt hat, mit welchem Anliegen und was am Schluss zurückgeht, weiss das Gegenüber trotz aller Zusicherung nicht, worauf es sich einlässt.","en":"The commonest mix-up is treating a promise of confidentiality as mandate clarification: until it is said who asked for the meeting, with what concern, and what will be reported back, the other person still does not know what they are agreeing to."}},
+  "K1": {"key":"K1","niveaus":[{"stufe":1,"label_de":"Zweifel weggenommen statt aufgenommen","label_en":"Doubt reassured away","satz_de":"Das gehört auf jeden Fall hierher, damit sind Sie bei uns richtig. Ich stelle Ihnen zuerst ein paar Fragen zum Schlaf, dann bekommen wir ein Bild.","satz_en":"That certainly belongs here, you have come to the right place. Let me start with a few questions about your sleep, then we will have a picture.","warum_de":"Lea hat gesagt, sie wisse nicht, ob das hierher gehöre — die Frage ist beantwortet, bevor sie sagen konnte, was sie daran unsicher macht. Sie hat damit keinen Anlass mehr, darauf zurückzukommen; wer das Thema wieder aufmacht, muss gegen die Beruhigung anreden.","warum_en":"Lea said she was not sure this belonged here — the question is settled before she could say what makes her unsure, and she has no reason to return to it later in the session."},{"stufe":2,"label_de":"Gefühl benannt, aber allgemein","label_en":"Feeling named in general terms","satz_de":"Ich verstehe Sie so, dass Sie nicht sicher sind, ob Sie hier richtig sind. Das ist gut verständlich, vielen Menschen geht es im Erstgespräch so. Erzählen Sie mir gern mehr davon.","satz_en":"I take it you are not sure whether you are in the right place. That is quite understandable, many people feel this way in a first session. Do tell me more about it.","warum_de":"Das Gefühl ist damit im Gespräch, aber weil es allen Erstgesprächen zugeschrieben wird, muss Lea erst prüfen, ob damit auch ihres gemeint ist, bevor sie weiterredet.","warum_en":"The feeling is now in the conversation, but because it is attributed to first sessions in general, Lea first has to work out whether hers is included before she says more."},{"stufe":3,"label_de":"Zweifel stehen gelassen","label_en":"Doubt left standing","satz_de":"Ihre Hausärztin hat Sie hergeschickt, und Sie selbst sind nicht sicher, ob schlecht schlafen und Dinge bei der Arbeit vergessen hierher gehören. Diesen Zweifel müssen Sie hier nicht ausräumen — er darf stehen bleiben. Was macht Sie denn unsicher?","satz_en":"Your GP sent you here, and you yourself are not sure whether sleeping badly and forgetting things at work belong in this room. You do not have to drop that doubt to be here — it can stay. What is it that makes you unsure?","warum_de":"Der Zweifel bleibt stehen, statt beantwortet zu werden — Lea kann als Nächstes sagen, woraus er besteht, statt ihn fallen zu lassen.","warum_en":"The doubt is left standing rather than answered — Lea can say next what it consists of, instead of dropping it."}],"hinweis":{"de":"Beruhigen liest sich freundlich, beendet aber das Thema — ein Gefühl ist erst dann benannt, wenn die Person danach noch etwas dazu sagen kann.","en":"Reassurance reads as friendly but closes the topic — a feeling is only named if the person can still say something about it afterwards."}},
+  "K2": {"key":"K2","niveaus":[{"stufe":1,"label_de":"Geschlossene Frage, mehrfach gestellt","label_en":"Closed question, asked in a bundle","satz_de":"Hat Sie das Ergebnis überrascht? Und waren Sie an dem Tag ausgeschlafen, oder hat Sie beim Test etwas abgelenkt?","satz_en":"Did the result surprise you? And had you slept well that day, or was something distracting you during the test?","warum_de":"Auf drei Fragen in einem Zug antwortet sie meist nur auf die letzte, und womit sie beginnen möchte, entscheidet sie dann nicht mehr selbst.","warum_en":"Faced with three questions at once she usually answers only the last one, and she no longer gets to decide where the conversation starts."},{"stufe":2,"label_de":"Korrekte Zusammenfassung, allgemein gehalten","label_en":"Accurate summary, kept generic","satz_de":"Ich fasse zusammen, was Sie bisher gesagt haben: Das Ergebnis passt nicht zu dem Bild, das Sie von sich haben. Wie geht es Ihnen damit?","satz_en":"Let me summarise what you have said so far: the result does not match the picture you have of yourself. How is that for you?","warum_de":"Die Zusammenfassung hält das Gespräch offen, aber weil kein einziges ihrer eigenen Worte darin vorkommt, kann sie ebenso gut nur bestätigt wie ausgeführt werden.","warum_en":"The summary keeps the conversation open, but since none of her own words appear in it, she can just as easily confirm it as expand on it."},{"stufe":3,"label_de":"Paraphrase in ihren eigenen Worten","label_en":"Paraphrase built from her own words","satz_de":"Vorhin haben Sie erzählt, dass Sie beim Lernen immer wieder aufstehen und danach nicht mehr in den Text zurückfinden. Genau darum geht es in dem Abschnitt der Rückmeldung, den Sie gerade gelesen haben. Erzählen Sie mir, wie so ein Lernnachmittag bei Ihnen abläuft.","satz_en":"Earlier you said that while revising you keep getting up and then cannot find your way back into the text. That is exactly what the section of the report you have just read is about. Tell me how an afternoon of revising actually goes for you.","warum_de":"Weil ihr eigener Satz zurückkommt, wird die Rückmeldung an ihrem Alltag festgemacht, und sie bestimmt selbst, welchen Teil davon sie ausführt.","warum_en":"Because her own sentence comes back to her, the report gets anchored in her everyday life, and she decides herself which part of it she takes further."}],"hinweis":{"de":"Eine Frage wird nicht dadurch offen, dass sie mit «Wie» oder «Was» beginnt — «Wie oft war das?» und «Was war es, Ärger oder Enttäuschung?» lassen genauso wenig Spielraum wie eine Ja-Nein-Frage.","en":"A question does not become open just because it starts with «how» or «what» — «How often did that happen?» and «What was it, anger or disappointment?» leave just as little room as a yes-or-no question."}},
+  "S_diag": {"key":"S_diag","niveaus":[{"stufe":1,"label_de":"Beruhigung ersetzt die Erklärung","label_en":"Reassurance replaces the explanation","satz_de":"Ihre Ergebnisse liegen alle im unauffälligen Bereich, da ist wirklich nichts dabei, was Sorgen machen müsste. Mit Ihnen stimmt also alles, Sie können ganz beruhigt sein.","satz_en":"Your results all sit in the unremarkable range, there is really nothing in there to worry about. So nothing is wrong with you, you can set your mind at rest.","warum_de":"Die Beruhigung schliesst das Thema, bevor die Klientin ihre Befürchtung an etwas Konkretem prüfen kann, und lässt ihr nur die Wahl, dem Urteil zu glauben oder es abzulehnen.","warum_en":"The reassurance closes the topic before she can check her worry against anything concrete, leaving her only the choice of believing the verdict or rejecting it."},{"stufe":2,"label_de":"Unsicherheit allgemein benannt","label_en":"Uncertainty stated in general terms","satz_de":"Ein Testwert ist nie ganz genau, jedes Verfahren misst mit einer gewissen Streuung. Deshalb nenne ich Ihnen nicht einfach eine Zahl, sondern sage dazu, wie genau sie überhaupt ist. So gehen wir mit allen Ergebnissen aus dieser Testung um.","satz_en":"A test score is never entirely precise, every instrument measures with a certain spread. So I will not just give you a number, I will also say how precise it is. We treat every result from this assessment that way.","warum_de":"Die Unsicherheit ist damit im Gespräch, gehört aber dem Verfahren und nicht ihrer Frage, und sie erfährt, wie Tests funktionieren, statt was ihr Ergebnis über sie sagt und was nicht.","warum_en":"The uncertainty is now on the table, but it belongs to the instrument rather than to her question, so she learns how tests work instead of what her result does and does not say about her."},{"stufe":3,"label_de":"Befund an ihre Befürchtung gebunden","label_en":"Finding tied to her stated worry","satz_de":"Sie haben vorhin gesagt, Sie befürchten, dass mit Ihnen etwas nicht stimmt — darum sage ich Ihnen zuerst, was herausgekommen ist: Verglichen mit Menschen in Ihrem Alter liegen Ihre Werte im mittleren Bereich. Was dieser Wert zeigt, ist, wie Sie an diesem einen Vormittag mit diesen Aufgaben zurechtgekommen sind; ob mit Ihnen etwas nicht stimmt, sagt er nicht. Das können wir nur zusammen anschauen, wenn Sie mir erzählen, wo es im Alltag schwierig wird.","satz_en":"You said earlier that you are afraid something is wrong with you — so let me start with what came out: compared with people of your age, your scores are in the middle range. What this score shows is how you worked through these particular tasks on this one morning; whether something is wrong with you, it does not say. That we can only look at together, if you tell me where things get difficult in everyday life.","warum_de":"Der Befund ist an ihre eigene Befürchtung angeschlossen und zugleich in seiner Reichweite begrenzt, sodass sie im nächsten Zug prüfen kann, ob das Beschriebene zu ihrem Alltag passt, statt ein Urteil über sich übernehmen zu müssen.","warum_en":"The finding is connected to her own worry and at the same time limited in its reach, so her next move can be to check whether what was described fits her everyday life, instead of having to accept a verdict about herself."}],"hinweis":{"de":"Ein Befund ohne Fachbegriff ist noch nicht verständlich zurückgemeldet: Verständlich wird er erst, wenn dazugesagt ist, wie genau der Wert überhaupt ist und worüber er nichts aussagt, und Beruhigung ersetzt das nicht.","en":"Dropping the technical term does not yet make a finding understandable: it only becomes understandable once you also say how precise the value actually is and what it says nothing about, and reassurance is no substitute for that."}},
+  "K4": {"key":"K4","niveaus":[{"stufe":1,"label_de":"Einwand fachlich entkräftet","label_en":"Objection corrected with facts","satz_de":"Was Sie als Entspannung erleben, ist zu einem grossen Teil das Nachlassen der Entzugssymptome zwischen zwei Zigaretten. Das Rauchen beruhigt Sie also von einem Zustand herunter, den es selbst erzeugt, und es gibt bessere Wege, nach der Schicht abzuschalten.","satz_en":"What you experience as relaxation is largely the withdrawal easing off between one cigarette and the next. So smoking calms you down from a state it creates in the first place, and there are better ways of switching off after a shift.","warum_de":"Sein Grund wird zum Irrtum erklärt, bevor er ihn ausführen konnte, und der Fachbegriff kommt ungefragt dazu; danach bleibt ihm nur zustimmen oder verteidigen, und was ihm das Rauchen nach der Schicht tatsächlich gibt, kommt nicht mehr zur Sprache.","warum_en":"His own reason is declared a mistake before he has spelled it out, and the technical term arrives unasked; from there he can only agree or defend, and what the cigarette actually does for him after a shift never gets said."},{"stufe":2,"label_de":"Erlaubnis geholt, Inhalt allgemein","label_en":"Permission asked, content generic","satz_de":"Da stehen zwei Seiten nebeneinander: Das Rauchen tut etwas für Sie, und gleichzeitig gibt es einen Grund, warum Sie sich heute gemeldet haben. Darf ich Ihnen kurz sagen, was die Forschung zum Zusammenhang von Rauchen und Entspannung zeigt, und Sie sagen mir danach, was davon für Sie zutrifft?","satz_en":"There are two sides here: smoking does something for you, and at the same time there is a reason you got in touch today. May I tell you briefly what the research says about smoking and relaxation, and then you tell me which part of it fits for you?","warum_de":"Die Erlaubnisfrage lässt ihm die Wahl, ob er die Information überhaupt hören will, und die Rückfrage am Schluss gibt ihm das Urteil darüber zurück; weil die Information aber für jede rauchende Person gälte, muss er allein herausfinden, was sie mit seinen Schichten zu tun hat.","warum_en":"Asking permission leaves him the choice of whether to hear the information at all, and the closing question hands the verdict back to him; but since the content would fit any smoker, he is left to work out on his own what it has to do with his shifts."},{"stufe":3,"label_de":"Sein Grund bleibt stehen","label_en":"His reason left standing","satz_de":"Nach der Schicht ist die Zigarette für Sie der Moment, in dem der Tag aufhört, und ein Rauchstopp würde Ihnen diesen Moment vorerst wegnehmen. Ich kenne ein paar Wege, wie sich Leute im Schichtbetrieb dieses Abschalten anders zurückholen; wollen Sie die hören, oder ist Ihnen zuerst das mit dem Versprechen an Ihre Frau wichtiger?","satz_en":"After a shift, that cigarette is the moment when the day ends for you, and stopping would take that moment away first of all. I know a few ways people on shift work get that switching off back by other means; would you like to hear them, or is the promise to your wife the more pressing thing today?","warum_de":"Weil sein Grund als Grund stehen bleibt, muss er ihn nicht länger verteidigen, und die echte Wahl zwischen Information und dem Versprechen an seine Frau lässt ihn bestimmen, worüber im Beratungsgespräch als Nächstes gesprochen wird.","warum_en":"Because his reason is left standing as a reason, he no longer has to defend it, and the genuine choice between the information and the promise to his wife lets him decide what this counselling session turns to next."}],"hinweis":{"de":"Der häufigste Irrtum ist, dass ein verständnisvolles Aber den Einwand aufnimmt: Was nach dem Aber kommt, räumt ihn wieder weg, und eine Erlaubnisfrage zählt erst dann als eine, wenn ein Nein den nächsten Satz tatsächlich ändern würde.","en":"The commonest mix-up is believing that a sympathetic \"but\" takes the objection on board: whatever follows the \"but\" clears it away again, and asking permission only counts as asking if a \"no\" would genuinely change what comes next."}}
+};
+function exemplarBlock(dim, offen) {
+  const e = EXEMPLARE[dim.ex];
+  if (!e) return null;
+  const d = document.createElement("details");
+  d.className = "exwrap";
+  if (offen) d.open = true;
+  const titel = lang === "de" ? dim.de : dim.en;
+  d.innerHTML = `<summary>${T("So klingt das", "What this sounds like")} — ${titel}</summary>
+    ${e.niveaus.map((n, i) => `<div class="exstufe${i === e.niveaus.length - 1 ? " top" : ""}">
+      <div class="exlabel">${lang === "de" ? n.label_de : n.label_en}</div>
+      <div class="exsatz">«${lang === "de" ? n.satz_de : n.satz_en}»</div>
+      <div class="exwarum">${lang === "de" ? n.warum_de : n.warum_en}</div></div>`).join("")}
+    ${e.hinweis ? `<div class="exhinweis"><b>${T("Häufige Verwechslung:", "Common mix-up:")}</b> ${lang === "de" ? e.hinweis.de : e.hinweis.en}</div>` : ""}`;
+  return d;
+}
+
 /* Beobachtungsdimensionen des Übungsgesprächs.
    Vier Kerndimensionen für alle Szenarien, abgeleitet aus etablierten Beobachtungsinstrumenten
    der Gesprächsausbildung (MITI 4.2.1 für Beziehung und Gesprächsverhalten, Calgary-Cambridge
@@ -796,30 +1037,30 @@ $("inp").addEventListener("input", function () {
    Bewusst nur, was in einem TEXTCHAT tatsächlich beobachtbar ist — Stimme, Mimik, Tempo und
    Pausen fallen weg, obwohl die Vorbilder sie enthalten. */
 const KERN_DIMS = [
-  { id: "K1", de: "Beziehung und Haltung", en: "Rapport and stance",
+  { id: "K1", ex: "K1", de: "Beziehung und Haltung", en: "Rapport and stance",
     was: { de: "Gefühle benannt statt überhört, Einwände ernst genommen, keine Abwertung",
            en: "feelings named rather than passed over, objections taken seriously, no dismissal" } },
-  { id: "K2", de: "Fragen und Zuhören", en: "Questions and listening",
+  { id: "K2", ex: "K2", de: "Fragen und Zuhören", en: "Questions and listening",
     was: { de: "offene statt geschlossene Fragen, Zusammenfassungen und Paraphrasen, keine Mehrfachfragen in einem Zug",
            en: "open rather than closed questions, summaries and paraphrases, no multiple questions in one turn" } },
-  { id: "K3", de: "Struktur und Transparenz", en: "Structure and transparency",
+  { id: "K3", ex: "K3", de: "Struktur und Transparenz", en: "Structure and transparency",
     was: { de: "Auftrag und Rahmen zu Beginn geklärt, Übergänge angekündigt, Zwischenzusammenfassung, Abschluss",
            en: "purpose and frame clarified at the start, transitions signposted, interim summary, closing" } },
-  { id: "K4", de: "Informieren und mit Widerstand umgehen", en: "Informing and handling resistance",
+  { id: "K4", ex: "K4", de: "Informieren und mit Widerstand umgehen", en: "Informing and handling resistance",
     was: { de: "Fachbegriffe übersetzt, Rat erst nach Erlaubnis, Widerspruch aufgenommen statt überredet",
            en: "technical terms translated, advice only after permission, disagreement taken up rather than argued away" } },
 ];
 const SZEN_DIM = {
-  klin: { id: "S", de: "Anamnese systematisch führen", en: "Systematic history taking",
+  klin: { id: "S", ex: "S_klin", de: "Anamnese systematisch führen", en: "Systematic history taking",
           was: { de: "Beschwerdebild, Verlauf, Auslöser und Ressourcen erfragt, ohne die Person abzufragen",
                  en: "symptoms, course, triggers and resources explored without interrogating the person" } },
-  diag: { id: "S", de: "Befunde verständlich zurückmelden", en: "Reporting findings understandably",
+  diag: { id: "S", ex: "S_diag", de: "Befunde verständlich zurückmelden", en: "Reporting findings understandably",
           was: { de: "Kennwerte in Alltagssprache übersetzt, Unsicherheit des Werts benannt, keine Etikettierung",
                  en: "scores translated into everyday language, uncertainty of the value named, no labelling" } },
-  ges: { id: "S", de: "Ambivalenz stehen lassen", en: "Holding ambivalence",
+  ges: { id: "S", ex: "S_ges", de: "Ambivalenz stehen lassen", en: "Holding ambivalence",
          was: { de: "beide Seiten der Ambivalenz erfragt, Änderungsabsicht nicht vorweggenommen, kein Überzeugen",
                 en: "both sides of the ambivalence explored, change intention not presumed, no persuading" } },
-  ao: { id: "S", de: "Anliegen und Auftrag trennen", en: "Separating concern and mandate",
+  ao: { id: "S", ex: "S_ao", de: "Anliegen und Auftrag trennen", en: "Separating concern and mandate",
         was: { de: "geklärt, wer den Auftrag gibt, was vertraulich bleibt und was das Ziel des Gesprächs ist",
                en: "clarified who commissions the conversation, what stays confidential and what its goal is" } },
 };
@@ -844,16 +1085,38 @@ function vignVorbereiten(v, wiederholung) {
     <p style="margin:6px 0 3px"><b>${T("Darauf schaut die Rückmeldung:", "What the feedback looks at:")}</b></p>
     <ul style="margin:0 0 8px;padding-left:18px">${dims.map((d) =>
       `<li style="margin:3px 0"><b>${lang === "de" ? d.de : d.en}</b> — ${lang === "de" ? d.was.de : d.was.en}</li>`).join("")}</ul>
+    ${SCHWIERIGKEIT.length ? `<p style="margin:6px 0 3px"><b>${T("Wie anspruchsvoll soll die Figur sein?", "How demanding should the character be?")}</b></p>
+    <div class="schwerwahl">${SCHWIERIGKEIT.map((g) =>
+      `<button type="button" data-schwer="${g.id}"${g.id === schwierigkeit ? ' class="on"' : ""}>${lang === "de" ? g.label.de : g.label.en}</button>`).join("")}</div>
+    <p class="schwerkurz" data-schwerkurz></p>` : ""}
     <p style="margin:6px 0 4px"><b>${T("Wähle deinen Schwerpunkt für diesen Durchgang:", "Pick your focus for this run:")}</b></p>
     <div class="fokuschips">${dims.map((d, i) =>
       `<button type="button" data-fokus="${i}">${lang === "de" ? d.de : d.en}</button>`).join("")}</div>
+    <div data-exhier></div>
     <p class="brieffuss">${T("Ein Textchat zeigt keine Stimme, keine Mimik, kein Tempo — die Rückmeldung bleibt bei dem, was im Text steht. Die Szenarien bilden bewusst leichte bis mittlere fiktive Belastungen ab.",
       "A text chat shows no voice, no facial expression, no pacing — the feedback stays with what is in the text. The scenarios deliberately depict mild to moderate fictional strain.")}</p>
     <div class="selbstact"><button type="button" class="primary" id="briefGo" disabled>${T("Gespräch starten", "Start the conversation")}</button></div>`;
+  const kurzFeld = box.querySelector("[data-schwerkurz]");
+  const kurzSetzen = () => { const g = schwierGrad(); if (kurzFeld && g) kurzFeld.textContent = lang === "de" ? g.kurz.de : g.kurz.en; };
+  kurzSetzen();
+  box.querySelectorAll("[data-schwer]").forEach((b) => (b.onclick = () => {
+    schwierigkeit = b.dataset.schwer;
+    box.querySelectorAll("[data-schwer]").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    kurzSetzen();
+  }));
+  /* Die Exemplare erscheinen erst NACH der Schwerpunktwahl und nur zur gewählten Dimension.
+     Alle acht auf einmal wären ein Merkblatt; eines zur eigenen Wahl ist ein Vorbild. */
+  const exHier = box.querySelector("[data-exhier]");
   box.querySelectorAll("[data-fokus]").forEach((b) => (b.onclick = () => {
     fokusDim = dims[Number(b.dataset.fokus)];
     box.querySelectorAll("[data-fokus]").forEach((x) => x.classList.remove("on"));
     b.classList.add("on");
+    if (exHier) {
+      exHier.innerHTML = "";
+      const ex = exemplarBlock(fokusDim, true);
+      if (ex) exHier.appendChild(ex);
+    }
     $("briefGo").disabled = false;
   }));
   $("briefGo").onclick = () => { box.querySelectorAll("button").forEach((b) => (b.disabled = true)); vignStarten(v, wiederholung); };
@@ -863,9 +1126,12 @@ function vignStarten(v, wiederholung) {
   vignAktiv = v;
   hist = [];
   selbstbild = null;
+  mikroZuege = 0; mikroGesamt = 0; mikroLaeuft = false;
   uebungsbannerSetzen(true);
+  const grad = schwierGrad();
   add("sys", `<b>${T("Übungsgespräch läuft", "Practice conversation running")}</b> · ${
     T("Schwerpunkt", "Focus")}: ${fokusDim ? (lang === "de" ? fokusDim.de : fokusDim.en) : "—"}${
+    grad ? ` · ${T("Figur", "Character")}: ${lang === "de" ? grad.label.de : grad.label.en}` : ""}${
     wiederholung ? `<br>${T("Zweiter Durchgang derselben Szene — nimm dir eine Sache vor, die du diesmal anders machst.", "Second run of the same scene — pick one thing you will do differently this time.")}` : ""}`, true);
   // Fester Eröffnungszug: Nur wenn beide Durchgänge gleich beginnen, ist der Vergleich etwas wert.
   const opener = v.opener ? (lang === "de" ? v.opener.de : v.opener.en) : null;
@@ -893,6 +1159,7 @@ $("cvGo").onclick = async () => {
   const stufe = spielstand && spielstand.stufen ? spielstand.stufen[kid] : null;
   add("me", `${kid} · ${lang === "de" ? k[1] : k[2]}${stufe ? ` (${T("Stufe", "Level")} ${stufe})` : ""} → ${rolle}`);
   const wait = add("bot", "…");
+  const denkStop = denkAn(wait, T("formuliert den Satz", "phrasing the sentence"));
   /* Die Stufe ist eine harte Obergrenze: Ein CV-Satz, der mehr behauptet als im Studium
      aufgebaut wurde, schadet in der Bewerbung mehr als er nützt. */
   const stufenRegel = stufe
@@ -908,10 +1175,11 @@ $("cvGo").onclick = async () => {
 ${stufenRegel}
 
 Belege den Satz mit dem, was tatsächlich gebaut wurde: ${standText()}. Nur der Satz, nichts anderes.`);
+    denkStop();
     wait.textContent = satz;
     kopierKnopf(wait, satz);
     if (stufe) wait.appendChild(stufenFuss(stufe));
-  } catch (e) { wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
+  } catch (e) { denkStop(); wait.textContent = T("Gerade nicht erreichbar, versuch es nochmals.", "Unavailable right now, please try again."); }
 };
 
 $("karrGo").onclick = () => {
